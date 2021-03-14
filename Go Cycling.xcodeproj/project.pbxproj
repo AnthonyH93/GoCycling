@@ -13,6 +13,7 @@
 		9DAB831F25FECAD400F5C42E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB831E25FECAD400F5C42E /* Preview Assets.xcassets */; };
 		9DAB832A25FECAD400F5C42E /* GoCyclingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB832925FECAD400F5C42E /* GoCyclingTests.swift */; };
 		9DAB833525FECAD400F5C42E /* GoCyclingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */; };
+		9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB835D25FECCB000F5C42E /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		9DAB833025FECAD400F5C42E /* Go CyclingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go CyclingUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingUITests.swift; sourceTree = "<group>"; };
 		9DAB833625FECAD400F5C42E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9DAB835D25FECCB000F5C42E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +97,8 @@
 		9DAB831625FECAD300F5C42E /* Go Cycling */ = {
 			isa = PBXGroup;
 			children = (
+				9DAB836525FED02A00F5C42E /* Views */,
 				9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */,
-				9DAB831925FECAD300F5C42E /* ContentView.swift */,
 				9DAB831B25FECAD400F5C42E /* Assets.xcassets */,
 				9DAB832025FECAD400F5C42E /* Info.plist */,
 				9DAB831D25FECAD400F5C42E /* Preview Content */,
@@ -128,6 +130,15 @@
 				9DAB833625FECAD400F5C42E /* Info.plist */,
 			);
 			path = "Go CyclingUITests";
+			sourceTree = "<group>";
+		};
+		9DAB836525FED02A00F5C42E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9DAB831925FECAD300F5C42E /* ContentView.swift */,
+				9DAB835D25FECCB000F5C42E /* MainView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DAB831A25FECAD300F5C42E /* ContentView.swift in Sources */,
+				9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */,
 				9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
