@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9DAB831825FECAD300F5C42E /* Go_CyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* Go_CyclingApp.swift */; };
+		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
 		9DAB831A25FECAD300F5C42E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831925FECAD300F5C42E /* ContentView.swift */; };
 		9DAB831C25FECAD400F5C42E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB831B25FECAD400F5C42E /* Assets.xcassets */; };
 		9DAB831F25FECAD400F5C42E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB831E25FECAD400F5C42E /* Preview Assets.xcassets */; };
-		9DAB832A25FECAD400F5C42E /* Go_CyclingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB832925FECAD400F5C42E /* Go_CyclingTests.swift */; };
-		9DAB833525FECAD400F5C42E /* Go_CyclingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB833425FECAD400F5C42E /* Go_CyclingUITests.swift */; };
+		9DAB832A25FECAD400F5C42E /* GoCyclingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB832925FECAD400F5C42E /* GoCyclingTests.swift */; };
+		9DAB833525FECAD400F5C42E /* GoCyclingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,16 +34,16 @@
 
 /* Begin PBXFileReference section */
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DAB831725FECAD300F5C42E /* Go_CyclingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_CyclingApp.swift; sourceTree = "<group>"; };
+		9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingApp.swift; sourceTree = "<group>"; };
 		9DAB831925FECAD300F5C42E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9DAB831B25FECAD400F5C42E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DAB831E25FECAD400F5C42E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9DAB832025FECAD400F5C42E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DAB832525FECAD400F5C42E /* Go CyclingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go CyclingTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DAB832925FECAD400F5C42E /* Go_CyclingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_CyclingTests.swift; sourceTree = "<group>"; };
+		9DAB832925FECAD400F5C42E /* GoCyclingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingTests.swift; sourceTree = "<group>"; };
 		9DAB832B25FECAD400F5C42E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DAB833025FECAD400F5C42E /* Go CyclingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Go CyclingUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DAB833425FECAD400F5C42E /* Go_CyclingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Go_CyclingUITests.swift; sourceTree = "<group>"; };
+		9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingUITests.swift; sourceTree = "<group>"; };
 		9DAB833625FECAD400F5C42E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,7 +95,7 @@
 		9DAB831625FECAD300F5C42E /* Go Cycling */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB831725FECAD300F5C42E /* Go_CyclingApp.swift */,
+				9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */,
 				9DAB831925FECAD300F5C42E /* ContentView.swift */,
 				9DAB831B25FECAD400F5C42E /* Assets.xcassets */,
 				9DAB832025FECAD400F5C42E /* Info.plist */,
@@ -115,7 +115,7 @@
 		9DAB832825FECAD400F5C42E /* Go CyclingTests */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB832925FECAD400F5C42E /* Go_CyclingTests.swift */,
+				9DAB832925FECAD400F5C42E /* GoCyclingTests.swift */,
 				9DAB832B25FECAD400F5C42E /* Info.plist */,
 			);
 			path = "Go CyclingTests";
@@ -124,7 +124,7 @@
 		9DAB833325FECAD400F5C42E /* Go CyclingUITests */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB833425FECAD400F5C42E /* Go_CyclingUITests.swift */,
+				9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */,
 				9DAB833625FECAD400F5C42E /* Info.plist */,
 			);
 			path = "Go CyclingUITests";
@@ -260,7 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DAB831A25FECAD300F5C42E /* ContentView.swift in Sources */,
-				9DAB831825FECAD300F5C42E /* Go_CyclingApp.swift in Sources */,
+				9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DAB832A25FECAD400F5C42E /* Go_CyclingTests.swift in Sources */,
+				9DAB832A25FECAD400F5C42E /* GoCyclingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DAB833525FECAD400F5C42E /* Go_CyclingUITests.swift in Sources */,
+				9DAB833525FECAD400F5C42E /* GoCyclingUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +427,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hopkins.Go-Cycling";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -449,7 +450,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hopkins.Go-Cycling";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
