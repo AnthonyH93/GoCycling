@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
-		9DAB831A25FECAD300F5C42E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831925FECAD300F5C42E /* ContentView.swift */; };
+		9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831925FECAD300F5C42E /* CycleView.swift */; };
 		9DAB831C25FECAD400F5C42E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB831B25FECAD400F5C42E /* Assets.xcassets */; };
 		9DAB831F25FECAD400F5C42E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB831E25FECAD400F5C42E /* Preview Assets.xcassets */; };
 		9DAB832A25FECAD400F5C42E /* GoCyclingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB832925FECAD400F5C42E /* GoCyclingTests.swift */; };
 		9DAB833525FECAD400F5C42E /* GoCyclingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */; };
 		9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB835D25FECCB000F5C42E /* MainView.swift */; };
+		9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB836F25FED0A300F5C42E /* StatisticsView.swift */; };
+		9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837425FED2F800F5C42E /* TimerButton.swift */; };
+		9DAB837C25FEDEF100F5C42E /* StopWatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* StopWatchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* Begin PBXFileReference section */
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingApp.swift; sourceTree = "<group>"; };
-		9DAB831925FECAD300F5C42E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9DAB831925FECAD300F5C42E /* CycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleView.swift; sourceTree = "<group>"; };
 		9DAB831B25FECAD400F5C42E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DAB831E25FECAD400F5C42E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9DAB832025FECAD400F5C42E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +50,9 @@
 		9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingUITests.swift; sourceTree = "<group>"; };
 		9DAB833625FECAD400F5C42E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DAB835D25FECCB000F5C42E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		9DAB836F25FED0A300F5C42E /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		9DAB837425FED2F800F5C42E /* TimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButton.swift; sourceTree = "<group>"; };
+		9DAB837B25FEDEF100F5C42E /* StopWatchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +103,8 @@
 		9DAB831625FECAD300F5C42E /* Go Cycling */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB836525FED02A00F5C42E /* Views */,
+				9DAB837A25FEDEC000F5C42E /* View Model */,
+				9DAB836525FED02A00F5C42E /* View */,
 				9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */,
 				9DAB831B25FECAD400F5C42E /* Assets.xcassets */,
 				9DAB832025FECAD400F5C42E /* Info.plist */,
@@ -132,13 +139,23 @@
 			path = "Go CyclingUITests";
 			sourceTree = "<group>";
 		};
-		9DAB836525FED02A00F5C42E /* Views */ = {
+		9DAB836525FED02A00F5C42E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB831925FECAD300F5C42E /* ContentView.swift */,
+				9DAB831925FECAD300F5C42E /* CycleView.swift */,
 				9DAB835D25FECCB000F5C42E /* MainView.swift */,
+				9DAB836F25FED0A300F5C42E /* StatisticsView.swift */,
+				9DAB837425FED2F800F5C42E /* TimerButton.swift */,
 			);
-			path = Views;
+			path = View;
+			sourceTree = "<group>";
+		};
+		9DAB837A25FEDEC000F5C42E /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				9DAB837B25FEDEF100F5C42E /* StopWatchController.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,8 +287,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DAB831A25FECAD300F5C42E /* ContentView.swift in Sources */,
+				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
+				9DAB837C25FEDEF100F5C42E /* StopWatchController.swift in Sources */,
+				9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */,
 				9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */,
+				9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */,
 				9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

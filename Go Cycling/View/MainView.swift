@@ -10,12 +10,12 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView {
-            ContentView()
+            CycleView()
                 .tabItem {
                     Label("Cycle", systemImage: "bicycle")
                 }
             
-            ContentView()
+            StatisticsView()
                 .tabItem {
                     Label("Statistics", systemImage: "arrow.clockwise.heart")
                 }
