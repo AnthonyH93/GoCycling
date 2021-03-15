@@ -16,7 +16,7 @@
 		9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB835D25FECCB000F5C42E /* MainView.swift */; };
 		9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB836F25FED0A300F5C42E /* StatisticsView.swift */; };
 		9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837425FED2F800F5C42E /* TimerButton.swift */; };
-		9DAB837C25FEDEF100F5C42E /* StopWatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* StopWatchController.swift */; };
+		9DAB837C25FEDEF100F5C42E /* StopWatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* StopWatchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		9DAB835D25FECCB000F5C42E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		9DAB836F25FED0A300F5C42E /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		9DAB837425FED2F800F5C42E /* TimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButton.swift; sourceTree = "<group>"; };
-		9DAB837B25FEDEF100F5C42E /* StopWatchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchController.swift; sourceTree = "<group>"; };
+		9DAB837B25FEDEF100F5C42E /* StopWatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +153,7 @@
 		9DAB837A25FEDEC000F5C42E /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB837B25FEDEF100F5C42E /* StopWatchController.swift */,
+				9DAB837B25FEDEF100F5C42E /* StopWatchViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -288,7 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
-				9DAB837C25FEDEF100F5C42E /* StopWatchController.swift in Sources */,
+				9DAB837C25FEDEF100F5C42E /* StopWatchViewModel.swift in Sources */,
 				9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */,
 				9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */,
 				9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */,
