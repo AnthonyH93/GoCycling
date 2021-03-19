@@ -13,6 +13,7 @@ class StopWatchViewModel: ObservableObject {
     @Published var mode: stopWatchMode = .stopped
     
     var secondsElapsed = 0.0
+    var completedSecondsElapsed = 0.0
     var timer = Timer()
     
     func start() {
@@ -25,9 +26,10 @@ class StopWatchViewModel: ObservableObject {
     
     func stop() {
         timer.invalidate()
-        print(self.timeElapsedFormatted)
         self.mode = .stopped
+        self.completedSecondsElapsed = self.secondsElapsed
         self.secondsElapsed = 0.0
+        self.timeElapsedFormatted = "00:00.00"
     }
     
     func pause() {

@@ -10,6 +10,7 @@ import SwiftUI
 struct CycleView: View {
     
     @ObservedObject var stopWatchViewModel = StopWatchViewModel()
+    @State private var showingAlert = false
     
     var body: some View {
         VStack {
@@ -22,7 +23,7 @@ struct CycleView: View {
                         TimerButton(label: "Pause", buttonColor: .yellow)
                             .padding(.bottom, 20)
                     }
-                    Button (action: {self.stopWatchViewModel.stop()}) {
+                    Button (action: {self.confirmStop()}) {
                         TimerButton(label: "Stop", buttonColor: .red)
                             .padding(.bottom, 20)
                     }
@@ -38,13 +39,28 @@ struct CycleView: View {
                         TimerButton(label: "Resume", buttonColor: .green)
                             .padding(.bottom, 20)
                     }
-                    Button (action: {self.stopWatchViewModel.stop()}) {
+                    Button (action: {self.confirmStop()}) {
                         TimerButton(label: "Stop", buttonColor: .red)
                             .padding(.bottom, 20)
                     }
                 }
             }
         }
+        
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Are you sure that you want to end the current bike ride?"),
+                  message: Text("Please confirm that you are ready to end the current bike ride."),
+                  primaryButton: .destructive(Text("Stop")) {
+                    self.stopWatchViewModel.stop()
+                  },
+                  secondaryButton: .cancel()
+            )
+        }
+    }
+    
+    func confirmStop() {
+        self.stopWatchViewModel.pause()
+        showingAlert = true
     }
 }
 
