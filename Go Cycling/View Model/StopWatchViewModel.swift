@@ -10,14 +10,23 @@ import Foundation
 class StopWatchViewModel: ObservableObject {
     
     @Published var timeElapsedFormatted = "00:00.00"
+    @Published var isTiming = false
     var secondsElapsed = 0.0
     var timer = Timer()
     
     func start() {
+        self.isTiming = true
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
         self.secondsElapsed += 0.01
         self.formatTime()
         }
+    }
+    
+    func stop() {
+        timer.invalidate()
+        print(self.timeElapsedFormatted)
+        self.isTiming = false
+        self.secondsElapsed = 0.0
     }
     
     func formatTime() {
