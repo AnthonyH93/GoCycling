@@ -9,7 +9,7 @@ import Foundation
 
 class StopWatchViewModel: ObservableObject {
     
-    @Published var timeElapsedFormatted = "00:00.00"
+    @Published var timeElapsedFormatted = "0:00:00"
     @Published var mode: stopWatchMode = .stopped
     
     var secondsElapsed = 0.0
@@ -18,8 +18,8 @@ class StopWatchViewModel: ObservableObject {
     
     func start() {
         self.mode = .timing
-        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
-        self.secondsElapsed += 0.01
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+        self.secondsElapsed += 1
         self.formatTime()
         }
     }
@@ -29,7 +29,7 @@ class StopWatchViewModel: ObservableObject {
         self.mode = .stopped
         self.completedSecondsElapsed = self.secondsElapsed
         self.secondsElapsed = 0.0
-        self.timeElapsedFormatted = "00:00.00"
+        self.timeElapsedFormatted = "0:00:00"
     }
     
     func pause() {
@@ -38,13 +38,18 @@ class StopWatchViewModel: ObservableObject {
     }
     
     func formatTime() {
-        let minutes: Int32 = Int32(self.secondsElapsed/60)
+        var hours: Int32 = 0
+        var hoursString = "0"
+        var minutes: Int32 = Int32(self.secondsElapsed/60)
+        if (minutes > 59) {
+            hours = minutes/60
+            hoursString = "\(hours)"
+            minutes = minutes - (hours * 60)
+        }
         let minutesString = (minutes < 10) ? "0\(minutes)" : "\(minutes)"
         let seconds: Int32 = Int32(self.secondsElapsed) - (minutes * 60)
         let secondsString = (seconds < 10) ? "0\(seconds)" : "\(seconds)"
-        let milliseconds: Int32 = Int32(self.secondsElapsed.truncatingRemainder(dividingBy: 1) * 100)
-        let millisecondsString = (milliseconds < 10) ? "0\(milliseconds)" : "\(milliseconds)"
-        self.timeElapsedFormatted = minutesString + ":" + secondsString + "." + millisecondsString
+        self.timeElapsedFormatted = hoursString + ":" + minutesString + ":" + secondsString
     }
 }
 
