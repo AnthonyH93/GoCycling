@@ -14,6 +14,7 @@ struct CycleView: View {
     
     var body: some View {
         VStack {
+            MapView()
             Spacer()
             Text(stopWatchViewModel.timeElapsedFormatted)
                 .font(.custom("Avenir", size: 40))
