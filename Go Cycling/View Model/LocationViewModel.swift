@@ -1,15 +1,15 @@
 //
-//  LocationManager.swift
+//  LocationViewModel.swift
 //  Go Cycling
 //
-//  Created by Anthony Hopkins on 2021-04-10.
+//  Created by Anthony Hopkins on 2021-04-11.
 //
 
 import Foundation
 import CoreLocation
 import Combine
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     private let locationManager = CLLocationManager()
     @Published var locationStatus: CLAuthorizationStatus?

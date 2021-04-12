@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */; };
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
-		9D763560262298690026D948 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76355F262298690026D948 /* LocationManager.swift */; };
 		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
 		9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831925FECAD300F5C42E /* CycleView.swift */; };
 		9DAB831C25FECAD400F5C42E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB831B25FECAD400F5C42E /* Assets.xcassets */; };
@@ -39,8 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		9D76355F262298690026D948 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingApp.swift; sourceTree = "<group>"; };
 		9DAB831925FECAD300F5C42E /* CycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleView.swift; sourceTree = "<group>"; };
@@ -87,7 +87,6 @@
 		9D76355E262298490026D948 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9D76355F262298690026D948 /* LocationManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -168,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				9DAB837B25FEDEF100F5C42E /* StopWatchViewModel.swift */,
+				9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -305,9 +305,9 @@
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
 				9DAB837C25FEDEF100F5C42E /* StopWatchViewModel.swift in Sources */,
 				9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */,
-				9D763560262298690026D948 /* LocationManager.swift in Sources */,
 				9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */,
 				9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */,
+				9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */,
 				9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

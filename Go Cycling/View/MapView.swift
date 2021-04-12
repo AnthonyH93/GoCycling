@@ -12,7 +12,7 @@ import CoreLocation
 struct MapView: UIViewRepresentable {
   typealias UIViewType = MKMapView
 
-    @StateObject var locationManager = LocationManager()
+    @StateObject var locationManager = LocationViewModel()
     
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
