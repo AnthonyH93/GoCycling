@@ -84,11 +84,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9D76355E262298490026D948 /* Model */ = {
+		9D6E53392623CD36008FD7C1 /* Cycle */ = {
+			isa = PBXGroup;
+			children = (
+				9DAB831925FECAD300F5C42E /* CycleView.swift */,
+				9DAB837425FED2F800F5C42E /* TimerButton.swift */,
+				9D763559262009230026D948 /* MapView.swift */,
+			);
+			path = Cycle;
+			sourceTree = "<group>";
+		};
+		9D6E533D2627AE57008FD7C1 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				9DAB836F25FED0A300F5C42E /* StatisticsView.swift */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		9D6E53412627AE9B008FD7C1 /* Cycle */ = {
+			isa = PBXGroup;
+			children = (
+				9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */,
+				9DAB837B25FEDEF100F5C42E /* StopWatchViewModel.swift */,
+			);
+			path = Cycle;
+			sourceTree = "<group>";
+		};
+		9D76355E262298490026D948 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9DAB830B25FECAD300F5C42E = {
@@ -114,9 +141,9 @@
 		9DAB831625FECAD300F5C42E /* Go Cycling */ = {
 			isa = PBXGroup;
 			children = (
-				9D76355E262298490026D948 /* Model */,
-				9DAB837A25FEDEC000F5C42E /* View Model */,
-				9DAB836525FED02A00F5C42E /* View */,
+				9D76355E262298490026D948 /* Models */,
+				9DAB837A25FEDEC000F5C42E /* View Models */,
+				9DAB836525FED02A00F5C42E /* Views */,
 				9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */,
 				9DAB831B25FECAD400F5C42E /* Assets.xcassets */,
 				9DAB832025FECAD400F5C42E /* Info.plist */,
@@ -151,25 +178,22 @@
 			path = "Go CyclingUITests";
 			sourceTree = "<group>";
 		};
-		9DAB836525FED02A00F5C42E /* View */ = {
+		9DAB836525FED02A00F5C42E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB831925FECAD300F5C42E /* CycleView.swift */,
+				9D6E533D2627AE57008FD7C1 /* Statistics */,
+				9D6E53392623CD36008FD7C1 /* Cycle */,
 				9DAB835D25FECCB000F5C42E /* MainView.swift */,
-				9DAB836F25FED0A300F5C42E /* StatisticsView.swift */,
-				9DAB837425FED2F800F5C42E /* TimerButton.swift */,
-				9D763559262009230026D948 /* MapView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		9DAB837A25FEDEC000F5C42E /* View Model */ = {
+		9DAB837A25FEDEC000F5C42E /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB837B25FEDEF100F5C42E /* StopWatchViewModel.swift */,
-				9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */,
+				9D6E53412627AE9B008FD7C1 /* Cycle */,
 			);
-			path = "View Model";
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
