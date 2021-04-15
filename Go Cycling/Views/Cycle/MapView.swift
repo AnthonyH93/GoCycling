@@ -9,9 +9,7 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-// Store all coordinates of the current route (as global variables for now)
-var coordinates: [CLLocationCoordinate2D] = []
-var route: MKPolyline?
+var locationCountBeforeCycling = 0
 
 struct MapView: UIViewRepresentable {
     typealias UIViewType = MKMapView
@@ -27,32 +25,28 @@ struct MapView: UIViewRepresentable {
         return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
     }
     
-    // MARK: - Coordinator for using UIKit inside SwiftUI.
-        func makeCoordinator() -> MapView.Coordinator {
-            Coordinator(self)
+    func makeCoordinator() -> MapView.Coordinator {
+        Coordinator(self)
+    }
+
+    final class Coordinator: NSObject, MKMapViewDelegate {
+        var control: MapView
+
+        init(_ control: MapView) {
+            self.control = control
         }
 
-        final class Coordinator: NSObject, MKMapViewDelegate {
-            var control: MapView
-
-            init(_ control: MapView) {
-                self.control = control
+        //Managing the Display of Overlays
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            if let polyline = overlay as? MKPolyline {
+                let polylineRenderer = MKPolylineRenderer(overlay: polyline)
+                polylineRenderer.strokeColor = .blue
+                polylineRenderer.lineWidth = 8
+                return polylineRenderer
             }
-
-            // MARK: - Managing the Display of Overlays
-
-            func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-                if let polyline = overlay as? MKPolyline {
-
-                    let polylineRenderer = MKPolylineRenderer(overlay: polyline)
-                    polylineRenderer.strokeColor = .blue
-                    polylineRenderer.lineWidth = 8
-                    return polylineRenderer
-                }
-
-                return MKOverlayRenderer(overlay: overlay)
-            }
+            return MKOverlayRenderer(overlay: overlay)
         }
+    }
 
     func makeUIView(context: Context) -> MKMapView {
         MKMapView(frame: .zero)
@@ -71,28 +65,26 @@ struct MapView: UIViewRepresentable {
             
             // Need to maintain the cyclists route if they are currently cycling
             if isCycling {
-                let coordCount = coordinates.count
-                print("Coordcount \(coordCount)")
-                var newRouteAddition: [CLLocationCoordinate2D] = []
-                // Cannot add an overlay with less than 2 points
-                switch coordCount {
+                let totalLocationCount = locationManager.cyclingLocations.count
+                let locationsCount =  totalLocationCount - locationCountBeforeCycling
+                switch locationsCount {
                 case 0..<2:
-                    coordinates.append(location)
+                    break
                 default:
-                    coordinates.append(location)
-                    // Current point
-                    newRouteAddition.append(coordinates[coordCount - 2])
-                    // Previous point
-                    newRouteAddition.append(coordinates[coordCount - 1])
-                    
-                    //Create the new line segment
-                    route = MKPolyline(coordinates: newRouteAddition, count: 2)
-                    view.addOverlay(route!)
-                    print("added...")
+                    var locationsToRoute : [CLLocationCoordinate2D] = []
+                    for i in locationCountBeforeCycling..<totalLocationCount {
+                        let currentLocation = locationManager.cyclingLocations[i]
+                        if (currentLocation != nil) {
+                            locationsToRoute.append(currentLocation!.coordinate)
+                        }
+                    }
+                    let route = MKPolyline(coordinates: locationsToRoute, count: locationsCount)
+                    view.addOverlay(route)
                 }
-                
             }
-            
+            else {
+                locationCountBeforeCycling += 1
+            }
             view.delegate = context.coordinator
         }
     }
