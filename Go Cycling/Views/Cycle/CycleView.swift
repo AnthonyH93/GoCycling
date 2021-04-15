@@ -11,10 +11,11 @@ struct CycleView: View {
     
     @ObservedObject var timer = TimerViewModel()
     @State private var showingAlert = false
+    @State private var isCycling = false
     
     var body: some View {
         VStack {
-            MapView()
+            MapView(isCycling: $isCycling)
             Spacer()
             Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                 .font(.custom("Avenir", size: 40))
@@ -30,7 +31,7 @@ struct CycleView: View {
                     }
                 }
                 if (timer.isStopped) {
-                    Button (action: {self.timer.start()}) {
+                    Button (action: {self.startCycling()}) {
                         TimerButton(label: "Start", buttonColor: .green)
                             .padding(.bottom, 20)
                     }
@@ -53,6 +54,7 @@ struct CycleView: View {
                   message: Text("Please confirm that you are ready to end the current bike ride."),
                   primaryButton: .destructive(Text("Stop")) {
                     self.timer.stop()
+                    self.isCycling = false
                   },
                   secondaryButton: .cancel()
             )
@@ -63,8 +65,12 @@ struct CycleView: View {
         let hours = Int(accumulatedTime) / 3600
         let minutes = Int(accumulatedTime) / 60 % 60
         let seconds = Int(accumulatedTime) % 60
-        print("formatting")
         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+    }
+    
+    func startCycling() {
+        self.isCycling = true
+        self.timer.start()
     }
     
     func confirmStop() {
