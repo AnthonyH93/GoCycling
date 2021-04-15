@@ -9,18 +9,18 @@ import SwiftUI
 
 struct CycleView: View {
     
-    @ObservedObject var stopWatchViewModel = StopWatchViewModel()
+    @ObservedObject var timer = TimerViewModel()
     @State private var showingAlert = false
     
     var body: some View {
         VStack {
             MapView()
             Spacer()
-            Text(stopWatchViewModel.timeElapsedFormatted)
+            Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                 .font(.custom("Avenir", size: 40))
             HStack {
-                if (self.stopWatchViewModel.mode == .timing) {
-                    Button (action: {self.stopWatchViewModel.pause()}) {
+                if (timer.isRunning) {
+                    Button (action: {self.timer.pause()}) {
                         TimerButton(label: "Pause", buttonColor: .yellow)
                             .padding(.bottom, 20)
                     }
@@ -29,14 +29,14 @@ struct CycleView: View {
                             .padding(.bottom, 20)
                     }
                 }
-                if (self.stopWatchViewModel.mode == .stopped) {
-                    Button (action: {self.stopWatchViewModel.start()}) {
+                if (timer.isStopped) {
+                    Button (action: {self.timer.start()}) {
                         TimerButton(label: "Start", buttonColor: .green)
                             .padding(.bottom, 20)
                     }
                 }
-                if (self.stopWatchViewModel.mode == .paused) {
-                    Button (action: {self.stopWatchViewModel.start()}) {
+                if (timer.isPaused) {
+                    Button (action: {self.timer.start()}) {
                         TimerButton(label: "Resume", buttonColor: .green)
                             .padding(.bottom, 20)
                     }
@@ -52,15 +52,23 @@ struct CycleView: View {
             Alert(title: Text("Are you sure that you want to end the current bike ride?"),
                   message: Text("Please confirm that you are ready to end the current bike ride."),
                   primaryButton: .destructive(Text("Stop")) {
-                    self.stopWatchViewModel.stop()
+                    self.timer.stop()
                   },
                   secondaryButton: .cancel()
             )
         }
     }
     
+    func formatTimeString(accumulatedTime: TimeInterval) -> String {
+        let hours = Int(accumulatedTime) / 3600
+        let minutes = Int(accumulatedTime) / 60 % 60
+        let seconds = Int(accumulatedTime) % 60
+        print("formatting")
+        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+    }
+    
     func confirmStop() {
-        self.stopWatchViewModel.pause()
+        self.timer.pause()
         showingAlert = true
     }
 }
