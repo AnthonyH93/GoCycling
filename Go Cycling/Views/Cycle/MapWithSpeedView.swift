@@ -12,7 +12,7 @@ struct MapWithSpeedView: View {
     
     @Binding var isCycling: Bool
     @StateObject var locationManager = LocationViewModel()
-    
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
@@ -23,11 +23,11 @@ struct MapWithSpeedView: View {
                     ZStack {
                         Rectangle()
                             .fill(Color.blue)
-                            .opacity(0.3)
+                            .opacity(0.4)
                             .frame(width: 180, height: 70)
                             .padding(.all, 10)
                         Text(self.formatMetricsString(currentSpeed: (locationManager.cyclingSpeed ?? 0.0), currentAltitude: (locationManager.cyclingAltitude ?? 0)))
-                            .foregroundColor(.white)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
                             .multilineTextAlignment(.center)
                     }
                 }
