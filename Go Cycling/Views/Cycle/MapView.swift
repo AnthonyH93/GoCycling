@@ -14,6 +14,7 @@ struct MapView: UIViewRepresentable {
 
     @StateObject var locationManager = LocationViewModel()
     @Binding var isCycling: Bool
+    @EnvironmentObject var preferences: UserPreferences
     
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -24,21 +25,23 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapView.Coordinator {
-        Coordinator(self)
+        Coordinator(self, colour: preferences.colour)
     }
 
     final class Coordinator: NSObject, MKMapViewDelegate {
         var control: MapView
+        var colour: Color
 
-        init(_ control: MapView) {
+        init(_ control: MapView, colour: Color) {
             self.control = control
+            self.colour = colour
         }
 
         //Managing the Display of Overlays
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let polyline = overlay as? MKPolyline {
                 let polylineRenderer = MKPolylineRenderer(overlay: polyline)
-                polylineRenderer.strokeColor = .blue
+                polylineRenderer.strokeColor = UIColor(colour)
                 polylineRenderer.lineWidth = 8
                 return polylineRenderer
             }
@@ -63,13 +66,17 @@ struct MapView: UIViewRepresentable {
             
             // Need to maintain the cyclists route if they are currently cycling
             if isCycling {
+                let totalLocationCount = locationManager.cyclingLocations.count
                 if (!startedCycling) {
                     startedCycling = true
+                    locationCountBeforeCycling = locationManager.cyclingLocations.count
+                    if (totalLocationCount > 1) {
+                        locationCountBeforeCycling -= 1
+                    }
                 }
-                let totalLocationCount = locationManager.cyclingLocations.count
                 let locationsCount =  totalLocationCount - locationCountBeforeCycling
                 switch locationsCount {
-                case 0..<2:
+                case _ where locationsCount < 2:
                     break
                 default:
                     var locationsToRoute : [CLLocationCoordinate2D] = []
@@ -84,8 +91,12 @@ struct MapView: UIViewRepresentable {
                 }
             }
             else {
-                if (!startedCycling) {
-                    locationCountBeforeCycling += 1
+                // Means we need to store the current route and clear the map
+                if (startedCycling) {
+                    locationCountBeforeCycling = 0
+                    startedCycling = false
+                    let overlays = view.overlays
+                    view.removeOverlays(overlays)
                 }
             }
             view.delegate = context.coordinator

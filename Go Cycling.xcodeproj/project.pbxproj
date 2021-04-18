@@ -10,6 +10,8 @@
 		9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */; };
 		9D6E53492628071B008FD7C1 /* MapWithSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E53482628071B008FD7C1 /* MapWithSpeedView.swift */; };
 		9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E534E262BAEE0008FD7C1 /* SettingsView.swift */; };
+		9D6E5357262BB299008FD7C1 /* ColourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5356262BB299008FD7C1 /* ColourView.swift */; };
+		9D6E535C262BB74F008FD7C1 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E535B262BB74F008FD7C1 /* UserPreferences.swift */; };
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
 		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
 		9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831925FECAD300F5C42E /* CycleView.swift */; };
@@ -44,6 +46,8 @@
 		9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		9D6E53482628071B008FD7C1 /* MapWithSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWithSpeedView.swift; sourceTree = "<group>"; };
 		9D6E534E262BAEE0008FD7C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9D6E5356262BB299008FD7C1 /* ColourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourView.swift; sourceTree = "<group>"; };
+		9D6E535B262BB74F008FD7C1 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingApp.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				9D6E534E262BAEE0008FD7C1 /* SettingsView.swift */,
+				9D6E5356262BB299008FD7C1 /* ColourView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				9D6E53412627AE9B008FD7C1 /* Cycle */,
+				9D6E535B262BB74F008FD7C1 /* UserPreferences.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -340,10 +346,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D76355A262009230026D948 /* MapView.swift in Sources */,
+				9D6E535C262BB74F008FD7C1 /* UserPreferences.swift in Sources */,
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
 				9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */,
 				9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */,
 				9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */,
+				9D6E5357262BB299008FD7C1 /* ColourView.swift in Sources */,
 				9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */,
 				9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */,
 				9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */,

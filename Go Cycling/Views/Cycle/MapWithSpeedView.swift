@@ -13,6 +13,7 @@ struct MapWithSpeedView: View {
     @Binding var isCycling: Bool
     @StateObject var locationManager = LocationViewModel()
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var preferences: UserPreferences
     
     var body: some View {
         ZStack {
@@ -22,7 +23,7 @@ struct MapWithSpeedView: View {
                     Spacer()
                     ZStack {
                         Rectangle()
-                            .fill(Color.blue)
+                            .fill(preferences.colour)
                             .opacity(0.4)
                             .frame(width: 180, height: 70)
                             .padding(.all, 10)
