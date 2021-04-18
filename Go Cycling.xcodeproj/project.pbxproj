@@ -13,6 +13,7 @@
 		9D6E5357262BB299008FD7C1 /* ColourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5356262BB299008FD7C1 /* ColourView.swift */; };
 		9D6E535C262BB74F008FD7C1 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E535B262BB74F008FD7C1 /* UserPreferences.swift */; };
 		9D6E5367262CE32F008FD7C1 /* UnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5366262CE32F008FD7C1 /* UnitsView.swift */; };
+		9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5373262CE773008FD7C1 /* ColourChoice.swift */; };
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
 		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
 		9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831925FECAD300F5C42E /* CycleView.swift */; };
@@ -50,6 +51,7 @@
 		9D6E5356262BB299008FD7C1 /* ColourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourView.swift; sourceTree = "<group>"; };
 		9D6E535B262BB74F008FD7C1 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		9D6E5366262CE32F008FD7C1 /* UnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsView.swift; sourceTree = "<group>"; };
+		9D6E5373262CE773008FD7C1 /* ColourChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourChoice.swift; sourceTree = "<group>"; };
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingApp.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		9D76355E262298490026D948 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9D6E5373262CE773008FD7C1 /* ColourChoice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D76355A262009230026D948 /* MapView.swift in Sources */,
+				9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */,
 				9D6E535C262BB74F008FD7C1 /* UserPreferences.swift in Sources */,
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
 				9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */,

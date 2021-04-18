@@ -22,27 +22,27 @@ struct CycleView: View {
             HStack {
                 if (timer.isRunning) {
                     Button (action: {self.timer.pause()}) {
-                        TimerButton(label: "Pause", buttonColor: .yellow)
+                        TimerButton(label: "Pause", buttonColor: UIColor.systemYellow)
                             .padding(.bottom, 20)
                     }
                     Button (action: {self.confirmStop()}) {
-                        TimerButton(label: "Stop", buttonColor: .red)
+                        TimerButton(label: "Stop", buttonColor: UIColor.systemRed)
                             .padding(.bottom, 20)
                     }
                 }
                 if (timer.isStopped) {
                     Button (action: {self.startCycling()}) {
-                        TimerButton(label: "Start", buttonColor: .green)
+                        TimerButton(label: "Start", buttonColor: UIColor.systemGreen)
                             .padding(.bottom, 20)
                     }
                 }
                 if (timer.isPaused) {
                     Button (action: {self.timer.start()}) {
-                        TimerButton(label: "Resume", buttonColor: .green)
+                        TimerButton(label: "Resume", buttonColor: UIColor.systemGreen)
                             .padding(.bottom, 20)
                     }
                     Button (action: {self.confirmStop()}) {
-                        TimerButton(label: "Stop", buttonColor: .red)
+                        TimerButton(label: "Stop", buttonColor: UIColor.systemRed)
                             .padding(.bottom, 20)
                     }
                 }

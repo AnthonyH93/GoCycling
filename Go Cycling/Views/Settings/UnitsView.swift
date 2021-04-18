@@ -16,13 +16,6 @@ struct UnitsView: View {
     }
 }
 
-enum Units: String, CaseIterable, Identifiable {
-    case metric
-    case imperial
-
-    var id: String { self.rawValue }
-}
-
 struct UnitsView_Previews: PreviewProvider {
     static var previews: some View {
         UnitsView()

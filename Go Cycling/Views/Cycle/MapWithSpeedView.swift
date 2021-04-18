@@ -24,7 +24,7 @@ struct MapWithSpeedView: View {
                     ZStack {
                         if (preferences.displayingMetrics) {
                             Rectangle()
-                                .fill(preferences.colour)
+                                .fill(Color(preferences.convertColourChoiceToUIColor(colour: preferences.colour)))
                                 .opacity(0.4)
                                 .frame(width: 180, height: 70)
                                 .padding(.all, 10)

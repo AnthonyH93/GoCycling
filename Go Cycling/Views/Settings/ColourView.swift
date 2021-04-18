@@ -9,32 +9,19 @@ import SwiftUI
 
 struct ColourView: View {
     @EnvironmentObject var preferences: UserPreferences
-    @State private var selectedColour = Colours.blue
 
     var body: some View {
-        Picker("Colour", selection: $selectedColour) {
-            Text("Red").tag(Colours.red)
-            Text("Orange").tag(Colours.orange)
-            Text("Yellow").tag(Colours.yellow)
-            Text("Green").tag(Colours.green)
-            Text("Blue").tag(Colours.blue)
-            Text("Indigo").tag(Colours.indigo)
-            Text("Violet").tag(Colours.violet)
+        Picker("Colour", selection: $preferences.colour) {
+            Text("Red").tag(ColourChoice.red)
+            Text("Orange").tag(ColourChoice.orange)
+            Text("Yellow").tag(ColourChoice.yellow)
+            Text("Green").tag(ColourChoice.green)
+            Text("Blue").tag(ColourChoice.blue)
+            Text("Indigo").tag(ColourChoice.indigo)
+            Text("Violet").tag(ColourChoice.violet)
                 .navigationBarTitle("Choose your Colour", displayMode: .inline)
         }
     }
-}
-
-enum Colours: String, CaseIterable, Identifiable {
-    case red
-    case orange
-    case yellow
-    case green
-    case blue
-    case indigo
-    case violet
-
-    var id: String { self.rawValue }
 }
 
 struct ColourView_Previews: PreviewProvider {

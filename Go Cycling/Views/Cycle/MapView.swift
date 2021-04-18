@@ -25,23 +25,21 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapView.Coordinator {
-        Coordinator(self, colour: preferences.colour)
+        Coordinator(self)
     }
 
     final class Coordinator: NSObject, MKMapViewDelegate {
         var control: MapView
-        var colour: Color
 
-        init(_ control: MapView, colour: Color) {
+        init(_ control: MapView) {
             self.control = control
-            self.colour = colour
         }
 
         //Managing the Display of Overlays
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let polyline = overlay as? MKPolyline {
                 let polylineRenderer = MKPolylineRenderer(overlay: polyline)
-                polylineRenderer.strokeColor = UIColor(colour)
+                polylineRenderer.strokeColor = UIColor.blue
                 polylineRenderer.lineWidth = 8
                 return polylineRenderer
             }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var preferences = UserPreferences(colour: Color.blue, usingMetric: true, displayingMetrics: true)
+    @StateObject var preferences = UserPreferences(colour: ColourChoice.blue, usingMetric: true, displayingMetrics: true)
     
     var body: some View {
         TabView {
