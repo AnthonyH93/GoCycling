@@ -8,16 +8,6 @@
 import SwiftUI
 import CoreLocation
 
-
-//TODO:
-/*
- Had speed but was passed through state, fix that somehow
- Store route at end of ride, need all those locations :)
- If speed works then maybe add altitude?
- Add settings page to disable the speed and altitude stuff
- Clean up location manager stuff with the MapWithSpeedView
- Try to get rid of those global variables :)
- */
 struct MapWithSpeedView: View {
     
     @Binding var isCycling: Bool

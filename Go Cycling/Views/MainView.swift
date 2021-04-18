@@ -19,6 +19,10 @@ struct MainView: View {
                 .tabItem {
                     Label("Statistics", systemImage: "arrow.clockwise.heart")
                 }
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
         }
     }
 }
