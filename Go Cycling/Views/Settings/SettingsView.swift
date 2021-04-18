@@ -8,10 +8,21 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var preferences: UserPreferences
+    
     var body: some View {
-        ColourView()
+        NavigationView {
+            Form {
+                Section {
+                    ColourView()
+                }
+                .navigationBarTitle("Settings", displayMode: .inline)
+            }
+            .navigationBarTitle(Text("Settings"))
+        }
     }
 }
+
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
