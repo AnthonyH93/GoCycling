@@ -11,9 +11,11 @@ import SwiftUI
 class UserPreferences: ObservableObject {
     @Published var colour: Color
     @Published var usingMetric: Bool
+    @Published var displayingMetrics: Bool
     
-    init(colour: Color, usingMetric: Bool) {
+    init(colour: Color, usingMetric: Bool, displayingMetrics: Bool) {
         self.colour = colour
         self.usingMetric = usingMetric
+        self.displayingMetrics = displayingMetrics
     }
 }

@@ -22,14 +22,16 @@ struct MapWithSpeedView: View {
                 HStack {
                     Spacer()
                     ZStack {
-                        Rectangle()
-                            .fill(preferences.colour)
-                            .opacity(0.4)
-                            .frame(width: 180, height: 70)
-                            .padding(.all, 10)
-                        Text(self.formatMetricsString(currentSpeed: (locationManager.cyclingSpeed ?? 0.0), currentAltitude: (locationManager.cyclingAltitude ?? 0)))
-                            .foregroundColor(colorScheme == .dark ? .white : .black)
-                            .multilineTextAlignment(.center)
+                        if (preferences.displayingMetrics) {
+                            Rectangle()
+                                .fill(preferences.colour)
+                                .opacity(0.4)
+                                .frame(width: 180, height: 70)
+                                .padding(.all, 10)
+                            Text(self.formatMetricsString(currentSpeed: (locationManager.cyclingSpeed ?? 0.0), currentAltitude: (locationManager.cyclingAltitude ?? 0)))
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                                .multilineTextAlignment(.center)
+                        }
                     }
                 }
                 Spacer()
