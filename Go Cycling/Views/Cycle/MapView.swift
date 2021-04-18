@@ -97,6 +97,7 @@ struct MapView: UIViewRepresentable {
                     startedCycling = false
                     let overlays = view.overlays
                     view.removeOverlays(overlays)
+                    locationManager.clearLocationArray()
                 }
             }
             view.delegate = context.coordinator

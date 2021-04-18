@@ -54,4 +54,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingSpeed = location.speed
         cyclingAltitude = location.altitude
     }
+    
+    func clearLocationArray() {
+        cyclingLocations.removeAll()
+    }
 }
