@@ -41,19 +41,20 @@ struct MapWithSpeedView: View {
     func formatMetricsString(currentSpeed: CLLocationSpeed, currentAltitude: CLLocationDistance) -> String {
         let speedToUse = (currentSpeed < 0) ? 0.0 : currentSpeed
         
-        let speedMetresPerSecond = round(100 * speedToUse)/100
         let speedKMH = round(100 * (3.6 * speedToUse))/100
         let speedMPH = round(100 * (2.23694 * speedToUse))/100
-        let speedUnits = "km/h"
+        let speedUnits = preferences.usingMetric ? "km/h" : "mph"
+        let speedString = preferences.usingMetric ? speedKMH : speedMPH
         
         let altitudeMetres = round(100 * currentAltitude)/100
         let altitudeFeet = round(100 * (3.28084 * currentAltitude))/100
-        let altitudeUnits = "m"
+        let altitudeUnits = preferences.usingMetric ? "m" : "ft"
+        let altitudeString = preferences.usingMetric ? altitudeMetres : altitudeFeet
         
         let returnString = """
         Current Metrics
-        Speed: \(speedKMH) \(speedUnits)
-        Altitude: \(altitudeMetres) \(altitudeUnits)
+        Speed: \(speedString) \(speedUnits)
+        Altitude: \(altitudeString) \(altitudeUnits)
         """
         return returnString
     }
