@@ -12,11 +12,11 @@ struct CycleView: View {
     @ObservedObject var timer = TimerViewModel()
     @State private var showingAlert = false
     @State private var isCycling = false
+    @State private var cyclingSpeed = 0.0
     
     var body: some View {
         VStack {
-            MapView(isCycling: $isCycling)
-            Spacer()
+            MapWithSpeedView(isCycling: $isCycling)
             Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                 .font(.custom("Avenir", size: 40))
             HStack {

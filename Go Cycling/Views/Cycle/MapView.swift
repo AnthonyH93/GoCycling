@@ -9,8 +9,6 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-var locationCountBeforeCycling = 0
-
 struct MapView: UIViewRepresentable {
     typealias UIViewType = MKMapView
 
@@ -65,6 +63,9 @@ struct MapView: UIViewRepresentable {
             
             // Need to maintain the cyclists route if they are currently cycling
             if isCycling {
+                if (!startedCycling) {
+                    startedCycling = true
+                }
                 let totalLocationCount = locationManager.cyclingLocations.count
                 let locationsCount =  totalLocationCount - locationCountBeforeCycling
                 switch locationsCount {
@@ -83,12 +84,17 @@ struct MapView: UIViewRepresentable {
                 }
             }
             else {
-                locationCountBeforeCycling += 1
+                if (!startedCycling) {
+                    locationCountBeforeCycling += 1
+                }
             }
             view.delegate = context.coordinator
         }
     }
 }
+
+var locationCountBeforeCycling = 0
+var startedCycling = false
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {

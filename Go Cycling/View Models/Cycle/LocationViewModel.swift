@@ -15,10 +15,13 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var locationStatus: CLAuthorizationStatus?
     @Published var lastLocation: CLLocation?
     @Published var cyclingLocations: [CLLocation?] = []
+    @Published var cyclingSpeed: CLLocationSpeed?
+    @Published var cyclingAltitude: CLLocationDistance?
 
     override init() {
         super.init()
         locationManager.delegate = self
+        locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
@@ -48,5 +51,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         lastLocation = location
         cyclingLocations.append(lastLocation)
+        cyclingSpeed = location.speed
+        cyclingAltitude = location.altitude
     }
 }
