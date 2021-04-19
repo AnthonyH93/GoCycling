@@ -14,14 +14,14 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section {
+                Section(header: Text("Customization")) {
                     ColourView()
                 }
                 .navigationBarTitle("Settings", displayMode: .inline)
-                Section {
+                Section(header: Text("Units")) {
                     UnitsView()
                 }
-                Section {
+                Section(header: Text("About the app")) {
                     AboutApp()
                 }
             }
