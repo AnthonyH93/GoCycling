@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MainView: View {
-    @StateObject var preferences = UserPreferences(colour: ColourChoice.blue, usingMetric: true, displayingMetrics: true)
-    
     var body: some View {
         TabView {
             CycleView()
@@ -26,7 +25,6 @@ struct MainView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
-        .environmentObject(preferences)
     }
 }
 

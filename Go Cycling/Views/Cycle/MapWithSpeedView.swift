@@ -13,7 +13,9 @@ struct MapWithSpeedView: View {
     @Binding var isCycling: Bool
     @StateObject var locationManager = LocationViewModel()
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var preferences: UserPreferences
+    @EnvironmentObject var preferences: PreferencesStorage
+//    @FetchRequest(entity: SavedPreferences.entity(), sortDescriptors: [])
+//    var preferences: FetchedResults<SavedPreferences>
     
     var body: some View {
         ZStack {
@@ -22,9 +24,9 @@ struct MapWithSpeedView: View {
                 HStack {
                     Spacer()
                     ZStack {
-                        if (preferences.displayingMetrics) {
+                        if (preferences.storedPreferences[0].displayingMetrics) {
                             Rectangle()
-                                .fill(Color(preferences.convertColourChoiceToUIColor(colour: preferences.colour)))
+                                .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                                 .opacity(0.4)
                                 .frame(width: 180, height: 70)
                                 .padding(.all, 10)
@@ -45,13 +47,13 @@ struct MapWithSpeedView: View {
         
         let speedKMH = round(100 * (3.6 * speedToUse))/100
         let speedMPH = round(100 * (2.23694 * speedToUse))/100
-        let speedUnits = preferences.usingMetric ? "km/h" : "mph"
-        let speedString = preferences.usingMetric ? speedKMH : speedMPH
+        let speedUnits = preferences.storedPreferences[0].usingMetric ? "km/h" : "mph"
+        let speedString = preferences.storedPreferences[0].usingMetric ? speedKMH : speedMPH
         
         let altitudeMetres = round(100 * currentAltitude)/100
         let altitudeFeet = round(100 * (3.28084 * currentAltitude))/100
-        let altitudeUnits = preferences.usingMetric ? "m" : "ft"
-        let altitudeString = preferences.usingMetric ? altitudeMetres : altitudeFeet
+        let altitudeUnits = preferences.storedPreferences[0].usingMetric ? "m" : "ft"
+        let altitudeString = preferences.storedPreferences[0].usingMetric ? altitudeMetres : altitudeFeet
         
         let returnString = """
         Current Metrics
