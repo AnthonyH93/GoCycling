@@ -29,6 +29,7 @@
 		9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB836F25FED0A300F5C42E /* StatisticsView.swift */; };
 		9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837425FED2F800F5C42E /* TimerButton.swift */; };
 		9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */; };
+		9DEAD6B6262D423E00392D88 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6B5262D423E00392D88 /* AboutApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		9DAB836F25FED0A300F5C42E /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		9DAB837425FED2F800F5C42E /* TimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButton.swift; sourceTree = "<group>"; };
 		9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+		9DEAD6B5262D423E00392D88 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				9D6E534E262BAEE0008FD7C1 /* SettingsView.swift */,
 				9D6E5356262BB299008FD7C1 /* ColourView.swift */,
 				9D6E5366262CE32F008FD7C1 /* UnitsView.swift */,
+				9DEAD6B5262D423E00392D88 /* AboutApp.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */,
 				9D6E5397262D090C008FD7C1 /* PreferencesStorage.swift in Sources */,
 				9D6E5357262BB299008FD7C1 /* ColourView.swift in Sources */,
+				9DEAD6B6262D423E00392D88 /* AboutApp.swift in Sources */,
 				9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */,
 				9D6E5386262CECFA008FD7C1 /* GoCycling.xcdatamodeld in Sources */,
 				9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */,

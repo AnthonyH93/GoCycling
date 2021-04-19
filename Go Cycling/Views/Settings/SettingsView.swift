@@ -21,6 +21,9 @@ struct SettingsView: View {
                 Section {
                     UnitsView()
                 }
+                Section {
+                    AboutApp()
+                }
             }
             .navigationBarTitle(Text("Settings"))
         }
