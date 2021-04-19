@@ -35,9 +35,26 @@ struct PersistenceController {
         if context.hasChanges {
             do {
                 try context.save()
+                print("Preferences saved")
             } catch {
-                // Show some error here
+                print(error.localizedDescription)
             }
+        }
+    }
+    
+    func storeUserPreferences(usingMetric: Bool, displayingMetrics: Bool, colourChoice: ColourChoice) {
+        let context = container.viewContext
+        
+        let newPreferences = UserPreferences(context: context)
+        newPreferences.usingMetric = usingMetric
+        newPreferences.displayingMetrics = displayingMetrics
+        newPreferences.colourChoice = colourChoice.rawValue
+        
+        do {
+            try context.save()
+            print("Preferences saved")
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }

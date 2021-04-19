@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ColourView: View {
+    let persistenceController = PersistenceController.shared
+    
     @EnvironmentObject var preferences: PreferencesStorage
     @Environment(\.managedObjectContext) private var managedObjectContext
     
@@ -22,16 +24,10 @@ struct ColourView: View {
             Text("Violet").tag(ColourChoice.violet)
                 .navigationBarTitle("Choose your Colour", displayMode: .inline)
                 .onChange(of: preferences.storedPreferences[0].colourChoiceConverted) { value in
-                    let newPreferences = UserPreferences(context: managedObjectContext)
-                    newPreferences.usingMetric = preferences.storedPreferences[0].usingMetric
-                    newPreferences.displayingMetrics = preferences.storedPreferences[0].displayingMetrics
-                    newPreferences.colourChoice = preferences.storedPreferences[0].colourChoiceConverted.rawValue
-                    do {
-                        try managedObjectContext.save()
-                        print("Preferences saved")
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                    persistenceController.storeUserPreferences(
+                        usingMetric: preferences.storedPreferences[0].usingMetric,
+                        displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted)
                 }
         }
     }

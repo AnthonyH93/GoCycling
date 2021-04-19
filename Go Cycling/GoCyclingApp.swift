@@ -22,7 +22,6 @@ struct GoCyclingApp: App {
         self._preferences = StateObject(wrappedValue: storage)
     }
 
-    
     var body: some Scene {
         WindowGroup {
             MainView()

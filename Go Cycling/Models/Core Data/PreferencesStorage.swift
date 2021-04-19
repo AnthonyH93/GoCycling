@@ -25,14 +25,14 @@ class PreferencesStorage: NSObject, ObservableObject {
             try preferencesController.performFetch()
             
             // Default values for the user preferences
-            let newPreferences = UserPreferences(context: managedObjectContext)
-            newPreferences.usingMetric = true
-            newPreferences.displayingMetrics = true
-            newPreferences.colourChoice = ColourChoice.blue.rawValue
+            let defaultPreferences = UserPreferences(context: managedObjectContext)
+            defaultPreferences.usingMetric = true
+            defaultPreferences.displayingMetrics = true
+            defaultPreferences.colourChoice = ColourChoice.blue.rawValue
             
-            storedPreferences = preferencesController.fetchedObjects ?? [newPreferences]
+            storedPreferences = preferencesController.fetchedObjects ?? [defaultPreferences]
         } catch {
-            print("failed to fetch items!")
+            print("Failed to fetch items!")
         }
     }
 }
