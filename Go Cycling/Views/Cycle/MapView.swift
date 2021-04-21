@@ -67,24 +67,19 @@ struct MapView: UIViewRepresentable {
             
             // Need to maintain the cyclists route if they are currently cycling
             if isCycling {
-                let totalLocationCount = locationManager.cyclingLocations.count
                 if (!startedCycling) {
                     startedCycling = true
-                    locationCountBeforeCycling = locationManager.cyclingLocations.count
-                    if (totalLocationCount > 1) {
-                        locationCountBeforeCycling -= 1
-                    }
+                    locationManager.startedCycling()
                 }
-                let locationsCount =  totalLocationCount - locationCountBeforeCycling
+                let locationsCount = locationManager.cyclingLocations.count
                 switch locationsCount {
                 case _ where locationsCount < 2:
                     break
                 default:
                     var locationsToRoute : [CLLocationCoordinate2D] = []
-                    for i in locationCountBeforeCycling..<totalLocationCount {
-                        let currentLocation = locationManager.cyclingLocations[i]
-                        if (currentLocation != nil) {
-                            locationsToRoute.append(currentLocation!.coordinate)
+                    for location in locationManager.cyclingLocations {
+                        if (location != nil) {
+                            locationsToRoute.append(location!.coordinate)
                         }
                     }
                     let route = MKPolyline(coordinates: locationsToRoute, count: locationsCount)
@@ -94,7 +89,6 @@ struct MapView: UIViewRepresentable {
             else {
                 // Means we need to store the current route and clear the map
                 if (startedCycling) {
-                    locationCountBeforeCycling = 0
                     startedCycling = false
                     let overlays = view.overlays
                     view.removeOverlays(overlays)
@@ -106,7 +100,6 @@ struct MapView: UIViewRepresentable {
     }
 }
 
-var locationCountBeforeCycling = 0
 var startedCycling = false
 
 struct MapView_Previews: PreviewProvider {

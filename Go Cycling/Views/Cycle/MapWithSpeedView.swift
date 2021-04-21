@@ -60,6 +60,10 @@ struct MapWithSpeedView: View {
         Spacer()
     }
     
+    func toggleMapCentered() {
+        self.mapCentered = self.mapCentered ? false : true
+    }
+    
     func formatMetricsString(currentSpeed: CLLocationSpeed, currentAltitude: CLLocationDistance) -> String {
         let speedToUse = (currentSpeed < 0) ? 0.0 : currentSpeed
         
@@ -79,10 +83,6 @@ struct MapWithSpeedView: View {
         Altitude: \(altitudeString) \(altitudeUnits)
         """
         return returnString
-    }
-    
-    func toggleMapCentered() {
-        self.mapCentered = self.mapCentered ? false : true
     }
 }
 
