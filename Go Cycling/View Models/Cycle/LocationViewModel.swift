@@ -26,7 +26,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         locationManager.delegate = self
-        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.distanceFilter = 5
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.allowsBackgroundLocationUpdates = true
@@ -71,7 +71,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func startedCycling() {
-        // Clear every locations except most recent point
+        // Clear every location except most recent point
         let locationsCount = cyclingLocations.count
         if (locationsCount > 1) {
             let locationToKeep = cyclingLocations[locationsCount - 1]

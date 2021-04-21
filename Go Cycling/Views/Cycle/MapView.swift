@@ -40,7 +40,7 @@ struct MapView: UIViewRepresentable {
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let polyline = overlay as? MKPolyline {
                 let polylineRenderer = MKPolylineRenderer(overlay: polyline)
-                polylineRenderer.strokeColor = UIColor.blue
+                polylineRenderer.strokeColor = UIColor.systemBlue
                 polylineRenderer.lineWidth = 8
                 return polylineRenderer
             }
@@ -82,8 +82,10 @@ struct MapView: UIViewRepresentable {
                             locationsToRoute.append(location!.coordinate)
                         }
                     }
-                    let route = MKPolyline(coordinates: locationsToRoute, count: locationsCount)
-                    view.addOverlay(route)
+                    if (locationsToRoute.count > 1 && locationsToRoute.count <= locationManager.cyclingLocations.count) {
+                        let route = MKPolyline(coordinates: locationsToRoute, count: locationsCount)
+                        view.addOverlay(route)
+                    }
                 }
             }
             else {
