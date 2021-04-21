@@ -14,12 +14,12 @@ struct MapWithSpeedView: View {
     @StateObject var locationManager = LocationViewModel()
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var preferences: PreferencesStorage
-//    @FetchRequest(entity: SavedPreferences.entity(), sortDescriptors: [])
-//    var preferences: FetchedResults<SavedPreferences>
+    
+    @State var mapCentered: Bool = true
     
     var body: some View {
         ZStack {
-            MapView(isCycling: $isCycling)
+            MapView(isCycling: $isCycling, centerMapOnLocation: $mapCentered)
             VStack {
                 HStack {
                     Spacer()
@@ -37,6 +37,24 @@ struct MapWithSpeedView: View {
                     }
                 }
                 Spacer()
+                HStack {
+                    Spacer()
+                    ZStack {
+                        if (mapCentered) {
+                            Button (action: {self.toggleMapCentered()}) {
+                                TimerButton(label: "Unlock", buttonColour: UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted))
+                                    .padding(.bottom, 5)
+                                }
+                        }
+                        else {
+                            Button (action: {self.toggleMapCentered()}) {
+                                TimerButton(label: "Lock", buttonColour: UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted))
+                                    .padding(.bottom, 5)
+                                }
+                        }
+                    }
+                    Spacer()
+                }
             }
         }
         Spacer()
@@ -61,6 +79,10 @@ struct MapWithSpeedView: View {
         Altitude: \(altitudeString) \(altitudeUnits)
         """
         return returnString
+    }
+    
+    func toggleMapCentered() {
+        self.mapCentered = self.mapCentered ? false : true
     }
 }
 

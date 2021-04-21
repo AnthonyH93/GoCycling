@@ -14,6 +14,7 @@ struct MapView: UIViewRepresentable {
 
     @StateObject var locationManager = LocationViewModel()
     @Binding var isCycling: Bool
+    @Binding var centerMapOnLocation: Bool
     @EnvironmentObject var preferences: UserPreferences
     
     var userLatitude: String {
@@ -60,7 +61,9 @@ struct MapView: UIViewRepresentable {
             let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(CLLocationDegrees(userLatitude)!, CLLocationDegrees(userLongitude)!)
             let span = MKCoordinateSpan(latitudeDelta: 0.009, longitudeDelta: 0.009)
             let region = MKCoordinateRegion(center: location, span: span)
-            view.setRegion(region, animated: true)
+            if (centerMapOnLocation) {
+                view.setRegion(region, animated: true)
+            }
             
             // Need to maintain the cyclists route if they are currently cycling
             if isCycling {
@@ -108,6 +111,6 @@ var startedCycling = false
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(isCycling: .constant(false))
+        MapView(isCycling: .constant(false), centerMapOnLocation: .constant(true))
     }
 }

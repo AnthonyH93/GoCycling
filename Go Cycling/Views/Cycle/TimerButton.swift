@@ -10,14 +10,14 @@ import SwiftUI
 struct TimerButton: View {
     
     let label: String
-    let buttonColor: UIColor
+    let buttonColour: UIColor
     
     var body: some View {
         Text(label)
             .foregroundColor(.white)
             .padding(.vertical, 20)
             .padding(.horizontal, 50)
-            .background(Color(buttonColor))
+            .background(Color(buttonColour))
             .cornerRadius(10)
     }
 }
