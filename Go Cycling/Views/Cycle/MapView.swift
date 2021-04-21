@@ -12,7 +12,7 @@ import CoreLocation
 struct MapView: UIViewRepresentable {
     typealias UIViewType = MKMapView
 
-    @StateObject var locationManager = LocationViewModel()
+    @StateObject var locationManager = LocationViewModel.locationManager
     @Binding var isCycling: Bool
     @Binding var centerMapOnLocation: Bool
     @EnvironmentObject var preferences: UserPreferences

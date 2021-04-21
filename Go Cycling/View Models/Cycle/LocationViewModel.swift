@@ -11,6 +11,9 @@ import Combine
 
 class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 
+    // A singleton for the entire app - there should be only 1 instance of this class
+    static let locationManager = LocationViewModel()
+    
     private let locationManager = CLLocationManager()
     @Published var locationStatus: CLAuthorizationStatus?
     @Published var lastLocation: CLLocation?
