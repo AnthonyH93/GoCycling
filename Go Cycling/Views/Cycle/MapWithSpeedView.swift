@@ -42,23 +42,13 @@ struct MapWithSpeedView: View {
                     ZStack {
                         if (mapCentered) {
                             Button (action: {self.toggleMapCentered()}) {
-                                Image(systemName: "lock")
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 20)
-                                    .padding(.horizontal, 20)
-                                    .background(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
-                                    .cornerRadius(40)
+                                MapSystemImageButton(systemImageString: "lock", buttonColour: (UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                                     .padding(.bottom, 5)
                                 }
                         }
                         else {
                             Button (action: {self.toggleMapCentered()}) {
-                                Image(systemName: "lock.open")
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 20)
-                                    .padding(.horizontal, 20)
-                                    .background(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
-                                    .cornerRadius(40)
+                                MapSystemImageButton(systemImageString: "lock.open", buttonColour: (UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                                     .padding(.bottom, 5)
                                 }
                         }

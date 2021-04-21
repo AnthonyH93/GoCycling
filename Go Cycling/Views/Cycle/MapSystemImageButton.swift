@@ -1,25 +1,25 @@
 //
-//  TimerButton.swift
+//  MapSystemImageButton.swift
 //  Go Cycling
 //
-//  Created by Anthony Hopkins on 2021-03-14.
+//  Created by Anthony Hopkins on 2021-04-20.
 //
 
 import SwiftUI
 
-struct TimerButton: View {
+struct MapSystemImageButton: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    let label: String
+    let systemImageString: String
     let buttonColour: UIColor
     
     var body: some View {
-        Text(label)
+        Image(systemName: systemImageString)
             .foregroundColor(colorScheme == .dark ? .white : .black)
             .padding(.vertical, 20)
-            .padding(.horizontal, 50)
+            .padding(.horizontal, 20)
             .background(Color(buttonColour))
-            .cornerRadius(10)
+            .cornerRadius(40)
     }
 }
