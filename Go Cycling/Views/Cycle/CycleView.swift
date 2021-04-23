@@ -13,10 +13,12 @@ struct CycleView: View {
     @State private var showingAlert = false
     @State private var isCycling = false
     @State private var cyclingSpeed = 0.0
+    @State private var cyclingStartTime = Date()
+    @State private var timeCycling = 0.0
     
     var body: some View {
         VStack {
-            MapWithSpeedView(isCycling: $isCycling)
+            MapWithSpeedView(isCycling: $isCycling, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                 .font(.custom("Avenir", size: 40))
             HStack {
@@ -53,6 +55,7 @@ struct CycleView: View {
             Alert(title: Text("Are you sure that you want to end the current bike ride?"),
                   message: Text("Please confirm that you are ready to end the current bike ride."),
                   primaryButton: .destructive(Text("Stop")) {
+                    self.timeCycling = timer.totalAccumulatedTime
                     self.timer.stop()
                     self.isCycling = false
                   },
@@ -70,6 +73,8 @@ struct CycleView: View {
     
     func startCycling() {
         self.isCycling = true
+        self.cyclingStartTime = Date()
+        self.timeCycling = 0.0
         self.timer.start()
     }
     

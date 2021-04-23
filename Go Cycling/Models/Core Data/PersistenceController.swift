@@ -58,7 +58,7 @@ struct PersistenceController {
         }
     }
     
-    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevation: Double) {
+    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevation: Double, startTime: Date, time: Double) {
         let context = container.viewContext
         
         var latitudes: [CLLocationDegrees] = []
@@ -78,6 +78,8 @@ struct PersistenceController {
         newBikeRide.cyclingSpeeds = speedsValidated
         newBikeRide.cyclingDistance = distance
         newBikeRide.cyclingElevationChange = elevation
+        newBikeRide.cyclingStartTime = startTime
+        newBikeRide.cyclingTime = time
         
         do {
             try context.save()

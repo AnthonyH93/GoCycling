@@ -15,8 +15,12 @@ struct MapView: UIViewRepresentable {
     let persistenceController = PersistenceController.shared
 
     @StateObject var locationManager = LocationViewModel.locationManager
+    
     @Binding var isCycling: Bool
     @Binding var centerMapOnLocation: Bool
+    @Binding var cyclingStartTime: Date
+    @Binding var timeCycling: TimeInterval
+    
     @EnvironmentObject var preferences: UserPreferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
@@ -97,7 +101,12 @@ struct MapView: UIViewRepresentable {
                     startedCycling = false
                     let overlays = view.overlays
                     view.removeOverlays(overlays)
-                    persistenceController.storeBikeRide(locations: locationManager.cyclingLocations, speeds: [locationManager.cyclingSpeed], distance: locationManager.cyclingTotalDistance, elevation: locationManager.cyclingAltitude ?? 0.0)
+                    persistenceController.storeBikeRide(locations: locationManager.cyclingLocations,
+                                                        speeds: [locationManager.cyclingSpeed],
+                                                        distance: locationManager.cyclingTotalDistance,
+                                                        elevation: locationManager.cyclingAltitude ?? 0.0,
+                                                        startTime: cyclingStartTime,
+                                                        time: timeCycling)
                     locationManager.clearLocationArray()
                 }
             }
@@ -110,6 +119,6 @@ var startedCycling = false
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(isCycling: .constant(false), centerMapOnLocation: .constant(true))
+        MapView(isCycling: .constant(false), centerMapOnLocation: .constant(true), cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
     }
 }

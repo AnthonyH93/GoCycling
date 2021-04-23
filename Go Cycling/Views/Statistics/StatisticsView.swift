@@ -14,7 +14,11 @@ struct StatisticsView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        Text("Distance: \(bikeRides.storedBikeRides[2].cyclingDistance)")
+        VStack(spacing: 10) {
+            Text("Distance: \(bikeRides.storedBikeRides[2].cyclingDistance)")
+            Text("Number of bike rides: \(bikeRides.storedBikeRides.count)")
+            Text("Seconds taken: \(bikeRides.storedBikeRides[bikeRides.storedBikeRides.count - 1].cyclingTime)")
+        }
     }
 }
 

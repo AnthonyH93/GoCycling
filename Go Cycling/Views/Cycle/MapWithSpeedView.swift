@@ -11,6 +11,9 @@ import CoreLocation
 struct MapWithSpeedView: View {
     
     @Binding var isCycling: Bool
+    @Binding var cyclingStartTime: Date
+    @Binding var timeCycling: TimeInterval
+    
     @StateObject var locationManager = LocationViewModel.locationManager
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var preferences: PreferencesStorage
@@ -19,7 +22,7 @@ struct MapWithSpeedView: View {
     
     var body: some View {
         ZStack {
-            MapView(isCycling: $isCycling, centerMapOnLocation: $mapCentered)
+            MapView(isCycling: $isCycling, centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             VStack {
                 HStack {
                     Spacer()
@@ -98,6 +101,6 @@ struct MapWithSpeedView: View {
 
 struct MapWithSpeedView_Previews: PreviewProvider {
     static var previews: some View {
-        MapWithSpeedView(isCycling: .constant(false))
+        MapWithSpeedView(isCycling: .constant(false), cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
     }
 }

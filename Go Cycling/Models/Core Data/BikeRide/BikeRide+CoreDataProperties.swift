@@ -22,6 +22,8 @@ extension BikeRide {
     @NSManaged public var cyclingSpeeds: [CLLocationSpeed]
     @NSManaged public var cyclingElevationChange: Double
     @NSManaged public var cyclingDistance: Double
+    @NSManaged public var cyclingStartTime: Date
+    @NSManaged public var cyclingTime: Double
 
 }
 
