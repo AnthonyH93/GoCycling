@@ -57,4 +57,33 @@ struct PersistenceController {
             print(error.localizedDescription)
         }
     }
+    
+    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevation: Double) {
+        let context = container.viewContext
+        
+        var latitudes: [CLLocationDegrees] = []
+        var longitudes: [CLLocationDegrees] = []
+        var speedsValidated: [CLLocationSpeed] = []
+        for location in locations {
+            latitudes.append(location?.coordinate.latitude ?? 0.0)
+            longitudes.append(location?.coordinate.longitude ?? 0.0)
+        }
+        for speed in speeds {
+            speedsValidated.append(speed ?? 0.0)
+        }
+        
+        let newBikeRide = BikeRide(context: context)
+        newBikeRide.cyclingLatitudes = latitudes
+        newBikeRide.cyclingLongitudes = longitudes
+        newBikeRide.cyclingSpeeds = speedsValidated
+        newBikeRide.cyclingDistance = distance
+        newBikeRide.cyclingElevationChange = elevation
+        
+        do {
+            try context.save()
+            print("Bike ride saved")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

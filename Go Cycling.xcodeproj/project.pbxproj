@@ -31,6 +31,9 @@
 		9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */; };
 		9DEAD6B6262D423E00392D88 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6B5262D423E00392D88 /* AboutApp.swift */; };
 		9DEAD6BE262FBFF900392D88 /* MapSystemImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6BD262FBFF900392D88 /* MapSystemImageButton.swift */; };
+		9DEAD6C4263257A500392D88 /* BikeRide+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6C2263257A500392D88 /* BikeRide+CoreDataClass.swift */; };
+		9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6C3263257A500392D88 /* BikeRide+CoreDataProperties.swift */; };
+		9DEAD6CB2632589500392D88 /* BikeRideStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,9 @@
 		9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		9DEAD6B5262D423E00392D88 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		9DEAD6BD262FBFF900392D88 /* MapSystemImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSystemImageButton.swift; sourceTree = "<group>"; };
+		9DEAD6C2263257A500392D88 /* BikeRide+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9DEAD6C3263257A500392D88 /* BikeRide+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,10 +157,12 @@
 		9D6E5383262CECCC008FD7C1 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				9DEAD6C92632586200392D88 /* BikeRide */,
 				9D6E53A1262D387B008FD7C1 /* UserPreferences */,
 				9D6E5384262CECFA008FD7C1 /* GoCycling.xcdatamodeld */,
 				9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */,
 				9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */,
+				9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -254,6 +262,15 @@
 				9D6E53412627AE9B008FD7C1 /* Cycle */,
 			);
 			path = "View Models";
+			sourceTree = "<group>";
+		};
+		9DEAD6C92632586200392D88 /* BikeRide */ = {
+			isa = PBXGroup;
+			children = (
+				9DEAD6C2263257A500392D88 /* BikeRide+CoreDataClass.swift */,
+				9DEAD6C3263257A500392D88 /* BikeRide+CoreDataProperties.swift */,
+			);
+			path = BikeRide;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,9 +404,11 @@
 			files = (
 				9D6E5392262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift in Sources */,
 				9D76355A262009230026D948 /* MapView.swift in Sources */,
+				9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */,
 				9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */,
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
 				9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */,
+				9DEAD6CB2632589500392D88 /* BikeRideStorage.swift in Sources */,
 				9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */,
 				9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */,
 				9DEAD6BE262FBFF900392D88 /* MapSystemImageButton.swift in Sources */,
@@ -403,6 +422,7 @@
 				9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */,
 				9D6E53492628071B008FD7C1 /* MapWithSpeedView.swift in Sources */,
 				9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */,
+				9DEAD6C4263257A500392D88 /* BikeRide+CoreDataClass.swift in Sources */,
 				9D6E5391262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift in Sources */,
 				9D6E538B262CEE0A008FD7C1 /* PersistenceController.swift in Sources */,
 			);

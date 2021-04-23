@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct StatisticsView: View {
+    let persistenceController = PersistenceController.shared
+    
+    @EnvironmentObject var bikeRides: BikeRideStorage
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Distance: \(bikeRides.storedBikeRides[2].cyclingDistance)")
     }
 }
 

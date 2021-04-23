@@ -14,12 +14,14 @@ struct GoCyclingApp: App {
     @Environment(\.scenePhase) var scenePhase
     
     @StateObject var preferences: PreferencesStorage
+    @StateObject var bikeRides: BikeRideStorage
     
     init() {
         let managedObjectContext = persistenceController.container.viewContext
-        let storage = PreferencesStorage(managedObjectContext: managedObjectContext)
-        print(storage)
-        self._preferences = StateObject(wrappedValue: storage)
+        let preferencesStorage = PreferencesStorage(managedObjectContext: managedObjectContext)
+        self._preferences = StateObject(wrappedValue: preferencesStorage)
+        let bikeRidesStorage = BikeRideStorage(managedObjectContext: managedObjectContext)
+        self._bikeRides = StateObject(wrappedValue: bikeRidesStorage)
     }
 
     var body: some Scene {
@@ -27,6 +29,7 @@ struct GoCyclingApp: App {
             MainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(preferences)
+                .environmentObject(bikeRides)
         }
         .onChange(of: scenePhase) { _ in
             persistenceController.save()

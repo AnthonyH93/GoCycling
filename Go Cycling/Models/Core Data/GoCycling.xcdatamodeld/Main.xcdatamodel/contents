@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BikeRide" representedClassName="BikeRide" syncable="YES">
+        <attribute name="cyclingDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="cyclingElevationChange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="cyclingLatitudes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="CLLocationDegrees"/>
+        <attribute name="cyclingLongitudes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="CLLocationDegrees"/>
+        <attribute name="cyclingSpeeds" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="CLLocationSpeed"/>
+    </entity>
     <entity name="UserPreferences" representedClassName="UserPreferences" syncable="YES">
         <attribute name="colourChoice" optional="YES" attributeType="String"/>
         <attribute name="displayingMetrics" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="usingMetric" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
+        <element name="BikeRide" positionX="-63" positionY="9" width="128" height="104"/>
         <element name="UserPreferences" positionX="-63" positionY="-18" width="128" height="74"/>
     </elements>
 </model>

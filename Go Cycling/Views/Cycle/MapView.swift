@@ -11,11 +11,14 @@ import CoreLocation
 
 struct MapView: UIViewRepresentable {
     typealias UIViewType = MKMapView
+    
+    let persistenceController = PersistenceController.shared
 
     @StateObject var locationManager = LocationViewModel.locationManager
     @Binding var isCycling: Bool
     @Binding var centerMapOnLocation: Bool
     @EnvironmentObject var preferences: UserPreferences
+    @Environment(\.managedObjectContext) private var managedObjectContext
     
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -94,6 +97,7 @@ struct MapView: UIViewRepresentable {
                     startedCycling = false
                     let overlays = view.overlays
                     view.removeOverlays(overlays)
+                    persistenceController.storeBikeRide(locations: locationManager.cyclingLocations, speeds: [locationManager.cyclingSpeed], distance: locationManager.cyclingTotalDistance, elevation: locationManager.cyclingAltitude ?? 0.0)
                     locationManager.clearLocationArray()
                 }
             }
