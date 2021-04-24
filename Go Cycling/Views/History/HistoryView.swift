@@ -14,24 +14,7 @@ struct HistoryView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        List {
-            ForEach(bikeRides.storedBikeRides) { bikeRide in
-                HStack {
-                    Text("Distance: \(bikeRide.cyclingDistance)")
-                }
-            }
-            .onDelete { indexSet in
-                for index in indexSet {
-                    managedObjectContext.delete(bikeRides.storedBikeRides[index])
-                }
-                do {
-                    try managedObjectContext.save()
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        .listStyle(PlainListStyle())
+        BikeRidesListView()
     }
 }
 
