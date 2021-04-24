@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct MainView: View {
+    @EnvironmentObject var preferences: PreferencesStorage
+    
     var body: some View {
         TabView {
             CycleView()
@@ -25,6 +27,7 @@ struct MainView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
+        .accentColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
     }
 }
 
