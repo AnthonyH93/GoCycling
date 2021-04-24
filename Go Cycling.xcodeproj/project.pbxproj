@@ -26,7 +26,7 @@
 		9DAB832A25FECAD400F5C42E /* GoCyclingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB832925FECAD400F5C42E /* GoCyclingTests.swift */; };
 		9DAB833525FECAD400F5C42E /* GoCyclingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */; };
 		9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB835D25FECCB000F5C42E /* MainView.swift */; };
-		9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB836F25FED0A300F5C42E /* StatisticsView.swift */; };
+		9DAB837025FED0A300F5C42E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB836F25FED0A300F5C42E /* HistoryView.swift */; };
 		9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837425FED2F800F5C42E /* TimerButton.swift */; };
 		9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */; };
 		9DEAD6B6262D423E00392D88 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6B5262D423E00392D88 /* AboutApp.swift */; };
@@ -79,7 +79,7 @@
 		9DAB833425FECAD400F5C42E /* GoCyclingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingUITests.swift; sourceTree = "<group>"; };
 		9DAB833625FECAD400F5C42E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DAB835D25FECCB000F5C42E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		9DAB836F25FED0A300F5C42E /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		9DAB836F25FED0A300F5C42E /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		9DAB837425FED2F800F5C42E /* TimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButton.swift; sourceTree = "<group>"; };
 		9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		9DEAD6B5262D423E00392D88 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
@@ -126,12 +126,12 @@
 			path = Cycle;
 			sourceTree = "<group>";
 		};
-		9D6E533D2627AE57008FD7C1 /* Statistics */ = {
+		9D6E533D2627AE57008FD7C1 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				9DAB836F25FED0A300F5C42E /* StatisticsView.swift */,
+				9DAB836F25FED0A300F5C42E /* HistoryView.swift */,
 			);
-			path = Statistics;
+			path = History;
 			sourceTree = "<group>";
 		};
 		9D6E53412627AE9B008FD7C1 /* Cycle */ = {
@@ -249,7 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				9D6E534D262BAED2008FD7C1 /* Settings */,
-				9D6E533D2627AE57008FD7C1 /* Statistics */,
+				9D6E533D2627AE57008FD7C1 /* History */,
 				9D6E53392623CD36008FD7C1 /* Cycle */,
 				9DAB835D25FECCB000F5C42E /* MainView.swift */,
 			);
@@ -409,7 +409,7 @@
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
 				9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */,
 				9DEAD6CB2632589500392D88 /* BikeRideStorage.swift in Sources */,
-				9DAB837025FED0A300F5C42E /* StatisticsView.swift in Sources */,
+				9DAB837025FED0A300F5C42E /* HistoryView.swift in Sources */,
 				9DAB835E25FECCB000F5C42E /* MainView.swift in Sources */,
 				9DEAD6BE262FBFF900392D88 /* MapSystemImageButton.swift in Sources */,
 				9D6E5397262D090C008FD7C1 /* PreferencesStorage.swift in Sources */,

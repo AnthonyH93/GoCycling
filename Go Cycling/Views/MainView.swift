@@ -16,9 +16,9 @@ struct MainView: View {
                     Label("Cycle", systemImage: "bicycle")
                 }
             
-            StatisticsView()
+            HistoryView()
                 .tabItem {
-                    Label("Statistics", systemImage: "arrow.clockwise.heart")
+                    Label("History", systemImage: "arrow.clockwise.heart")
                 }
             SettingsView()
                 .tabItem {
