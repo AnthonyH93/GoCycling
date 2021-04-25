@@ -28,6 +28,7 @@ class PreferencesStorage: NSObject, ObservableObject {
             let defaultPreferences = UserPreferences(context: managedObjectContext)
             defaultPreferences.usingMetric = true
             defaultPreferences.displayingMetrics = true
+            defaultPreferences.largeMetrics = false
             defaultPreferences.colourChoice = ColourChoice.blue.rawValue
             
             storedPreferences = preferencesController.fetchedObjects ?? [defaultPreferences]

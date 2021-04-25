@@ -19,14 +19,24 @@ struct UnitsView: View {
                 persistenceController.storeUserPreferences(
                     usingMetric: preferences.storedPreferences[0].usingMetric,
                     displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted)
+                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                    largeMetrics: preferences.storedPreferences[0].largeMetrics)
             }
         Toggle("Display Metrics on Map", isOn: $preferences.storedPreferences[0].displayingMetrics)
             .onChange(of: preferences.storedPreferences[0].displayingMetrics) { value in
                 persistenceController.storeUserPreferences(
                     usingMetric: preferences.storedPreferences[0].usingMetric,
                     displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted)
+                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                    largeMetrics: preferences.storedPreferences[0].largeMetrics)
+            }
+        Toggle("Large Metrics View", isOn: $preferences.storedPreferences[0].largeMetrics)
+            .onChange(of: preferences.storedPreferences[0].displayingMetrics) { value in
+                persistenceController.storeUserPreferences(
+                    usingMetric: preferences.storedPreferences[0].usingMetric,
+                    displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                    largeMetrics: preferences.storedPreferences[0].largeMetrics)
             }
     }
 }

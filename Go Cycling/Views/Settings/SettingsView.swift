@@ -17,7 +17,7 @@ struct SettingsView: View {
                     ColourView()
                 }
                 .navigationBarTitle("Settings", displayMode: .inline)
-                Section(header: Text("Units")) {
+                Section(header: Text("Cycling Metrics")) {
                     UnitsView()
                 }
                 Section(header: Text("About the app")) {

@@ -27,7 +27,8 @@ struct ColourView: View {
                     persistenceController.storeUserPreferences(
                         usingMetric: preferences.storedPreferences[0].usingMetric,
                         displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted)
+                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                        largeMetrics: preferences.storedPreferences[0].largeMetrics)
                 }
         }
     }

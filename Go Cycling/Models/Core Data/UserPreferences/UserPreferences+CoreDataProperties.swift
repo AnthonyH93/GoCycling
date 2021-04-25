@@ -19,6 +19,7 @@ extension UserPreferences {
     @NSManaged public var usingMetric: Bool
     @NSManaged public var displayingMetrics: Bool
     @NSManaged public var colourChoice: String
+    @NSManaged public var largeMetrics: Bool
         
     var colourChoiceConverted: ColourChoice {
         set {
