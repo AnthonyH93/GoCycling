@@ -58,18 +58,30 @@ struct PersistenceController {
         }
     }
     
-    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevation: Double, startTime: Date, time: Double) {
+    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevations: [CLLocationDistance?], startTime: Date, time: Double) {
         let context = container.viewContext
         
         var latitudes: [CLLocationDegrees] = []
         var longitudes: [CLLocationDegrees] = []
         var speedsValidated: [CLLocationSpeed] = []
+        var elevationsValidated: [CLLocationDistance] = []
+        
         for location in locations {
             latitudes.append(location?.coordinate.latitude ?? 0.0)
             longitudes.append(location?.coordinate.longitude ?? 0.0)
         }
+        
         for speed in speeds {
             speedsValidated.append(speed ?? 0.0)
+        }
+        
+        for elevation in elevations {
+            if let currentElevation = elevation {
+                elevationsValidated.append(currentElevation)
+            }
+            else {
+                //
+            }
         }
         
         let newBikeRide = BikeRide(context: context)
@@ -77,7 +89,7 @@ struct PersistenceController {
         newBikeRide.cyclingLongitudes = longitudes
         newBikeRide.cyclingSpeeds = speedsValidated
         newBikeRide.cyclingDistance = distance
-        newBikeRide.cyclingElevationChange = elevation
+        newBikeRide.cyclingElevations = elevationsValidated
         newBikeRide.cyclingStartTime = startTime
         newBikeRide.cyclingTime = time
         

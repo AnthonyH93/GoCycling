@@ -20,7 +20,7 @@ extension BikeRide {
     @NSManaged public var cyclingLatitudes: [CLLocationDegrees]
     @NSManaged public var cyclingLongitudes: [CLLocationDegrees]
     @NSManaged public var cyclingSpeeds: [CLLocationSpeed]
-    @NSManaged public var cyclingElevationChange: Double
+    @NSManaged public var cyclingElevations: [CLLocationDistance]
     @NSManaged public var cyclingDistance: Double
     @NSManaged public var cyclingStartTime: Date
     @NSManaged public var cyclingTime: Double

@@ -19,8 +19,9 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var lastLocation: CLLocation?
     @Published var cyclingLocations: [CLLocation?] = []
     @Published var cyclingSpeed: CLLocationSpeed?
+    @Published var cyclingSpeeds: [CLLocationSpeed?] = []
     @Published var cyclingAltitude: CLLocationDistance?
-    //@Published var cyclingAltitudes: [CLLocationDistance?] = []
+    @Published var cyclingAltitudes: [CLLocationDistance?] = []
     @Published var cyclingDistances: [CLLocationDistance?] = []
     @Published var cyclingTotalDistance: CLLocationDistance = 0.0
 
@@ -61,6 +62,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingLocations.append(lastLocation)
         cyclingSpeed = location.speed
         cyclingAltitude = location.altitude
+        cyclingSpeeds.append(cyclingSpeed)
+        cyclingAltitudes.append(cyclingAltitude)
         
         // Add location to array
         let locationsCount = cyclingLocations.count
@@ -81,12 +84,16 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
         // Clear all distances
         cyclingDistances.removeAll()
+        cyclingSpeeds.removeAll()
+        cyclingAltitudes.removeAll()
         cyclingTotalDistance = 0.0
     }
     
     func clearLocationArray() {
         cyclingLocations.removeAll()
         cyclingDistances.removeAll()
+        cyclingSpeeds.removeAll()
+        cyclingAltitudes.removeAll()
         cyclingTotalDistance = 0.0
     }
 }

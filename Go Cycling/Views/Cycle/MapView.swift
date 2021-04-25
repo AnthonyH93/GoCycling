@@ -102,9 +102,9 @@ struct MapView: UIViewRepresentable {
                     let overlays = view.overlays
                     view.removeOverlays(overlays)
                     persistenceController.storeBikeRide(locations: locationManager.cyclingLocations,
-                                                        speeds: [locationManager.cyclingSpeed],
+                                                        speeds: locationManager.cyclingSpeeds,
                                                         distance: locationManager.cyclingTotalDistance,
-                                                        elevation: locationManager.cyclingAltitude ?? 0.0,
+                                                        elevations: locationManager.cyclingAltitudes,
                                                         startTime: cyclingStartTime,
                                                         time: timeCycling)
                     locationManager.clearLocationArray()
