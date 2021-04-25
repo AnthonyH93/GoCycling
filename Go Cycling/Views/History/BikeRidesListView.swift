@@ -22,7 +22,7 @@ struct BikeRidesListView: View {
             if (bikeRides.count > 0) {
                 List {
                     ForEach(bikeRides) { bikeRide in
-                        NavigationLink(destination: SingleBikeRideView()) {
+                        NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide)) {
                             VStack(spacing: 10) {
                                 HStack {
                                     Text(self.formatDate(date: bikeRide.cyclingStartTime))

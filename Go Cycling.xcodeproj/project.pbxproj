@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */; };
 		9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */; };
 		9D6E53492628071B008FD7C1 /* MapWithSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E53482628071B008FD7C1 /* MapWithSpeedView.swift */; };
 		9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E534E262BAEE0008FD7C1 /* SettingsView.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotView.swift; sourceTree = "<group>"; };
 		9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		9D6E53482628071B008FD7C1 /* MapWithSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWithSpeedView.swift; sourceTree = "<group>"; };
 		9D6E534E262BAEE0008FD7C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				9DAB836F25FED0A300F5C42E /* HistoryView.swift */,
 				9D9776E42633B0E70048B504 /* BikeRidesListView.swift */,
 				9D9776E92633B4050048B504 /* SingleBikeRideView.swift */,
+				9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				9DEAD6C4263257A500392D88 /* BikeRide+CoreDataClass.swift in Sources */,
 				9D6E5391262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift in Sources */,
 				9D6E538B262CEE0A008FD7C1 /* PersistenceController.swift in Sources */,
+				9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
