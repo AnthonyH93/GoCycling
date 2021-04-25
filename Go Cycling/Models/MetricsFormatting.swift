@@ -30,7 +30,7 @@ class MetricsFormatting {
         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
     }
     
-    static func formatSpeed(distance: CLLocationDistance, time: TimeInterval, usingMetric: Bool) -> String {
+    static func formatAverageSpeed(distance: CLLocationDistance, time: TimeInterval, usingMetric: Bool) -> String {
         let speedUnits = usingMetric ? "km/h" : "mph"
         if (time == 0) {
             return "0 " + speedUnits
@@ -56,7 +56,7 @@ class MetricsFormatting {
         
         let elevationMetres = round(100 * elevationGain)/100
         let elevationFeet = round(100 * (3.28084 * elevationGain))/100
-        let elevationString = "\(usingMetric ? elevationMetres : elevationFeet)" + elevationUnits
+        let elevationString = "\(usingMetric ? elevationMetres : elevationFeet) " + elevationUnits
         return elevationString
     }
     
@@ -73,5 +73,38 @@ class MetricsFormatting {
         let speedMPH = round(100 * (2.23694 * topSpeed))/100
         let speedString = "\(usingMetric ? speedKMH : speedMPH) " + speedUnits
         return speedString
+    }
+    
+    static func formatDistanceWithoutUnits(distance: CLLocationDistance, usingMetric: Bool) -> String {
+        let distanceKilometres = round(100 * distance/1000)/100
+        let distanceMiles = round(100 * (0.621371 * distance/1000))/100
+        let distanceString = "\(usingMetric ? distanceKilometres : distanceMiles)"
+        return distanceString
+    }
+    
+    static func getDistanceUnits(usingMetric: Bool) -> String {
+        return usingMetric ? "km" : "mi"
+    }
+    
+    static func formatSpeedWithoutUnits(speed: CLLocationSpeed, usingMetric: Bool) -> String {
+        let speedKMH = round(100 * (3.6 * speed))/100
+        let speedMPH = round(100 * (2.23694 * speed))/100
+        let speedString = "\(usingMetric ? speedKMH : speedMPH)"
+        return speedString
+    }
+    
+    static func getSpeedUnits(usingMetric: Bool) -> String {
+        return usingMetric ? "km/h" : "mph"
+    }
+    
+    static func formatElevationWithoutUnits(elevation: CLLocationDistance, usingMetric: Bool) -> String {
+        let elevationMetres = round(100 * elevation)/100
+        let elevationFeet = round(100 * (3.28084 * elevation))/100
+        let elevationString = "\(usingMetric ? elevationMetres : elevationFeet)"
+        return elevationString
+    }
+    
+    static func getElevationUnits(usingMetric: Bool) -> String {
+        return usingMetric ? "m" : "ft"
     }
 }

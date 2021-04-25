@@ -25,7 +25,7 @@ struct MapWithSpeedView: View {
             MapView(isCycling: $isCycling, centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             VStack {
                 if (preferences.storedPreferences[0].largeMetrics) {
-                    
+                    LargeMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, isCycling: $isCycling)
                 }
                 else {
                     SmallMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, isCycling: $isCycling)

@@ -43,7 +43,7 @@ struct BikeRidesListView: View {
                                 HStack {
                                     Text("Average Speed")
                                     Spacer()
-                                    Text(MetricsFormatting.formatSpeed(distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
+                                    Text(MetricsFormatting.formatAverageSpeed(distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
                                 }
                             }
                         }

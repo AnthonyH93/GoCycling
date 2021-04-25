@@ -93,9 +93,3 @@ struct MapSnapshotView: View {
         }
     }
 }
-
-//struct MapSnapshotView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapSnapshotView()
-//    }
-//}
