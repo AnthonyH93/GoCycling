@@ -44,7 +44,6 @@ struct MapSnapshotView: View {
     
     func generateSnapshot(width: CGFloat, height: CGFloat) {
         
-        // The region the map should display.
         let region = MKCoordinateRegion(
             center: self.location,
             span: MKCoordinateSpan(
@@ -53,13 +52,13 @@ struct MapSnapshotView: View {
             )
         )
         
-        // Map options.
+        // Map options
         let mapOptions = MKMapSnapshotter.Options()
         mapOptions.region = region
         mapOptions.size = CGSize(width: width, height: height)
         mapOptions.showsBuildings = true
         
-        // Create the snapshotter and run it.
+        // Create the snapshotter and run it
         let snapshotter = MKMapSnapshotter(options: mapOptions)
         snapshotter.start { (snapshotOrNil, errorOrNil) in
             if let error = errorOrNil {
@@ -73,8 +72,7 @@ struct MapSnapshotView: View {
 
                     guard let coordinates = self.coordinates, coordinates.count > 1 else { return }
                     
-                    // convert the `[CLLocationCoordinate2D]` into a `[CGPoint]`
-                    
+                    // Convert the [CLLocationCoordinate2D] into a [CGPoint]
                     let points = coordinates.map { coordinate in
                         snapshot.point(for: coordinate)
                     }

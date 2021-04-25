@@ -22,10 +22,10 @@ struct BikeRidesListView: View {
             if (bikeRides.count > 0) {
                 List {
                     ForEach(bikeRides) { bikeRide in
-                        NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide)) {
+                        NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))) {
                             VStack(spacing: 10) {
                                 HStack {
-                                    Text(self.formatDate(date: bikeRide.cyclingStartTime))
+                                    Text(MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))
                                         .font(.headline)
                                         
                                     Spacer()
@@ -33,17 +33,17 @@ struct BikeRidesListView: View {
                                 HStack {
                                     Text("Distance Cycled")
                                     Spacer()
-                                    Text(self.formatDistance(distance: bikeRide.cyclingDistance))
+                                    Text(MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
                                 }
                                 HStack {
                                     Text("Cycling Time")
                                     Spacer()
-                                    Text(self.formatTime(time: bikeRide.cyclingTime))
+                                    Text(MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
                                 }
                                 HStack {
                                     Text("Average Speed")
                                     Spacer()
-                                    Text(self.formatSpeed(distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime))
+                                    Text(MetricsFormatting.formatSpeed(distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
                                 }
                             }
                         }
@@ -60,7 +60,7 @@ struct BikeRidesListView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
-                .navigationBarTitle("Cycling History", displayMode: .large)
+                .navigationBarTitle("Cycling History", displayMode: .automatic)
             }
             else {
                 VStack {
@@ -68,43 +68,10 @@ struct BikeRidesListView: View {
                     Text("No completed bike rides to display!")
                     Spacer()
                 }
-                .navigationBarTitle("Cycling History", displayMode: .large)
+                .navigationBarTitle("Cycling History", displayMode: .automatic)
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
-    }
-    
-    func formatDate(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, yyyy"
-        return(dateFormatter.string(from: date))
-    }
-    
-    func formatDistance(distance: CLLocationDistance) -> String {
-        let distanceKilometres = round(100 * distance/1000)/100
-        let distanceMiles = round(100 * (0.621371 * distance/1000))/100
-        let distanceUnits = preferences.storedPreferences[0].usingMetric ? "km" : "mi"
-        let distanceString = "\(preferences.storedPreferences[0].usingMetric ? distanceKilometres : distanceMiles) " + distanceUnits
-        return distanceString
-    }
-    
-    func formatTime(time: TimeInterval) -> String {
-        let hours = Int(time) / 3600
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
-        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
-    }
-    
-    func formatSpeed(distance: CLLocationDistance, time: TimeInterval) -> String {
-        let speedUnits = preferences.storedPreferences[0].usingMetric ? "km/h" : "mph"
-        if (time == 0) {
-            return "0 " + speedUnits
-        }
-        let speedMetresPerSecond = distance/time
-        let speedKMH = round(100 * (3.6 * speedMetresPerSecond))/100
-        let speedMPH = round(100 * (2.23694 * speedMetresPerSecond))/100
-        let speedString = "\(preferences.storedPreferences[0].usingMetric ? speedKMH : speedMPH) " + speedUnits
-        return speedString
     }
 }
 

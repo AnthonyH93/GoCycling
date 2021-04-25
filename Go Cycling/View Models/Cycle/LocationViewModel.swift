@@ -20,6 +20,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var cyclingLocations: [CLLocation?] = []
     @Published var cyclingSpeed: CLLocationSpeed?
     @Published var cyclingAltitude: CLLocationDistance?
+    //@Published var cyclingAltitudes: [CLLocationDistance?] = []
     @Published var cyclingDistances: [CLLocationDistance?] = []
     @Published var cyclingTotalDistance: CLLocationDistance = 0.0
 

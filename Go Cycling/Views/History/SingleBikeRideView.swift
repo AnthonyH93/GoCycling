@@ -11,34 +11,38 @@ import MapKit
 
 struct SingleBikeRideView: View {
     let bikeRide: BikeRide
+    let navigationTitle: String
     let screenWidth = UIScreen.main.bounds.size.width
     
     @EnvironmentObject var preferences: PreferencesStorage
-    let coordinates = CLLocationCoordinate2D(latitude: 37.332077, longitude: -122.02962) // Apple Park, California
     
     var body: some View {
         VStack {
             MapSnapshotView(location: self.calculateCenter(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
                             span: self.calculateSpan(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
                             coordinates: self.setupCoordinates(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes))
-            Spacer()
-            ZStack {
-                Rectangle()
-                    .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
-                    .opacity(0.8)
-                    .frame(width: screenWidth, height: 140)
+                .padding(.bottom, 10)
+            VStack(spacing: 10) {
                 HStack {
                     Spacer()
-                    Text("1")
+                    HistoryMetricView(systemImageString: "location", metricName: "Distance", metricText: MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
                     Spacer()
-                    Text("2")
+                    HistoryMetricView(systemImageString: "timer", metricName: "Time", metricText: MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
                     Spacer()
-                    Text("3")
+                    HistoryMetricView(systemImageString: "arrow.up.arrow.down", metricName: "Elevation", metricText: "Temp")
                     Spacer()
                 }
-                .padding(.bottom, 10)
+                HStack {
+                    Spacer()
+                    HistoryMetricView(systemImageString: "speedometer", metricName: "Average Speed", metricText: MetricsFormatting.formatSpeed(distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
+                    Spacer()
+                    HistoryMetricView(systemImageString: "speedometer", metricName: "Top Speed", metricText: MetricsFormatting.formatDistance(distance: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
+                    Spacer()
+                }
             }
+            .padding(.bottom, 10)
         }
+        .navigationBarTitle(navigationTitle, displayMode: .inline)
     }
     
     func setupCoordinates(latitudes: [CLLocationDegrees], longitudes: [CLLocationDegrees]) -> [CLLocationCoordinate2D] {
