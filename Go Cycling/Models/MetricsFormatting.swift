@@ -24,10 +24,21 @@ class MetricsFormatting {
     }
     
     static func formatTime(time: TimeInterval) -> String {
+        var timeString = ""
         let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
-        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+        
+        if (hours > 0) {
+            timeString = "\(hours)h"
+        }
+        if (minutes > 0) {
+            timeString = timeString + " \(minutes)m"
+        }
+        if (seconds > 0) {
+            timeString = timeString + " \(seconds)s"
+        }
+        return timeString
     }
     
     static func formatAverageSpeed(distance: CLLocationDistance, time: TimeInterval, usingMetric: Bool) -> String {

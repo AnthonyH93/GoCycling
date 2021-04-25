@@ -59,9 +59,9 @@ struct SmallMetricsView: View {
         
         let returnString = """
         Current Metrics
+        Distance: \(distanceString) \(distanceUnits)
         Speed: \(speedString) \(speedUnits)
         Altitude: \(altitudeString) \(altitudeUnits)
-        Distance: \(distanceString) \(distanceUnits)
         """
         return returnString
     }
