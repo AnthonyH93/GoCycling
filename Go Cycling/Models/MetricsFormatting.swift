@@ -59,4 +59,19 @@ class MetricsFormatting {
         let elevationString = "\(usingMetric ? elevationMetres : elevationFeet)" + elevationUnits
         return elevationString
     }
+    
+    static func formatTopSpeed(speeds: [CLLocationSpeed], usingMetric: Bool) -> String {
+        var topSpeed: CLLocationSpeed = 0.0
+        for speed in speeds {
+            if (speed > topSpeed) {
+                topSpeed = speed
+            }
+        }
+        
+        let speedUnits = usingMetric ? "km/h" : "mph"
+        let speedKMH = round(100 * (3.6 * topSpeed))/100
+        let speedMPH = round(100 * (2.23694 * topSpeed))/100
+        let speedString = "\(usingMetric ? speedKMH : speedMPH) " + speedUnits
+        return speedString
+    }
 }
