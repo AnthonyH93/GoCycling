@@ -25,7 +25,7 @@ struct ColourView: View {
                 .navigationBarTitle("Choose your Colour", displayMode: .inline)
                 .onChange(of: preferences.storedPreferences[0].colourChoiceConverted) { value in
                     persistenceController.storeUserPreferences(
-                        usingMetric: preferences.storedPreferences[0].usingMetric,
+                        unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                         displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                         colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                         largeMetrics: preferences.storedPreferences[0].largeMetrics)

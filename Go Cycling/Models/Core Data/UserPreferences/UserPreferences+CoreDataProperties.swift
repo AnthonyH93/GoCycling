@@ -29,6 +29,20 @@ extension UserPreferences {
             ColourChoice(rawValue: colourChoice) ?? .blue
         }
     }
+    
+    var metricsChoiceConverted: UnitsChoice {
+        set {
+            if (newValue.id == "metric") {
+                usingMetric = true
+            }
+            else {
+                usingMetric = false
+            }
+        }
+        get {
+            usingMetric ? .metric : .imperial
+        }
+    }
 
 }
 
