@@ -10,7 +10,6 @@ import Foundation
 import CoreData
 import CoreLocation
 
-
 extension BikeRide {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<BikeRide> {
@@ -25,6 +24,21 @@ extension BikeRide {
     @NSManaged public var cyclingStartTime: Date
     @NSManaged public var cyclingTime: Double
 
+    static func sortByDistance(list: [BikeRide]) -> [BikeRide] {
+        var returnList: [BikeRide] = list
+        for i in 0..<returnList.count {
+            var max = i
+            for j in i..<returnList.count {
+                if returnList[j].cyclingDistance > returnList[max].cyclingDistance {
+                    max = j
+                }
+            }
+            let temp: BikeRide = returnList[max]
+            returnList[max] = returnList[i]
+            returnList[i] = temp
+        }
+        return returnList
+    }
 }
 
 extension BikeRide : Identifiable {

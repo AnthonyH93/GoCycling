@@ -12,16 +12,20 @@ struct BikeRidesListView: View {
     let persistenceController = PersistenceController.shared
     
     @EnvironmentObject var preferences: PreferencesStorage
-    @FetchRequest(entity: BikeRide.entity(), sortDescriptors: [], predicate: nil)
-    var bikeRides: FetchedResults<BikeRide>
+//    @FetchRequest(entity: BikeRide.entity(), sortDescriptors: [], predicate: nil)
+//    var bikeRides: FetchedResults<BikeRide>
+    
+    @ObservedObject var bikeRideViewModel = BikeRideListViewModel()
     
     @Environment(\.managedObjectContext) private var managedObjectContext
     
+    @State private var showingActionSheet = false
+    
     var body: some View {
         NavigationView {
-            if (bikeRides.count > 0) {
+            if (bikeRideViewModel.bikeRides.count > 0) {
                 List {
-                    ForEach(bikeRides) { bikeRide in
+                    ForEach(bikeRideViewModel.bikeRides) { bikeRide in
                         NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))) {
                             VStack(spacing: 10) {
                                 HStack {
@@ -50,7 +54,7 @@ struct BikeRidesListView: View {
                     }
                     .onDelete { indexSet in
                         for index in indexSet {
-                            managedObjectContext.delete(bikeRides[index])
+                            managedObjectContext.delete(bikeRideViewModel.bikeRides[index])
                         }
                         do {
                             try managedObjectContext.save()
@@ -61,6 +65,15 @@ struct BikeRidesListView: View {
                 }
                 .listStyle(PlainListStyle())
                 .navigationBarTitle("Cycling History", displayMode: .automatic)
+                .navigationBarItems(trailing: Button("Sort", action: {
+                    self.showingActionSheet = true
+                }))
+                .actionSheet(isPresented: $showingActionSheet, content: {
+                    ActionSheet(title: Text("Sort"), message: Text("Select type of sort"), buttons:[
+                        .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistance),
+                        .cancel()
+                    ])
+                })
             }
             else {
                 VStack {
