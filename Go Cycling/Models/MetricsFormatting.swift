@@ -98,6 +98,9 @@ class MetricsFormatting {
     }
     
     static func formatSpeedWithoutUnits(speed: CLLocationSpeed, usingMetric: Bool) -> String {
+        if (speed < 0) {
+            return "0.0"
+        }
         let speedKMH = round(100 * (3.6 * speed))/100
         let speedMPH = round(100 * (2.23694 * speed))/100
         let speedString = "\(usingMetric ? speedKMH : speedMPH)"
