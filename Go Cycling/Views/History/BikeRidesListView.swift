@@ -12,8 +12,6 @@ struct BikeRidesListView: View {
     let persistenceController = PersistenceController.shared
     
     @EnvironmentObject var preferences: PreferencesStorage
-//    @FetchRequest(entity: BikeRide.entity(), sortDescriptors: [], predicate: nil)
-//    var bikeRides: FetchedResults<BikeRide>
     
     @ObservedObject var bikeRideViewModel = BikeRideListViewModel()
     
@@ -70,7 +68,12 @@ struct BikeRidesListView: View {
                 }))
                 .actionSheet(isPresented: $showingActionSheet, content: {
                     ActionSheet(title: Text("Sort"), message: Text("Select type of sort"), buttons:[
-                        .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistance),
+                        .default(Text("Date Ascending (Default)"), action: bikeRideViewModel.sortByDateAscending),
+                        .default(Text("Date Descending"), action: bikeRideViewModel.sortByDateDescending),
+                        .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
+                        .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistanceDescending),
+                        .default(Text("Time Ascending"), action: bikeRideViewModel.sortByTimeAscending),
+                        .default(Text("Time Descending"), action: bikeRideViewModel.sortByTimeDescending),
                         .cancel()
                     ])
                 })
