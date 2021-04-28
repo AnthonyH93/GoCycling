@@ -21,7 +21,6 @@ struct MapView: UIViewRepresentable {
     @Binding var cyclingStartTime: Date
     @Binding var timeCycling: TimeInterval
     
-    @EnvironmentObject var preferences: UserPreferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var userLatitude: String {
@@ -108,6 +107,7 @@ struct MapView: UIViewRepresentable {
                                                         startTime: cyclingStartTime,
                                                         time: timeCycling)
                     locationManager.clearLocationArray()
+                    locationManager.stopTrackingBackgroundLocation()
                 }
             }
             view.delegate = context.coordinator

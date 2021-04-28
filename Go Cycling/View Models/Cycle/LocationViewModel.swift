@@ -30,8 +30,6 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.distanceFilter = 5
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.pausesLocationUpdatesAutomatically = false
-        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
@@ -75,6 +73,11 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func startedCycling() {
+        // Setup background location checking if authorized
+        if locationStatus == .authorizedAlways {
+            locationManager.pausesLocationUpdatesAutomatically = false
+            locationManager.allowsBackgroundLocationUpdates = true
+        }
         // Clear every location except most recent point
         let locationsCount = cyclingLocations.count
         if (locationsCount > 1) {
@@ -95,5 +98,11 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingSpeeds.removeAll()
         cyclingAltitudes.removeAll()
         cyclingTotalDistance = 0.0
+    }
+    
+    func stopTrackingBackgroundLocation() {
+        // There is no reason to allow background location updates if the user is not actively cycling
+        locationManager.pausesLocationUpdatesAutomatically = true
+        locationManager.allowsBackgroundLocationUpdates = false
     }
 }
