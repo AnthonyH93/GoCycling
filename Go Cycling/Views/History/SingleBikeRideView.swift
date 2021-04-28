@@ -86,8 +86,9 @@ struct SingleBikeRideView: View {
                 }
             }
             
-            let latitudeSpan = (maxLatitude - minLatitude) + 0.01
-            let longitudeSpan = (maxLongitude - minLongitude) + 0.01
+            // Add 10% extra so that there is some space around the map
+            let latitudeSpan = (maxLatitude - minLatitude) * 1.1
+            let longitudeSpan = (maxLongitude - minLongitude) * 1.1
             return latitudeSpan > longitudeSpan ? latitudeSpan : longitudeSpan
         }
         else {
