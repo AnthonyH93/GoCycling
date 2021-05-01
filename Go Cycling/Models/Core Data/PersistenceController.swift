@@ -9,10 +9,9 @@ import Foundation
 import CoreData
 
 struct PersistenceController {
-    // A singleton for our entire app to use
+    // A singleton for entire app to use
     static let shared = PersistenceController()
 
-    // Storage for Core Data
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
@@ -82,7 +81,7 @@ struct PersistenceController {
                 elevationsValidated.append(currentElevation)
             }
             else {
-                //
+                // Skip
             }
         }
         

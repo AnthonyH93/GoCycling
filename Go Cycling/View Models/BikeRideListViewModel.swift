@@ -10,28 +10,8 @@ import SwiftUI
 
 class BikeRideListViewModel: ObservableObject {
 
-    @Published var bikeRides: [BikeRide] = BikeRide.allBikeRides()
-    @Published var currentSortType: SortChoice = .dateDescending
-    
-//    func reSortList() {
-//        let storedRides = BikeRide.allBikeRides()
-//        print("Count inside: \(storedRides.count)")
-//        print("Sort as: \(currentSortType)")
-//        switch currentSortType {
-//        case .distanceAscending:
-//            bikeRides = BikeRide.sortByDistance(list: storedRides, ascending: true)
-//        case .distanceDescending:
-//            bikeRides = BikeRide.sortByDistance(list: storedRides, ascending: false)
-//        case .dateAscending:
-//            bikeRides = BikeRide.sortByDate(list: storedRides, ascending: true)
-//        case .dateDescending:
-//            bikeRides = BikeRide.sortByDate(list: storedRides, ascending: false)
-//        case .timeAscending:
-//            bikeRides = BikeRide.sortByTime(list: storedRides, ascending: true)
-//        case .timeDescending:
-//            bikeRides = BikeRide.sortByTime(list: storedRides, ascending: false)
-//        }
-//    }
+    @Published var bikeRides: [BikeRide] = BikeRide.allBikeRidesSorted()
+    @Published var currentSortType: SortChoice = UserPreferences.storedSortingChoice()
     
     // This is the default ordering
     func sortByDateDescending() {

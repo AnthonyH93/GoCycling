@@ -40,10 +40,10 @@ class PreferencesStorage: NSObject, ObservableObject {
 }
 
 extension PreferencesStorage: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        guard let savedPreferences = controller.fetchedObjects as? [UserPreferences]
-        else { return }
-
-        storedPreferences = savedPreferences
-    }
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        guard let savedPreferences = controller.fetchedObjects as? [UserPreferences]
+//        else { return }
+//
+//        storedPreferences = savedPreferences
+//    }
 }

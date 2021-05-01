@@ -14,14 +14,6 @@ struct UnitsView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-//        Toggle("Use Metric Units", isOn: $preferences.storedPreferences[0].usingMetric)
-//            .onChange(of: preferences.storedPreferences[0].usingMetric) { value in
-//                persistenceController.storeUserPreferences(
-//                    usingMetric: preferences.storedPreferences[0].usingMetric,
-//                    displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-//                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-//                    largeMetrics: preferences.storedPreferences[0].largeMetrics)
-//            }
         HStack {
             Text("Prefered Units")
             Spacer()
@@ -34,7 +26,7 @@ struct UnitsView: View {
                             displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                             colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                             largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                            sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
+                            sortChoice: preferences.storedPreferences[preferences.storedPreferences.count - 1].sortingChoiceConverted)
                     }
             }
             .frame(maxWidth: 150)
@@ -47,7 +39,7 @@ struct UnitsView: View {
                     displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                     colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                     largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
+                    sortChoice: preferences.storedPreferences[preferences.storedPreferences.count - 1].sortingChoiceConverted)
             }
         Toggle("Large Metrics View", isOn: $preferences.storedPreferences[0].largeMetrics)
             .onChange(of: preferences.storedPreferences[0].largeMetrics) { value in
@@ -56,7 +48,7 @@ struct UnitsView: View {
                     displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                     colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                     largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
+                    sortChoice: preferences.storedPreferences[preferences.storedPreferences.count - 1].sortingChoiceConverted)
             }
     }
 }
