@@ -50,16 +50,7 @@ struct BikeRidesListView: View {
                             }
                         }
                     }
-                    .onDelete { indexSet in
-                        for index in indexSet {
-                            managedObjectContext.delete(bikeRideViewModel.bikeRides[index])
-                        }
-                        do {
-                            try managedObjectContext.save()
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                    }
+                    .onDelete(perform: self.deleteBikeRide)
                 }
                 .listStyle(PlainListStyle())
                 .navigationBarTitle("Cycling History", displayMode: .automatic)
@@ -77,6 +68,14 @@ struct BikeRidesListView: View {
                         .cancel()
                     ])
                 })
+                .onChange(of: bikeRideViewModel.currentSortType, perform: { value in
+                    persistenceController.storeUserPreferences(
+                        unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+                        displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                        largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                        sortChoice: bikeRideViewModel.currentSortType)
+                })
             }
             else {
                 VStack {
@@ -88,6 +87,17 @@ struct BikeRidesListView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    func deleteBikeRide(at indexSet: IndexSet) {
+        for index in indexSet {
+            managedObjectContext.delete(bikeRideViewModel.bikeRides[index])
+        }
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 

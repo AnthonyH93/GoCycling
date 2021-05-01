@@ -28,7 +28,8 @@ struct ColourView: View {
                         unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                         displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                         colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                        largeMetrics: preferences.storedPreferences[0].largeMetrics)
+                        largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                        sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
                 }
         }
     }

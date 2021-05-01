@@ -13,10 +13,11 @@
         <attribute name="colourChoice" optional="YES" attributeType="String"/>
         <attribute name="displayingMetrics" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="largeMetrics" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="sortingChoice" optional="YES" attributeType="String"/>
         <attribute name="usingMetric" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
         <element name="BikeRide" positionX="-63" positionY="9" width="128" height="134"/>
-        <element name="UserPreferences" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="UserPreferences" positionX="-63" positionY="-18" width="128" height="104"/>
     </elements>
 </model>

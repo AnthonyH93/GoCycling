@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 extension BikeRide {
+    
     static func allBikeRides() -> [BikeRide] {
         let context = PersistenceController.shared.container.viewContext
         let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
@@ -21,4 +22,8 @@ extension BikeRide {
         }
         return [BikeRide]()
     }
+    
+//    static func allBikeRidesSorted() -> [BikeRide] {
+//        let bikeRidesUnsorted = allBikeRides()
+//    }
 }

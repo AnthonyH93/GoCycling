@@ -20,6 +20,7 @@ extension UserPreferences {
     @NSManaged public var displayingMetrics: Bool
     @NSManaged public var colourChoice: String
     @NSManaged public var largeMetrics: Bool
+    @NSManaged public var sortingChoice: String
         
     var colourChoiceConverted: ColourChoice {
         set {
@@ -27,6 +28,15 @@ extension UserPreferences {
         }
         get {
             ColourChoice(rawValue: colourChoice) ?? .blue
+        }
+    }
+    
+    var sortingChoiceConverted: SortChoice {
+        set {
+            sortingChoice = newValue.rawValue
+        }
+        get {
+            SortChoice(rawValue: sortingChoice) ?? .dateDescending
         }
     }
     

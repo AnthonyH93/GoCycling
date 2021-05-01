@@ -33,7 +33,8 @@ struct UnitsView: View {
                             unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                             displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                             colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                            largeMetrics: preferences.storedPreferences[0].largeMetrics)
+                            largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                            sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
                     }
             }
             .frame(maxWidth: 150)
@@ -45,7 +46,8 @@ struct UnitsView: View {
                     unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                     displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                     colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                    largeMetrics: preferences.storedPreferences[0].largeMetrics)
+                    largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
             }
         Toggle("Large Metrics View", isOn: $preferences.storedPreferences[0].largeMetrics)
             .onChange(of: preferences.storedPreferences[0].largeMetrics) { value in
@@ -53,7 +55,8 @@ struct UnitsView: View {
                     unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                     displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                     colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                    largeMetrics: preferences.storedPreferences[0].largeMetrics)
+                    largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
             }
     }
 }

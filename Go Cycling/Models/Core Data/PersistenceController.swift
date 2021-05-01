@@ -42,7 +42,7 @@ struct PersistenceController {
         }
     }
     
-    func storeUserPreferences(unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool) {
+    func storeUserPreferences(unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice) {
         let context = container.viewContext
         
         let newPreferences = UserPreferences(context: context)
@@ -50,6 +50,7 @@ struct PersistenceController {
         newPreferences.displayingMetrics = displayingMetrics
         newPreferences.colourChoice = colourChoice.rawValue
         newPreferences.largeMetrics = largeMetrics
+        newPreferences.sortingChoice = sortChoice.rawValue
         
         do {
             try context.save()

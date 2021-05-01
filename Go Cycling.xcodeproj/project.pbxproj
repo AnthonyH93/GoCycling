@@ -25,6 +25,7 @@
 		9D6E5392262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5390262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift */; };
 		9D6E5397262D090C008FD7C1 /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */; };
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
+		9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169BB263E0C5200DED7F8 /* SortChoice.swift */; };
 		9D9776E52633B0E70048B504 /* BikeRidesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E42633B0E70048B504 /* BikeRidesListView.swift */; };
 		9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E92633B4050048B504 /* SingleBikeRideView.swift */; };
 		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
@@ -83,6 +84,7 @@
 		9D6E5390262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		9D8169BB263E0C5200DED7F8 /* SortChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortChoice.swift; sourceTree = "<group>"; };
 		9D9776E42633B0E70048B504 /* BikeRidesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRidesListView.swift; sourceTree = "<group>"; };
 		9D9776E92633B4050048B504 /* SingleBikeRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBikeRideView.swift; sourceTree = "<group>"; };
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +214,7 @@
 				9D6E5373262CE773008FD7C1 /* ColourChoice.swift */,
 				9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */,
 				9DCD21EC263638F200506FA5 /* UnitsChoice.swift */,
+				9D8169BB263E0C5200DED7F8 /* SortChoice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				9D6E5392262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift in Sources */,
 				9D76355A262009230026D948 /* MapView.swift in Sources */,
 				9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */,
+				9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */,
 				9D62F4EF2636064100E28991 /* LargeSingleMetricView.swift in Sources */,
 				9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */,
 				9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */,

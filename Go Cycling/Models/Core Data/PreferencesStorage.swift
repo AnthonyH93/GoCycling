@@ -30,6 +30,7 @@ class PreferencesStorage: NSObject, ObservableObject {
             defaultPreferences.displayingMetrics = true
             defaultPreferences.largeMetrics = false
             defaultPreferences.colourChoice = ColourChoice.blue.rawValue
+            defaultPreferences.sortingChoice = SortChoice.dateDescending.rawValue
             
             storedPreferences = preferencesController.fetchedObjects ?? [defaultPreferences]
         } catch {
