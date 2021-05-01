@@ -24,15 +24,19 @@ class PreferencesStorage: NSObject, ObservableObject {
         do {
             try preferencesController.performFetch()
             
-            // Default values for the user preferences
-            let defaultPreferences = UserPreferences(context: managedObjectContext)
-            defaultPreferences.usingMetric = true
-            defaultPreferences.displayingMetrics = true
-            defaultPreferences.largeMetrics = false
-            defaultPreferences.colourChoice = ColourChoice.blue.rawValue
-            defaultPreferences.sortingChoice = SortChoice.dateDescending.rawValue
-            
-            storedPreferences = preferencesController.fetchedObjects ?? [defaultPreferences]
+            if (preferencesController.fetchedObjects?.count ?? 0 < 1) {
+                // Default values for the user preferences
+                let defaultPreferences = UserPreferences(context: managedObjectContext)
+                defaultPreferences.usingMetric = true
+                defaultPreferences.displayingMetrics = true
+                defaultPreferences.largeMetrics = false
+                defaultPreferences.colourChoice = ColourChoice.blue.rawValue
+                defaultPreferences.sortingChoice = SortChoice.dateDescending.rawValue
+                storedPreferences = [defaultPreferences]
+            }
+            else {
+                storedPreferences = preferencesController.fetchedObjects!
+            }
         } catch {
             print("Failed to fetch items!")
         }
@@ -40,10 +44,10 @@ class PreferencesStorage: NSObject, ObservableObject {
 }
 
 extension PreferencesStorage: NSFetchedResultsControllerDelegate {
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        guard let savedPreferences = controller.fetchedObjects as? [UserPreferences]
-//        else { return }
-//
-//        storedPreferences = savedPreferences
-//    }
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        guard let savedPreferences = controller.fetchedObjects as? [UserPreferences]
+        else { return }
+
+        storedPreferences = savedPreferences
+    }
 }

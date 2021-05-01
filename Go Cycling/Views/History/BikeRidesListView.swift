@@ -58,7 +58,7 @@ struct BikeRidesListView: View {
                     self.showingActionSheet = true
                 }))
                 .actionSheet(isPresented: $showingActionSheet, content: {
-                    ActionSheet(title: Text("Sort"), message: Text("Select type of sort"), buttons:[
+                    ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
                         .default(Text("Date Ascending (Default)"), action: bikeRideViewModel.sortByDateAscending),
                         .default(Text("Date Descending"), action: bikeRideViewModel.sortByDateDescending),
                         .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
