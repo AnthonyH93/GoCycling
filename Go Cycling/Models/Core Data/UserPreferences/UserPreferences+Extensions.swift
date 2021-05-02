@@ -14,7 +14,7 @@ extension UserPreferences {
         let fetchRequest: NSFetchRequest<UserPreferences> = UserPreferences.fetchRequest()
         do {
             let items = try context.fetch(fetchRequest)
-            return items[0].sortingChoiceConverted
+            return items[items.count - 1].sortingChoiceConverted
         }
         catch let error as NSError {
             print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
