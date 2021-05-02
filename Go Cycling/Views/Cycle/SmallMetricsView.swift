@@ -27,6 +27,7 @@ struct SmallMetricsView: View {
                         .opacity(0.4)
                         .frame(width: 180, height: 90)
                         .padding(.all, 10)
+                        .cornerRadius(10)
                     Text(self.formatMetricsString(currentSpeed: currentSpeed ?? 0.0, currentAltitude: currentAltitude ?? 0.0, currentDistance: currentDistance))
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                         .multilineTextAlignment(.center)

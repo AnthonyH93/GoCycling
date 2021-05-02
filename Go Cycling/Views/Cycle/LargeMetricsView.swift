@@ -30,6 +30,7 @@ struct LargeMetricsView: View {
                                 .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                                 .opacity(0.4)
                                 .frame(width: screenWidth/3, height: 90)
+                                .cornerRadius(10)
                             HStack {
                                 Spacer()
                                 LargeSingleMetricView(metricName: "Distance",
@@ -44,6 +45,7 @@ struct LargeMetricsView: View {
                                 .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                                 .opacity(0.4)
                                 .frame(width: screenWidth/3, height: 90)
+                                .cornerRadius(10)
                             HStack {
                                 Spacer()
                                 LargeSingleMetricView( metricName: "Speed",
@@ -58,6 +60,7 @@ struct LargeMetricsView: View {
                                 .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                                 .opacity(0.4)
                                 .frame(width: screenWidth/3, height: 90)
+                                .cornerRadius(10)
                             HStack {
                                 Spacer()
                                 LargeSingleMetricView(metricName: "Altitude",
