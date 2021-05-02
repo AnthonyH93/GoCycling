@@ -54,27 +54,27 @@ struct BikeRidesListView: View {
                 }
                 .listStyle(PlainListStyle())
                 .navigationBarTitle("Cycling History", displayMode: .automatic)
-                .navigationBarItems(trailing: Button("Sort", action: {
+                .navigationBarItems(trailing: Button(bikeRideViewModel.getActionSheetTitle(), action: {
                     self.showingActionSheet = true
                 }))
                 .actionSheet(isPresented: $showingActionSheet, content: {
                     ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
-                        .default(Text("Date Ascending (Default)"), action: bikeRideViewModel.sortByDateAscending),
-                        .default(Text("Date Descending"), action: bikeRideViewModel.sortByDateDescending),
-                        .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
+                        .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
+                        .default(Text("Date Ascending"), action: bikeRideViewModel.sortByDateAscending),
                         .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistanceDescending),
-                        .default(Text("Time Ascending"), action: bikeRideViewModel.sortByTimeAscending),
+                        .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
                         .default(Text("Time Descending"), action: bikeRideViewModel.sortByTimeDescending),
+                        .default(Text("Time Ascending"), action: bikeRideViewModel.sortByTimeAscending),
                         .cancel()
                     ])
                 })
-                .onChange(of: bikeRideViewModel.currentSortType, perform: { value in
+                .onChange(of: bikeRideViewModel.currentSortChoice, perform: { value in
                     persistenceController.storeUserPreferences(
                         unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                         displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                         colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                         largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                        sortChoice: bikeRideViewModel.currentSortType)
+                        sortChoice: bikeRideViewModel.currentSortChoice)
                 })
             }
             else {

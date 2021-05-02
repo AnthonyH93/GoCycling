@@ -11,36 +11,55 @@ import SwiftUI
 class BikeRideListViewModel: ObservableObject {
 
     @Published var bikeRides: [BikeRide] = BikeRide.allBikeRidesSorted()
-    @Published var currentSortType: SortChoice = UserPreferences.storedSortingChoice()
+    @Published var currentSortChoice: SortChoice = UserPreferences.storedSortingChoice()
     
     // This is the default ordering
     func sortByDateDescending() {
         bikeRides = BikeRide.sortByDate(list: bikeRides, ascending: false)
-        currentSortType = .dateDescending
+        currentSortChoice = .dateDescending
     }
     
     func sortByDateAscending() {
         bikeRides = BikeRide.sortByDate(list: bikeRides, ascending: true)
-        currentSortType = .dateAscending
+        currentSortChoice = .dateAscending
     }
     
     func sortByDistanceDescending() {
         bikeRides = BikeRide.sortByDistance(list: bikeRides, ascending: false)
-        currentSortType = .distanceDescending
+        currentSortChoice = .distanceDescending
     }
     
     func sortByDistanceAscending() {
         bikeRides = BikeRide.sortByDistance(list: bikeRides, ascending: true)
-        currentSortType = .distanceAscending
+        currentSortChoice = .distanceAscending
     }
     
     func sortByTimeDescending() {
         bikeRides = BikeRide.sortByTime(list: bikeRides, ascending: false)
-        currentSortType = .timeDescending
+        currentSortChoice = .timeDescending
     }
     
     func sortByTimeAscending() {
         bikeRides = BikeRide.sortByTime(list: bikeRides, ascending: true)
-        currentSortType = .timeAscending
+        currentSortChoice = .timeAscending
+    }
+    
+    func getActionSheetTitle() -> String {
+        var title = ""
+        switch currentSortChoice {
+        case .distanceAscending:
+            title = "Distance ↑"
+        case .distanceDescending:
+            title = "Distance ↓"
+        case .dateAscending:
+            title = "Date ↑"
+        case .dateDescending:
+            title = "Date ↓"
+        case .timeAscending:
+            title = "Time ↑"
+        case .timeDescending:
+            title = "Time ↓"
+        }
+        return title
     }
 }
