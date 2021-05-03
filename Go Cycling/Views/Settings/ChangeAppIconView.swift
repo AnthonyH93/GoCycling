@@ -17,16 +17,18 @@ struct ChangeAppIconView: View {
     
     var body: some View {
         Picker("App Icon", selection: $iconNames.currentIndex) {
-            ForEach(0..<iconNames.iconNames.count) {
-                Text(self.iconNames.iconNames[$0] ?? "Default")
-            }
+            // Need to manually set these icon names instead of programmatically due to swiftUI bug with navigation titles
+            Text("Default").tag(0)
+            Text("Dark").tag(1)
+            Text("Light").tag(2)
+            .navigationBarTitle("Choose your App Icon", displayMode: .inline)
         }
         .onReceive([self.iconNames.currentIndex].publisher.first()) { (value) in
 
             let index = self.iconNames.iconNames.firstIndex(of: UIApplication.shared.alternateIconName) ?? 0
 
-            if index != value{
-                UIApplication.shared.setAlternateIconName(self.iconNames.iconNames[value]){ error in
+            if index != value {
+                UIApplication.shared.setAlternateIconName(self.iconNames.iconNames[value]) { error in
                     if let error = error {
                         print(error.localizedDescription)
                     } else {
@@ -35,7 +37,6 @@ struct ChangeAppIconView: View {
                 }
             }
         }
-        .navigationBarTitle("Choose your App Icon", displayMode: .inline)
     }
 }
 

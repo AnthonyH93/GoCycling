@@ -25,7 +25,7 @@ struct SettingsView: View {
                     AboutApp()
                 }
             }
-            .navigationBarTitle(Text("Settings"), displayMode: .inline)
+            .navigationBarTitle(Text("Settings"))
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
