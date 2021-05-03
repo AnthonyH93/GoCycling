@@ -22,6 +22,7 @@ struct MapView: UIViewRepresentable {
     @Binding var timeCycling: TimeInterval
     
     @Environment(\.managedObjectContext) private var managedObjectContext
+    @EnvironmentObject var preferences: PreferencesStorage
     
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -32,21 +33,23 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapView.Coordinator {
-        Coordinator(self)
+        Coordinator(self, colour: UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted))
     }
 
     final class Coordinator: NSObject, MKMapViewDelegate {
         var control: MapView
+        var colour: UIColor
 
-        init(_ control: MapView) {
+        init(_ control: MapView, colour: UIColor) {
             self.control = control
+            self.colour = colour
         }
 
         //Managing the Display of Overlays
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let polyline = overlay as? MKPolyline {
                 let polylineRenderer = MKPolylineRenderer(overlay: polyline)
-                polylineRenderer.strokeColor = UIColor.systemBlue
+                polylineRenderer.strokeColor = colour
                 polylineRenderer.lineWidth = 8
                 return polylineRenderer
             }
@@ -91,6 +94,13 @@ struct MapView: UIViewRepresentable {
                     if (locationsToRoute.count > 1 && locationsToRoute.count <= locationManager.cyclingLocations.count) {
                         let route = MKPolyline(coordinates: locationsToRoute, count: locationsCount)
                         view.addOverlay(route)
+                        
+                        // Update stroke colour if user changes colour preference after renderer was created
+                        if let renderer = view.renderer(for: route) as? MKPolylineRenderer {
+                            if (renderer.strokeColor != UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)) {
+                                renderer.strokeColor =  UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)
+                            }
+                        }
                     }
                 }
             }
