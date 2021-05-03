@@ -10,6 +10,7 @@ import CoreData
 
 struct MainView: View {
     @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var cyclingStatus: CyclingStatus
     
     var body: some View {
         TabView {
@@ -26,6 +27,7 @@ struct MainView: View {
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
+                .disabled(cyclingStatus.isCycling)
         }
         .accentColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
     }

@@ -9,12 +9,14 @@ import SwiftUI
 
 struct CycleView: View {
     
-    @ObservedObject var timer = TimerViewModel()
+    @StateObject var timer = TimerViewModel()
     @State private var showingAlert = false
     @State private var isCycling = false
     @State private var cyclingSpeed = 0.0
     @State private var cyclingStartTime = Date()
     @State private var timeCycling = 0.0
+    
+    @EnvironmentObject var cyclingStatus: CyclingStatus
     
     var body: some View {
         VStack {
@@ -58,6 +60,7 @@ struct CycleView: View {
                     self.timeCycling = timer.totalAccumulatedTime
                     self.timer.stop()
                     self.isCycling = false
+                    cyclingStatus.stoppedCycling()
                   },
                   secondaryButton: .cancel()
             )
@@ -76,6 +79,7 @@ struct CycleView: View {
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0
         self.timer.start()
+        cyclingStatus.startedCycling()
     }
     
     func confirmStop() {

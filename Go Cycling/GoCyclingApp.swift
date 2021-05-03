@@ -15,6 +15,7 @@ struct GoCyclingApp: App {
     
     @StateObject var preferences: PreferencesStorage
     @StateObject var bikeRides: BikeRideStorage
+    @StateObject var cyclingStatus = CyclingStatus()
     
     init() {
         let managedObjectContext = persistenceController.container.viewContext
@@ -30,6 +31,7 @@ struct GoCyclingApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(preferences)
                 .environmentObject(bikeRides)
+                .environmentObject(cyclingStatus)
         }
         .onChange(of: scenePhase) { _ in
             persistenceController.save()
