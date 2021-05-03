@@ -16,23 +16,26 @@ struct ChangeAppIconView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        Picker("App Icon", selection: $iconNames.currentIndex) {
-            // Need to manually set these icon names instead of programmatically due to swiftUI bug with navigation titles
-            Text("Default").tag(0)
-            Text("Dark").tag(1)
-            Text("Light").tag(2)
-            .navigationBarTitle("Choose your App Icon", displayMode: .inline)
-        }
-        .onReceive([self.iconNames.currentIndex].publisher.first()) { (value) in
+        if (self.iconNames.iconNames.count > 2) {
+            Picker("App Icon", selection: $iconNames.currentIndex) {
+                // Need to manually set these icon names instead of programmatically due to SwiftUI bug with navigation titles
+                Text(self.iconNames.iconNames[0] ?? "Default").tag(0)
+                Text(self.iconNames.iconNames[1] ?? "Default").tag(1)
+                Text(self.iconNames.iconNames[2] ?? "Default").tag(2)
+                    .navigationBarTitle("Choose your App Icon", displayMode: .inline)
 
-            let index = self.iconNames.iconNames.firstIndex(of: UIApplication.shared.alternateIconName) ?? 0
+            }
+            .onReceive([self.iconNames.currentIndex].publisher.first()) { (value) in
 
-            if index != value {
-                UIApplication.shared.setAlternateIconName(self.iconNames.iconNames[value]) { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Changed app icon successfully.")
+                let index = self.iconNames.iconNames.firstIndex(of: UIApplication.shared.alternateIconName) ?? 0
+
+                if index != value {
+                    UIApplication.shared.setAlternateIconName(self.iconNames.iconNames[value]) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else {
+                            print("Changed app icon successfully.")
+                        }
                     }
                 }
             }
