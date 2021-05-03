@@ -27,6 +27,14 @@
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
 		9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169BB263E0C5200DED7F8 /* SortChoice.swift */; };
 		9D8169CF263E182700DED7F8 /* UserPreferences+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169CE263E182700DED7F8 /* UserPreferences+Extensions.swift */; };
+		9D8169DC263F815600DED7F8 /* ChangeAppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169DB263F815600DED7F8 /* ChangeAppIconView.swift */; };
+		9D8169ED263FA47A00DED7F8 /* Dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8169EB263FA47A00DED7F8 /* Dark@2x.png */; };
+		9D8169EE263FA47A00DED7F8 /* Dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8169EC263FA47A00DED7F8 /* Dark@3x.png */; };
+		9D8169F4263FA48500DED7F8 /* Light@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8169F2263FA48500DED7F8 /* Light@3x.png */; };
+		9D8169F5263FA48500DED7F8 /* Light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8169F3263FA48500DED7F8 /* Light@2x.png */; };
+		9D8169FA263FA4CE00DED7F8 /* IconNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169F9263FA4CE00DED7F8 /* IconNames.swift */; };
+		9D816A09263FAE2900DED7F8 /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A07263FAE2900DED7F8 /* Default@3x.png */; };
+		9D816A0A263FAE2900DED7F8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A08263FAE2900DED7F8 /* Default@2x.png */; };
 		9D9776E52633B0E70048B504 /* BikeRidesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E42633B0E70048B504 /* BikeRidesListView.swift */; };
 		9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E92633B4050048B504 /* SingleBikeRideView.swift */; };
 		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
@@ -87,6 +95,14 @@
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		9D8169BB263E0C5200DED7F8 /* SortChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortChoice.swift; sourceTree = "<group>"; };
 		9D8169CE263E182700DED7F8 /* UserPreferences+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+Extensions.swift"; sourceTree = "<group>"; };
+		9D8169DB263F815600DED7F8 /* ChangeAppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAppIconView.swift; sourceTree = "<group>"; };
+		9D8169EB263FA47A00DED7F8 /* Dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark@2x.png"; sourceTree = "<group>"; };
+		9D8169EC263FA47A00DED7F8 /* Dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark@3x.png"; sourceTree = "<group>"; };
+		9D8169F2263FA48500DED7F8 /* Light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Light@3x.png"; sourceTree = "<group>"; };
+		9D8169F3263FA48500DED7F8 /* Light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Light@2x.png"; sourceTree = "<group>"; };
+		9D8169F9263FA4CE00DED7F8 /* IconNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconNames.swift; sourceTree = "<group>"; };
+		9D816A07263FAE2900DED7F8 /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@3x.png"; path = "../../../../AppIcons/GoCycling/Default_AppIcons/Assets.xcassets/AppIcon.appiconset/Default@3x.png"; sourceTree = "<group>"; };
+		9D816A08263FAE2900DED7F8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../../../AppIcons/GoCycling/Default_AppIcons/Assets.xcassets/AppIcon.appiconset/Default@2x.png"; sourceTree = "<group>"; };
 		9D9776E42633B0E70048B504 /* BikeRidesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRidesListView.swift; sourceTree = "<group>"; };
 		9D9776E92633B4050048B504 /* SingleBikeRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBikeRideView.swift; sourceTree = "<group>"; };
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +199,7 @@
 				9D6E5356262BB299008FD7C1 /* ColourView.swift */,
 				9D6E5366262CE32F008FD7C1 /* UnitsView.swift */,
 				9DEAD6B5262D423E00392D88 /* AboutApp.swift */,
+				9D8169DB263F815600DED7F8 /* ChangeAppIconView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -218,8 +235,31 @@
 				9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */,
 				9DCD21EC263638F200506FA5 /* UnitsChoice.swift */,
 				9D8169BB263E0C5200DED7F8 /* SortChoice.swift */,
+				9D8169F9263FA4CE00DED7F8 /* IconNames.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9D8169E2263F84C900DED7F8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9D8169E3263F84D400DED7F8 /* Alternate App Icons */,
+				9DAB831B25FECAD400F5C42E /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9D8169E3263F84D400DED7F8 /* Alternate App Icons */ = {
+			isa = PBXGroup;
+			children = (
+				9D816A08263FAE2900DED7F8 /* Default@2x.png */,
+				9D816A07263FAE2900DED7F8 /* Default@3x.png */,
+				9D8169EB263FA47A00DED7F8 /* Dark@2x.png */,
+				9D8169EC263FA47A00DED7F8 /* Dark@3x.png */,
+				9D8169F3263FA48500DED7F8 /* Light@2x.png */,
+				9D8169F2263FA48500DED7F8 /* Light@3x.png */,
+			);
+			path = "Alternate App Icons";
 			sourceTree = "<group>";
 		};
 		9DAB830B25FECAD300F5C42E = {
@@ -245,11 +285,11 @@
 		9DAB831625FECAD300F5C42E /* Go Cycling */ = {
 			isa = PBXGroup;
 			children = (
+				9D8169E2263F84C900DED7F8 /* Resources */,
 				9D76355E262298490026D948 /* Models */,
 				9DAB837A25FEDEC000F5C42E /* View Models */,
 				9DAB836525FED02A00F5C42E /* Views */,
 				9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */,
-				9DAB831B25FECAD400F5C42E /* Assets.xcassets */,
 				9DAB832025FECAD400F5C42E /* Info.plist */,
 				9DAB831D25FECAD400F5C42E /* Preview Content */,
 			);
@@ -415,8 +455,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D816A0A263FAE2900DED7F8 /* Default@2x.png in Resources */,
+				9D8169F5263FA48500DED7F8 /* Light@2x.png in Resources */,
+				9D8169EE263FA47A00DED7F8 /* Dark@3x.png in Resources */,
+				9D8169F4263FA48500DED7F8 /* Light@3x.png in Resources */,
+				9D8169ED263FA47A00DED7F8 /* Dark@2x.png in Resources */,
 				9DAB831F25FECAD400F5C42E /* Preview Assets.xcassets in Resources */,
 				9DAB831C25FECAD400F5C42E /* Assets.xcassets in Resources */,
+				9D816A09263FAE2900DED7F8 /* Default@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +492,7 @@
 				9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */,
 				9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */,
 				9D62F4EF2636064100E28991 /* LargeSingleMetricView.swift in Sources */,
+				9D8169FA263FA4CE00DED7F8 /* IconNames.swift in Sources */,
 				9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */,
 				9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */,
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
@@ -459,6 +506,7 @@
 				9DEAD6BE262FBFF900392D88 /* MapSystemImageButton.swift in Sources */,
 				9D6E5397262D090C008FD7C1 /* PreferencesStorage.swift in Sources */,
 				9D6E5357262BB299008FD7C1 /* ColourView.swift in Sources */,
+				9D8169DC263F815600DED7F8 /* ChangeAppIconView.swift in Sources */,
 				9DEAD6B6262D423E00392D88 /* AboutApp.swift in Sources */,
 				9D62F4E52635FD6600E28991 /* SmallMetricsView.swift in Sources */,
 				9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */,

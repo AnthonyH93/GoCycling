@@ -15,6 +15,7 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("Customization")) {
                     ColourView()
+                    ChangeAppIconView().environmentObject(IconNames())
                 }
                 .navigationBarTitle("Settings", displayMode: .inline)
                 Section(header: Text("Cycling Metrics")) {
@@ -24,7 +25,7 @@ struct SettingsView: View {
                     AboutApp()
                 }
             }
-            .navigationBarTitle(Text("Settings"))
+            .navigationBarTitle(Text("Settings"), displayMode: .inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
