@@ -14,9 +14,10 @@ struct MapView: UIViewRepresentable {
     
     let persistenceController = PersistenceController.shared
 
+    @EnvironmentObject var cyclingStatus: CyclingStatus
+    
     @StateObject var locationManager = LocationViewModel.locationManager
     
-    @Binding var isCycling: Bool
     @Binding var centerMapOnLocation: Bool
     @Binding var cyclingStartTime: Date
     @Binding var timeCycling: TimeInterval
@@ -75,7 +76,7 @@ struct MapView: UIViewRepresentable {
             }
             
             // Need to maintain the cyclists route if they are currently cycling
-            if isCycling {
+            if cyclingStatus.isCycling {
                 if (!startedCycling) {
                     startedCycling = true
                     locationManager.startedCycling()
@@ -129,6 +130,6 @@ var startedCycling = false
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(isCycling: .constant(false), centerMapOnLocation: .constant(true), cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
+        MapView(centerMapOnLocation: .constant(true), cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
     }
 }

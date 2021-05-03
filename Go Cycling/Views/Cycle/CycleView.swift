@@ -9,18 +9,17 @@ import SwiftUI
 
 struct CycleView: View {
     
+    @EnvironmentObject var cyclingStatus: CyclingStatus
+    
     @StateObject var timer = TimerViewModel()
     @State private var showingAlert = false
-    @State private var isCycling = false
     @State private var cyclingSpeed = 0.0
     @State private var cyclingStartTime = Date()
     @State private var timeCycling = 0.0
     
-    @EnvironmentObject var cyclingStatus: CyclingStatus
-    
     var body: some View {
         VStack {
-            MapWithSpeedView(isCycling: $isCycling, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
+            MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                 .font(.custom("Avenir", size: 40))
             HStack {
@@ -59,7 +58,6 @@ struct CycleView: View {
                   primaryButton: .destructive(Text("Stop")) {
                     self.timeCycling = timer.totalAccumulatedTime
                     self.timer.stop()
-                    self.isCycling = false
                     cyclingStatus.stoppedCycling()
                   },
                   secondaryButton: .cancel()
@@ -75,11 +73,10 @@ struct CycleView: View {
     }
     
     func startCycling() {
-        self.isCycling = true
+        cyclingStatus.startedCycling()
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0
         self.timer.start()
-        cyclingStatus.startedCycling()
     }
     
     func confirmStop() {

@@ -8,26 +8,41 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var favoriteColor = 0
+    
+    @EnvironmentObject var cyclingStatus: CyclingStatus
 
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Customization")) {
-                    ColourView()
-                    ChangeAppIconView().environmentObject(IconNames())
+            VStack {
+                if (cyclingStatus.isCycling) {
+                    Text("Certain sections are disabled while cycling is in progress. Please end the current cycling session to enable editing of all settings.")
+                        .padding(.all, 10)
                 }
-                .navigationBarTitle("Settings", displayMode: .inline)
-                Section(header: Text("Cycling Metrics")) {
-                    UnitsView()
+                Form {
+                    Section(header: Text("Customization")) {
+                        ColourView()
+                        ChangeAppIconView().environmentObject(IconNames())
+                    }
+                    .disabled(cyclingStatus.isCycling)
+                    .navigationBarTitle("Settings", displayMode: .inline)
+                    Section(header: Text("Cycling Metrics")) {
+                        UnitsView()
+                    }
+                    .disabled(cyclingStatus.isCycling)
+                    Section(header: Text("About the app")) {
+                        AboutApp()
+                    }
                 }
-                Section(header: Text("About the app")) {
-                    AboutApp()
-                }
+                .navigationBarTitle(Text("Settings"))
             }
-            .navigationBarTitle(Text("Settings"))
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+struct DisabledTextView: View {
+    var body: some View {
+        Text("This section is disabled while a cycling session is in progress. End the current cycling session to edit these settings.")
     }
 }
 

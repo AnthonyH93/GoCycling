@@ -9,10 +9,12 @@ import SwiftUI
 import CoreLocation
 
 struct SmallMetricsView: View {
+    
+    @EnvironmentObject var cyclingStatus: CyclingStatus
+    
     @Binding var currentSpeed: CLLocationSpeed?
     @Binding var currentAltitude: CLLocationDistance?
     @Binding var currentDistance: CLLocationDistance
-    @Binding var isCycling: Bool
     
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var preferences: PreferencesStorage
@@ -54,7 +56,7 @@ struct SmallMetricsView: View {
         let distanceUnits = preferences.storedPreferences[0].usingMetric ? "km" : "mi"
         var distanceString = preferences.storedPreferences[0].usingMetric ? distanceKilometres : distanceMiles
         
-        if (!isCycling) {
+        if (!cyclingStatus.isCycling) {
             distanceString = 0.0
         }
         

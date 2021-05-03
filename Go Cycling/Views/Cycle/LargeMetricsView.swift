@@ -9,10 +9,12 @@ import SwiftUI
 import CoreLocation
 
 struct LargeMetricsView: View {
+    
+    @EnvironmentObject var cyclingStatus: CyclingStatus
+    
     @Binding var currentSpeed: CLLocationSpeed?
     @Binding var currentAltitude: CLLocationDistance?
     @Binding var currentDistance: CLLocationDistance
-    @Binding var isCycling: Bool
     
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var preferences: PreferencesStorage
@@ -75,7 +77,7 @@ struct LargeMetricsView: View {
     }
     
     func setCurrentDistance() -> CLLocationDistance {
-        if (isCycling) {
+        if (cyclingStatus.isCycling) {
             return currentDistance
         }
         return 0.0

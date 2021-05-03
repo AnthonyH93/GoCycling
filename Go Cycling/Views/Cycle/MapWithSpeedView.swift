@@ -10,7 +10,8 @@ import CoreLocation
 
 struct MapWithSpeedView: View {
     
-    @Binding var isCycling: Bool
+    @EnvironmentObject var cyclingStatus: CyclingStatus
+    
     @Binding var cyclingStartTime: Date
     @Binding var timeCycling: TimeInterval
     
@@ -22,13 +23,13 @@ struct MapWithSpeedView: View {
     
     var body: some View {
         ZStack {
-            MapView(isCycling: $isCycling, centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
+            MapView(centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             VStack {
                 if (preferences.storedPreferences[0].largeMetrics) {
-                    LargeMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, isCycling: $isCycling)
+                    LargeMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance)
                 }
                 else {
-                    SmallMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, isCycling: $isCycling)
+                    SmallMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance)
                 }
                 Spacer()
                 HStack {
@@ -61,6 +62,6 @@ struct MapWithSpeedView: View {
 
 struct MapWithSpeedView_Previews: PreviewProvider {
     static var previews: some View {
-        MapWithSpeedView(isCycling: .constant(false), cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
+        MapWithSpeedView(cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
     }
 }
