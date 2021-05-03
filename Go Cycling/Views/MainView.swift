@@ -20,7 +20,7 @@ struct MainView: View {
             
             HistoryView()
                 .tabItem {
-                    Label("History", systemImage: "arrow.clockwise.heart")
+                    Label("History", systemImage: "clock.arrow.circlepath")
                 }
             SettingsView()
                 .tabItem {
