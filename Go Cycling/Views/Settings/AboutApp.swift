@@ -10,8 +10,8 @@ import SwiftUI
 struct AboutApp: View {
     let appVersionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     // Temporary place holder URLs
-    let privacyPolicyURL = NSURL(string: "https://anthony55hopkins.wixsite.com/hexacalc/privacy-policy")! as URL
-    let termsAndConditionsURL = NSURL(string: "https://anthony55hopkins.wixsite.com/hexacalc/terms-conditions")! as URL
+    let privacyPolicyURL = NSURL(string: "https://anthony55hopkins.wixsite.com/gocycling/privacy-policy")! as URL
+    let termsAndConditionsURL = NSURL(string: "https://anthony55hopkins.wixsite.com/gocycling/terms-and-conditions")! as URL
     var body: some View {
         HStack {
             Text("App Version")

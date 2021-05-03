@@ -40,13 +40,6 @@ struct SettingsView: View {
     }
 }
 
-struct DisabledTextView: View {
-    var body: some View {
-        Text("This section is disabled while a cycling session is in progress. End the current cycling session to edit these settings.")
-    }
-}
-
-
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
