@@ -59,6 +59,7 @@ struct PersistenceController {
         }
     }
     
+    // We only need 1 stored UserPreferences object, so update that single object instead of creating new ones
     func updateUserPreferences(existingPreferences: UserPreferences, unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice) {
         let context = container.viewContext
         

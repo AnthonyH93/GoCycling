@@ -25,7 +25,13 @@ struct ResetView: View {
     }
     
     func resetToDefaultSettings() {
-        print("reset")
+        persistenceController.updateUserPreferences(
+            existingPreferences: preferences.storedPreferences[0],
+            unitsChoice: UnitsChoice.metric,
+            displayingMetrics: true,
+            colourChoice: ColourChoice.blue,
+            largeMetrics: false,
+            sortChoice: SortChoice.dateDescending)
     }
     
     func deleteAllBikeRides() {
