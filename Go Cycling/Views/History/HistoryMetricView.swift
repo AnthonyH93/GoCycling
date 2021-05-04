@@ -16,10 +16,14 @@ struct HistoryMetricView: View {
         VStack(alignment: .center, spacing: 10) {
             HStack (spacing: 10) {
                 Text(metricName)
+                    .minimumScaleFactor(0.3)
+                    .lineLimit(1)
                 Image(systemName: systemImageString)
             }
             Text(metricText)
                 .font(.title)
+                .minimumScaleFactor(0.3)
+                .lineLimit(1)
         }
     }
 }

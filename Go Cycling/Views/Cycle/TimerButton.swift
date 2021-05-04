@@ -14,6 +14,8 @@ struct TimerButton: View {
     let label: String
     let buttonColour: UIColor
     
+    let screenWidth = UIScreen.main.bounds.size.width
+    
     var body: some View {
         Text(label)
             .foregroundColor(colorScheme == .dark ? .white : .black)

@@ -27,26 +27,36 @@ struct CycleView: View {
                     Button (action: {self.timer.pause()}) {
                         TimerButton(label: "Pause", buttonColour: UIColor.systemYellow)
                             .padding(.bottom, 20)
+                            .minimumScaleFactor(0.3)
+                            .lineLimit(1)
                     }
                     Button (action: {self.confirmStop()}) {
                         TimerButton(label: "Stop", buttonColour: UIColor.systemRed)
                             .padding(.bottom, 20)
+                            .minimumScaleFactor(0.3)
+                            .lineLimit(1)
                     }
                 }
                 if (timer.isStopped) {
                     Button (action: {self.startCycling()}) {
                         TimerButton(label: "Start", buttonColour: UIColor.systemGreen)
                             .padding(.bottom, 20)
+                            .minimumScaleFactor(0.3)
+                            .lineLimit(1)
                     }
                 }
                 if (timer.isPaused) {
                     Button (action: {self.timer.start()}) {
                         TimerButton(label: "Resume", buttonColour: UIColor.systemGreen)
                             .padding(.bottom, 20)
+                            .minimumScaleFactor(0.3)
+                            .lineLimit(1)
                     }
                     Button (action: {self.confirmStop()}) {
                         TimerButton(label: "Stop", buttonColour: UIColor.systemRed)
                             .padding(.bottom, 20)
+                            .minimumScaleFactor(0.3)
+                            .lineLimit(1)
                     }
                 }
             }

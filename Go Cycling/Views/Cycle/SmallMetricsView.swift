@@ -33,6 +33,9 @@ struct SmallMetricsView: View {
                     Text(self.formatMetricsString(currentSpeed: currentSpeed ?? 0.0, currentAltitude: currentAltitude ?? 0.0, currentDistance: currentDistance))
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                         .multilineTextAlignment(.center)
+                        .scaledToFill()
+                        .minimumScaleFactor(0.01)
+                        .lineLimit(4)
                 }
             }
         }
