@@ -61,7 +61,6 @@ struct CycleView: View {
                 }
             }
         }
-        
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("Are you sure that you want to end the current bike ride?"),
                   message: Text("Please confirm that you are ready to end the current bike ride."),
