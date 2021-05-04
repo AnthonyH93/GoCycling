@@ -30,7 +30,7 @@ extension BikeRide {
         do {
             let preferences = try context.fetch(fetchRequest)
             var bikeRides: [BikeRide] = []
-            switch preferences[preferences.count - 1].sortingChoiceConverted {
+            switch preferences[0].sortingChoiceConverted {
             case .distanceAscending:
                 bikeRides = BikeRide.sortByDistance(list: bikeRidesUnsorted, ascending: true)
             case .distanceDescending:

@@ -24,12 +24,13 @@ struct ColourView: View {
             Text("Violet").tag(ColourChoice.violet)
                 .navigationBarTitle("Choose your Colour", displayMode: .inline)
                 .onChange(of: preferences.storedPreferences[0].colourChoiceConverted) { value in
-                    persistenceController.storeUserPreferences(
+                    persistenceController.updateUserPreferences(
+                        existingPreferences: preferences.storedPreferences[0],
                         unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                         displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                         colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                         largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                        sortChoice: preferences.storedPreferences[preferences.storedPreferences.count - 1].sortingChoiceConverted)
+                        sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
                 }
         }
     }

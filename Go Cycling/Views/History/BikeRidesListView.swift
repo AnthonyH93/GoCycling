@@ -72,7 +72,8 @@ struct BikeRidesListView: View {
                     ])
                 })
                 .onChange(of: bikeRideViewModel.currentSortChoice, perform: { value in
-                    persistenceController.storeUserPreferences(
+                    persistenceController.updateUserPreferences(
+                        existingPreferences: preferences.storedPreferences[0],
                         unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                         displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                         colourChoice: preferences.storedPreferences[0].colourChoiceConverted,

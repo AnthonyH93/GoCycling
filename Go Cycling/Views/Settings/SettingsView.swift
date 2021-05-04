@@ -30,8 +30,12 @@ struct SettingsView: View {
                     }
                     .disabled(cyclingStatus.isCycling)
                     Section(header: Text("About the app")) {
-                        AboutApp()
+                        AboutAppView()
                     }
+                    Section(header: Text("Reset")) {
+                        ResetView()
+                    }
+                    .disabled(cyclingStatus.isCycling)
                 }
                 .navigationBarTitle(Text("Settings"))
             }

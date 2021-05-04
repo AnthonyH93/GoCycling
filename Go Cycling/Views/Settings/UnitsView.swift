@@ -21,12 +21,13 @@ struct UnitsView: View {
                 Text("Imperial").tag(UnitsChoice.imperial)
                 Text("Metric").tag(UnitsChoice.metric)
                     .onChange(of: preferences.storedPreferences[0].metricsChoiceConverted) { value in
-                        persistenceController.storeUserPreferences(
+                        persistenceController.updateUserPreferences(
+                            existingPreferences: preferences.storedPreferences[0],
                             unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                             displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                             colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                             largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                            sortChoice: preferences.storedPreferences[preferences.storedPreferences.count - 1].sortingChoiceConverted)
+                            sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
                     }
             }
             .frame(maxWidth: 150)
@@ -34,21 +35,23 @@ struct UnitsView: View {
         }
         Toggle("Display Metrics on Map", isOn: $preferences.storedPreferences[0].displayingMetrics)
             .onChange(of: preferences.storedPreferences[0].displayingMetrics) { value in
-                persistenceController.storeUserPreferences(
+                persistenceController.updateUserPreferences(
+                    existingPreferences: preferences.storedPreferences[0],
                     unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                     displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                     colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                     largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                    sortChoice: preferences.storedPreferences[preferences.storedPreferences.count - 1].sortingChoiceConverted)
+                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
             }
         Toggle("Large Metrics View", isOn: $preferences.storedPreferences[0].largeMetrics)
             .onChange(of: preferences.storedPreferences[0].largeMetrics) { value in
-                persistenceController.storeUserPreferences(
+                persistenceController.updateUserPreferences(
+                    existingPreferences: preferences.storedPreferences[0],
                     unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
                     displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                     colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                     largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                    sortChoice: preferences.storedPreferences[preferences.storedPreferences.count - 1].sortingChoiceConverted)
+                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
             }
     }
 }

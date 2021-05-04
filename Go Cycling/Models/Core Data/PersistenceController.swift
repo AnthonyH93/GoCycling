@@ -59,6 +59,25 @@ struct PersistenceController {
         }
     }
     
+    func updateUserPreferences(existingPreferences: UserPreferences, unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice) {
+        let context = container.viewContext
+        
+        context.performAndWait {
+            existingPreferences.usingMetric = unitsChoice.id == "metric" ? true : false
+            existingPreferences.displayingMetrics = displayingMetrics
+            existingPreferences.colourChoice = colourChoice.rawValue
+            existingPreferences.largeMetrics = largeMetrics
+            existingPreferences.sortingChoice = sortChoice.rawValue
+            
+            do {
+                try context.save()
+                print("Preferences updated")
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevations: [CLLocationDistance?], startTime: Date, time: Double) {
         let context = container.viewContext
         
