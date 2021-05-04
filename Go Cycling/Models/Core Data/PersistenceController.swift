@@ -121,4 +121,21 @@ struct PersistenceController {
             print(error.localizedDescription)
         }
     }
+    
+    func deleteAllBikeRides() {
+        let context = container.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BikeRide")
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try context.fetch(fetchRequest)
+            for managedObject in results {
+                if let managedObjectData: NSManagedObject = managedObject as? NSManagedObject {
+                    context.delete(managedObjectData)
+                }
+            }
+            try context.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

@@ -35,7 +35,7 @@ struct ResetView: View {
     }
     
     func deleteAllBikeRides() {
-        print("delete")
+        persistenceController.deleteAllBikeRides()
     }
 }
 
