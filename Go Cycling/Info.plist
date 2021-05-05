@@ -12,6 +12,15 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+            <key>Default Inverted</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Default Inverted</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
 			<key>Dark</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -47,6 +56,15 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+            <key>Default Inverted</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Default Inverted</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
 			<key>Dark</key>
 			<dict>
 				<key>CFBundleIconFiles</key>

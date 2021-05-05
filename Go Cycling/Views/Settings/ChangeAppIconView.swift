@@ -16,12 +16,13 @@ struct ChangeAppIconView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        if (self.iconNames.iconNames.count > 2) {
+        if (self.iconNames.iconNames.count > 3) {
             Picker("App Icon", selection: $iconNames.currentIndex) {
                 // Need to manually set these icon names instead of programmatically due to SwiftUI bug with navigation titles
                 Text(self.iconNames.iconNames[0] ?? "Default").tag(0)
                 Text(self.iconNames.iconNames[1] ?? "Default").tag(1)
                 Text(self.iconNames.iconNames[2] ?? "Default").tag(2)
+                Text(self.iconNames.iconNames[3] ?? "Default").tag(3)
                     .navigationBarTitle("Choose your App Icon", displayMode: .inline)
 
             }

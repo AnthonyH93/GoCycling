@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D1C40CE26426E740032125A /* Default Inverted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40CC26426E740032125A /* Default Inverted@2x.png */; };
+		9D1C40CF26426E740032125A /* Default Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40CD26426E740032125A /* Default Inverted@3x.png */; };
+		9D1C40D626426E7F0032125A /* Default Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40D326426E7F0032125A /* Default Inverted~ipad.png */; };
+		9D1C40D726426E7F0032125A /* Default Inverted-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40D426426E7F0032125A /* Default Inverted-83.5@2x~ipad.png */; };
+		9D1C40D826426E7F0032125A /* Default Inverted@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40D526426E7F0032125A /* Default Inverted@2x~ipad.png */; };
 		9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */; };
 		9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */; };
 		9D62F4E02634F7CC00E28991 /* MetricsFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */; };
@@ -86,6 +91,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D1C40CC26426E740032125A /* Default Inverted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted@2x.png"; sourceTree = "<group>"; };
+		9D1C40CD26426E740032125A /* Default Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted@3x.png"; sourceTree = "<group>"; };
+		9D1C40D326426E7F0032125A /* Default Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted~ipad.png"; sourceTree = "<group>"; };
+		9D1C40D426426E7F0032125A /* Default Inverted-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D1C40D526426E7F0032125A /* Default Inverted@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted@2x~ipad.png"; sourceTree = "<group>"; };
 		9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotView.swift; sourceTree = "<group>"; };
 		9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMetricView.swift; sourceTree = "<group>"; };
 		9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsFormatting.swift; sourceTree = "<group>"; };
@@ -281,6 +291,11 @@
 				9D816A3D2642564E00DED7F8 /* Default@2x~ipad.png */,
 				9D816A3E2642564E00DED7F8 /* Default~ipad.png */,
 				9D816A132640A4F000DED7F8 /* Default@3x.png */,
+				9D1C40CC26426E740032125A /* Default Inverted@2x.png */,
+				9D1C40D426426E7F0032125A /* Default Inverted-83.5@2x~ipad.png */,
+				9D1C40D526426E7F0032125A /* Default Inverted@2x~ipad.png */,
+				9D1C40D326426E7F0032125A /* Default Inverted~ipad.png */,
+				9D1C40CD26426E740032125A /* Default Inverted@3x.png */,
 				9D8169EB263FA47A00DED7F8 /* Dark@2x.png */,
 				9D816A352642563D00DED7F8 /* Dark-83.5@2x~ipad.png */,
 				9D816A362642563D00DED7F8 /* Dark@2x~ipad.png */,
@@ -490,12 +505,17 @@
 			files = (
 				9D816A402642564E00DED7F8 /* Default@2x~ipad.png in Resources */,
 				9D816A2F2642562A00DED7F8 /* Light-83.5@2x~ipad.png in Resources */,
+				9D1C40CF26426E740032125A /* Default Inverted@3x.png in Resources */,
+				9D1C40D726426E7F0032125A /* Default Inverted-83.5@2x~ipad.png in Resources */,
 				9D816A2E2642562A00DED7F8 /* Light@2x~ipad.png in Resources */,
+				9D1C40CE26426E740032125A /* Default Inverted@2x.png in Resources */,
+				9D1C40D626426E7F0032125A /* Default Inverted~ipad.png in Resources */,
 				9D816A162640A4F000DED7F8 /* Default@2x.png in Resources */,
 				9D816A412642564E00DED7F8 /* Default~ipad.png in Resources */,
 				9D8169F5263FA48500DED7F8 /* Light@2x.png in Resources */,
 				9D8169EE263FA47A00DED7F8 /* Dark@3x.png in Resources */,
 				9D816A392642563D00DED7F8 /* Dark@2x~ipad.png in Resources */,
+				9D1C40D826426E7F0032125A /* Default Inverted@2x~ipad.png in Resources */,
 				9D8169F4263FA48500DED7F8 /* Light@3x.png in Resources */,
 				9D816A372642563D00DED7F8 /* Dark~ipad.png in Resources */,
 				9D8169ED263FA47A00DED7F8 /* Dark@2x.png in Resources */,
