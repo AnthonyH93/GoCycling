@@ -37,6 +37,15 @@
 		9D816A152640A4F000DED7F8 /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A132640A4F000DED7F8 /* Default@3x.png */; };
 		9D816A162640A4F000DED7F8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A142640A4F000DED7F8 /* Default@2x.png */; };
 		9D816A1E2641BAD000DED7F8 /* ResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D816A1D2641BAD000DED7F8 /* ResetView.swift */; };
+		9D816A2E2642562A00DED7F8 /* Light@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A2B2642562900DED7F8 /* Light@2x~ipad.png */; };
+		9D816A2F2642562A00DED7F8 /* Light-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A2C2642562A00DED7F8 /* Light-83.5@2x~ipad.png */; };
+		9D816A302642562A00DED7F8 /* Light~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A2D2642562A00DED7F8 /* Light~ipad.png */; };
+		9D816A372642563D00DED7F8 /* Dark~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A342642563D00DED7F8 /* Dark~ipad.png */; };
+		9D816A382642563D00DED7F8 /* Dark-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A352642563D00DED7F8 /* Dark-83.5@2x~ipad.png */; };
+		9D816A392642563D00DED7F8 /* Dark@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A362642563D00DED7F8 /* Dark@2x~ipad.png */; };
+		9D816A402642564E00DED7F8 /* Default@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A3D2642564E00DED7F8 /* Default@2x~ipad.png */; };
+		9D816A412642564E00DED7F8 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A3E2642564E00DED7F8 /* Default~ipad.png */; };
+		9D816A422642564E00DED7F8 /* Default-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */; };
 		9D9776E52633B0E70048B504 /* BikeRidesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E42633B0E70048B504 /* BikeRidesListView.swift */; };
 		9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E92633B4050048B504 /* SingleBikeRideView.swift */; };
 		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
@@ -107,6 +116,15 @@
 		9D816A132640A4F000DED7F8 /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@3x.png"; path = "../../../../AppIcons/GoCycling/Default_AppIcons/Assets.xcassets/AppIcon.appiconset/Default@3x.png"; sourceTree = "<group>"; };
 		9D816A142640A4F000DED7F8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../../../AppIcons/GoCycling/Default_AppIcons/Assets.xcassets/AppIcon.appiconset/Default@2x.png"; sourceTree = "<group>"; };
 		9D816A1D2641BAD000DED7F8 /* ResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetView.swift; sourceTree = "<group>"; };
+		9D816A2B2642562900DED7F8 /* Light@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Light@2x~ipad.png"; sourceTree = "<group>"; };
+		9D816A2C2642562A00DED7F8 /* Light-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Light-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D816A2D2642562A00DED7F8 /* Light~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Light~ipad.png"; sourceTree = "<group>"; };
+		9D816A342642563D00DED7F8 /* Dark~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark~ipad.png"; sourceTree = "<group>"; };
+		9D816A352642563D00DED7F8 /* Dark-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D816A362642563D00DED7F8 /* Dark@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark@2x~ipad.png"; sourceTree = "<group>"; };
+		9D816A3D2642564E00DED7F8 /* Default@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~ipad.png"; sourceTree = "<group>"; };
+		9D816A3E2642564E00DED7F8 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
+		9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-83.5@2x~ipad.png"; sourceTree = "<group>"; };
 		9D9776E42633B0E70048B504 /* BikeRidesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRidesListView.swift; sourceTree = "<group>"; };
 		9D9776E92633B4050048B504 /* SingleBikeRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBikeRideView.swift; sourceTree = "<group>"; };
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,10 +277,19 @@
 			isa = PBXGroup;
 			children = (
 				9D816A142640A4F000DED7F8 /* Default@2x.png */,
+				9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */,
+				9D816A3D2642564E00DED7F8 /* Default@2x~ipad.png */,
+				9D816A3E2642564E00DED7F8 /* Default~ipad.png */,
 				9D816A132640A4F000DED7F8 /* Default@3x.png */,
 				9D8169EB263FA47A00DED7F8 /* Dark@2x.png */,
+				9D816A352642563D00DED7F8 /* Dark-83.5@2x~ipad.png */,
+				9D816A362642563D00DED7F8 /* Dark@2x~ipad.png */,
+				9D816A342642563D00DED7F8 /* Dark~ipad.png */,
 				9D8169EC263FA47A00DED7F8 /* Dark@3x.png */,
 				9D8169F3263FA48500DED7F8 /* Light@2x.png */,
+				9D816A2C2642562A00DED7F8 /* Light-83.5@2x~ipad.png */,
+				9D816A2B2642562900DED7F8 /* Light@2x~ipad.png */,
+				9D816A2D2642562A00DED7F8 /* Light~ipad.png */,
 				9D8169F2263FA48500DED7F8 /* Light@3x.png */,
 			);
 			path = "Alternate App Icons";
@@ -461,12 +488,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D816A402642564E00DED7F8 /* Default@2x~ipad.png in Resources */,
+				9D816A2F2642562A00DED7F8 /* Light-83.5@2x~ipad.png in Resources */,
+				9D816A2E2642562A00DED7F8 /* Light@2x~ipad.png in Resources */,
 				9D816A162640A4F000DED7F8 /* Default@2x.png in Resources */,
+				9D816A412642564E00DED7F8 /* Default~ipad.png in Resources */,
 				9D8169F5263FA48500DED7F8 /* Light@2x.png in Resources */,
 				9D8169EE263FA47A00DED7F8 /* Dark@3x.png in Resources */,
+				9D816A392642563D00DED7F8 /* Dark@2x~ipad.png in Resources */,
 				9D8169F4263FA48500DED7F8 /* Light@3x.png in Resources */,
+				9D816A372642563D00DED7F8 /* Dark~ipad.png in Resources */,
 				9D8169ED263FA47A00DED7F8 /* Dark@2x.png in Resources */,
+				9D816A422642564E00DED7F8 /* Default-83.5@2x~ipad.png in Resources */,
+				9D816A382642563D00DED7F8 /* Dark-83.5@2x~ipad.png in Resources */,
 				9DAB831F25FECAD400F5C42E /* Preview Assets.xcassets in Resources */,
+				9D816A302642562A00DED7F8 /* Light~ipad.png in Resources */,
 				9DAB831C25FECAD400F5C42E /* Assets.xcassets in Resources */,
 				9D816A152640A4F000DED7F8 /* Default@3x.png in Resources */,
 			);
@@ -690,7 +726,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				DEVELOPMENT_TEAM = QMBJV5C74X;
 				ENABLE_PREVIEWS = YES;
@@ -714,7 +750,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				DEVELOPMENT_TEAM = QMBJV5C74X;
 				ENABLE_PREVIEWS = YES;
