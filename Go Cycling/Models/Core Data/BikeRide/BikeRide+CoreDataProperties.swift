@@ -23,6 +23,7 @@ extension BikeRide {
     @NSManaged public var cyclingDistance: Double
     @NSManaged public var cyclingStartTime: Date
     @NSManaged public var cyclingTime: Double
+    @NSManaged public var cyclingRouteName: String
 
     static func sortByDistance(list: [BikeRide], ascending: Bool) -> [BikeRide] {
         var returnList: [BikeRide] = list

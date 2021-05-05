@@ -5,6 +5,7 @@
         <attribute name="cyclingElevations" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer"/>
         <attribute name="cyclingLatitudes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="CLLocationDegrees"/>
         <attribute name="cyclingLongitudes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="CLLocationDegrees"/>
+        <attribute name="cyclingRouteName" optional="YES" attributeType="String"/>
         <attribute name="cyclingSpeeds" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="CLLocationSpeed"/>
         <attribute name="cyclingStartTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="cyclingTime" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -17,7 +18,7 @@
         <attribute name="usingMetric" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="BikeRide" positionX="-63" positionY="9" width="128" height="134"/>
+        <element name="BikeRide" positionX="-63" positionY="9" width="128" height="149"/>
         <element name="UserPreferences" positionX="-63" positionY="-18" width="128" height="104"/>
     </elements>
 </model>
