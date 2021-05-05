@@ -22,23 +22,19 @@ struct SmallMetricsView: View {
     var body: some View {
         HStack {
             Spacer()
-            ZStack {
                 if (preferences.storedPreferences[0].displayingMetrics) {
-                    Rectangle()
-                        .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
-                        .opacity(0.4)
-                        .frame(width: 180, height: 90)
-                        .cornerRadius(10)
-                        .padding(.all, 10)
                     Text(self.formatMetricsString(currentSpeed: currentSpeed ?? 0.0, currentAltitude: currentAltitude ?? 0.0, currentDistance: currentDistance))
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                         .multilineTextAlignment(.center)
-                        .scaledToFill()
-                        .minimumScaleFactor(0.01)
-                        .lineLimit(4)
+                        .padding(.all, 5)
+                        .background(
+                            Rectangle()
+                                .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                                .opacity(0.4)
+                                .cornerRadius(10))
                 }
-            }
         }
+        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
     }
     
     func formatMetricsString(currentSpeed: CLLocationSpeed, currentAltitude: CLLocationDistance, currentDistance: CLLocationDistance) -> String {
@@ -64,7 +60,7 @@ struct SmallMetricsView: View {
         }
         
         let returnString = """
-        Current Metrics
+        Current Cycling Metrics
         Distance: \(distanceString) \(distanceUnits)
         Speed: \(speedString) \(speedUnits)
         Altitude: \(altitudeString) \(altitudeUnits)
@@ -72,9 +68,3 @@ struct SmallMetricsView: View {
         return returnString
     }
 }
-
-//struct SmallMetricsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SmallMetricsView()
-//    }
-//}
