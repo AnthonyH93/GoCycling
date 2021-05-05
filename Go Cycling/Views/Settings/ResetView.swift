@@ -13,18 +13,28 @@ struct ResetView: View {
     @EnvironmentObject var preferences: PreferencesStorage
     @Environment(\.managedObjectContext) private var managedObjectContext
     
-    @State var showingAlert = false
+    @State var showingDeleteAlert = false
+    @State var showingResetToDefaultAlert = false
     
     var body: some View {
-        Button (action: {self.resetToDefaultSettings()}) {
+        Button (action: {self.showResetToDefaultAlert()}) {
             Text("Reset to Default Settings")
                 .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+        }
+        .alert(isPresented: $showingResetToDefaultAlert) {
+            Alert(title: Text("Are you sure that you want to reset to the default settings?"),
+                  message: Text("This action will return your app to the factory settings."),
+                  primaryButton: .destructive(Text("Reset")) {
+                    self.resetToDefaultSettings()
+                  },
+                  secondaryButton: .cancel()
+            )
         }
         Button (action: {self.showDeleteAlert()}) {
             Text("Delete All Stored Bike Rides")
                 .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
         }
-        .alert(isPresented: $showingAlert) {
+        .alert(isPresented: $showingDeleteAlert) {
             Alert(title: Text("Are you sure that you want to delete all stored bike rides?"),
                   message: Text("This action is not reversible."),
                   primaryButton: .destructive(Text("Delete")) {
@@ -36,7 +46,12 @@ struct ResetView: View {
     }
     
     func showDeleteAlert() {
-        self.showingAlert = true
+        self.showingDeleteAlert = true
+    }
+    
+    func showResetToDefaultAlert() {
+        self.showingResetToDefaultAlert = true
+        print("showing")
     }
     
     func resetToDefaultSettings() {
