@@ -93,9 +93,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To track your cycling routes this is required.</string>
+	<string>This is required to track your cycling routes while the app is closed. All of your location data will be stored solely on your device and will never be shared with anyone.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To track your cycling routes this is required.</string>
+	<string>This is required to track your cycling routes. All of your location data will be stored solely on your device and will never be shared with anyone.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
