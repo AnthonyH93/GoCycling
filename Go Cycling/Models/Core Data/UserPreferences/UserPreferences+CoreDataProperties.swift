@@ -21,6 +21,8 @@ extension UserPreferences {
     @NSManaged public var colourChoice: String
     @NSManaged public var largeMetrics: Bool
     @NSManaged public var sortingChoice: String
+    @NSManaged public var deletionConfirmation: Bool
+    @NSManaged public var deletionEnabled: Bool
         
     var colourChoiceConverted: ColourChoice {
         set {

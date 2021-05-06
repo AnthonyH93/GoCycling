@@ -55,7 +55,7 @@ struct BikeRidesListView: View {
                             }
                         }
                     }
-                    .onDelete(perform: self.showDeleteAlert)
+                    .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
                     .alert(isPresented: $showingDeleteAlert) {
                         Alert(title: Text("Are you sure that you want to delete this bike ride?"),
                               message: Text("This action is not reversible."),
@@ -92,7 +92,9 @@ struct BikeRidesListView: View {
                         displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                         colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                         largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                        sortChoice: bikeRideViewModel.currentSortChoice)
+                        sortChoice: bikeRideViewModel.currentSortChoice,
+                        deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled)
                 })
             }
             else {
@@ -108,8 +110,19 @@ struct BikeRidesListView: View {
     }
     
     func showDeleteAlert(at indexSet: IndexSet) {
-        self.showingDeleteAlert = true
-        self.toBeDeleted = indexSet
+        // Show alert
+        if (preferences.storedPreferences[0].deletionConfirmation && preferences.storedPreferences[0].deletionEnabled) {
+            self.showingDeleteAlert = true
+            self.toBeDeleted = indexSet
+        }
+        // Delete without alert
+        else if (preferences.storedPreferences[0].deletionEnabled) {
+            deleteBikeRide(at: indexSet)
+        }
+        // Don't delete
+        else {
+            // Shouldn't occur
+        }
     }
     
     func deleteBikeRide(at indexSet: IndexSet) {

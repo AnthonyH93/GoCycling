@@ -41,7 +41,7 @@ struct PersistenceController {
         }
     }
     
-    func storeUserPreferences(unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice) {
+    func storeUserPreferences(unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool) {
         let context = container.viewContext
         
         let newPreferences = UserPreferences(context: context)
@@ -50,6 +50,8 @@ struct PersistenceController {
         newPreferences.colourChoice = colourChoice.rawValue
         newPreferences.largeMetrics = largeMetrics
         newPreferences.sortingChoice = sortChoice.rawValue
+        newPreferences.deletionConfirmation = deletionConfirmation
+        newPreferences.deletionEnabled = deletionEnabled
         
         do {
             try context.save()
@@ -60,7 +62,7 @@ struct PersistenceController {
     }
     
     // We only need 1 stored UserPreferences object, so update that single object instead of creating new ones
-    func updateUserPreferences(existingPreferences: UserPreferences, unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice) {
+    func updateUserPreferences(existingPreferences: UserPreferences, unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool) {
         let context = container.viewContext
         
         context.performAndWait {
@@ -69,6 +71,8 @@ struct PersistenceController {
             existingPreferences.colourChoice = colourChoice.rawValue
             existingPreferences.largeMetrics = largeMetrics
             existingPreferences.sortingChoice = sortChoice.rawValue
+            existingPreferences.deletionConfirmation = deletionConfirmation
+            existingPreferences.deletionEnabled = deletionEnabled
             
             do {
                 try context.save()

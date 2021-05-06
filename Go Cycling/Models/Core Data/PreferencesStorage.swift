@@ -32,6 +32,8 @@ class PreferencesStorage: NSObject, ObservableObject {
                 defaultPreferences.largeMetrics = false
                 defaultPreferences.colourChoice = ColourChoice.blue.rawValue
                 defaultPreferences.sortingChoice = SortChoice.dateDescending.rawValue
+                defaultPreferences.deletionConfirmation = true
+                defaultPreferences.deletionEnabled = true
                 storedPreferences = [defaultPreferences]
             }
             else {

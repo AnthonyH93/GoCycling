@@ -61,7 +61,9 @@ struct ResetView: View {
             displayingMetrics: true,
             colourChoice: ColourChoice.blue,
             largeMetrics: false,
-            sortChoice: SortChoice.dateDescending)
+            sortChoice: SortChoice.dateDescending,
+            deletionConfirmation: true,
+            deletionEnabled: true)
     }
     
     func deleteAllBikeRides() {

@@ -30,7 +30,9 @@ struct ColourView: View {
                         displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
                         colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
                         largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                        sortChoice: preferences.storedPreferences[0].sortingChoiceConverted)
+                        sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
+                        deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled)
                 }
         }
     }
