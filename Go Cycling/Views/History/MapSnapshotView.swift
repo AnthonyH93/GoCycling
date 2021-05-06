@@ -45,7 +45,6 @@ struct MapSnapshotView: View {
     
     func generateSnapshot(width: CGFloat, height: CGFloat) {
         
-        print("Width: \(width) and Height \(height)")
         let region = MKCoordinateRegion(
             center: self.location,
             span: MKCoordinateSpan(

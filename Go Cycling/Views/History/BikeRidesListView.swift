@@ -18,6 +18,8 @@ struct BikeRidesListView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     @State private var showingActionSheet = false
+    @State private var showingDeleteAlert = false
+    @State private var toBeDeleted: IndexSet?
     
     var body: some View {
         NavigationView {
@@ -53,7 +55,19 @@ struct BikeRidesListView: View {
                             }
                         }
                     }
-                    .onDelete(perform: self.deleteBikeRide)
+                    .onDelete(perform: self.showDeleteAlert)
+                    .alert(isPresented: $showingDeleteAlert) {
+                        Alert(title: Text("Are you sure that you want to delete this bike ride?"),
+                              message: Text("This action is not reversible."),
+                              primaryButton: .destructive(Text("Delete")) {
+                                self.deleteBikeRide(at: self.toBeDeleted!)
+                                self.toBeDeleted = nil
+                              },
+                              secondaryButton: .cancel() {
+                                self.toBeDeleted = nil
+                              }
+                        )
+                    }
                 }
                 .listStyle(PlainListStyle())
                 .navigationBarTitle("Cycling History", displayMode: .automatic)
@@ -91,6 +105,11 @@ struct BikeRidesListView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    func showDeleteAlert(at indexSet: IndexSet) {
+        self.showingDeleteAlert = true
+        self.toBeDeleted = indexSet
     }
     
     func deleteBikeRide(at indexSet: IndexSet) {

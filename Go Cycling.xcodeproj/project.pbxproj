@@ -190,6 +190,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D1ED54E2643D38D005A97ED /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				9D1ED54C2643CF5A005A97ED /* UIAppearViewController.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		9D6E53392623CD36008FD7C1 /* Cycle */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,7 +280,6 @@
 				9D8169BB263E0C5200DED7F8 /* SortChoice.swift */,
 				9D8169F9263FA4CE00DED7F8 /* IconNames.swift */,
 				9D816A0E263FBD0600DED7F8 /* CyclingStatus.swift */,
-				9D1ED54C2643CF5A005A97ED /* UIAppearViewController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -336,6 +343,7 @@
 		9DAB831625FECAD300F5C42E /* Go Cycling */ = {
 			isa = PBXGroup;
 			children = (
+				9D1ED54E2643D38D005A97ED /* UIKit */,
 				9D8169E2263F84C900DED7F8 /* Resources */,
 				9D76355E262298490026D948 /* Models */,
 				9DAB837A25FEDEC000F5C42E /* View Models */,
