@@ -18,7 +18,7 @@ class IconNames: ObservableObject {
         getOrderedAlternateIconNames()
         
         if let currentIcon = UIApplication.shared.alternateIconName{
-            self.currentIndex = iconNames.firstIndex(of: currentIcon) ?? 0
+            self.currentIndex = iconNamesOrdered.firstIndex(of: currentIcon) ?? 0
         }
     }
     
