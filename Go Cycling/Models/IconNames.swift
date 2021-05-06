@@ -10,10 +10,12 @@ import SwiftUI
 
 class IconNames: ObservableObject {
     var iconNames: [String?] = [nil]
+    var iconNamesOrdered: [String?] = [nil]
     @Published var currentIndex = 0
     
     init() {
         getAlternateIconNames()
+        getOrderedAlternateIconNames()
         
         if let currentIcon = UIApplication.shared.alternateIconName{
             self.currentIndex = iconNames.firstIndex(of: currentIcon) ?? 0
@@ -30,6 +32,20 @@ class IconNames: ObservableObject {
                 guard let icon = iconFiles.first else{return}
                 iconNames.append(icon)
             }
+        }
+    }
+    
+    func getOrderedAlternateIconNames() {
+        if (iconNames.count > 1) {
+            let correctOrder = ["Default Inverted", "Dark", "Light"]
+            for (index, name) in correctOrder.enumerated() {
+                if (iconNames.contains(correctOrder[index])) {
+                    iconNamesOrdered.append(name)
+                }
+            }
+        }
+        else {
+            return
         }
     }
 }
