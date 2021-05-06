@@ -35,7 +35,7 @@ class MetricsFormatting {
         if (minutes > 0) {
             timeString = timeString + " \(minutes)m"
         }
-        if (seconds > 0) {
+        if (seconds > 0 || timeString == "") {
             timeString = timeString + " \(seconds)s"
         }
         return timeString
