@@ -36,7 +36,8 @@ struct MapSnapshotView: View {
                     }
                 }
             }
-            .onAppear {
+            // Would be simply .onAppear, but it broke in iOS 14.5
+            .uiKitOnAppear {
                 generateSnapshot(width: geometry.size.width, height: geometry.size.height)
             }
         }
@@ -44,6 +45,7 @@ struct MapSnapshotView: View {
     
     func generateSnapshot(width: CGFloat, height: CGFloat) {
         
+        print("Width: \(width) and Height \(height)")
         let region = MKCoordinateRegion(
             center: self.location,
             span: MKCoordinateSpan(
