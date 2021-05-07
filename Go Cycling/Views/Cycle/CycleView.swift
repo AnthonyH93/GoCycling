@@ -18,59 +18,61 @@ struct CycleView: View {
     @State private var timeCycling = 0.0
     
     var body: some View {
-        VStack {
-            MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
-            Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
-                .font(.custom("Avenir", size: 40))
-            HStack {
-                if (timer.isRunning) {
-                    Button (action: {self.timer.pause()}) {
-                        TimerButton(label: "Pause", buttonColour: UIColor.systemYellow)
-                            .padding(.bottom, 20)
-                            .minimumScaleFactor(0.3)
-                            .lineLimit(1)
+        GeometryReader { (geometry) in
+            VStack {
+                MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling, screenWidth: geometry.size.width)
+                Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
+                    .font(.custom("Avenir", size: 40))
+                HStack {
+                    if (timer.isRunning) {
+                        Button (action: {self.timer.pause()}) {
+                            TimerButton(label: "Pause", buttonColour: UIColor.systemYellow)
+                                .padding(.bottom, 20)
+                                .minimumScaleFactor(0.3)
+                                .lineLimit(1)
+                        }
+                        Button (action: {self.confirmStop()}) {
+                            TimerButton(label: "Stop", buttonColour: UIColor.systemRed)
+                                .padding(.bottom, 20)
+                                .minimumScaleFactor(0.3)
+                                .lineLimit(1)
+                        }
                     }
-                    Button (action: {self.confirmStop()}) {
-                        TimerButton(label: "Stop", buttonColour: UIColor.systemRed)
-                            .padding(.bottom, 20)
-                            .minimumScaleFactor(0.3)
-                            .lineLimit(1)
+                    if (timer.isStopped) {
+                        Button (action: {self.startCycling()}) {
+                            TimerButton(label: "Start", buttonColour: UIColor.systemGreen)
+                                .padding(.bottom, 20)
+                                .minimumScaleFactor(0.3)
+                                .lineLimit(1)
+                        }
                     }
-                }
-                if (timer.isStopped) {
-                    Button (action: {self.startCycling()}) {
-                        TimerButton(label: "Start", buttonColour: UIColor.systemGreen)
-                            .padding(.bottom, 20)
-                            .minimumScaleFactor(0.3)
-                            .lineLimit(1)
-                    }
-                }
-                if (timer.isPaused) {
-                    Button (action: {self.timer.start()}) {
-                        TimerButton(label: "Resume", buttonColour: UIColor.systemGreen)
-                            .padding(.bottom, 20)
-                            .minimumScaleFactor(0.3)
-                            .lineLimit(1)
-                    }
-                    Button (action: {self.confirmStop()}) {
-                        TimerButton(label: "Stop", buttonColour: UIColor.systemRed)
-                            .padding(.bottom, 20)
-                            .minimumScaleFactor(0.3)
-                            .lineLimit(1)
+                    if (timer.isPaused) {
+                        Button (action: {self.timer.start()}) {
+                            TimerButton(label: "Resume", buttonColour: UIColor.systemGreen)
+                                .padding(.bottom, 20)
+                                .minimumScaleFactor(0.3)
+                                .lineLimit(1)
+                        }
+                        Button (action: {self.confirmStop()}) {
+                            TimerButton(label: "Stop", buttonColour: UIColor.systemRed)
+                                .padding(.bottom, 20)
+                                .minimumScaleFactor(0.3)
+                                .lineLimit(1)
+                        }
                     }
                 }
             }
-        }
-        .alert(isPresented: $showingAlert) {
-            Alert(title: Text("Are you sure that you want to end the current bike ride?"),
-                  message: Text("Please confirm that you are ready to end the current bike ride."),
-                  primaryButton: .destructive(Text("Stop")) {
-                    self.timeCycling = timer.totalAccumulatedTime
-                    self.timer.stop()
-                    cyclingStatus.stoppedCycling()
-                  },
-                  secondaryButton: .cancel()
-            )
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Are you sure that you want to end the current bike ride?"),
+                      message: Text("Please confirm that you are ready to end the current bike ride."),
+                      primaryButton: .destructive(Text("Stop")) {
+                        self.timeCycling = timer.totalAccumulatedTime
+                        self.timer.stop()
+                        cyclingStatus.stoppedCycling()
+                      },
+                      secondaryButton: .cancel()
+                )
+            }
         }
     }
     

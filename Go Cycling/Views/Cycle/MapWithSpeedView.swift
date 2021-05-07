@@ -14,6 +14,7 @@ struct MapWithSpeedView: View {
     
     @Binding var cyclingStartTime: Date
     @Binding var timeCycling: TimeInterval
+    var screenWidth: CGFloat
     
     @StateObject var locationManager = LocationViewModel.locationManager
     @Environment(\.colorScheme) var colorScheme
@@ -26,7 +27,7 @@ struct MapWithSpeedView: View {
             MapView(centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             VStack {
                 if (preferences.storedPreferences[0].largeMetrics) {
-                    LargeMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance)
+                    LargeMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, screenWidth: screenWidth)
                 }
                 else {
                     SmallMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance)
@@ -62,6 +63,6 @@ struct MapWithSpeedView: View {
 
 struct MapWithSpeedView_Previews: PreviewProvider {
     static var previews: some View {
-        MapWithSpeedView(cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
+        MapWithSpeedView(cyclingStartTime: .constant(Date()), timeCycling: .constant(10), screenWidth: UIScreen.main.bounds.width)
     }
 }

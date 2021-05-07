@@ -19,7 +19,7 @@ struct LargeMetricsView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var preferences: PreferencesStorage
     
-    let screenWidth = UIScreen.main.bounds.size.width
+    var screenWidth: CGFloat
     
     var body: some View {
         HStack {
