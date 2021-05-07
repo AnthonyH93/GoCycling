@@ -26,28 +26,26 @@ struct ChangeAppIconView: View {
                     .navigationBarTitle("Choose your App Icon", displayMode: .inline)
 
             }
-            .onChange(of: preferences.storedPreferences[0].iconIndex) { (value) in
+            .onChange(of: preferences.storedPreferences[0].iconIndex) { value in
 
                 let index = self.iconNames.iconNamesOrdered.firstIndex(of: UIApplication.shared.alternateIconName) ?? 0
-                
-                print ("index: \(index)")
-                
-                persistenceController.updateUserPreferences(
-                    existingPreferences: preferences.storedPreferences[0],
-                    unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                    displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                    largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
-                    deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                    iconIndex: preferences.storedPreferences[0].iconIndex)
 
                 if index != value {
                     UIApplication.shared.setAlternateIconName(self.iconNames.iconNamesOrdered[preferences.storedPreferences[0].iconIndex]) { error in
                         if let error = error {
                             print(error.localizedDescription)
                         } else {
+                            // Save new choice to device
+                            persistenceController.updateUserPreferences(
+                                existingPreferences: preferences.storedPreferences[0],
+                                unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+                                displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                                colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                                largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                                sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
+                                deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+                                deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                                iconIndex: preferences.storedPreferences[0].iconIndex)
                             print("Changed app icon successfully.")
                         }
                     }

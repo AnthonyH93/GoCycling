@@ -51,7 +51,6 @@ struct ResetView: View {
     
     func showResetToDefaultAlert() {
         self.showingResetToDefaultAlert = true
-        print("showing")
     }
     
     func resetToDefaultSettings() {

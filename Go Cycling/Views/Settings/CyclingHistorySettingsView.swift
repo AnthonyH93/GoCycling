@@ -14,8 +14,8 @@ struct CyclingHistorySettingsView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        Toggle("Deletion Confirmation Alert", isOn: $preferences.storedPreferences[0].deletionConfirmation)
-            .onChange(of: preferences.storedPreferences[0].displayingMetrics) { value in
+        Toggle("Deletion Enabled", isOn: $preferences.storedPreferences[0].deletionEnabled)
+            .onChange(of: preferences.storedPreferences[0].largeMetrics) { value in
                 persistenceController.updateUserPreferences(
                     existingPreferences: preferences.storedPreferences[0],
                     unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
@@ -27,8 +27,8 @@ struct CyclingHistorySettingsView: View {
                     deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
                     iconIndex: preferences.storedPreferences[0].iconIndex)
             }
-        Toggle("Deletion Enabled", isOn: $preferences.storedPreferences[0].deletionEnabled)
-            .onChange(of: preferences.storedPreferences[0].largeMetrics) { value in
+        Toggle("Deletion Confirmation Alert", isOn: $preferences.storedPreferences[0].deletionConfirmation)
+            .onChange(of: preferences.storedPreferences[0].displayingMetrics) { value in
                 persistenceController.updateUserPreferences(
                     existingPreferences: preferences.storedPreferences[0],
                     unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
