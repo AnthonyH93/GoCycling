@@ -94,7 +94,8 @@ struct BikeRidesListView: View {
                         largeMetrics: preferences.storedPreferences[0].largeMetrics,
                         sortChoice: bikeRideViewModel.currentSortChoice,
                         deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled)
+                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                        iconIndex: preferences.storedPreferences[0].iconIndex)
                 })
             }
             else {

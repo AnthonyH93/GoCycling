@@ -29,7 +29,8 @@ struct UnitsView: View {
                             largeMetrics: preferences.storedPreferences[0].largeMetrics,
                             sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
                             deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                            deletionEnabled: preferences.storedPreferences[0].deletionEnabled)
+                            deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                            iconIndex: preferences.storedPreferences[0].iconIndex)
                     }
             }
             .frame(maxWidth: 150)
@@ -45,7 +46,8 @@ struct UnitsView: View {
                     largeMetrics: preferences.storedPreferences[0].largeMetrics,
                     sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
                     deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled)
+                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                    iconIndex: preferences.storedPreferences[0].iconIndex)
             }
         Toggle("Large Metrics View", isOn: $preferences.storedPreferences[0].largeMetrics)
             .onChange(of: preferences.storedPreferences[0].largeMetrics) { value in
@@ -57,7 +59,8 @@ struct UnitsView: View {
                     largeMetrics: preferences.storedPreferences[0].largeMetrics,
                     sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
                     deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled)
+                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                    iconIndex: preferences.storedPreferences[0].iconIndex)
             }
     }
 }

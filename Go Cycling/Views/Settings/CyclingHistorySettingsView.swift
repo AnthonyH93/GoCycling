@@ -24,7 +24,8 @@ struct CyclingHistorySettingsView: View {
                     largeMetrics: preferences.storedPreferences[0].largeMetrics,
                     sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
                     deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled)
+                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                    iconIndex: preferences.storedPreferences[0].iconIndex)
             }
         Toggle("Deletion Enabled", isOn: $preferences.storedPreferences[0].deletionEnabled)
             .onChange(of: preferences.storedPreferences[0].largeMetrics) { value in
@@ -36,7 +37,8 @@ struct CyclingHistorySettingsView: View {
                     largeMetrics: preferences.storedPreferences[0].largeMetrics,
                     sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
                     deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled)
+                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                    iconIndex: preferences.storedPreferences[0].iconIndex)
             }
     }
 }

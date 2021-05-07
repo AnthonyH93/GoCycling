@@ -34,6 +34,7 @@ class PreferencesStorage: NSObject, ObservableObject {
                 defaultPreferences.sortingChoice = SortChoice.dateDescending.rawValue
                 defaultPreferences.deletionConfirmation = true
                 defaultPreferences.deletionEnabled = true
+                defaultPreferences.iconIndex = 0
                 storedPreferences = [defaultPreferences]
             }
             else {

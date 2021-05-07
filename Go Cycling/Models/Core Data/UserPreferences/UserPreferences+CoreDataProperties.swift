@@ -23,6 +23,7 @@ extension UserPreferences {
     @NSManaged public var sortingChoice: String
     @NSManaged public var deletionConfirmation: Bool
     @NSManaged public var deletionEnabled: Bool
+    @NSManaged public var iconIndex: Int
         
     var colourChoiceConverted: ColourChoice {
         set {

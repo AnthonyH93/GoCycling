@@ -17,7 +17,7 @@ struct ChangeAppIconView: View {
     
     var body: some View {
         if (self.iconNames.iconNames.count > 3) {
-            Picker("App Icon", selection: $iconNames.currentIndex) {
+            Picker("App Icon", selection: $preferences.storedPreferences[0].iconIndex) {
                 // Need to manually set these icon names instead of programmatically due to SwiftUI bug with navigation titles
                 Text(self.iconNames.iconNamesOrdered[0] ?? "Default").tag(0)
                 Text(self.iconNames.iconNamesOrdered[1] ?? "Default").tag(1)
@@ -26,12 +26,25 @@ struct ChangeAppIconView: View {
                     .navigationBarTitle("Choose your App Icon", displayMode: .inline)
 
             }
-            .onReceive([self.iconNames.currentIndex].publisher.first()) { (value) in
+            .onChange(of: preferences.storedPreferences[0].iconIndex) { (value) in
 
                 let index = self.iconNames.iconNamesOrdered.firstIndex(of: UIApplication.shared.alternateIconName) ?? 0
+                
+                print ("index: \(index)")
+                
+                persistenceController.updateUserPreferences(
+                    existingPreferences: preferences.storedPreferences[0],
+                    unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+                    displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                    largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
+                    deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                    iconIndex: preferences.storedPreferences[0].iconIndex)
 
                 if index != value {
-                    UIApplication.shared.setAlternateIconName(self.iconNames.iconNamesOrdered[value]) { error in
+                    UIApplication.shared.setAlternateIconName(self.iconNames.iconNamesOrdered[preferences.storedPreferences[0].iconIndex]) { error in
                         if let error = error {
                             print(error.localizedDescription)
                         } else {
