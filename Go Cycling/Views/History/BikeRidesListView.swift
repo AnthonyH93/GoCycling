@@ -18,6 +18,7 @@ struct BikeRidesListView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     @State private var showingActionSheet = false
+    @State private var showingPopover = false
     @State private var showingDeleteAlert = false
     @State private var toBeDeleted: IndexSet?
     
@@ -71,9 +72,73 @@ struct BikeRidesListView: View {
                 }
                 .listStyle(PlainListStyle())
                 .navigationBarTitle("Cycling History", displayMode: .automatic)
-                .navigationBarItems(trailing: Button(bikeRideViewModel.getActionSheetTitle(), action: {
-                    self.showingActionSheet = true
-                }))
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button (bikeRideViewModel.getActionSheetTitle()) {
+                            if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {
+                                self.showingActionSheet = true
+                            }
+                            else {
+                                showingPopover.toggle()
+                            }
+                        }
+                        .popover(isPresented: $showingPopover) {
+                            VStack {
+                                Text("Sort")
+                                    .font(.caption)
+                                    .bold()
+                                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
+                                Text("Set your preferred sorting order")
+                                    .font(.caption2)
+                                    .padding(.bottom, 10)
+                                Divider()
+                                Button("Date Descending (Default)", action: {
+                                    showingPopover = false
+                                    bikeRideViewModel.sortByDateDescending()
+                                })
+                                .padding()
+                                Divider()
+                                Button("Date Ascending", action: {
+                                    showingPopover = false
+                                    bikeRideViewModel.sortByDateAscending()
+                                })
+                                .padding()
+                                Divider()
+                                Button("Distance Descending", action: {
+                                    showingPopover = false
+                                    bikeRideViewModel.sortByDistanceDescending()
+                                })
+                                .padding()
+                                Divider()
+                            }
+                            VStack {
+                                Button("Distance Ascending", action: {
+                                    showingPopover = false
+                                    bikeRideViewModel.sortByDistanceAscending()
+                                })
+                                .padding()
+                                Divider()
+                                Button("Time Descending", action: {
+                                    showingPopover = false
+                                    bikeRideViewModel.sortByTimeDescending()
+                                })
+                                .padding()
+                                Divider()
+                                Button("Time Ascending", action: {
+                                    showingPopover = false
+                                    bikeRideViewModel.sortByTimeAscending()
+                                })
+                                .padding()
+                                Divider()
+                                Button("Cancel", action: {
+                                    showingPopover = false
+                                })
+                                .padding()
+                                Divider()
+                            }
+                        }
+                    }
+                }
                 .actionSheet(isPresented: $showingActionSheet, content: {
                     ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
                         .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
