@@ -276,7 +276,6 @@
 		9D76355E262298490026D948 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9D6E5383262CECCC008FD7C1 /* Core Data */,
 				9D6E5373262CE773008FD7C1 /* ColourChoice.swift */,
 				9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */,
 				9DCD21EC263638F200506FA5 /* UnitsChoice.swift */,
@@ -346,6 +345,7 @@
 		9DAB831625FECAD300F5C42E /* Go Cycling */ = {
 			isa = PBXGroup;
 			children = (
+				9D6E5383262CECCC008FD7C1 /* Core Data */,
 				9D1ED54E2643D38D005A97ED /* UIKit */,
 				9D8169E2263F84C900DED7F8 /* Resources */,
 				9D76355E262298490026D948 /* Models */,
