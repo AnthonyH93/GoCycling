@@ -22,7 +22,7 @@ struct SingleBikeRideView: View {
                                 span: self.calculateSpan(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
                                 coordinates: self.setupCoordinates(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes))
                     .padding(.bottom, 10)
-                if ( min(geometry.size.width, geometry.size.height) < 600) {
+                if (min(geometry.size.width, geometry.size.height) < 600) {
                     VStack(spacing: 10) {
                         HStack {
                             Spacer()
