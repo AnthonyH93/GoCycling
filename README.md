@@ -52,6 +52,7 @@ Note: All screenshots shown were taken on an iPhone 12 Pro Max simulator.
 ### Device Screenshots of the Cycle Tab
 Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle Tab With Ongoing Route | Cycle Tab With Ongoing Route Dark
 ------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
+![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/1.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/2.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/3.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/4.png?raw=true)
 
 ### Features of the History Tab
 * View all past bike rides in an easily readable list
@@ -60,6 +61,9 @@ Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle T
 * Each list entry is deletable by swiping to the left
 
 ### Device Screenshots of the History Tab
+Cycling History List View | Cycling History List View Dark | Single Cycling Route Detailed View | Single Cycling Route Detailed View Dark
+------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
+![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/5.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/6.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/7.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/8.png?raw=true)
 
 ### Settings Feautures Throughout the App
 * Customize the app theme and app icon to fit your preferences
@@ -68,6 +72,9 @@ Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle T
 * Selected sort order in the History tab will persistent through future usage
 
 ### Device Screenshots for Some of the Settings Features
+General Settings View | General Settings View Dark | Changing App Icon to Default Inverted | Setting Cycling History Sort Order
+------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
+![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/9.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/10.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/12.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/11.png?raw=true)
 
 ## Future Development
 
