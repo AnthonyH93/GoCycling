@@ -79,5 +79,11 @@ General Settings View | General Settings View Dark | Changing App Icon to Defaul
 ## Future Development
 
 This app has been an immense amount of fun to develop and I have greatly enjoyed using SwiftUI! I am planning on continuing to add features as time permits and some ideas that are on my roadmap are listed below:
+* Statistics tab displaying graphs about past cycling trends (also all time records such as longest route, furthest distance travelled in one month, etc)
+  * Could also add goals to this, so that users could set cycling goals and track their progress towards them
+* Route naming so that a user could assign a name to each route they complete
+  * This would allow easy sorting by route names and comparison between attempts of the same route
+* Calorie tracking within the app as an optional metric
+* Route generator feature where a user could enter the distance they want to ride and the app could suggest a route for them
 
 Thank you very much for viewing this project!
