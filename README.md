@@ -39,9 +39,35 @@ More routes can be created in this same way and they can all be viewed, sorted a
 
 ## App Features
 
-Go Cycling has many features packed into three tabs; Cycle, History and Settings.
+Go Cycling has many features packed into three tabs; Cycle, History and Settings. It also fully supports both light and dark mode, automatically setting the mode based on device settings.
 
 Note: All screenshots shown were taken on an iPhone 12 Pro Max simulator.
+
+### Features of the Cycle Tab
+* Start, stop, pause and resume routes with the on-screen stopwatch
+* View current cycling metrics, including distance cycled, speed and altitude
+* Large map showing current location and path taken
+* Timer showing cycling time of the ongoing route
+
+### Device Screenshots of the Cycle Tab
+Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle Tab With Ongoing Route | Cycle Tab With Ongoing Route Dark
+------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
+
+### Features of the History Tab
+* View all past bike rides in an easily readable list
+* Sort all of your bike rides by time, distance and date (all offering ascending or descending order)
+* Click on a single bike ride to view a full screen view including a map of the route as well as metrics
+* Each list entry is deletable by swiping to the left
+
+### Device Screenshots of the History Tab
+
+### Settings Feautures Throughout the App
+* Customize the app theme and app icon to fit your preferences
+* Set your preferred units and customize the metrics view on the Cycle tab
+* Option to reset all settings back to the defaults and delete all stored cycling routes
+* Selected sort order in the History tab will persistent through future usage
+
+### Device Screenshots for Some of the Settings Features
 
 ## Future Development
 
