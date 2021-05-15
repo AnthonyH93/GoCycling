@@ -63,7 +63,8 @@ struct ResetView: View {
             sortChoice: SortChoice.dateDescending,
             deletionConfirmation: true,
             deletionEnabled: true,
-            iconIndex: preferences.storedPreferences[0].iconIndex)
+            iconIndex: preferences.storedPreferences[0].iconIndex,
+            namedRoutes: true)
     }
     
     func deleteAllBikeRides() {

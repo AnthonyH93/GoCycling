@@ -35,6 +35,7 @@ class PreferencesStorage: NSObject, ObservableObject {
                 defaultPreferences.deletionConfirmation = true
                 defaultPreferences.deletionEnabled = true
                 defaultPreferences.iconIndex = 0
+                defaultPreferences.namedRoutes = true
                 storedPreferences = [defaultPreferences]
             }
             else {
