@@ -51,4 +51,19 @@ extension BikeRide {
         }
         return [BikeRide]()
     }
+    
+    static func allRouteNames() -> [String] {
+        let allBikeRides = allBikeRides()
+        var uniqueNames: [String] = []
+
+        for ride in allBikeRides {
+            if (uniqueNames.firstIndex(of: ride.cyclingRouteName) == nil) {
+                if (ride.cyclingRouteName != "Unnamed") {
+                    uniqueNames.append(ride.cyclingRouteName)
+                }
+            }
+        }
+
+        return uniqueNames
+    }
 }

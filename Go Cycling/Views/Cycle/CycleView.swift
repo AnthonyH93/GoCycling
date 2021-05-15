@@ -16,6 +16,9 @@ struct CycleView: View {
     @State private var cyclingSpeed = 0.0
     @State private var cyclingStartTime = Date()
     @State private var timeCycling = 0.0
+    @State private var showingRouteNamingPopover = false
+    
+    @EnvironmentObject var preferences: PreferencesStorage
     
     var body: some View {
         GeometryReader { (geometry) in
@@ -69,9 +72,17 @@ struct CycleView: View {
                         self.timeCycling = timer.totalAccumulatedTime
                         self.timer.stop()
                         cyclingStatus.stoppedCycling()
+                        
+                        // Present route naming popover if necessary
+                        if (preferences.storedPreferences[0].namedRoutes) {
+                            self.showingRouteNamingPopover = true
+                        }
                       },
                       secondaryButton: .cancel()
                 )
+            }
+            .sheet(isPresented: $showingRouteNamingPopover) {
+                RouteNameModalView()
             }
         }
     }

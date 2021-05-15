@@ -132,6 +132,29 @@ struct PersistenceController {
         }
     }
     
+    // Function to update the route name of a saved bike ride
+    func updateBikeRideRouteName(existingBikeRide: BikeRide, latitudes: [CLLocationDegrees], longitudes: [CLLocationDegrees], speeds: [CLLocationSpeed], distance: Double, elevations: [CLLocationDistance], startTime: Date, time: Double, routeName: String) {
+        let context = container.viewContext
+        
+        context.performAndWait {
+            existingBikeRide.cyclingLatitudes = latitudes
+            existingBikeRide.cyclingLongitudes = longitudes
+            existingBikeRide.cyclingSpeeds = speeds
+            existingBikeRide.cyclingDistance = distance
+            existingBikeRide.cyclingElevations = elevations
+            existingBikeRide.cyclingStartTime = startTime
+            existingBikeRide.cyclingTime = time
+            existingBikeRide.cyclingRouteName = routeName
+            
+            do {
+                try context.save()
+                print("Bike ride updated")
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func deleteAllBikeRides() {
         let context = container.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BikeRide")
