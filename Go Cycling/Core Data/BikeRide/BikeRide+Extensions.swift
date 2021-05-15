@@ -63,7 +63,7 @@ extension BikeRide {
                 }
             }
         }
-
-        return uniqueNames
+        
+        return uniqueNames.sorted { $0.lowercased() < $1.lowercased() }
     }
 }
