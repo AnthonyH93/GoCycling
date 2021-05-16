@@ -66,4 +66,44 @@ extension BikeRide {
         
         return uniqueNames.sorted { $0.lowercased() < $1.lowercased() }
     }
+    
+    static func allCategories() -> [Category] {
+        let allBikeRides = allBikeRidesSorted()
+        var categories: [Category] = []
+        var names: [String] = []
+        var numbers: [Int] = []
+        var unnamedCounter = 0
+        
+        for ride in allBikeRides {
+            if (names.firstIndex(of: ride.cyclingRouteName) == nil) {
+                if (ride.cyclingRouteName != "Unnamed") {
+                    names.append(ride.cyclingRouteName)
+                    numbers.append(1)
+                }
+                else {
+                    unnamedCounter += 1
+                }
+            }
+            else {
+                numbers[names.firstIndex(of: ride.cyclingRouteName)!] += 1
+            }
+        }
+        
+        for (index, name) in names.enumerated() {
+            categories.append(Category(name: name, number: numbers[index]))
+        }
+        
+        // Sort the user created categories alphabeticaly
+        categories = categories.sorted { $0.name.lowercased() < $1.name.lowercased() }
+        
+        if (unnamedCounter > 0) {
+            categories.insert(Category(name: "Unnamed", number: unnamedCounter), at: 0)
+        }
+        
+        if (allBikeRides.count > 0) {
+            categories.insert(Category(name: "All", number: allBikeRides.count), at: 0)
+        }
+        
+        return categories
+    }
 }

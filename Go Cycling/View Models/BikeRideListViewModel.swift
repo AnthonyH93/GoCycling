@@ -11,6 +11,7 @@ import SwiftUI
 class BikeRideListViewModel: ObservableObject {
 
     @Published var bikeRides: [BikeRide] = BikeRide.allBikeRidesSorted()
+    @Published var categories: [Category] = BikeRide.allCategories()
     @Published var currentSortChoice: SortChoice = UserPreferences.storedSortingChoice()
     
     // This is the default ordering
@@ -61,5 +62,23 @@ class BikeRideListViewModel: ObservableObject {
             title = "Time ↓"
         }
         return title
+    }
+    
+    func getBikeRidesWithCategory(category: String) -> [BikeRide] {
+        let allBikeRides = self.bikeRides
+        
+        if (category == "") {
+            return allBikeRides
+        }
+        else {
+            var categorizedBikeRides: [BikeRide] = []
+            for ride in allBikeRides {
+                if (ride.cyclingRouteName == category) {
+                    categorizedBikeRides.append(ride)
+                }
+            }
+            
+            return categorizedBikeRides
+        }
     }
 }

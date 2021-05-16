@@ -10,11 +10,13 @@ import SwiftUI
 struct HistoryView: View {
     let persistenceController = PersistenceController.shared
     
+    @EnvironmentObject var preferences: PreferencesStorage
+    
     @EnvironmentObject var bikeRides: BikeRideStorage
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        BikeRidesListView()
+        BikeRideCategoriesListView()
     }
 }
 
