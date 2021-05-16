@@ -122,7 +122,7 @@ struct PersistenceController {
         newBikeRide.cyclingStartTime = startTime
         newBikeRide.cyclingTime = time
         // This functionality will be added in a future update
-        newBikeRide.cyclingRouteName = "Unnamed"
+        newBikeRide.cyclingRouteName = "Uncategorized"
         
         do {
             try context.save()

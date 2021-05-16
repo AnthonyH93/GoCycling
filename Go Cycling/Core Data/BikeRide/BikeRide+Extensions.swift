@@ -58,7 +58,7 @@ extension BikeRide {
 
         for ride in allBikeRides {
             if (uniqueNames.firstIndex(of: ride.cyclingRouteName) == nil) {
-                if (ride.cyclingRouteName != "Unnamed") {
+                if (ride.cyclingRouteName != "Uncategorized") {
                     uniqueNames.append(ride.cyclingRouteName)
                 }
             }
@@ -72,16 +72,16 @@ extension BikeRide {
         var categories: [Category] = []
         var names: [String] = []
         var numbers: [Int] = []
-        var unnamedCounter = 0
+        var uncategorizedCounter = 0
         
         for ride in allBikeRides {
             if (names.firstIndex(of: ride.cyclingRouteName) == nil) {
-                if (ride.cyclingRouteName != "Unnamed") {
+                if (ride.cyclingRouteName != "Uncategorized") {
                     names.append(ride.cyclingRouteName)
                     numbers.append(1)
                 }
                 else {
-                    unnamedCounter += 1
+                    uncategorizedCounter += 1
                 }
             }
             else {
@@ -96,8 +96,8 @@ extension BikeRide {
         // Sort the user created categories alphabeticaly
         categories = categories.sorted { $0.name.lowercased() < $1.name.lowercased() }
         
-        if (unnamedCounter > 0) {
-            categories.insert(Category(name: "Unnamed", number: unnamedCounter), at: 0)
+        if (uncategorizedCounter > 0) {
+            categories.insert(Category(name: "Uncategorized", number: uncategorizedCounter), at: 0)
         }
         
         if (allBikeRides.count > 0) {

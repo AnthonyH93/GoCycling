@@ -38,6 +38,19 @@ struct GoCyclingApp: App {
                 deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
                 iconIndex: preferences.storedPreferences[0].iconIndex,
                 namedRoutes: true)
+            // Changed current "Unnamed" to "Uncategorized"
+            for ride in bikeRides.storedBikeRides {
+                persistenceController.updateBikeRideRouteName(
+                    existingBikeRide: ride,
+                    latitudes: ride.cyclingLatitudes,
+                    longitudes: ride.cyclingLongitudes,
+                    speeds: ride.cyclingSpeeds,
+                    distance: ride.cyclingDistance,
+                    elevations: ride.cyclingElevations,
+                    startTime: ride.cyclingStartTime,
+                    time: ride.cyclingTime,
+                    routeName: "Uncategorized")
+            }
         }
     }
 

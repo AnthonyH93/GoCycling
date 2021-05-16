@@ -108,7 +108,7 @@ struct RouteNameModalView: View {
         .presentation(isModal: self.showModally) {
         }
         .onAppear {
-            if (bikeRideToEdit != nil && bikeRideToEdit?.cyclingRouteName != "Unnamed") {
+            if (bikeRideToEdit != nil && bikeRideToEdit?.cyclingRouteName != "Uncategorized") {
                 self.selectedNameIndex = routeNamingViewModel.routeNames.firstIndex(of: bikeRideToEdit!.cyclingRouteName)!
             }
             else {
@@ -130,8 +130,8 @@ struct RouteNameModalView: View {
         if (self.bikeRideToEdit == nil) {
             // Get most recent bike ride
             let ride = self.routeNamingViewModel.allBikeRides[self.routeNamingViewModel.allBikeRides.count - 1]
-            // Route name should be Unnamed at this point
-            if (ride.cyclingRouteName == "Unnamed") {
+            // Route name should be Uncategorized at this point
+            if (ride.cyclingRouteName == "Uncategorized") {
                 persistenceController.updateBikeRideRouteName(
                     existingBikeRide: ride,
                     latitudes: ride.cyclingLatitudes,
