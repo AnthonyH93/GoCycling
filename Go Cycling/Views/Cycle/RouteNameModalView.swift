@@ -49,6 +49,7 @@ struct RouteNameModalView: View {
                 TextField("Category Name", text: $typedRouteName)
                     .border(Color(UIColor.separator))
                     .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 Spacer()
                 Divider()
                 Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
