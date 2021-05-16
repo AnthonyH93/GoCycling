@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import CoreData
 
 struct BikeRidesListView: View {
     let persistenceController = PersistenceController.shared
@@ -22,6 +23,8 @@ struct BikeRidesListView: View {
     @State private var showingDeleteAlert = false
     @State private var toBeDeleted: IndexSet?
     
+    @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
+
     var categoryName: String
     
     init(categoryName: String) {
@@ -30,154 +33,130 @@ struct BikeRidesListView: View {
     
     var body: some View {
         GeometryReader { (geometry) in
-            if (bikeRideViewModel.bikeRides.count > 0) {
-                List {
-                    ForEach(bikeRideViewModel.getBikeRidesWithCategory(category: self.categoryName)) { bikeRide in
-                        NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))) {
-                            VStack(spacing: 10) {
-                                HStack {
-                                    Text(MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))
-                                        .font(.headline)
-                                        .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
-                                    Spacer()
-                                }
-                                HStack {
-                                    Text("Distance Cycled")
-                                    Spacer()
-                                    Text(MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
-                                        .font(.headline)
-                                }
-                                HStack {
-                                    Text("Cycling Time")
-                                    Spacer()
-                                    Text(MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
-                                        .font(.headline)
-                                }
-                                HStack {
-                                    Text("Average Speed")
-                                    Spacer()
-                                    Text(MetricsFormatting.formatAverageSpeed(distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
-                                        .font(.headline)
-                                }
-                            }
+            ListView(sortDescripter: sortDescriptor, name: categoryName)
+            .listStyle(PlainListStyle())
+            .navigationBarTitle(self.getNavigationBarTitle(name: self.categoryName), displayMode: .automatic)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button (bikeRideViewModel.getActionSheetTitle()) {
+                        if (min(geometry.size.width, geometry.size.height) < 600) {
+                            self.showingActionSheet = true
+                        }
+                        else {
+                            showingPopover.toggle()
                         }
                     }
-                    .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
-                    .alert(isPresented: $showingDeleteAlert) {
-                        Alert(title: Text("Are you sure that you want to delete this bike ride?"),
-                              message: Text("This action is not reversible."),
-                              primaryButton: .destructive(Text("Delete")) {
-                                self.deleteBikeRide(at: self.toBeDeleted!)
-                                self.toBeDeleted = nil
-                              },
-                              secondaryButton: .cancel() {
-                                self.toBeDeleted = nil
-                              }
-                        )
-                    }
-                }
-                .listStyle(PlainListStyle())
-                .navigationBarTitle(self.getNavigationBarTitle(name: self.categoryName), displayMode: .automatic)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button (bikeRideViewModel.getActionSheetTitle()) {
-                            if (min(geometry.size.width, geometry.size.height) < 600) {
-                                self.showingActionSheet = true
-                            }
-                            else {
-                                showingPopover.toggle()
-                            }
+                    .popover(isPresented: $showingPopover) {
+                        VStack {
+                            Text("Sort")
+                                .font(.caption)
+                                .bold()
+                                .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
+                            Text("Set your preferred sorting order")
+                                .font(.caption2)
+                                .padding(.bottom, 10)
+                            Divider()
+                            Button("Date Descending (Default)", action: {
+                                showingPopover = false
+                                bikeRideViewModel.sortByDateDescending()
+                            })
+                            .padding()
+                            Divider()
+                            Button("Date Ascending", action: {
+                                showingPopover = false
+                                bikeRideViewModel.sortByDateAscending()
+                            })
+                            .padding()
+                            Divider()
+                            Button("Distance Descending", action: {
+                                showingPopover = false
+                                bikeRideViewModel.sortByDistanceDescending()
+                            })
+                            .padding()
+                            Divider()
                         }
-                        .popover(isPresented: $showingPopover) {
-                            VStack {
-                                Text("Sort")
-                                    .font(.caption)
-                                    .bold()
-                                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
-                                Text("Set your preferred sorting order")
-                                    .font(.caption2)
-                                    .padding(.bottom, 10)
-                                Divider()
-                                Button("Date Descending (Default)", action: {
-                                    showingPopover = false
-                                    bikeRideViewModel.sortByDateDescending()
-                                })
-                                .padding()
-                                Divider()
-                                Button("Date Ascending", action: {
-                                    showingPopover = false
-                                    bikeRideViewModel.sortByDateAscending()
-                                })
-                                .padding()
-                                Divider()
-                                Button("Distance Descending", action: {
-                                    showingPopover = false
-                                    bikeRideViewModel.sortByDistanceDescending()
-                                })
-                                .padding()
-                                Divider()
-                            }
-                            VStack {
-                                Button("Distance Ascending", action: {
-                                    showingPopover = false
-                                    bikeRideViewModel.sortByDistanceAscending()
-                                })
-                                .padding()
-                                Divider()
-                                Button("Time Descending", action: {
-                                    showingPopover = false
-                                    bikeRideViewModel.sortByTimeDescending()
-                                })
-                                .padding()
-                                Divider()
-                                Button("Time Ascending", action: {
-                                    showingPopover = false
-                                    bikeRideViewModel.sortByTimeAscending()
-                                })
-                                .padding()
-                                Divider()
-                                Button("Cancel", action: {
-                                    showingPopover = false
-                                })
-                                .padding()
-                                Divider()
-                            }
+                        VStack {
+                            Button("Distance Ascending", action: {
+                                showingPopover = false
+                                bikeRideViewModel.sortByDistanceAscending()
+                            })
+                            .padding()
+                            Divider()
+                            Button("Time Descending", action: {
+                                showingPopover = false
+                                bikeRideViewModel.sortByTimeDescending()
+                            })
+                            .padding()
+                            Divider()
+                            Button("Time Ascending", action: {
+                                showingPopover = false
+                                bikeRideViewModel.sortByTimeAscending()
+                            })
+                            .padding()
+                            Divider()
+                            Button("Cancel", action: {
+                                showingPopover = false
+                            })
+                            .padding()
+                            Divider()
                         }
                     }
                 }
-                .actionSheet(isPresented: $showingActionSheet, content: {
-                    ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
-                        .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
-                        .default(Text("Date Ascending"), action: bikeRideViewModel.sortByDateAscending),
-                        .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistanceDescending),
-                        .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
-                        .default(Text("Time Descending"), action: bikeRideViewModel.sortByTimeDescending),
-                        .default(Text("Time Ascending"), action: bikeRideViewModel.sortByTimeAscending),
-                        .cancel()
-                    ])
-                })
-                .onChange(of: bikeRideViewModel.currentSortChoice, perform: { value in
-                    persistenceController.updateUserPreferences(
-                        existingPreferences: preferences.storedPreferences[0],
-                        unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                        displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                        largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                        sortChoice: bikeRideViewModel.currentSortChoice,
-                        deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                        iconIndex: preferences.storedPreferences[0].iconIndex,
-                        namedRoutes: preferences.storedPreferences[0].namedRoutes)
-                })
             }
-            else {
-                VStack {
-                    Spacer()
-                    Text("No completed bike rides to display!")
-                    Spacer()
+            .onAppear {
+                switch bikeRideViewModel.currentSortChoice {
+                case .distanceAscending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
+                case .distanceDescending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
+                case .dateAscending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
+                case .dateDescending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
+                case .timeAscending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
+                case .timeDescending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
                 }
-                .navigationBarTitle(self.getNavigationBarTitle(name: self.categoryName), displayMode: .automatic)
             }
+            .actionSheet(isPresented: $showingActionSheet, content: {
+                ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
+                    .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
+                    .default(Text("Date Ascending"), action: bikeRideViewModel.sortByDateAscending),
+                    .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistanceDescending),
+                    .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
+                    .default(Text("Time Descending"), action: bikeRideViewModel.sortByTimeDescending),
+                    .default(Text("Time Ascending"), action: bikeRideViewModel.sortByTimeAscending),
+                    .cancel()
+                ])
+            })
+            .onChange(of: bikeRideViewModel.currentSortChoice, perform: { value in
+                switch bikeRideViewModel.currentSortChoice {
+                case .distanceAscending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
+                case .distanceDescending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
+                case .dateAscending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
+                case .dateDescending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
+                case .timeAscending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
+                case .timeDescending:
+                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
+                }
+                persistenceController.updateUserPreferences(
+                    existingPreferences: preferences.storedPreferences[0],
+                    unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+                    displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                    largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                    sortChoice: bikeRideViewModel.currentSortChoice,
+                    deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                    iconIndex: preferences.storedPreferences[0].iconIndex,
+                    namedRoutes: preferences.storedPreferences[0].namedRoutes)
+            })
         }
     }
     
@@ -187,6 +166,89 @@ struct BikeRidesListView: View {
         }
         else {
             return "Cycling History"
+        }
+    }
+}
+
+struct ListView: View {
+    let persistenceController = PersistenceController.shared
+    
+    @EnvironmentObject var preferences: PreferencesStorage
+    
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    
+    @State private var showingActionSheet = false
+    @State private var showingPopover = false
+    @State private var showingDeleteAlert = false
+    @State private var toBeDeleted: IndexSet?
+    
+    @FetchRequest var bikeRides: FetchedResults<BikeRide>
+
+    init(sortDescripter: NSSortDescriptor, name: String) {
+        let request: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
+        request.predicate = NSPredicate(format: "cyclingRouteName == %@", name)
+        request.sortDescriptors = [sortDescripter]
+        _bikeRides = FetchRequest<BikeRide>(fetchRequest: request)
+    }
+
+    var body: some View {
+        if (bikeRides.count > 0) {
+            List {
+                ForEach(bikeRides) { bikeRide in
+                    NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))) {
+                        VStack(spacing: 10) {
+                            HStack {
+                                Text(MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))
+                                    .font(.headline)
+                                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                                Spacer()
+                            }
+                            HStack {
+                                Text("Distance Cycled")
+                                Spacer()
+                                Text(MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
+                                    .font(.headline)
+                            }
+                            HStack {
+                                Text("Cycling Time")
+                                Spacer()
+                                Text(MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
+                                    .font(.headline)
+                            }
+                            HStack {
+                                Text("Average Speed")
+                                Spacer()
+                                Text(MetricsFormatting.formatAverageSpeed(distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
+                                    .font(.headline)
+                            }
+                        }
+                    }
+                }
+                .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
+                .alert(isPresented: $showingDeleteAlert) {
+                    Alert(title: Text("Are you sure that you want to delete this bike ride?"),
+                          message: Text("This action is not reversible."),
+                          primaryButton: .destructive(Text("Delete")) {
+                            self.deleteBikeRide(at: self.toBeDeleted!)
+                            self.toBeDeleted = nil
+                          },
+                          secondaryButton: .cancel() {
+                            self.toBeDeleted = nil
+                          }
+                    )
+                }
+            }
+        }
+        else {
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Text("No completed bike rides to display!")
+                    Spacer()
+                }
+                Spacer()
+            }
         }
     }
     
@@ -208,8 +270,7 @@ struct BikeRidesListView: View {
     
     func deleteBikeRide(at indexSet: IndexSet) {
         for index in indexSet {
-            let list = bikeRideViewModel.getBikeRidesWithCategory(category: self.categoryName)
-            managedObjectContext.delete(list[index])
+            managedObjectContext.delete(bikeRides[index])
         }
         do {
             try managedObjectContext.save()
@@ -217,6 +278,7 @@ struct BikeRidesListView: View {
             print(error.localizedDescription)
         }
     }
+
 }
 
 struct BikeRidesListView_Previews: PreviewProvider {
