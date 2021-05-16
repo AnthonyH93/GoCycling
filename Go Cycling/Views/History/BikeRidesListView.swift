@@ -186,7 +186,9 @@ struct ListView: View {
 
     init(sortDescripter: NSSortDescriptor, name: String) {
         let request: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
-        request.predicate = NSPredicate(format: "cyclingRouteName == %@", name)
+        if (name != "") {
+            request.predicate = NSPredicate(format: "cyclingRouteName == %@", name)
+        }
         request.sortDescriptors = [sortDescripter]
         _bikeRides = FetchRequest<BikeRide>(fetchRequest: request)
     }
