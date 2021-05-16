@@ -15,6 +15,8 @@ struct SingleBikeRideView: View {
     
     @EnvironmentObject var preferences: PreferencesStorage
     
+    @State private var showingEditPopover = false
+    
     var body: some View {
         GeometryReader { (geometry) in
             VStack {
@@ -65,6 +67,19 @@ struct SingleBikeRideView: View {
             }
         }
         .navigationBarTitle(navigationTitle, displayMode: .inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if (preferences.storedPreferences[0].namedRoutes) {
+                    Button ("Edit") {
+                        self.showingEditPopover = true
+                    }
+                    
+                    .sheet(isPresented: $showingEditPopover) {
+                        RouteNameModalView(bikeRideToEdit: bikeRide)
+                    }
+                }
+            }
+        }
     }
     
     func setupCoordinates(latitudes: [CLLocationDegrees], longitudes: [CLLocationDegrees]) -> [CLLocationCoordinate2D] {

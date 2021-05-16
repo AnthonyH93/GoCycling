@@ -82,7 +82,7 @@ struct CycleView: View {
                 )
             }
             .sheet(isPresented: $showingRouteNamingPopover) {
-                RouteNameModalView()
+                RouteNameModalView(bikeRideToEdit: nil)
             }
         }
     }

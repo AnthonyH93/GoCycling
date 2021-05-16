@@ -21,6 +21,14 @@ struct RouteNameModalView: View {
     
     @ObservedObject var routeNamingViewModel = RouteNamingViewModel()
     
+    private var bikeRideToEdit: BikeRide?
+    
+    init(bikeRideToEdit: BikeRide?) {
+        if (bikeRideToEdit != nil) {
+            self.bikeRideToEdit = bikeRideToEdit
+        }
+    }
+    
     var body: some View {
         VStack {
             Text("Categorize Your Route")
@@ -99,6 +107,14 @@ struct RouteNameModalView: View {
         }
         .presentation(isModal: self.showModally) {
         }
+        .onAppear {
+            if (bikeRideToEdit != nil && bikeRideToEdit?.cyclingRouteName != "Unnamed") {
+                self.selectedNameIndex = routeNamingViewModel.routeNames.firstIndex(of: bikeRideToEdit!.cyclingRouteName)!
+            }
+            else {
+                self.selectedNameIndex = 0
+            }
+        }
     }
     
     func savePressed() {
@@ -110,23 +126,39 @@ struct RouteNameModalView: View {
             routeName = self.routeNamingViewModel.routeNames[self.selectedNameIndex]
         }
         
-        // Get most recent bike ride
-        let ride = self.routeNamingViewModel.allBikeRides[self.routeNamingViewModel.allBikeRides.count - 1]
-        // Route name should be Unnamed at this point
-        if (ride.cyclingRouteName != "Unnamed") {
-            
+        // This means that we are in the Cycle tab
+        if (self.bikeRideToEdit == nil) {
+            // Get most recent bike ride
+            let ride = self.routeNamingViewModel.allBikeRides[self.routeNamingViewModel.allBikeRides.count - 1]
+            // Route name should be Unnamed at this point
+            if (ride.cyclingRouteName == "Unnamed") {
+                persistenceController.updateBikeRideRouteName(
+                    existingBikeRide: ride,
+                    latitudes: ride.cyclingLatitudes,
+                    longitudes: ride.cyclingLongitudes,
+                    speeds: ride.cyclingSpeeds,
+                    distance: ride.cyclingDistance,
+                    elevations: ride.cyclingElevations,
+                    startTime: ride.cyclingStartTime,
+                    time: ride.cyclingTime,
+                    routeName: routeName)
+            }
+            self.presentationMode.wrappedValue.dismiss()
         }
-        persistenceController.updateBikeRideRouteName(
-            existingBikeRide: ride,
-            latitudes: ride.cyclingLatitudes,
-            longitudes: ride.cyclingLongitudes,
-            speeds: ride.cyclingSpeeds,
-            distance: ride.cyclingDistance,
-            elevations: ride.cyclingElevations,
-            startTime: ride.cyclingStartTime,
-            time: ride.cyclingTime,
-            routeName: routeName)
-        self.presentationMode.wrappedValue.dismiss()
+        else {
+            let ride = self.bikeRideToEdit!
+            persistenceController.updateBikeRideRouteName(
+                existingBikeRide: ride,
+                latitudes: ride.cyclingLatitudes,
+                longitudes: ride.cyclingLongitudes,
+                speeds: ride.cyclingSpeeds,
+                distance: ride.cyclingDistance,
+                elevations: ride.cyclingElevations,
+                startTime: ride.cyclingStartTime,
+                time: ride.cyclingTime,
+                routeName: routeName)
+            self.presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 
@@ -137,8 +169,8 @@ enum NamedRoutesViewSelection: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
-struct RouteNameModalView_Previews: PreviewProvider {
-    static var previews: some View {
-        RouteNameModalView()
-    }
-}
+//struct RouteNameModalView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RouteNameModalView()
+//    }
+//}
