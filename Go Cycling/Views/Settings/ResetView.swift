@@ -31,11 +31,11 @@ struct ResetView: View {
             )
         }
         Button (action: {self.showDeleteAlert()}) {
-            Text("Delete All Stored Bike Rides")
+            Text("Delete All Stored Routes")
                 .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
         }
         .alert(isPresented: $showingDeleteAlert) {
-            Alert(title: Text("Are you sure that you want to delete all stored bike rides?"),
+            Alert(title: Text("Are you sure that you want to delete all stored cycling routes?"),
                   message: Text("This action is not reversible."),
                   primaryButton: .destructive(Text("Delete")) {
                     self.deleteAllBikeRides()

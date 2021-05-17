@@ -228,7 +228,7 @@ struct ListView: View {
                 }
                 .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
                 .alert(isPresented: $showingDeleteAlert) {
-                    Alert(title: Text("Are you sure that you want to delete this bike ride?"),
+                    Alert(title: Text("Are you sure that you want to delete this route?"),
                           message: Text("This action is not reversible."),
                           primaryButton: .destructive(Text("Delete")) {
                             self.deleteBikeRide(at: self.toBeDeleted!)
@@ -246,7 +246,7 @@ struct ListView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text("No completed bike rides to display!")
+                    Text("No completed routes to display!")
                     Spacer()
                 }
                 Spacer()

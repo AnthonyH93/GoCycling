@@ -66,8 +66,8 @@ struct CycleView: View {
                 }
             }
             .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Are you sure that you want to end the current bike ride?"),
-                      message: Text("Please confirm that you are ready to end the current bike ride."),
+                Alert(title: Text("Are you sure that you want to end the current route?"),
+                      message: Text("Please confirm that you are ready to end the current route."),
                       primaryButton: .destructive(Text("Stop")) {
                         self.timeCycling = timer.totalAccumulatedTime
                         self.timer.stop()

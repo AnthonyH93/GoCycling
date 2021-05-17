@@ -41,7 +41,7 @@ struct BikeRideCategoriesListView: View {
                 else {
                     VStack {
                         Spacer()
-                        Text("No completed bike rides to display!")
+                        Text("No completed routes to display!")
                         Spacer()
                     }
                     .navigationBarTitle("Cycling History", displayMode: .automatic)
@@ -54,7 +54,7 @@ struct BikeRideCategoriesListView: View {
                 else {
                     VStack {
                         Spacer()
-                        Text("No completed bike rides to display!")
+                        Text("No completed routes to display!")
                         Spacer()
                     }
                     .navigationBarTitle("Cycling History", displayMode: .automatic)
