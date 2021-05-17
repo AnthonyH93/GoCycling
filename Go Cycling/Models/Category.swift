@@ -15,4 +15,6 @@ class Category: Identifiable {
         self.name = name
         self.number = number
     }
+    
+    var id: UUID { UUID() }
 }
