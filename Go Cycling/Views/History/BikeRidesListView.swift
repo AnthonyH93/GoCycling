@@ -21,6 +21,7 @@ struct BikeRidesListView: View {
     @State private var showingActionSheet = false
     @State private var showingPopover = false
     @State private var showingDeleteAlert = false
+    @State private var showingEditPopover = false
     @State private var toBeDeleted: IndexSet?
     
     @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)

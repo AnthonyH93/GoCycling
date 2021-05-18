@@ -15,6 +15,8 @@ struct BikeRideCategoriesListView: View {
     @ObservedObject var bikeRideViewModel = BikeRideListViewModel()
     
     @Environment(\.managedObjectContext) private var managedObjectContext
+    
+    @State private var showingEditPopover = false
       
     var body: some View {
         NavigationView {
@@ -36,6 +38,18 @@ struct BikeRideCategoriesListView: View {
                         }
                     }
                     .listStyle(PlainListStyle())
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            if (preferences.storedPreferences[0].namedRoutes && self.editEnabledCheck()) {
+                                Button ("Edit") {
+                                    self.showingEditPopover = true
+                                }
+                                .sheet(isPresented: $showingEditPopover) {
+                                    RouteRenameModalView(names: bikeRideViewModel.categories)
+                                }
+                            }
+                        }
+                    }
                     .navigationBarTitle("Cycling History", displayMode: .automatic)
                 }
                 else {
@@ -62,6 +76,21 @@ struct BikeRideCategoriesListView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    func editEnabledCheck() -> Bool {
+        if (bikeRideViewModel.categories.count > 2) {
+            return true
+        }
+        else if (bikeRideViewModel.categories.count > 1) {
+            if (bikeRideViewModel.categories[0].name == "All" && bikeRideViewModel.categories[1].name == "Uncategorized") {
+                return false
+            }
+            return true
+        }
+        else {
+            return false
+        }
     }
 }
 
