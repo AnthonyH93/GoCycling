@@ -171,4 +171,31 @@ struct PersistenceController {
             print(error.localizedDescription)
         }
     }
+    
+    func updateBikeRideCategories(oldCategoriesToUpdate: [String], newCategoryNames: [String]) {
+        let context = container.viewContext
+        if (newCategoryNames.count > 0 && (newCategoryNames.count == oldCategoriesToUpdate.count)) {
+            for (index, name) in newCategoryNames.enumerated() {
+                let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "cyclingRouteName == %@", oldCategoriesToUpdate[index])
+                do {
+                    let results = try context.fetch(fetchRequest)
+                    for ride in results {
+                        updateBikeRideRouteName(
+                            existingBikeRide: ride,
+                            latitudes: ride.cyclingLatitudes,
+                            longitudes: ride.cyclingLongitudes,
+                            speeds: ride.cyclingSpeeds,
+                            distance: ride.cyclingDistance,
+                            elevations: ride.cyclingElevations,
+                            startTime: ride.cyclingStartTime,
+                            time: ride.cyclingTime,
+                            routeName: name)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
 }

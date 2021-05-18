@@ -10,11 +10,14 @@ import CoreData
 
 struct RouteRenameModalView: View {
     let persistenceController = PersistenceController.shared
+    
+    @EnvironmentObject var bikeRides: BikeRideStorage
 
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var showModally = true
+    @Binding var showEditModal: Bool
+    
     @State private var selectedNameIndex = -1
     
     @State private var typedRouteName: String = ""
@@ -26,12 +29,13 @@ struct RouteRenameModalView: View {
     @State private var text = ""
     @State private var isEditing = false
     
-    init(names: [Category]) {
+    init(showEditModal: Binding<Bool>, names: [Category]) {
         for category in names {
             if (category.name != "All" && category.name != "Uncategorized") {
                 self.originalNames.append(category.name)
             }
         }
+        self._showEditModal = showEditModal
     }
     
     var body: some View {
@@ -90,11 +94,11 @@ struct RouteRenameModalView: View {
             .disabled(self.selectedNameIndex != -1 && !((self.text.count > 0)))
             Divider()
         }
-        .presentation(isModal: self.showModally) {
-        }
     }
     
     func savePressed() {
+        
+        self.showEditModal = false
         
         if (text != "") {
             self.routeNamingViewModel.routeNames[self.selectedNameIndex] = text
@@ -114,32 +118,9 @@ struct RouteRenameModalView: View {
         }
         
         // Need to update names
-        if (newNames.count > 0) {
-            for (index, name) in newNames.enumerated() {
-                let context = PersistenceController.shared.container.viewContext
-                let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "cyclingRouteName == %@", oldNames[index])
-                do {
-                    let results = try managedObjectContext.fetch(fetchRequest)
-                    for ride in results {
-                        persistenceController.updateBikeRideRouteName(
-                            existingBikeRide: ride,
-                            latitudes: ride.cyclingLatitudes,
-                            longitudes: ride.cyclingLongitudes,
-                            speeds: ride.cyclingSpeeds,
-                            distance: ride.cyclingDistance,
-                            elevations: ride.cyclingElevations,
-                            startTime: ride.cyclingStartTime,
-                            time: ride.cyclingTime,
-                            routeName: name)
-                    }
-                    try context.save()
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        self.presentationMode.wrappedValue.dismiss()
+        persistenceController.updateBikeRideCategories(oldCategoriesToUpdate: oldNames, newCategoryNames: newNames)
+
+        self.showEditModal = false
     }
 }
 

@@ -16,7 +16,7 @@ struct BikeRideCategoriesListView: View {
     
     @Environment(\.managedObjectContext) private var managedObjectContext
     
-    @State private var showingEditPopover = false
+    @State private var showEditModal = false
       
     var body: some View {
         NavigationView {
@@ -42,10 +42,7 @@ struct BikeRideCategoriesListView: View {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             if (preferences.storedPreferences[0].namedRoutes && self.editEnabledCheck()) {
                                 Button ("Edit") {
-                                    self.showingEditPopover = true
-                                }
-                                .sheet(isPresented: $showingEditPopover) {
-                                    RouteRenameModalView(names: bikeRideViewModel.categories)
+                                    self.showEditModal = true
                                 }
                             }
                         }
@@ -74,6 +71,10 @@ struct BikeRideCategoriesListView: View {
                     .navigationBarTitle("Cycling History", displayMode: .automatic)
                 }
             }
+        }
+        // Keep sheet outside of navigation view to avoid unexpected behaviour
+        .sheet(isPresented: $showEditModal) {
+            RouteRenameModalView(showEditModal: $showEditModal, names: bikeRideViewModel.categories)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
