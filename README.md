@@ -1,7 +1,7 @@
 # GoCycling
 
 ## Available on the iOS App Store
-https://apps.apple.com/ca/app/go-cycling/id1565861313
+https://apps.apple.com/app/go-cycling/id1565861313
 
 ## App Icon
 
