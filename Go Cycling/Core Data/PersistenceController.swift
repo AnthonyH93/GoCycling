@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 struct PersistenceController {
     // A singleton for entire app to use
