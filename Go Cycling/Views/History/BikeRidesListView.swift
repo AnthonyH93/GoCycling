@@ -32,9 +32,9 @@ struct BikeRidesListView: View {
     
     var body: some View {
         GeometryReader { (geometry) in
-            ListView(sortDescripter: sortDescriptor, name: selectedName)
+            ListView(sortDescripter: sortDescriptor, name: bikeRideViewModel.currentName)
             .listStyle(PlainListStyle())
-            .navigationBarTitle(self.getNavigationBarTitle(name: selectedName), displayMode: .automatic)
+                .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     if (preferences.storedPreferences[0].namedRoutes) {
@@ -126,7 +126,8 @@ struct BikeRidesListView: View {
                     deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
                     deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
                     iconIndex: preferences.storedPreferences[0].iconIndex,
-                    namedRoutes: preferences.storedPreferences[0].namedRoutes)
+                    namedRoutes: preferences.storedPreferences[0].namedRoutes,
+                    selectedRoute: preferences.storedPreferences[0].selectedRoute)
             })
             .onChange(of: sortChoice, perform: { value in
                 switch sortChoice {
@@ -143,6 +144,24 @@ struct BikeRidesListView: View {
                 case .timeDescending:
                     bikeRideViewModel.sortByTimeDescending()
                 }
+            })
+            .onChange(of: selectedName, perform: { value in
+                print("Selected name changed to \(selectedName)")
+                bikeRideViewModel.setCurrentName(name: selectedName)
+            })
+            .onChange(of: bikeRideViewModel.currentName, perform: { value in
+                persistenceController.updateUserPreferences(
+                    existingPreferences: preferences.storedPreferences[0],
+                    unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+                    displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                    largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
+                    deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                    iconIndex: preferences.storedPreferences[0].iconIndex,
+                    namedRoutes: preferences.storedPreferences[0].namedRoutes,
+                    selectedRoute: bikeRideViewModel.currentName)
             })
         }
     }

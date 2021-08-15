@@ -41,7 +41,7 @@ struct PersistenceController {
         }
     }
     
-    func storeUserPreferences(unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool, iconIndex: Int, namedRoutes: Bool) {
+    func storeUserPreferences(unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool, iconIndex: Int, namedRoutes: Bool, selectedRoute: String) {
         let context = container.viewContext
         
         let newPreferences = UserPreferences(context: context)
@@ -54,6 +54,7 @@ struct PersistenceController {
         newPreferences.deletionEnabled = deletionEnabled
         newPreferences.iconIndex = iconIndex
         newPreferences.namedRoutes = namedRoutes
+        newPreferences.selectedRoute = selectedRoute
         
         do {
             try context.save()
@@ -64,7 +65,7 @@ struct PersistenceController {
     }
     
     // We only need 1 stored UserPreferences object, so update that single object instead of creating new ones
-    func updateUserPreferences(existingPreferences: UserPreferences, unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool, iconIndex: Int, namedRoutes: Bool) {
+    func updateUserPreferences(existingPreferences: UserPreferences, unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool, iconIndex: Int, namedRoutes: Bool, selectedRoute: String) {
         let context = container.viewContext
         
         context.performAndWait {
@@ -77,6 +78,7 @@ struct PersistenceController {
             existingPreferences.deletionEnabled = deletionEnabled
             existingPreferences.iconIndex = iconIndex
             existingPreferences.namedRoutes = namedRoutes
+            existingPreferences.selectedRoute = selectedRoute
             
             do {
                 try context.save()

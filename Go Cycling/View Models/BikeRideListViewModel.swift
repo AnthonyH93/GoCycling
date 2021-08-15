@@ -13,6 +13,20 @@ class BikeRideListViewModel: ObservableObject {
     @Published var bikeRides: [BikeRide] = BikeRide.allBikeRidesSorted()
     @Published var categories: [Category] = BikeRide.allCategories()
     @Published var currentSortChoice: SortChoice = UserPreferences.storedSortingChoice()
+    @Published var currentName: String = UserPreferences.storedSelectedRoute()
+    
+    init() {
+        var validName = false
+        for category in categories {
+            if (category.name == currentName) {
+                validName = true
+                break
+            }
+        }
+        if (validName == false) {
+            currentName = ""
+        }
+    }
     
     // This is the default ordering
     func sortByDateDescending() {
@@ -62,6 +76,10 @@ class BikeRideListViewModel: ObservableObject {
             title = "Time ↓"
         }
         return title
+    }
+    
+    func setCurrentName(name: String) {
+        self.currentName = name
     }
     
     func getFilterActionSheetTitle() -> String {
