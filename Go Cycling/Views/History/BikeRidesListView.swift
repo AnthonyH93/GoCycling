@@ -42,7 +42,7 @@ struct BikeRidesListView: View {
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        if (preferences.storedPreferences[0].namedRoutes) {
+                        if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.bikeRides.count > 0) {
                             Button (bikeRideViewModel.getFilterActionSheetTitle()) {
                                 self.showingFilterSheet = true
                             }
@@ -273,10 +273,6 @@ struct ListView: View {
         // Delete without alert
         else if (preferences.storedPreferences[0].deletionEnabled) {
             deleteBikeRide(at: indexSet)
-        }
-        // Don't delete
-        else {
-            // Shouldn't occur
         }
     }
     
