@@ -63,4 +63,23 @@ class BikeRideListViewModel: ObservableObject {
         }
         return title
     }
+    
+    func getFilterActionSheetTitle() -> String {
+        return "Filter"
+    }
+    
+    func editEnabledCheck() -> Bool {
+        if (self.categories.count > 2) {
+            return true
+        }
+        else if (self.categories.count > 1) {
+            if (self.categories[0].name == "All" && self.categories[1].name == "Uncategorized") {
+                return false
+            }
+            return true
+        }
+        else {
+            return false
+        }
+    }
 }

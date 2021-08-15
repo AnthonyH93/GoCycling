@@ -19,25 +19,37 @@ struct BikeRidesListView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     @State private var showingActionSheet = false
+    @State private var showingFilterSheet = false
     @State private var showingPopover = false
+    @State private var showingFilterPopover = false
     @State private var showingDeleteAlert = false
-    @State private var showingEditPopover = false
+    @State private var showingEditSheet = false
     @State private var toBeDeleted: IndexSet?
+    @State private var sortChoice: SortChoice = .dateDescending
+    @State private var selectedName: String = ""
     
     @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
-
-    var categoryName: String
-    
-    init(categoryName: String) {
-        self.categoryName = categoryName
-    }
     
     var body: some View {
         GeometryReader { (geometry) in
-            ListView(sortDescripter: sortDescriptor, name: categoryName)
+            ListView(sortDescripter: sortDescriptor, name: selectedName)
             .listStyle(PlainListStyle())
-            .navigationBarTitle(self.getNavigationBarTitle(name: self.categoryName), displayMode: .automatic)
+            .navigationBarTitle(self.getNavigationBarTitle(name: selectedName), displayMode: .automatic)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if (preferences.storedPreferences[0].namedRoutes) {
+                        Button (bikeRideViewModel.getFilterActionSheetTitle()) {
+                            self.showingFilterSheet = true
+                        }
+                    }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.editEnabledCheck()) {
+                        Button ("Edit") {
+                            self.showingEditSheet = true
+                        }
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button (bikeRideViewModel.getActionSheetTitle()) {
                         if (min(geometry.size.width, geometry.size.height) < 600) {
@@ -48,59 +60,7 @@ struct BikeRidesListView: View {
                         }
                     }
                     .popover(isPresented: $showingPopover) {
-                        VStack {
-                            Text("Sort")
-                                .font(.caption)
-                                .bold()
-                                .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
-                            Text("Set your preferred sorting order")
-                                .font(.caption2)
-                                .padding(.bottom, 10)
-                            Divider()
-                            Button("Date Descending (Default)", action: {
-                                showingPopover = false
-                                bikeRideViewModel.sortByDateDescending()
-                            })
-                            .padding()
-                            Divider()
-                            Button("Date Ascending", action: {
-                                showingPopover = false
-                                bikeRideViewModel.sortByDateAscending()
-                            })
-                            .padding()
-                            Divider()
-                            Button("Distance Descending", action: {
-                                showingPopover = false
-                                bikeRideViewModel.sortByDistanceDescending()
-                            })
-                            .padding()
-                            Divider()
-                        }
-                        VStack {
-                            Button("Distance Ascending", action: {
-                                showingPopover = false
-                                bikeRideViewModel.sortByDistanceAscending()
-                            })
-                            .padding()
-                            Divider()
-                            Button("Time Descending", action: {
-                                showingPopover = false
-                                bikeRideViewModel.sortByTimeDescending()
-                            })
-                            .padding()
-                            Divider()
-                            Button("Time Ascending", action: {
-                                showingPopover = false
-                                bikeRideViewModel.sortByTimeAscending()
-                            })
-                            .padding()
-                            Divider()
-                            Button("Cancel", action: {
-                                showingPopover = false
-                            })
-                            .padding()
-                            Divider()
-                        }
+                        BikeRideSortPopoverView(showingPopover: $showingPopover, sortChoice: $sortChoice)
                     }
                 }
             }
@@ -119,7 +79,17 @@ struct BikeRidesListView: View {
                 case .timeDescending:
                     sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
                 }
+                sortChoice = bikeRideViewModel.currentSortChoice
             }
+            // Filter action sheet
+            .sheet(isPresented: $showingFilterSheet, content: {
+                BikeRideFilterSheetView(showingSheet: $showingFilterSheet, selectedName: $selectedName, names: bikeRideViewModel.categories)
+            })
+            // Edit sheet
+            .sheet(isPresented: $showingEditSheet) {
+                RouteRenameModalView(showEditModal: $showingEditSheet, names: bikeRideViewModel.categories)
+            }
+            // Sort action sheet
             .actionSheet(isPresented: $showingActionSheet, content: {
                 ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
                     .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
@@ -158,12 +128,28 @@ struct BikeRidesListView: View {
                     iconIndex: preferences.storedPreferences[0].iconIndex,
                     namedRoutes: preferences.storedPreferences[0].namedRoutes)
             })
+            .onChange(of: sortChoice, perform: { value in
+                switch sortChoice {
+                case .distanceAscending:
+                    bikeRideViewModel.sortByDistanceAscending()
+                case .distanceDescending:
+                    bikeRideViewModel.sortByDistanceDescending()
+                case .dateAscending:
+                    bikeRideViewModel.sortByDateAscending()
+                case .dateDescending:
+                    bikeRideViewModel.sortByDateDescending()
+                case .timeAscending:
+                    bikeRideViewModel.sortByTimeAscending()
+                case .timeDescending:
+                    bikeRideViewModel.sortByTimeDescending()
+                }
+            })
         }
     }
     
     func getNavigationBarTitle(name: String) -> String {
         if (preferences.storedPreferences[0].namedRoutes) {
-            return (name == "") ? "All" : name
+            return (name == "") ? "Cycling History" : name
         }
         else {
             return "Cycling History"
@@ -178,8 +164,6 @@ struct ListView: View {
     
     @Environment(\.managedObjectContext) private var managedObjectContext
     
-    @State private var showingActionSheet = false
-    @State private var showingPopover = false
     @State private var showingDeleteAlert = false
     @State private var toBeDeleted: IndexSet?
     
@@ -286,6 +270,6 @@ struct ListView: View {
 
 struct BikeRidesListView_Previews: PreviewProvider {
     static var previews: some View {
-        BikeRidesListView(categoryName: "")
+        BikeRidesListView()
     }
 }
