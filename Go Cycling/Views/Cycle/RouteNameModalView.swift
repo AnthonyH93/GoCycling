@@ -149,6 +149,7 @@ struct RouteNameModalView: View {
             }
             self.presentationMode.wrappedValue.dismiss()
             self.showEditModal = false
+            self.showModally = false
         }
         else {
             let ride = self.bikeRideToEdit!
@@ -164,6 +165,7 @@ struct RouteNameModalView: View {
                 routeName: routeName)
             self.presentationMode.wrappedValue.dismiss()
             self.showEditModal = false
+            self.showModally = false
         }
     }
 }
