@@ -13,6 +13,8 @@ struct RouteNameModalView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
     
+    @Binding var showEditModal: Bool
+    
     @State private var showModally = true
     @State private var selectedNameIndex = 0
     @State private var namedRoutesViewSelection = NamedRoutesViewSelection.new
@@ -23,10 +25,11 @@ struct RouteNameModalView: View {
     
     private var bikeRideToEdit: BikeRide?
     
-    init(bikeRideToEdit: BikeRide?) {
+    init(showEditModal: Binding<Bool>, bikeRideToEdit: BikeRide?) {
         if (bikeRideToEdit != nil) {
             self.bikeRideToEdit = bikeRideToEdit
         }
+        self._showEditModal = showEditModal
     }
     
     var body: some View {
@@ -145,6 +148,7 @@ struct RouteNameModalView: View {
                     routeName: routeName)
             }
             self.presentationMode.wrappedValue.dismiss()
+            self.showEditModal = false
         }
         else {
             let ride = self.bikeRideToEdit!
@@ -159,6 +163,7 @@ struct RouteNameModalView: View {
                 time: ride.cyclingTime,
                 routeName: routeName)
             self.presentationMode.wrappedValue.dismiss()
+            self.showEditModal = false
         }
     }
 }

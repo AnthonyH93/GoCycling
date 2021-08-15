@@ -28,141 +28,147 @@ struct BikeRidesListView: View {
     @State private var sortChoice: SortChoice = .dateDescending
     @State private var selectedName: String = ""
     
+    init() {
+        self.selectedName = bikeRideViewModel.currentName
+    }
+    
     @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
     
     var body: some View {
-        GeometryReader { (geometry) in
-            ListView(sortDescripter: sortDescriptor, name: bikeRideViewModel.currentName)
-            .listStyle(PlainListStyle())
-                .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    if (preferences.storedPreferences[0].namedRoutes) {
-                        Button (bikeRideViewModel.getFilterActionSheetTitle()) {
-                            self.showingFilterSheet = true
+        NavigationView {
+            GeometryReader { (geometry) in
+                ListView(sortDescripter: sortDescriptor, name: bikeRideViewModel.currentName)
+                .listStyle(PlainListStyle())
+                    .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        if (preferences.storedPreferences[0].namedRoutes) {
+                            Button (bikeRideViewModel.getFilterActionSheetTitle()) {
+                                self.showingFilterSheet = true
+                            }
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.editEnabledCheck()) {
+                            Button ("Edit") {
+                                self.showingEditSheet = true
+                            }
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button (bikeRideViewModel.getActionSheetTitle()) {
+                            if (min(geometry.size.width, geometry.size.height) < 600) {
+                                self.showingActionSheet = true
+                            }
+                            else {
+                                showingPopover.toggle()
+                            }
+                        }
+                        .popover(isPresented: $showingPopover) {
+                            BikeRideSortPopoverView(showingPopover: $showingPopover, sortChoice: $sortChoice)
                         }
                     }
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.editEnabledCheck()) {
-                        Button ("Edit") {
-                            self.showingEditSheet = true
-                        }
+                .onAppear {
+                    switch bikeRideViewModel.currentSortChoice {
+                    case .distanceAscending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
+                    case .distanceDescending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
+                    case .dateAscending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
+                    case .dateDescending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
+                    case .timeAscending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
+                    case .timeDescending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
                     }
+                    sortChoice = bikeRideViewModel.currentSortChoice
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button (bikeRideViewModel.getActionSheetTitle()) {
-                        if (min(geometry.size.width, geometry.size.height) < 600) {
-                            self.showingActionSheet = true
-                        }
-                        else {
-                            showingPopover.toggle()
-                        }
-                    }
-                    .popover(isPresented: $showingPopover) {
-                        BikeRideSortPopoverView(showingPopover: $showingPopover, sortChoice: $sortChoice)
-                    }
+                // Filter action sheet
+                .sheet(isPresented: $showingFilterSheet, content: {
+                    BikeRideFilterSheetView(showingSheet: $showingFilterSheet, selectedName: $selectedName, names: bikeRideViewModel.categories)
+                })
+                // Edit sheet
+                .sheet(isPresented: $showingEditSheet) {
+                    RouteRenameModalView(showEditModal: $showingEditSheet, names: bikeRideViewModel.categories)
                 }
+                // Sort action sheet
+                .actionSheet(isPresented: $showingActionSheet, content: {
+                    ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
+                        .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
+                        .default(Text("Date Ascending"), action: bikeRideViewModel.sortByDateAscending),
+                        .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistanceDescending),
+                        .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
+                        .default(Text("Time Descending"), action: bikeRideViewModel.sortByTimeDescending),
+                        .default(Text("Time Ascending"), action: bikeRideViewModel.sortByTimeAscending),
+                        .cancel()
+                    ])
+                })
+                .onChange(of: bikeRideViewModel.currentSortChoice, perform: { value in
+                    switch bikeRideViewModel.currentSortChoice {
+                    case .distanceAscending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
+                    case .distanceDescending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
+                    case .dateAscending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
+                    case .dateDescending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
+                    case .timeAscending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
+                    case .timeDescending:
+                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
+                    }
+                    persistenceController.updateUserPreferences(
+                        existingPreferences: preferences.storedPreferences[0],
+                        unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+                        displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                        largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                        sortChoice: bikeRideViewModel.currentSortChoice,
+                        deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                        iconIndex: preferences.storedPreferences[0].iconIndex,
+                        namedRoutes: preferences.storedPreferences[0].namedRoutes,
+                        selectedRoute: preferences.storedPreferences[0].selectedRoute)
+                })
+                .onChange(of: sortChoice, perform: { value in
+                    switch sortChoice {
+                    case .distanceAscending:
+                        bikeRideViewModel.sortByDistanceAscending()
+                    case .distanceDescending:
+                        bikeRideViewModel.sortByDistanceDescending()
+                    case .dateAscending:
+                        bikeRideViewModel.sortByDateAscending()
+                    case .dateDescending:
+                        bikeRideViewModel.sortByDateDescending()
+                    case .timeAscending:
+                        bikeRideViewModel.sortByTimeAscending()
+                    case .timeDescending:
+                        bikeRideViewModel.sortByTimeDescending()
+                    }
+                })
+                .onChange(of: selectedName, perform: { value in
+                    print("Selected name changed to \(selectedName)")
+                    bikeRideViewModel.setCurrentName(name: selectedName)
+                })
+                .onChange(of: bikeRideViewModel.currentName, perform: { value in
+                    persistenceController.updateUserPreferences(
+                        existingPreferences: preferences.storedPreferences[0],
+                        unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+                        displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+                        largeMetrics: preferences.storedPreferences[0].largeMetrics,
+                        sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
+                        deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+                        iconIndex: preferences.storedPreferences[0].iconIndex,
+                        namedRoutes: preferences.storedPreferences[0].namedRoutes,
+                        selectedRoute: bikeRideViewModel.currentName)
+                })
             }
-            .onAppear {
-                switch bikeRideViewModel.currentSortChoice {
-                case .distanceAscending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
-                case .distanceDescending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
-                case .dateAscending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
-                case .dateDescending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
-                case .timeAscending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
-                case .timeDescending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
-                }
-                sortChoice = bikeRideViewModel.currentSortChoice
-            }
-            // Filter action sheet
-            .sheet(isPresented: $showingFilterSheet, content: {
-                BikeRideFilterSheetView(showingSheet: $showingFilterSheet, selectedName: $selectedName, names: bikeRideViewModel.categories)
-            })
-            // Edit sheet
-            .sheet(isPresented: $showingEditSheet) {
-                RouteRenameModalView(showEditModal: $showingEditSheet, names: bikeRideViewModel.categories)
-            }
-            // Sort action sheet
-            .actionSheet(isPresented: $showingActionSheet, content: {
-                ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
-                    .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
-                    .default(Text("Date Ascending"), action: bikeRideViewModel.sortByDateAscending),
-                    .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistanceDescending),
-                    .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
-                    .default(Text("Time Descending"), action: bikeRideViewModel.sortByTimeDescending),
-                    .default(Text("Time Ascending"), action: bikeRideViewModel.sortByTimeAscending),
-                    .cancel()
-                ])
-            })
-            .onChange(of: bikeRideViewModel.currentSortChoice, perform: { value in
-                switch bikeRideViewModel.currentSortChoice {
-                case .distanceAscending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
-                case .distanceDescending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
-                case .dateAscending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
-                case .dateDescending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
-                case .timeAscending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
-                case .timeDescending:
-                    sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
-                }
-                persistenceController.updateUserPreferences(
-                    existingPreferences: preferences.storedPreferences[0],
-                    unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                    displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                    largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                    sortChoice: bikeRideViewModel.currentSortChoice,
-                    deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                    iconIndex: preferences.storedPreferences[0].iconIndex,
-                    namedRoutes: preferences.storedPreferences[0].namedRoutes,
-                    selectedRoute: preferences.storedPreferences[0].selectedRoute)
-            })
-            .onChange(of: sortChoice, perform: { value in
-                switch sortChoice {
-                case .distanceAscending:
-                    bikeRideViewModel.sortByDistanceAscending()
-                case .distanceDescending:
-                    bikeRideViewModel.sortByDistanceDescending()
-                case .dateAscending:
-                    bikeRideViewModel.sortByDateAscending()
-                case .dateDescending:
-                    bikeRideViewModel.sortByDateDescending()
-                case .timeAscending:
-                    bikeRideViewModel.sortByTimeAscending()
-                case .timeDescending:
-                    bikeRideViewModel.sortByTimeDescending()
-                }
-            })
-            .onChange(of: selectedName, perform: { value in
-                print("Selected name changed to \(selectedName)")
-                bikeRideViewModel.setCurrentName(name: selectedName)
-            })
-            .onChange(of: bikeRideViewModel.currentName, perform: { value in
-                persistenceController.updateUserPreferences(
-                    existingPreferences: preferences.storedPreferences[0],
-                    unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                    displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                    colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                    largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                    sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
-                    deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                    deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                    iconIndex: preferences.storedPreferences[0].iconIndex,
-                    namedRoutes: preferences.storedPreferences[0].namedRoutes,
-                    selectedRoute: bikeRideViewModel.currentName)
-            })
         }
     }
     
