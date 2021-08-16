@@ -23,6 +23,7 @@ struct BikeRidesListView: View {
     @State private var showingPopover = false
     @State private var showingFilterPopover = false
     @State private var showingDeleteAlert = false
+    @State private var shouldBeDeleted = false
     @State private var showingEditSheet = false
     @State private var toBeDeleted: IndexSet?
     @State private var sortChoice: SortChoice = .dateDescending
@@ -37,7 +38,7 @@ struct BikeRidesListView: View {
     var body: some View {
         NavigationView {
             GeometryReader { (geometry) in
-                ListView(sortDescripter: sortDescriptor, name: bikeRideViewModel.currentName)
+                ListView(sortDescripter: sortDescriptor, name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted)
                 .listStyle(PlainListStyle())
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
                 .toolbar {
@@ -170,6 +171,18 @@ struct BikeRidesListView: View {
                 })
             }
         }
+        // Move alert outside of navigation view due to a SwiftUI bug
+        .alert(isPresented: $showingDeleteAlert) {
+            Alert(title: Text("Are you sure that you want to delete this route?"),
+                  message: Text("This action is not reversible."),
+                  primaryButton: .destructive(Text("Delete")) {
+                    self.shouldBeDeleted = true
+                  },
+                  secondaryButton: .cancel() {
+                    self.shouldBeDeleted = false
+                  }
+            )
+        }
     }
     
     func getNavigationBarTitle(name: String) -> String {
@@ -189,18 +202,22 @@ struct ListView: View {
     
     @Environment(\.managedObjectContext) private var managedObjectContext
     
-    @State private var showingDeleteAlert = false
+    @Binding private var showingDeleteAlert: Bool
+    @Binding private var shouldBeDeleted: Bool
+    
     @State private var toBeDeleted: IndexSet?
     
     @FetchRequest var bikeRides: FetchedResults<BikeRide>
 
-    init(sortDescripter: NSSortDescriptor, name: String) {
+    init(sortDescripter: NSSortDescriptor, name: String, showingDeleteAlert: Binding<Bool>, shouldBeDeleted: Binding<Bool>) {
         let request: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
         if (name != "") {
             request.predicate = NSPredicate(format: "cyclingRouteName == %@", name)
         }
         request.sortDescriptors = [sortDescripter]
         _bikeRides = FetchRequest<BikeRide>(fetchRequest: request)
+        self._showingDeleteAlert = showingDeleteAlert
+        self._shouldBeDeleted = shouldBeDeleted
     }
 
     var body: some View {
@@ -237,18 +254,12 @@ struct ListView: View {
                     }
                 }
                 .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
-                .alert(isPresented: $showingDeleteAlert) {
-                    Alert(title: Text("Are you sure that you want to delete this route?"),
-                          message: Text("This action is not reversible."),
-                          primaryButton: .destructive(Text("Delete")) {
-                            self.deleteBikeRide(at: self.toBeDeleted!)
-                            self.toBeDeleted = nil
-                          },
-                          secondaryButton: .cancel() {
-                            self.toBeDeleted = nil
-                          }
-                    )
-                }
+                .onChange(of: shouldBeDeleted, perform: { value in
+                    if (shouldBeDeleted == true) {
+                        self.deleteBikeRide(at: self.toBeDeleted!)
+                        self.toBeDeleted = nil
+                    }
+                })
             }
         }
         else {
@@ -277,6 +288,7 @@ struct ListView: View {
     }
     
     func deleteBikeRide(at indexSet: IndexSet) {
+        self.shouldBeDeleted = false
         for index in indexSet {
             managedObjectContext.delete(bikeRides[index])
         }
