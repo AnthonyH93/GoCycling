@@ -225,32 +225,7 @@ struct ListView: View {
             List {
                 ForEach(bikeRides) { bikeRide in
                     NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))) {
-                        VStack(spacing: 10) {
-                            HStack {
-                                Text(MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))
-                                    .font(.headline)
-                                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
-                                Spacer()
-                            }
-                            HStack {
-                                Text("Distance Cycled")
-                                Spacer()
-                                Text(MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
-                                    .font(.headline)
-                            }
-                            HStack {
-                                Text("Cycling Time")
-                                Spacer()
-                                Text(MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
-                                    .font(.headline)
-                            }
-                            HStack {
-                                Text("Average Speed")
-                                Spacer()
-                                Text(MetricsFormatting.formatAverageSpeed(distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
-                                    .font(.headline)
-                            }
-                        }
+                        BikeRidesListCellView(bikeRide: bikeRide)
                     }
                 }
                 .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
