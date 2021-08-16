@@ -27,10 +27,13 @@ struct BikeRideListView: View {
     @State private var showingEditSheet = false
     @State private var toBeDeleted: IndexSet?
     @State private var sortChoice: SortChoice = .dateDescending
-    @State private var selectedName: String = ""
+    @State private var selectedName: String = UserPreferences.storedSelectedRoute()
     
     init() {
-        self.selectedName = bikeRideViewModel.currentName
+        let valid = bikeRideViewModel.validateCategory(name: selectedName)
+        if (valid == false) {
+            self.selectedName = ""
+        }
     }
     
     @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)

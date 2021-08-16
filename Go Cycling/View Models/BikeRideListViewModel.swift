@@ -16,14 +16,8 @@ class BikeRideListViewModel: ObservableObject {
     @Published var currentName: String = UserPreferences.storedSelectedRoute()
     
     init() {
-        var validName = false
-        for category in categories {
-            if (category.name == currentName) {
-                validName = true
-                break
-            }
-        }
-        if (validName == false) {
+        let valid = validateCategory(name: currentName)
+        if (valid == false) {
             currentName = ""
         }
     }
@@ -99,5 +93,16 @@ class BikeRideListViewModel: ObservableObject {
         else {
             return false
         }
+    }
+    
+    func validateCategory(name: String) -> Bool {
+        var validName = false
+        for category in categories {
+            if (category.name == name) {
+                validName = true
+                break
+            }
+        }
+        return validName
     }
 }

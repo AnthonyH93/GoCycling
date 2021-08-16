@@ -19,7 +19,7 @@ class MetricsFormatting {
         let dateFormatter = DateFormatter()
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
-        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.dateFormat = "h:mm a"
         return(dateFormatter.string(from: date))
     }
     
