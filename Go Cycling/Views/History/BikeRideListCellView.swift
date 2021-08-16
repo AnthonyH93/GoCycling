@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BikeRidesListCellView: View {
+struct BikeRideListCellView: View {
     let bikeRide: BikeRide
     let persistenceController = PersistenceController.shared
     
@@ -46,8 +46,8 @@ struct BikeRidesListCellView: View {
     }
 }
 
-//struct BikeRidesListCellView_Previews: PreviewProvider {
+//struct BikeRideListCellView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        BikeRidesListCellView()
+//        BikeRideListCellView()
 //    }
 //}

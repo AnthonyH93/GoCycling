@@ -9,7 +9,7 @@ import SwiftUI
 import CoreLocation
 import CoreData
 
-struct BikeRidesListView: View {
+struct BikeRideListView: View {
     let persistenceController = PersistenceController.shared
     
     @EnvironmentObject var preferences: PreferencesStorage
@@ -152,7 +152,6 @@ struct BikeRidesListView: View {
                     }
                 })
                 .onChange(of: selectedName, perform: { value in
-                    print("Selected name changed to \(selectedName)")
                     bikeRideViewModel.setCurrentName(name: selectedName)
                 })
                 .onChange(of: bikeRideViewModel.currentName, perform: { value in
@@ -225,7 +224,7 @@ struct ListView: View {
             List {
                 ForEach(bikeRides) { bikeRide in
                     NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))) {
-                        BikeRidesListCellView(bikeRide: bikeRide)
+                        BikeRideListCellView(bikeRide: bikeRide)
                     }
                 }
                 .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
@@ -276,8 +275,8 @@ struct ListView: View {
 
 }
 
-struct BikeRidesListView_Previews: PreviewProvider {
+struct BikeRideListView_Previews: PreviewProvider {
     static var previews: some View {
-        BikeRidesListView()
+        BikeRideListView()
     }
 }
