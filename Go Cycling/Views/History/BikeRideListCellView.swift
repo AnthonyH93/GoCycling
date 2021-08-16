@@ -22,6 +22,9 @@ struct BikeRideListCellView: View {
                     .font(.headline)
                     .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                 Spacer()
+                Text(MetricsFormatting.formatStartTime(date: bikeRide.cyclingStartTime))
+                    .font(.headline)
+                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
             }
             HStack {
                 Text("Distance Cycled")
