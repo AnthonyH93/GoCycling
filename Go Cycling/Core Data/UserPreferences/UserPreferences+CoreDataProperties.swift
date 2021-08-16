@@ -25,6 +25,7 @@ extension UserPreferences {
     @NSManaged public var deletionEnabled: Bool
     @NSManaged public var iconIndex: Int
     @NSManaged public var namedRoutes: Bool
+    @NSManaged public var selectedRoute: String
         
     var colourChoiceConverted: ColourChoice {
         set {

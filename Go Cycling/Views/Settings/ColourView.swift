@@ -34,7 +34,8 @@ struct ColourView: View {
                         deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
                         deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
                         iconIndex: preferences.storedPreferences[0].iconIndex,
-                        namedRoutes: preferences.storedPreferences[0].namedRoutes)
+                        namedRoutes: preferences.storedPreferences[0].namedRoutes,
+                        selectedRoute: preferences.storedPreferences[0].selectedRoute)
                 }
         }
     }

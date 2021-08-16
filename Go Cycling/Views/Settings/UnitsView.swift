@@ -31,7 +31,8 @@ struct UnitsView: View {
                             deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
                             deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
                             iconIndex: preferences.storedPreferences[0].iconIndex,
-                            namedRoutes: preferences.storedPreferences[0].namedRoutes)
+                            namedRoutes: preferences.storedPreferences[0].namedRoutes,
+                            selectedRoute: preferences.storedPreferences[0].selectedRoute)
                     }
             }
             .frame(maxWidth: 150)
@@ -49,7 +50,8 @@ struct UnitsView: View {
                     deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
                     deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
                     iconIndex: preferences.storedPreferences[0].iconIndex,
-                    namedRoutes: preferences.storedPreferences[0].namedRoutes)
+                    namedRoutes: preferences.storedPreferences[0].namedRoutes,
+                    selectedRoute: preferences.storedPreferences[0].selectedRoute)
             }
         Toggle("Large Metrics View", isOn: $preferences.storedPreferences[0].largeMetrics)
             .onChange(of: preferences.storedPreferences[0].largeMetrics) { value in
@@ -63,7 +65,8 @@ struct UnitsView: View {
                     deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
                     deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
                     iconIndex: preferences.storedPreferences[0].iconIndex,
-                    namedRoutes: preferences.storedPreferences[0].namedRoutes)
+                    namedRoutes: preferences.storedPreferences[0].namedRoutes,
+                    selectedRoute: preferences.storedPreferences[0].selectedRoute)
             }
     }
 }

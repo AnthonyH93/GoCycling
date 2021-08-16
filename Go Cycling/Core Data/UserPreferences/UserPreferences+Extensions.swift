@@ -21,4 +21,17 @@ extension UserPreferences {
         }
         return .dateDescending
     }
+    
+    static func storedSelectedRoute() -> String {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<UserPreferences> = UserPreferences.fetchRequest()
+        do {
+            let items = try context.fetch(fetchRequest)
+            return items[items.count - 1].selectedRoute
+        }
+        catch let error as NSError {
+            print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
+        }
+        return ""
+    }
 }
