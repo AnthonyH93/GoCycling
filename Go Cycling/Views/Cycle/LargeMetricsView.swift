@@ -29,7 +29,7 @@ struct LargeMetricsView: View {
                         Rectangle()
                             .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                             .opacity(0.4)
-                            .frame(width: screenWidth/3 - 10, height: 90)
+                            .frame(width: screenWidth/3 - 13.3, height: 90)
                             .cornerRadius(10)
                         HStack {
                             Spacer()
@@ -44,7 +44,7 @@ struct LargeMetricsView: View {
                         Rectangle()
                             .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                             .opacity(0.4)
-                            .frame(width: screenWidth/3 - 10, height: 90)
+                            .frame(width: screenWidth/3 - 13.3, height: 90)
                             .cornerRadius(10)
                         HStack {
                             Spacer()
@@ -59,7 +59,7 @@ struct LargeMetricsView: View {
                         Rectangle()
                             .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                             .opacity(0.4)
-                            .frame(width: screenWidth/3 - 10, height: 90)
+                            .frame(width: screenWidth/3 - 13.3, height: 90)
                             .cornerRadius(10)
                         HStack {
                             Spacer()
