@@ -26,6 +26,7 @@ struct CycleView: View {
                 MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling, screenWidth: geometry.size.width)
                 Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                     .font(.custom("Avenir", size: 40))
+                Spacer()
                 HStack {
                     if (timer.isRunning) {
                         Button (action: {self.timer.pause()}) {
@@ -64,6 +65,7 @@ struct CycleView: View {
                         }
                     }
                 }
+                Spacer()
             }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Are you sure that you want to end the current route?"),
