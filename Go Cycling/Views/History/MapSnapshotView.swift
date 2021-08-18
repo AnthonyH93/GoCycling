@@ -21,8 +21,17 @@ struct MapSnapshotView: View {
         GeometryReader { geometry in
             Group {
                 if let image = snapshotImage {
-                    Image(uiImage: image)
-                } else {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Image(uiImage: image)
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                }
+                else {
                     VStack {
                         Spacer()
                         HStack {

@@ -15,6 +15,14 @@ class MetricsFormatting {
         return(dateFormatter.string(from: date))
     }
     
+    static func formatStartTime(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.dateFormat = "h:mm a"
+        return(dateFormatter.string(from: date))
+    }
+    
     static func formatDistance(distance: CLLocationDistance, usingMetric: Bool) -> String {
         let distanceKilometres = round(100 * distance/1000)/100
         let distanceMiles = round(100 * (0.621371 * distance/1000))/100

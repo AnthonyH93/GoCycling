@@ -73,11 +73,11 @@ struct SingleBikeRideView: View {
                     Button ("Edit") {
                         self.showingEditPopover = true
                     }
-                    .sheet(isPresented: $showingEditPopover) {
-                        RouteNameModalView(bikeRideToEdit: bikeRide)
-                    }
                 }
             }
+        }
+        .sheet(isPresented: $showingEditPopover) {
+            RouteNameModalView(showEditModal: $showingEditPopover, bikeRideToEdit: bikeRide)
         }
     }
     

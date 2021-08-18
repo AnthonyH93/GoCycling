@@ -16,7 +16,7 @@ struct HistoryView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        BikeRideCategoriesListView()
+        BikeRideListView()
     }
 }
 

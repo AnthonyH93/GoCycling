@@ -64,7 +64,8 @@ struct ResetView: View {
             deletionConfirmation: true,
             deletionEnabled: true,
             iconIndex: preferences.storedPreferences[0].iconIndex,
-            namedRoutes: true)
+            namedRoutes: true,
+            selectedRoute: "")
     }
     
     func deleteAllBikeRides() {
