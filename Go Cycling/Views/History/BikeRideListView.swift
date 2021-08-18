@@ -227,7 +227,36 @@ struct ListView: View {
             List {
                 ForEach(bikeRides) { bikeRide in
                     NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))) {
-                        BikeRideListCellView(bikeRide: bikeRide)
+                        // Bike ride list cell
+                        VStack(spacing: 10) {
+                            HStack {
+                                Text(MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))
+                                    .font(.headline)
+                                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                                Spacer()
+                                Text(MetricsFormatting.formatStartTime(date: bikeRide.cyclingStartTime))
+                                    .font(.headline)
+                                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                            }
+                            HStack {
+                                Text("Distance Cycled")
+                                Spacer()
+                                Text(MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
+                                    .font(.headline)
+                            }
+                            HStack {
+                                Text("Cycling Time")
+                                Spacer()
+                                Text(MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
+                                    .font(.headline)
+                            }
+                            HStack {
+                                Text("Average Speed")
+                                Spacer()
+                                Text(MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
+                                    .font(.headline)
+                            }
+                        }
                     }
                 }
                 .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)

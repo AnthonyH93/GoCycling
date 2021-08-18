@@ -38,7 +38,6 @@
 		9D6E5397262D090C008FD7C1 /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */; };
 		9D75E29226C85C9C00DE536D /* BikeRideSortPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D75E29126C85C9C00DE536D /* BikeRideSortPopoverView.swift */; };
 		9D75E29426C8636F00DE536D /* BikeRideFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */; };
-		9D75E29626CA150600DE536D /* BikeRideListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D75E29526CA150600DE536D /* BikeRideListCellView.swift */; };
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
 		9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169BB263E0C5200DED7F8 /* SortChoice.swift */; };
 		9D8169CF263E182700DED7F8 /* UserPreferences+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169CE263E182700DED7F8 /* UserPreferences+Extensions.swift */; };
@@ -132,7 +131,6 @@
 		9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
 		9D75E29126C85C9C00DE536D /* BikeRideSortPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideSortPopoverView.swift; sourceTree = "<group>"; };
 		9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideFilterSheetView.swift; sourceTree = "<group>"; };
-		9D75E29526CA150600DE536D /* BikeRideListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListCellView.swift; sourceTree = "<group>"; };
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		9D8169BB263E0C5200DED7F8 /* SortChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortChoice.swift; sourceTree = "<group>"; };
 		9D8169CE263E182700DED7F8 /* UserPreferences+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+Extensions.swift"; sourceTree = "<group>"; };
@@ -246,7 +244,6 @@
 			children = (
 				9DAB836F25FED0A300F5C42E /* HistoryView.swift */,
 				9D9776E42633B0E70048B504 /* BikeRideListView.swift */,
-				9D75E29526CA150600DE536D /* BikeRideListCellView.swift */,
 				9D9776E92633B4050048B504 /* SingleBikeRideView.swift */,
 				9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */,
 				9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */,
@@ -644,7 +641,6 @@
 				9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */,
 				9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */,
 				9D75E29426C8636F00DE536D /* BikeRideFilterSheetView.swift in Sources */,
-				9D75E29626CA150600DE536D /* BikeRideListCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,7 +798,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				DEVELOPMENT_TEAM = QMBJV5C74X;
 				ENABLE_PREVIEWS = YES;
@@ -826,7 +822,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				DEVELOPMENT_TEAM = QMBJV5C74X;
 				ENABLE_PREVIEWS = YES;
