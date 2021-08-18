@@ -42,6 +42,8 @@ struct RouteRenameModalView: View {
         VStack {
             Text("Rename Your Categories")
                 .font(.headline)
+                .padding(.top)
+            Text("Tap on any category to enter a new name.")
                 .padding()
             if (routeNamingViewModel.routeNames.count > 0) {
                 List {

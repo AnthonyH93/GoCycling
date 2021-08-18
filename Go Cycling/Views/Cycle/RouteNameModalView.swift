@@ -56,7 +56,7 @@ struct RouteNameModalView: View {
                 Spacer()
                 Divider()
                 Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text("Cancel")
+                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
                         .foregroundColor(Color.red)
                 }
                 .padding()
@@ -95,7 +95,7 @@ struct RouteNameModalView: View {
                 Spacer()
                 Divider()
                 Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text("Cancel")
+                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
                         .foregroundColor(Color.red)
                 }
                 .padding()
