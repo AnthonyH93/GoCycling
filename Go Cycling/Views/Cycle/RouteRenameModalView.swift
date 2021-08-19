@@ -50,6 +50,7 @@ struct RouteRenameModalView: View {
                     ForEach(0 ..< self.routeNamingViewModel.routeNames.count) { index in
                     Button(action: {
                         self.selectedNameIndex = index
+                        self.text = ""
                     }) {
                         HStack {
                             if (self.selectedNameIndex == index) {
