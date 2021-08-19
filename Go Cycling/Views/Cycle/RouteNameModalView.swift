@@ -60,6 +60,14 @@ struct RouteNameModalView: View {
                         .foregroundColor(Color.red)
                 }
                 .padding()
+                // Extra option for existing routes where the category can be removed
+                if (self.bikeRideToEdit != nil) {
+                    Divider()
+                    Button (action: {self.removeCategoryPressed()}) {
+                        Text("Remove category")
+                    }
+                    .padding()
+                }
                 Divider()
                 Button (action: {self.savePressed()}) {
                     Text("Save")
@@ -99,6 +107,14 @@ struct RouteNameModalView: View {
                         .foregroundColor(Color.red)
                 }
                 .padding()
+                // Extra option for existing routes where the category can be removed
+                if (self.bikeRideToEdit != nil) {
+                    Divider()
+                    Button (action: {self.removeCategoryPressed()}) {
+                        Text("Remove category")
+                    }
+                    .padding()
+                }
                 Divider()
                 Button (action: {self.savePressed()}) {
                     Text("Save")
@@ -167,6 +183,23 @@ struct RouteNameModalView: View {
             self.showEditModal = false
             self.showModally = false
         }
+    }
+    
+    func removeCategoryPressed() {
+        let ride = self.bikeRideToEdit!
+        persistenceController.updateBikeRideRouteName(
+            existingBikeRide: ride,
+            latitudes: ride.cyclingLatitudes,
+            longitudes: ride.cyclingLongitudes,
+            speeds: ride.cyclingSpeeds,
+            distance: ride.cyclingDistance,
+            elevations: ride.cyclingElevations,
+            startTime: ride.cyclingStartTime,
+            time: ride.cyclingTime,
+            routeName: "Uncategorized")
+        self.presentationMode.wrappedValue.dismiss()
+        self.showEditModal = false
+        self.showModally = false
     }
 }
 
