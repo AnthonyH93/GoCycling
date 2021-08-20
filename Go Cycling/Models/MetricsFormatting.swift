@@ -62,7 +62,7 @@ class MetricsFormatting {
             if (speed > topSpeed) {
                 topSpeed = speed
             }
-            speedSum += speed
+            speedSum += speed < 0 ? 0 : speed
         }
         
         // Blind calculation of average speed based on distance and time, only valid if less than top speed
