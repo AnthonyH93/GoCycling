@@ -201,4 +201,29 @@ struct PersistenceController {
             }
         }
     }
+    
+    // Function to rename all routes of a given category to Uncategorized
+    func removeCategory(categoryName: String) {
+        let context = container.viewContext
+        let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "cyclingRouteName == %@", categoryName)
+        do {
+            let results = try context.fetch(fetchRequest)
+            for ride in results {
+                updateBikeRideRouteName(
+                    existingBikeRide: ride,
+                    latitudes: ride.cyclingLatitudes,
+                    longitudes: ride.cyclingLongitudes,
+                    speeds: ride.cyclingSpeeds,
+                    distance: ride.cyclingDistance,
+                    elevations: ride.cyclingElevations,
+                    startTime: ride.cyclingStartTime,
+                    time: ride.cyclingTime,
+                    routeName: "Uncategorized")
+            }
+            try context.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

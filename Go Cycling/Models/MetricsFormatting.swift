@@ -49,12 +49,26 @@ class MetricsFormatting {
         return timeString
     }
     
-    static func formatAverageSpeed(distance: CLLocationDistance, time: TimeInterval, usingMetric: Bool) -> String {
+    static func formatAverageSpeed(speeds: [CLLocationSpeed], distance: CLLocationDistance, time: TimeInterval, usingMetric: Bool) -> String {
         let speedUnits = usingMetric ? "km/h" : "mph"
         if (time == 0) {
             return "0 " + speedUnits
         }
-        let speedMetresPerSecond = distance/time
+        
+        // Check the top speed to ensure that the average speed never exceeds the top speed
+        var topSpeed: CLLocationSpeed = 0.0
+        var speedSum: CLLocationSpeed = 0.0
+        for speed in speeds {
+            if (speed > topSpeed) {
+                topSpeed = speed
+            }
+            speedSum += speed < 0 ? 0 : speed
+        }
+        
+        // Blind calculation of average speed based on distance and time, only valid if less than top speed
+        var speedMetresPerSecond = distance/time
+        speedMetresPerSecond = (topSpeed < speedMetresPerSecond) ? speedSum/Double(speeds.count) : speedMetresPerSecond
+        
         let speedKMH = round(100 * (3.6 * speedMetresPerSecond))/100
         let speedMPH = round(100 * (2.23694 * speedMetresPerSecond))/100
         let speedString = "\(usingMetric ? speedKMH : speedMPH) " + speedUnits
@@ -80,12 +94,7 @@ class MetricsFormatting {
     }
     
     static func formatTopSpeed(speeds: [CLLocationSpeed], usingMetric: Bool) -> String {
-        var topSpeed: CLLocationSpeed = 0.0
-        for speed in speeds {
-            if (speed > topSpeed) {
-                topSpeed = speed
-            }
-        }
+        let topSpeed = speeds.max() ?? 0.0
         
         let speedUnits = usingMetric ? "km/h" : "mph"
         let speedKMH = round(100 * (3.6 * topSpeed))/100

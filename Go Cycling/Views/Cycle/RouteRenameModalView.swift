@@ -42,12 +42,15 @@ struct RouteRenameModalView: View {
         VStack {
             Text("Rename Your Categories")
                 .font(.headline)
+                .padding(.top)
+            Text("Tap on any category to enter a new name.")
                 .padding()
             if (routeNamingViewModel.routeNames.count > 0) {
                 List {
                     ForEach(0 ..< self.routeNamingViewModel.routeNames.count) { index in
                     Button(action: {
                         self.selectedNameIndex = index
+                        self.text = ""
                     }) {
                         HStack {
                             if (self.selectedNameIndex == index) {
