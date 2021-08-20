@@ -38,7 +38,7 @@ struct RouteNameModalView: View {
                 .font(.headline)
                 .padding()
             
-            Picker("Prefered Units", selection: $namedRoutesViewSelection) {
+            Picker("Preferred Units", selection: $namedRoutesViewSelection) {
                 Text("Create a New Category").tag(NamedRoutesViewSelection.new)
                 Text("Use an Existing Category").tag(NamedRoutesViewSelection.existing)
             }
@@ -58,7 +58,7 @@ struct RouteNameModalView: View {
                 if (self.bikeRideToEdit != nil) {
                     Divider()
                     Button (action: {self.removeCategoryPressed()}) {
-                        Text("Remove category")
+                        Text("Remove From Category")
                             .foregroundColor(Color.red)
                     }
                     .padding()
@@ -71,7 +71,7 @@ struct RouteNameModalView: View {
                 .padding()
                 Divider()
                 Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
+                    Text(self.bikeRideToEdit == nil ? "Save Without a Category" : "Cancel")
                         .bold()
                 }
                 .padding()
@@ -105,7 +105,7 @@ struct RouteNameModalView: View {
                 if (self.bikeRideToEdit != nil) {
                     Divider()
                     Button (action: {self.removeCategoryPressed()}) {
-                        Text("Remove category")
+                        Text("Remove From Category")
                             .foregroundColor(Color.red)
                     }
                     .padding()
@@ -118,7 +118,7 @@ struct RouteNameModalView: View {
                 .disabled(!(self.routeNamingViewModel.routeNames.count > 0))
                 Divider()
                 Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
+                    Text(self.bikeRideToEdit == nil ? "Save Without a Category" : "Cancel")
                         .bold()
                 }
                 .padding()

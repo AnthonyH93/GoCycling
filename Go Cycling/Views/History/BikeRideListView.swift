@@ -100,7 +100,7 @@ struct BikeRideListView: View {
                 }
                 // Sort action sheet
                 .actionSheet(isPresented: $showingActionSheet, content: {
-                    ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order"), buttons:[
+                    ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order."), buttons:[
                         .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
                         .default(Text("Date Ascending"), action: bikeRideViewModel.sortByDateAscending),
                         .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistanceDescending),
