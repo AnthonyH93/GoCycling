@@ -44,12 +44,13 @@ struct BikeRideFilterSheetView: View {
                         }
                     }
                 }
+                .listStyle(InsetGroupedListStyle())
             }
             Spacer()
             Divider()
             Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
                 Text("Cancel")
-                    .foregroundColor(Color.red)
+                    .bold()
             }
             .padding()
             Divider()

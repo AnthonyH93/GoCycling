@@ -54,26 +54,26 @@ struct RouteNameModalView: View {
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Spacer()
-                Divider()
-                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
-                        .foregroundColor(Color.red)
-                }
-                .padding()
                 // Extra option for existing routes where the category can be removed
                 if (self.bikeRideToEdit != nil) {
                     Divider()
                     Button (action: {self.removeCategoryPressed()}) {
                         Text("Remove category")
+                            .foregroundColor(Color.red)
                     }
                     .padding()
                 }
                 Divider()
                 Button (action: {self.savePressed()}) {
                     Text("Save")
-                        .bold()
                 }
                 .disabled(!((self.typedRouteName.count > 0)))
+                .padding()
+                Divider()
+                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
+                        .bold()
+                }
                 .padding()
                 Divider()
             case .existing:
@@ -101,27 +101,27 @@ struct RouteNameModalView: View {
                     Text("There are no saved categories.")
                 }
                 Spacer()
-                Divider()
-                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
-                        .foregroundColor(Color.red)
-                }
-                .padding()
                 // Extra option for existing routes where the category can be removed
                 if (self.bikeRideToEdit != nil) {
                     Divider()
                     Button (action: {self.removeCategoryPressed()}) {
                         Text("Remove category")
+                            .foregroundColor(Color.red)
                     }
                     .padding()
                 }
                 Divider()
                 Button (action: {self.savePressed()}) {
                     Text("Save")
-                        .bold()
                 }
                 .padding()
                 .disabled(!(self.routeNamingViewModel.routeNames.count > 0))
+                Divider()
+                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
+                        .bold()
+                }
+                .padding()
                 Divider()
             }
         }
