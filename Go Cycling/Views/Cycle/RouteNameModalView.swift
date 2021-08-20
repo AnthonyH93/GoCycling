@@ -96,6 +96,7 @@ struct RouteNameModalView: View {
                         }
                         }
                     }
+                    .listStyle(PlainListStyle())
                 }
                 else {
                     Text("There are no saved categories.")
