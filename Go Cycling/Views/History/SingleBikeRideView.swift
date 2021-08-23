@@ -21,7 +21,7 @@ struct SingleBikeRideView: View {
         GeometryReader { (geometry) in
             VStack {
                 VStack (spacing: 0) {
-                    if (bikeRide.cyclingRouteName != "Uncategorized") {
+                    if (preferences.storedPreferences[0].namedRoutes && bikeRide.cyclingRouteName != "Uncategorized") {
                         Text("\(bikeRide.cyclingRouteName)")
                             .bold()
                             .padding(.top, 10)

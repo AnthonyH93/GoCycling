@@ -117,12 +117,14 @@ struct RouteNameModalView: View {
                 .padding()
                 .disabled(!(self.routeNamingViewModel.routeNames.count > 0))
                 Divider()
-                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text(self.bikeRideToEdit == nil ? "Save Without a Category" : "Cancel")
-                        .bold()
+                if (self.bikeRideToEdit != nil) {
+                    Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+                        Text("Cancel")
+                            .bold()
+                    }
+                    .padding()
+                    Divider()
                 }
-                .padding()
-                Divider()
             }
         }
         .presentation(isModal: self.showModally) {
