@@ -56,11 +56,11 @@ Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle T
 ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/1.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/2.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/3.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/4.png?raw=true)
 
 ### Features of the History Tab
-• View all past cycling routes in an easily readable list
-• Sort all of your routes by time, distance and date (all offering ascending or descending order)
-• Filter your routes by their category, rename your categories or recategorize individual routes
-• Click on a single route to view a full screen view including a map of the route as well as metrics
-• Each list entry is deletable by swiping to the left
+* View all past cycling routes in an easily readable list
+* Sort all of your routes by time, distance and date (all offering ascending or descending order)
+* Filter your routes by their category, rename your categories or recategorize individual routes
+* Click on a single route to view a full screen view including a map of the route as well as metrics
+* Each list entry is deletable by swiping to the left
 
 ### Device Screenshots of the History Tab
 Cycling History List View | Cycling History List View Dark | Single Cycling Route Detailed View | Single Cycling Route Detailed View Dark
