@@ -38,7 +38,7 @@ struct RouteNameModalView: View {
                 .font(.headline)
                 .padding()
             
-            Picker("Prefered Units", selection: $namedRoutesViewSelection) {
+            Picker("Preferred Units", selection: $namedRoutesViewSelection) {
                 Text("Create a New Category").tag(NamedRoutesViewSelection.new)
                 Text("Use an Existing Category").tag(NamedRoutesViewSelection.existing)
             }
@@ -54,26 +54,26 @@ struct RouteNameModalView: View {
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Spacer()
-                Divider()
-                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
-                        .foregroundColor(Color.red)
-                }
-                .padding()
                 // Extra option for existing routes where the category can be removed
                 if (self.bikeRideToEdit != nil) {
                     Divider()
                     Button (action: {self.removeCategoryPressed()}) {
-                        Text("Remove category")
+                        Text("Remove From Category")
+                            .foregroundColor(Color.red)
                     }
                     .padding()
                 }
                 Divider()
                 Button (action: {self.savePressed()}) {
                     Text("Save")
-                        .bold()
                 }
                 .disabled(!((self.typedRouteName.count > 0)))
+                .padding()
+                Divider()
+                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+                    Text(self.bikeRideToEdit == nil ? "Save Without a Category" : "Cancel")
+                        .bold()
+                }
                 .padding()
                 Divider()
             case .existing:
@@ -102,28 +102,30 @@ struct RouteNameModalView: View {
                     Text("There are no saved categories.")
                 }
                 Spacer()
-                Divider()
-                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                    Text(self.bikeRideToEdit == nil ? "Save without a category" : "Cancel")
-                        .foregroundColor(Color.red)
-                }
-                .padding()
                 // Extra option for existing routes where the category can be removed
                 if (self.bikeRideToEdit != nil) {
                     Divider()
                     Button (action: {self.removeCategoryPressed()}) {
-                        Text("Remove category")
+                        Text("Remove From Category")
+                            .foregroundColor(Color.red)
                     }
                     .padding()
                 }
                 Divider()
                 Button (action: {self.savePressed()}) {
                     Text("Save")
-                        .bold()
                 }
                 .padding()
                 .disabled(!(self.routeNamingViewModel.routeNames.count > 0))
                 Divider()
+                if (self.bikeRideToEdit != nil) {
+                    Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+                        Text("Cancel")
+                            .bold()
+                    }
+                    .padding()
+                    Divider()
+                }
             }
         }
         .presentation(isModal: self.showModally) {

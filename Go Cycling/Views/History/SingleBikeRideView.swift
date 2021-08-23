@@ -20,10 +20,17 @@ struct SingleBikeRideView: View {
     var body: some View {
         GeometryReader { (geometry) in
             VStack {
-                MapSnapshotView(location: self.calculateCenter(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
-                                span: self.calculateSpan(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
-                                coordinates: self.setupCoordinates(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes))
-                    .padding(.bottom, 10)
+                VStack (spacing: 0) {
+                    if (preferences.storedPreferences[0].namedRoutes && bikeRide.cyclingRouteName != "Uncategorized") {
+                        Text("\(bikeRide.cyclingRouteName)")
+                            .bold()
+                            .padding(.top, 10)
+                    }
+                    MapSnapshotView(location: self.calculateCenter(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
+                                    span: self.calculateSpan(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
+                                    coordinates: self.setupCoordinates(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes))
+                        .padding(.bottom, 10)
+                }
                 if (min(geometry.size.width, geometry.size.height) < 600) {
                     VStack(spacing: 10) {
                         HStack {

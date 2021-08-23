@@ -84,18 +84,17 @@ struct RouteRenameModalView: View {
             }
             Spacer()
             Divider()
-            Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
-                Text("Cancel")
-                    .foregroundColor(Color.red)
-            }
-            .padding()
-            Divider()
             Button (action: {self.savePressed()}) {
                 Text("Save")
-                    .bold()
             }
             .padding()
             .disabled(self.selectedNameIndex != -1 && !((self.text.count > 0)))
+            Divider()
+            Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+                Text("Cancel")
+                    .bold()
+            }
+            .padding()
             Divider()
         }
     }
