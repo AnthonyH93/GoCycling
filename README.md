@@ -48,6 +48,7 @@ Note: All screenshots shown were taken on an iPhone 12 Pro Max simulator.
 * View current cycling metrics, including distance cycled, speed and altitude
 * Large map showing current location and path taken
 * Timer showing cycling time of the ongoing route
+* Assign your route to a new/existing category upon completion
 
 ### Device Screenshots of the Cycle Tab
 Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle Tab With Ongoing Route | Cycle Tab With Ongoing Route Dark
@@ -55,10 +56,11 @@ Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle T
 ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/1.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/2.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/3.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/4.png?raw=true)
 
 ### Features of the History Tab
-* View all past bike rides in an easily readable list
-* Sort all of your bike rides by time, distance and date (all offering ascending or descending order)
-* Click on a single bike ride to view a full screen view including a map of the route as well as metrics
-* Each list entry is deletable by swiping to the left
+• View all past cycling routes in an easily readable list
+• Sort all of your routes by time, distance and date (all offering ascending or descending order)
+• Filter your routes by their category, rename your categories or recategorize individual routes
+• Click on a single route to view a full screen view including a map of the route as well as metrics
+• Each list entry is deletable by swiping to the left
 
 ### Device Screenshots of the History Tab
 Cycling History List View | Cycling History List View Dark | Single Cycling Route Detailed View | Single Cycling Route Detailed View Dark
@@ -81,8 +83,8 @@ General Settings View | General Settings View Dark | Changing App Icon to Defaul
 This app has been an immense amount of fun to develop and I have greatly enjoyed using SwiftUI! I am planning on continuing to add features as time permits and some ideas that are on my roadmap are listed below:
 * Statistics tab displaying graphs about past cycling trends (also all time records such as longest route, furthest distance travelled in one month, etc)
   * Could also add goals to this, so that users could set cycling goals and track their progress towards them
-* Route naming so that a user could assign a name to each route they complete
-  * This would allow easy sorting by route names and comparison between attempts of the same route
+* iCloud integration with CloudKit
+  * This would allow data to be synced between devices and recovered when the user gets a new device
 * Calorie tracking within the app as an optional metric
 * Route generator feature where a user could enter the distance they want to ride and the app could suggest a route for them
 
