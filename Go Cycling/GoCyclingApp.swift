@@ -15,14 +15,18 @@ struct GoCyclingApp: App {
     
     @StateObject var preferences: PreferencesStorage
     @StateObject var bikeRides: BikeRideStorage
+    @StateObject var records: RecordsStorage
     @StateObject var cyclingStatus = CyclingStatus()
     
     init() {
+        // Retrieve stored data to be used by all views - create state objects for environment objects
         let managedObjectContext = persistenceController.container.viewContext
         let preferencesStorage = PreferencesStorage(managedObjectContext: managedObjectContext)
         self._preferences = StateObject(wrappedValue: preferencesStorage)
         let bikeRidesStorage = BikeRideStorage(managedObjectContext: managedObjectContext)
         self._bikeRides = StateObject(wrappedValue: bikeRidesStorage)
+        let recordsStroage = RecordsStorage(managedObjectContext: managedObjectContext)
+        self._records = StateObject(wrappedValue: recordsStroage)
     }
 
     var body: some Scene {
@@ -31,6 +35,7 @@ struct GoCyclingApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(preferences)
                 .environmentObject(bikeRides)
+                .environmentObject(records)
                 .environmentObject(cyclingStatus)
                 .onAppear(perform: {
                     // Default namedRoutes to true on version 1.1.0

@@ -81,6 +81,9 @@
 		9DEAD6C4263257A500392D88 /* BikeRide+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6C2263257A500392D88 /* BikeRide+CoreDataClass.swift */; };
 		9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6C3263257A500392D88 /* BikeRide+CoreDataProperties.swift */; };
 		9DEAD6CB2632589500392D88 /* BikeRideStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */; };
+		9DF9303B26DB439300D4EEC5 /* Records+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */; };
+		9DF9303C26DB439300D4EEC5 /* Records+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */; };
+		9DF9303F26DB44B100D4EEC5 /* RecordsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9303E26DB44B100D4EEC5 /* RecordsStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +184,9 @@
 		9DEAD6C2263257A500392D88 /* BikeRide+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9DEAD6C3263257A500392D88 /* BikeRide+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideStorage.swift; sourceTree = "<group>"; };
+		9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Records+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Records+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9DF9303E26DB44B100D4EEC5 /* RecordsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,12 +296,14 @@
 		9D6E5383262CECCC008FD7C1 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				9DF9303D26DB43B500D4EEC5 /* Records */,
 				9DEAD6C92632586200392D88 /* BikeRide */,
 				9D6E53A1262D387B008FD7C1 /* UserPreferences */,
 				9D6E5384262CECFA008FD7C1 /* GoCycling.xcdatamodeld */,
 				9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */,
 				9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */,
 				9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */,
+				9DF9303E26DB44B100D4EEC5 /* RecordsStorage.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -454,6 +462,15 @@
 			path = BikeRide;
 			sourceTree = "<group>";
 		};
+		9DF9303D26DB43B500D4EEC5 /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */,
+				9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */,
+			);
+			path = Records;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -603,6 +620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DF9303F26DB44B100D4EEC5 /* RecordsStorage.swift in Sources */,
 				9D6E5392262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift in Sources */,
 				9D3808EA26D3709C0058DE1E /* StatisticsView.swift in Sources */,
 				9D76355A262009230026D948 /* MapView.swift in Sources */,
@@ -631,6 +649,7 @@
 				9D2F48F72650751200094575 /* RouteNameModalView.swift in Sources */,
 				9DEAD6B6262D423E00392D88 /* AboutAppView.swift in Sources */,
 				9D2F48F9265075FC00094575 /* ModalViewExtension.swift in Sources */,
+				9DF9303C26DB439300D4EEC5 /* Records+CoreDataProperties.swift in Sources */,
 				9D62F4E52635FD6600E28991 /* SmallMetricsView.swift in Sources */,
 				9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */,
 				9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */,
@@ -640,6 +659,7 @@
 				9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */,
 				9D8169CF263E182700DED7F8 /* UserPreferences+Extensions.swift in Sources */,
 				9D6E53492628071B008FD7C1 /* MapWithSpeedView.swift in Sources */,
+				9DF9303B26DB439300D4EEC5 /* Records+CoreDataClass.swift in Sources */,
 				9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */,
 				9D816A1E2641BAD000DED7F8 /* ResetView.swift in Sources */,
 				9D2F48FB26507EC500094575 /* RouteNamingViewModel.swift in Sources */,
