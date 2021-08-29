@@ -104,6 +104,7 @@ struct PersistenceController {
             longitudes.append(location?.coordinate.longitude ?? 0.0)
         }
         
+        // TODO: Switch to compactMap { $0 } to remove nil elements
         for speed in speeds {
             speedsValidated.append(speed ?? 0.0)
         }
@@ -256,7 +257,7 @@ struct PersistenceController {
     }
     
     // Only need to store one records object, use this method to update the existing object
-    func updateRecords(existingRecords: Records, totalDistance: Double, totalTime: Double, totalRoutes: Int64, longestDistance: Double, longestTime: Double, fastestAvgSpeed: Double, longestDistanceDate: Date, longestTimeDate: Date, fastestAvgSpeedDate: Date) {
+    func updateRecords(existingRecords: Records, totalDistance: Double, totalTime: Double, totalRoutes: Int64, longestDistance: Double, longestTime: Double, fastestAvgSpeed: Double, longestDistanceDate: Date?, longestTimeDate: Date?, fastestAvgSpeedDate: Date?) {
         let context = container.viewContext
         
         context.performAndWait {

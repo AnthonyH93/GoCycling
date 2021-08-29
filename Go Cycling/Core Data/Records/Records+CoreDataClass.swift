@@ -77,7 +77,7 @@ public class Records: NSManagedObject {
                 let maxSpeed = ride.cyclingSpeeds.max()
                 let avgSpeed = ride.cyclingDistance/ride.cyclingTime
                 // Must have a valid average speed
-                if (maxSpeed ?? 0.0 <= avgSpeed && avgSpeed > bestAvgSpeed) {
+                if (maxSpeed ?? 0.0 >= avgSpeed && avgSpeed > bestAvgSpeed) {
                     bestAvgSpeed = avgSpeed
                     bestAvgSpeedDate = ride.cyclingStartTime
                 }
@@ -87,5 +87,33 @@ public class Records: NSManagedObject {
             totalTime += ride.cyclingTime
         }
         return (totalDistance: totalDistance, totalTime: totalTime, totalRoutes: totalRoutes, unlockedIcons: unlockedIcons, longestDistance: maxDistance, longestTime: maxTime, fastestAvgSpeed: bestAvgSpeed, longestDistanceDate: maxDistanceDate, longestTimeDate: maxTimeDate, fastestAvgSpeedDate: bestAvgSpeedDate)
+    }
+    
+    // Function to be called after a new cycling route to determine if record(s) have been broken - returns a tuple of the newly updated values
+    static func getBrokenRecords(existingRecords: Records, speeds: [CLLocationSpeed?], distance: Double, startTime: Date, time: Double) -> (totalDistance: Double, totalTime: Double, totalRoutes: Int64, unlockedIcons: [Bool], longestDistance: Double, longestTime: Double, fastestAvgSpeed: Double, longestDistanceDate: Date?, longestTimeDate: Date?, fastestAvgSpeedDate: Date?) {
+        
+        let totalDistance: Double = existingRecords.totalCyclingDistance + distance
+        let totalTime: Double = existingRecords.totalCyclingTime + time
+        let totalRoutes: Int64 = existingRecords.totalCyclingRoutes + 1
+        let maxDistance: Double = max(distance, existingRecords.longestCyclingDistance)
+        let maxDistanceDate: Date? = distance > existingRecords.longestCyclingDistance ? startTime : existingRecords.longestCyclingDistanceDate
+        let maxTime: Double = max(time, existingRecords.longestCyclingTime)
+        let maxTimeDate: Date? = time > existingRecords.longestCyclingTime ? startTime : existingRecords.longestCyclingTimeDate
+        
+        var bestAvgSpeed: Double = existingRecords.fastestAverageSpeed
+        var bestAvgSpeedDate: Date? = existingRecords.fastestAverageSpeedDate
+        let speedsValidated = speeds.compactMap { $0 }
+        // Only count fastest average speed if route was 1 KM or longer
+        if (speedsValidated.count > 0 && distance > 999) {
+            let maxSpeed = speedsValidated.max()
+            let avgSpeed = distance/time
+            // Must be a valid average speed
+            if (maxSpeed ?? 0.0 >= avgSpeed && avgSpeed > existingRecords.fastestAverageSpeed) {
+                bestAvgSpeed = avgSpeed
+                bestAvgSpeedDate = startTime
+            }
+        }
+        
+        return (totalDistance: totalDistance, totalTime: totalTime, totalRoutes: totalRoutes, unlockedIcons: existingRecords.unlockedIcons, longestDistance: maxDistance, longestTime: maxTime, fastestAvgSpeed: bestAvgSpeed, longestDistanceDate: maxDistanceDate, longestTimeDate: maxTimeDate, fastestAvgSpeedDate: bestAvgSpeedDate)
     }
 }
