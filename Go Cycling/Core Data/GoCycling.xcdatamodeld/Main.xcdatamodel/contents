@@ -20,7 +20,7 @@
         <attribute name="totalCyclingDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="totalCyclingRoutes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalCyclingTime" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="unlockedIcons" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="Bool"/>
+        <attribute name="unlockedIcons" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="Bool"/>
     </entity>
     <entity name="UserPreferences" representedClassName="UserPreferences" syncable="YES">
         <attribute name="colourChoice" optional="YES" attributeType="String"/>

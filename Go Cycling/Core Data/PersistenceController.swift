@@ -41,6 +41,7 @@ struct PersistenceController {
         }
     }
     
+    // MARK: User preference methods
     func storeUserPreferences(unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool, iconIndex: Int, namedRoutes: Bool, selectedRoute: String) {
         let context = container.viewContext
         
@@ -89,6 +90,7 @@ struct PersistenceController {
         }
     }
     
+    // MARK: Bike ride methods
     func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevations: [CLLocationDistance?], startTime: Date, time: Double) {
         let context = container.viewContext
         
@@ -123,7 +125,7 @@ struct PersistenceController {
         newBikeRide.cyclingElevations = elevationsValidated
         newBikeRide.cyclingStartTime = startTime
         newBikeRide.cyclingTime = time
-        // This functionality will be added in a future update
+        // Default category
         newBikeRide.cyclingRouteName = "Uncategorized"
         
         do {
@@ -223,6 +225,60 @@ struct PersistenceController {
             try context.save()
         } catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    // MARK: Records methods
+    func storeRecords(totalDistance: Double, totalTime: Double, totalRoutes: Int64, unlockedIcons: [Bool], longestDistance: Double, longestTime: Double, fastestAvgSpeed: Double, longestDistanceDate: Date?, longestTimeDate: Date?, fastestAvgSpeedDate: Date?) {
+        let context = container.viewContext
+        
+        let newRecords = Records(context: context)
+        newRecords.totalCyclingDistance = totalDistance
+        newRecords.totalCyclingTime = totalTime
+        newRecords.totalCyclingRoutes = totalRoutes
+        newRecords.unlockedIcons = unlockedIcons
+        newRecords.longestCyclingDistance = longestDistance
+        newRecords.longestCyclingTime = longestTime
+        newRecords.fastestAverageSpeed = fastestAvgSpeed
+        newRecords.longestCyclingDistanceDate = longestDistanceDate
+        newRecords.longestCyclingTimeDate = longestTimeDate
+        newRecords.fastestAverageSpeedDate = fastestAvgSpeedDate
+        
+        // Update unlocked icons array
+        newRecords.setUnlockedIcons()
+        
+        do {
+            try context.save()
+            print("Records saved")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    // Only need to store one records object, use this method to update the existing object
+    func updateRecords(existingRecords: Records, totalDistance: Double, totalTime: Double, totalRoutes: Int64, longestDistance: Double, longestTime: Double, fastestAvgSpeed: Double, longestDistanceDate: Date, longestTimeDate: Date, fastestAvgSpeedDate: Date) {
+        let context = container.viewContext
+        
+        context.performAndWait {
+            existingRecords.totalCyclingDistance = totalDistance
+            existingRecords.totalCyclingTime = totalTime
+            existingRecords.totalCyclingRoutes = totalRoutes
+            existingRecords.longestCyclingDistance = longestDistance
+            existingRecords.longestCyclingTime = longestTime
+            existingRecords.fastestAverageSpeed = fastestAvgSpeed
+            existingRecords.longestCyclingDistanceDate = longestDistanceDate
+            existingRecords.longestCyclingTimeDate = longestTimeDate
+            existingRecords.fastestAverageSpeedDate = fastestAvgSpeedDate
+            
+            // Update unlocked icons array
+            existingRecords.setUnlockedIcons()
+            
+            do {
+                try context.save()
+                print("Records updated")
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 }

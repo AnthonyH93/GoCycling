@@ -67,6 +67,19 @@ struct GoCyclingApp: App {
                                 routeName: "Uncategorized")
                         }
                     }
+                    
+                    // Create initial records object on version 1.2.0
+                    if (!UserDefaults.standard.bool(forKey: "didLaunch1.2.0Before")) {
+                        UserDefaults.standard.set(true, forKey: "didLaunch1.2.0Before")
+                        if (bikeRides.storedBikeRides.count > 0) {
+                            let values = Records.getDefaultRecordsValues(bikeRides: bikeRides.storedBikeRides)
+                            persistenceController.storeRecords(totalDistance: values.totalDistance, totalTime: values.totalTime, totalRoutes: values.totalRoutes, unlockedIcons: values.unlockedIcons, longestDistance: values.longestDistance, longestTime: values.longestTime, fastestAvgSpeed: values.fastestAvgSpeed, longestDistanceDate: values.longestDistanceDate, longestTimeDate: values.longestTimeDate, fastestAvgSpeedDate: values.fastestAvgSpeedDate)
+                        }
+                        else {
+                            // Use default values if no routes are saved
+                            persistenceController.storeRecords(totalDistance: 0.0, totalTime: 0.0, totalRoutes: 0, unlockedIcons: [Bool](repeating: false, count: 6), longestDistance: 0.0, longestTime: 0.0, fastestAvgSpeed: 0.0, longestDistanceDate: nil, longestTimeDate: nil, fastestAvgSpeedDate: nil)
+                        }
+                    }
                 })
         }
         .onChange(of: scenePhase) { _ in

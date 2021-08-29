@@ -84,6 +84,7 @@
 		9DF9303B26DB439300D4EEC5 /* Records+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */; };
 		9DF9303C26DB439300D4EEC5 /* Records+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */; };
 		9DF9303F26DB44B100D4EEC5 /* RecordsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9303E26DB44B100D4EEC5 /* RecordsStorage.swift */; };
+		9DF9304126DB47C500D4EEC5 /* Records+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304026DB47C500D4EEC5 /* Records+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +188,7 @@
 		9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Records+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Records+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9DF9303E26DB44B100D4EEC5 /* RecordsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsStorage.swift; sourceTree = "<group>"; };
+		9DF9304026DB47C500D4EEC5 /* Records+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Records+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -467,6 +469,7 @@
 			children = (
 				9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */,
 				9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */,
+				9DF9304026DB47C500D4EEC5 /* Records+Extensions.swift */,
 			);
 			path = Records;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				9D76355A262009230026D948 /* MapView.swift in Sources */,
 				9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */,
 				9D75E29226C85C9C00DE536D /* BikeRideSortPopoverView.swift in Sources */,
+				9DF9304126DB47C500D4EEC5 /* Records+Extensions.swift in Sources */,
 				9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */,
 				9D62F4EF2636064100E28991 /* LargeSingleMetricView.swift in Sources */,
 				9D8169FA263FA4CE00DED7F8 /* IconNames.swift in Sources */,

@@ -19,7 +19,7 @@ extension Records {
     @NSManaged public var totalCyclingTime: Double
     @NSManaged public var totalCyclingDistance: Double
     @NSManaged public var totalCyclingRoutes: Int64
-    @NSManaged public var unlockedIcons: [Bool]?
+    @NSManaged public var unlockedIcons: [Bool]
     @NSManaged public var longestCyclingDistance: Double
     @NSManaged public var longestCyclingTime: Double
     @NSManaged public var fastestAverageSpeed: Double
