@@ -18,6 +18,7 @@
 		9D2F48F9265075FC00094575 /* ModalViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2F48F8265075FC00094575 /* ModalViewExtension.swift */; };
 		9D2F48FB26507EC500094575 /* RouteNamingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2F48FA26507EC500094575 /* RouteNamingViewModel.swift */; };
 		9D2F48FE265097F000094575 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2F48FD265097F000094575 /* Category.swift */; };
+		9D3808EA26D3709C0058DE1E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3808E926D3709C0058DE1E /* StatisticsView.swift */; };
 		9D55B9F726522D8D00B622E5 /* RouteRenameModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D55B9F626522D8D00B622E5 /* RouteRenameModalView.swift */; };
 		9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */; };
 		9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */; };
@@ -111,6 +112,7 @@
 		9D2F48F8265075FC00094575 /* ModalViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewExtension.swift; sourceTree = "<group>"; };
 		9D2F48FA26507EC500094575 /* RouteNamingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteNamingViewModel.swift; sourceTree = "<group>"; };
 		9D2F48FD265097F000094575 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		9D3808E926D3709C0058DE1E /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		9D55B9F626522D8D00B622E5 /* RouteRenameModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRenameModalView.swift; sourceTree = "<group>"; };
 		9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotView.swift; sourceTree = "<group>"; };
 		9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMetricView.swift; sourceTree = "<group>"; };
@@ -220,6 +222,14 @@
 				9D2F48F8265075FC00094575 /* ModalViewExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9D3808E826D370710058DE1E /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				9D3808E926D3709C0058DE1E /* StatisticsView.swift */,
+			);
+			path = Statistics;
 			sourceTree = "<group>";
 		};
 		9D6E53392623CD36008FD7C1 /* Cycle */ = {
@@ -417,6 +427,7 @@
 			children = (
 				9D2F48FC26508DF200094575 /* Extensions */,
 				9D6E534D262BAED2008FD7C1 /* Settings */,
+				9D3808E826D370710058DE1E /* Statistics */,
 				9D6E533D2627AE57008FD7C1 /* History */,
 				9D6E53392623CD36008FD7C1 /* Cycle */,
 				9DAB835D25FECCB000F5C42E /* MainView.swift */,
@@ -593,6 +604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D6E5392262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift in Sources */,
+				9D3808EA26D3709C0058DE1E /* StatisticsView.swift in Sources */,
 				9D76355A262009230026D948 /* MapView.swift in Sources */,
 				9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */,
 				9D75E29226C85C9C00DE536D /* BikeRideSortPopoverView.swift in Sources */,
