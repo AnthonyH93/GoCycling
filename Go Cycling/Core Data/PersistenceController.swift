@@ -96,17 +96,12 @@ struct PersistenceController {
         
         var latitudes: [CLLocationDegrees] = []
         var longitudes: [CLLocationDegrees] = []
-        var speedsValidated: [CLLocationSpeed] = []
+        let speedsValidated: [CLLocationSpeed] = speeds.compactMap{ $0 }
         var elevationsValidated: [CLLocationDistance] = []
         
         for location in locations {
             latitudes.append(location?.coordinate.latitude ?? 0.0)
             longitudes.append(location?.coordinate.longitude ?? 0.0)
-        }
-        
-        // TODO: Switch to compactMap { $0 } to remove nil elements
-        for speed in speeds {
-            speedsValidated.append(speed ?? 0.0)
         }
         
         for elevation in elevations {
