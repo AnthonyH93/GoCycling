@@ -24,11 +24,13 @@ class RecordsFormatting {
     static let recordsStrings = ["Total Distance Cycled",
                                  "Total Cycling Time",
                                  "Total Saved Cycling Routes",
-                                 "Longest Distance in a Single Route",
-                                 "Longest Time Cycled in a Single Route"]
+                                 "Longest Distance Cycled",
+                                 "Longest Time Cycled",
+                                 "Best Average Cycling Speed"]
     
-    static func getFastestAvgSpeedString(usingMetric: Bool) -> String {
+    // Text to mention that only routes longer than 1 KM are counted towards best average speed
+    static func getCyclingRecordsFooterText(usingMetric: Bool) -> String {
         let distanceString = usingMetric ? "1 km" : "0.62 mi"
-        return "Best Average Cycling Speed for a Route Longer than \(distanceString)"
+        return "Only routes longer than \(distanceString) are counted for the best average cycling speed record."
     }
 }

@@ -24,13 +24,17 @@ struct CyclingSingleRecordView: View {
                 Text(recordName)
                 Spacer()
                 Text(recordValue)
+                    .font(.headline)
             }
             if let dateString = recordDate {
                 HStack {
                     Text("Date Achieved")
                     Spacer()
                     Text(dateString)
+                        .font(.headline)
+                        .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                 }
+                .padding(.top, 5)
             }
         }
         .padding(10)
