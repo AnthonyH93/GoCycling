@@ -15,6 +15,7 @@ struct ResetView: View {
     
     @State var showingDeleteAlert = false
     @State var showingResetToDefaultAlert = false
+    @State var showingResetStatisticsAlert = false
     
     var body: some View {
         Button (action: {self.showResetToDefaultAlert()}) {
@@ -43,6 +44,19 @@ struct ResetView: View {
                   secondaryButton: .cancel()
             )
         }
+        Button (action: {self.showResetStatisticsAlert()}) {
+            Text("Reset Stored Statistics")
+                .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+        }
+        .alert(isPresented: $showingResetStatisticsAlert) {
+            Alert(title: Text("Are you sure that you want to reset all stored statistics?"),
+                  message: Text("This action is not reversible."),
+                  primaryButton: .destructive(Text("Reset")) {
+                    self.resetStoredStatistics()
+                  },
+                  secondaryButton: .cancel()
+            )
+        }
     }
     
     func showDeleteAlert() {
@@ -51,6 +65,10 @@ struct ResetView: View {
     
     func showResetToDefaultAlert() {
         self.showingResetToDefaultAlert = true
+    }
+    
+    func showResetStatisticsAlert() {
+        self.showingResetStatisticsAlert = true
     }
     
     func resetToDefaultSettings() {
@@ -70,6 +88,21 @@ struct ResetView: View {
     
     func deleteAllBikeRides() {
         persistenceController.deleteAllBikeRides()
+    }
+    
+    func resetStoredStatistics() {
+        // Reset to default records
+        persistenceController.storeRecords(
+            totalDistance: 0.0,
+            totalTime: 0.0,
+            totalRoutes: 0,
+            unlockedIcons: [Bool](repeating: false, count: 6),
+            longestDistance: 0.0,
+            longestTime: 0.0,
+            fastestAvgSpeed: 0.0,
+            longestDistanceDate: nil,
+            longestTimeDate: nil,
+            fastestAvgSpeedDate: nil)
     }
 }
 
