@@ -18,14 +18,7 @@ struct StatisticsView: View {
     
     var body: some View {
         VStack {
-            // Temporary testing UI
-            Text("Statistics Tab")
-            Text("\(records.storedRecords[0].totalCyclingTime)")
-            Text("\(records.storedRecords[0].totalCyclingDistance)")
-            Text("\(records.storedRecords[0].longestCyclingTime)")
-            Text("\(records.storedRecords[0].longestCyclingDistance)")
-            Text("\(records.storedRecords[0].totalCyclingRoutes)")
-            Text("\(records.storedRecords[0].fastestAverageSpeed)")
+            CyclingRecordsView()
         }
     }
 }

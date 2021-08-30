@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+// Class to format metrics throughout the history and cycle tabs
 class MetricsFormatting {
     static func formatDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
@@ -99,6 +100,15 @@ class MetricsFormatting {
         let speedUnits = usingMetric ? "km/h" : "mph"
         let speedKMH = round(100 * (3.6 * topSpeed))/100
         let speedMPH = round(100 * (2.23694 * topSpeed))/100
+        let speedString = "\(usingMetric ? speedKMH : speedMPH) " + speedUnits
+        return speedString
+    }
+    
+    // Used in the statistics tab for the average speed record
+    static func formatSingleSpeed(speed: CLLocationSpeed, usingMetric: Bool) -> String {
+        let speedUnits = usingMetric ? "km/h" : "mph"
+        let speedKMH = round(100 * (3.6 * speed))/100
+        let speedMPH = round(100 * (2.23694 * speed))/100
         let speedString = "\(usingMetric ? speedKMH : speedMPH) " + speedUnits
         return speedString
     }

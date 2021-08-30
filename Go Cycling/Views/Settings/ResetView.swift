@@ -11,6 +11,7 @@ struct ResetView: View {
     let persistenceController = PersistenceController.shared
     
     @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var records: RecordsStorage
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     @State var showingDeleteAlert = false
@@ -92,11 +93,11 @@ struct ResetView: View {
     
     func resetStoredStatistics() {
         // Reset to default records
-        persistenceController.storeRecords(
+        persistenceController.updateRecords(
+            existingRecords: records.storedRecords[0],
             totalDistance: 0.0,
             totalTime: 0.0,
             totalRoutes: 0,
-            unlockedIcons: [Bool](repeating: false, count: 6),
             longestDistance: 0.0,
             longestTime: 0.0,
             fastestAvgSpeed: 0.0,
