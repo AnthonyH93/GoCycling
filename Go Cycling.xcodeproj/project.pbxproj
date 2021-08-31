@@ -92,6 +92,8 @@
 		9DF9304B26DDE81900D4EEC5 /* ActivityAwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304A26DDE81900D4EEC5 /* ActivityAwardsView.swift */; };
 		9DF9304D26DDFA4E00D4EEC5 /* LockedIconCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304C26DDFA4E00D4EEC5 /* LockedIconCoverView.swift */; };
 		9DF9304F26DDFAC400D4EEC5 /* SingleActivityAwardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304E26DDFAC400D4EEC5 /* SingleActivityAwardView.swift */; };
+		9DF9305126DE03BC00D4EEC5 /* EmojiImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9305026DE03BC00D4EEC5 /* EmojiImageExtension.swift */; };
+		9DF9305326DE06A600D4EEC5 /* Medal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9305226DE06A600D4EEC5 /* Medal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +205,8 @@
 		9DF9304A26DDE81900D4EEC5 /* ActivityAwardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAwardsView.swift; sourceTree = "<group>"; };
 		9DF9304C26DDFA4E00D4EEC5 /* LockedIconCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedIconCoverView.swift; sourceTree = "<group>"; };
 		9DF9304E26DDFAC400D4EEC5 /* SingleActivityAwardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActivityAwardView.swift; sourceTree = "<group>"; };
+		9DF9305026DE03BC00D4EEC5 /* EmojiImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiImageExtension.swift; sourceTree = "<group>"; };
+		9DF9305226DE06A600D4EEC5 /* Medal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				9D2F48F8265075FC00094575 /* ModalViewExtension.swift */,
+				9DF9305026DE03BC00D4EEC5 /* EmojiImageExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 				9D816A0E263FBD0600DED7F8 /* CyclingStatus.swift */,
 				9D2F48FD265097F000094575 /* Category.swift */,
 				9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */,
+				9DF9305226DE06A600D4EEC5 /* Medal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -662,6 +668,7 @@
 				9D62F4EA2636020000E28991 /* LargeMetricsView.swift in Sources */,
 				9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */,
 				9DEAD6CB2632589500392D88 /* BikeRideStorage.swift in Sources */,
+				9DF9305326DE06A600D4EEC5 /* Medal.swift in Sources */,
 				9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */,
 				9DF9304326DCAAD300D4EEC5 /* CyclingRecordsView.swift in Sources */,
 				9D62F4E02634F7CC00E28991 /* MetricsFormatting.swift in Sources */,
@@ -699,6 +706,7 @@
 				9DEAD6C4263257A500392D88 /* BikeRide+CoreDataClass.swift in Sources */,
 				9D6E5391262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift in Sources */,
 				9D1ED55026448F4F005A97ED /* CyclingHistorySettingsView.swift in Sources */,
+				9DF9305126DE03BC00D4EEC5 /* EmojiImageExtension.swift in Sources */,
 				9D6E538B262CEE0A008FD7C1 /* PersistenceController.swift in Sources */,
 				9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */,
 				9DF9304726DCABA400D4EEC5 /* RecordsFormatting.swift in Sources */,

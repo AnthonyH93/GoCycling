@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct LockedIconCoverView: View {
+    let progress: CGFloat
     // State variable used for animation
     @State var showingProgress = false
+    
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         // Creates a progress bar which will show the percentage progress towards unlocking the icon
         VStack {
-            HorizontalBar(ratio: showingProgress ? 0.7 : 0).animation(Animation.easeIn(duration: 1))
+            HorizontalBar(ratio: showingProgress ? progress : 0).animation(Animation.easeIn(duration: 1))
                 .foregroundColor(.green)
-                .opacity(0.4)
+                .opacity(0.5)
                 .onAppear {
                     showingProgress = true
                 }
@@ -24,7 +27,7 @@ struct LockedIconCoverView: View {
                     showingProgress = false
                 }
         }
-        .background(Rectangle().foregroundColor(.black).opacity(0.4))
+        .border(colorScheme == .dark ? Color.white : Color.black, width: 3)
     }
     
     // Horizontal bar to animate the current progress
@@ -59,6 +62,6 @@ struct LockedIconCoverView: View {
 
 struct LockedIconCoverView_Previews: PreviewProvider {
     static var previews: some View {
-        LockedIconCoverView()
+        LockedIconCoverView(progress: 0.5)
     }
 }

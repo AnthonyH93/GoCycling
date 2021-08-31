@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct ActivityAwardsView: View {
+    let persistenceController = PersistenceController.shared
+    
+    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var records: RecordsStorage
+    
+    @Environment(\.managedObjectContext) private var managedObjectContext
     var body: some View {
         Section (header: Text(RecordsFormatting.headerStrings[2]), footer: Text(RecordsFormatting.footerStrings[1])) {
             VStack {
-                SingleActivityAwardView()
-                SingleActivityAwardView()
-                SingleActivityAwardView()
+                SingleActivityAwardView(progress: 0.7, iconName: "Name", progressString: "Progress", medal: Medal.bronze)
+                SingleActivityAwardView(progress: 0.7, iconName: "Name", progressString: "Progress", medal: Medal.silver)
+                SingleActivityAwardView(progress: 0.7, iconName: "Name", progressString: "Progress", medal: Medal.gold)
             }
         }
     }
