@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CyclingChartsView: View {
     var body: some View {
-        Section (header: Text("Cycling Charts"), footer: Text("For week data, each week starts on Monday and ends on Sunday.")) {
+        Section (header: Text(RecordsFormatting.headerStrings[1]), footer: Text(RecordsFormatting.footerStrings[0])) {
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         }
     }

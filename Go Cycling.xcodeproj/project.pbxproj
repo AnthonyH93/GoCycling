@@ -89,6 +89,9 @@
 		9DF9304526DCAB0600D4EEC5 /* CyclingSingleRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304426DCAB0600D4EEC5 /* CyclingSingleRecordView.swift */; };
 		9DF9304726DCABA400D4EEC5 /* RecordsFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */; };
 		9DF9304926DDE3F400D4EEC5 /* CyclingChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304826DDE3F400D4EEC5 /* CyclingChartsView.swift */; };
+		9DF9304B26DDE81900D4EEC5 /* ActivityAwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304A26DDE81900D4EEC5 /* ActivityAwardsView.swift */; };
+		9DF9304D26DDFA4E00D4EEC5 /* LockedIconCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304C26DDFA4E00D4EEC5 /* LockedIconCoverView.swift */; };
+		9DF9304F26DDFAC400D4EEC5 /* SingleActivityAwardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304E26DDFAC400D4EEC5 /* SingleActivityAwardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,6 +200,9 @@
 		9DF9304426DCAB0600D4EEC5 /* CyclingSingleRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingSingleRecordView.swift; sourceTree = "<group>"; };
 		9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsFormatting.swift; sourceTree = "<group>"; };
 		9DF9304826DDE3F400D4EEC5 /* CyclingChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingChartsView.swift; sourceTree = "<group>"; };
+		9DF9304A26DDE81900D4EEC5 /* ActivityAwardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAwardsView.swift; sourceTree = "<group>"; };
+		9DF9304C26DDFA4E00D4EEC5 /* LockedIconCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedIconCoverView.swift; sourceTree = "<group>"; };
+		9DF9304E26DDFAC400D4EEC5 /* SingleActivityAwardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActivityAwardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +253,9 @@
 				9DF9304826DDE3F400D4EEC5 /* CyclingChartsView.swift */,
 				9DF9304226DCAAD300D4EEC5 /* CyclingRecordsView.swift */,
 				9DF9304426DCAB0600D4EEC5 /* CyclingSingleRecordView.swift */,
+				9DF9304A26DDE81900D4EEC5 /* ActivityAwardsView.swift */,
+				9DF9304E26DDFAC400D4EEC5 /* SingleActivityAwardView.swift */,
+				9DF9304C26DDFA4E00D4EEC5 /* LockedIconCoverView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -668,9 +677,11 @@
 				9D2F48F72650751200094575 /* RouteNameModalView.swift in Sources */,
 				9DEAD6B6262D423E00392D88 /* AboutAppView.swift in Sources */,
 				9D2F48F9265075FC00094575 /* ModalViewExtension.swift in Sources */,
+				9DF9304B26DDE81900D4EEC5 /* ActivityAwardsView.swift in Sources */,
 				9DF9303C26DB439300D4EEC5 /* Records+CoreDataProperties.swift in Sources */,
 				9D62F4E52635FD6600E28991 /* SmallMetricsView.swift in Sources */,
 				9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */,
+				9DF9304F26DDFAC400D4EEC5 /* SingleActivityAwardView.swift in Sources */,
 				9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */,
 				9D6E5386262CECFA008FD7C1 /* GoCycling.xcdatamodeld in Sources */,
 				9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */,
@@ -691,6 +702,7 @@
 				9D6E538B262CEE0A008FD7C1 /* PersistenceController.swift in Sources */,
 				9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */,
 				9DF9304726DCABA400D4EEC5 /* RecordsFormatting.swift in Sources */,
+				9DF9304D26DDFA4E00D4EEC5 /* LockedIconCoverView.swift in Sources */,
 				9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */,
 				9D75E29426C8636F00DE536D /* BikeRideFilterSheetView.swift in Sources */,
 			);

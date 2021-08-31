@@ -11,6 +11,7 @@ struct CyclingSingleRecordView: View {
     let recordValue: String
     let recordName: String
     let recordDate: String?
+    let firstEntry: Bool
     
     let persistenceController = PersistenceController.shared
     
@@ -37,12 +38,13 @@ struct CyclingSingleRecordView: View {
                 .padding(.top, 5)
             }
         }
-        .padding(10)
+        // Base padding on whether entry is first or not
+        .padding(.top, firstEntry ? 5 : 10)
     }
 }
 
 struct CyclingSingleRecordView_Previews: PreviewProvider {
     static var previews: some View {
-        CyclingSingleRecordView(recordValue: "Record Value", recordName: "Record Name", recordDate: "Record Date")
+        CyclingSingleRecordView(recordValue: "Record Value", recordName: "Record Name", recordDate: "Record Date", firstEntry: false)
     }
 }

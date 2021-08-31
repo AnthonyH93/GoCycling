@@ -21,6 +21,7 @@ struct StatisticsView: View {
             Form {
                 CyclingChartsView()
                 CyclingRecordsView()
+                ActivityAwardsView()
             }
             .navigationBarTitle("Cycling Statistics", displayMode: .automatic)
         }

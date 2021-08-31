@@ -28,6 +28,14 @@ class RecordsFormatting {
                                  "Longest Time Cycled",
                                  "Best Average Cycling Speed"]
     
+    // Header and footer strings for the vrious sections of the statistics tab form
+    static let headerStrings = ["Cycling Records",
+                                "Cycling Charts",
+                                "Activity Awards"]
+    
+    static let footerStrings = ["For week data, each week starts on Monday and ends on Sunday.",
+                                "Progress towards unlocking exclusive alternate app icons. Unlocked icons will not be lost when routes are deleted or statistics are reset."]
+    
     // Text to mention that only routes longer than 1 KM are counted towards best average speed
     static func getCyclingRecordsFooterText(usingMetric: Bool) -> String {
         let distanceString = usingMetric ? "1 km" : "0.62 mi"
