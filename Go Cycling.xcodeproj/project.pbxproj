@@ -88,6 +88,7 @@
 		9DF9304326DCAAD300D4EEC5 /* CyclingRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304226DCAAD300D4EEC5 /* CyclingRecordsView.swift */; };
 		9DF9304526DCAB0600D4EEC5 /* CyclingSingleRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304426DCAB0600D4EEC5 /* CyclingSingleRecordView.swift */; };
 		9DF9304726DCABA400D4EEC5 /* RecordsFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */; };
+		9DF9304926DDE3F400D4EEC5 /* CyclingChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304826DDE3F400D4EEC5 /* CyclingChartsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +196,7 @@
 		9DF9304226DCAAD300D4EEC5 /* CyclingRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingRecordsView.swift; sourceTree = "<group>"; };
 		9DF9304426DCAB0600D4EEC5 /* CyclingSingleRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingSingleRecordView.swift; sourceTree = "<group>"; };
 		9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsFormatting.swift; sourceTree = "<group>"; };
+		9DF9304826DDE3F400D4EEC5 /* CyclingChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingChartsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				9D3808E926D3709C0058DE1E /* StatisticsView.swift */,
+				9DF9304826DDE3F400D4EEC5 /* CyclingChartsView.swift */,
 				9DF9304226DCAAD300D4EEC5 /* CyclingRecordsView.swift */,
 				9DF9304426DCAB0600D4EEC5 /* CyclingSingleRecordView.swift */,
 			);
@@ -641,6 +644,7 @@
 				9D75E29226C85C9C00DE536D /* BikeRideSortPopoverView.swift in Sources */,
 				9DF9304126DB47C500D4EEC5 /* Records+Extensions.swift in Sources */,
 				9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */,
+				9DF9304926DDE3F400D4EEC5 /* CyclingChartsView.swift in Sources */,
 				9D62F4EF2636064100E28991 /* LargeSingleMetricView.swift in Sources */,
 				9D8169FA263FA4CE00DED7F8 /* IconNames.swift in Sources */,
 				9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */,

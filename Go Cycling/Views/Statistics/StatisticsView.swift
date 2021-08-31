@@ -17,8 +17,12 @@ struct StatisticsView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        VStack {
-            CyclingRecordsView()
+        NavigationView {
+            Form {
+                CyclingChartsView()
+                CyclingRecordsView()
+            }
+            .navigationBarTitle("Cycling Statistics", displayMode: .automatic)
         }
     }
 }
