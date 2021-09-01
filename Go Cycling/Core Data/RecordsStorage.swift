@@ -11,11 +11,14 @@ import CoreData
 class RecordsStorage: NSObject, ObservableObject {
     @Published var storedRecords: [Records] = []
     private let recordsController: NSFetchedResultsController<Records>
+    
+    // Singleton instance
+    static let shared: RecordsStorage = RecordsStorage()
 
-    init(managedObjectContext: NSManagedObjectContext) {
+    private override init() {
         recordsController = NSFetchedResultsController(fetchRequest: Records.savedRecordsFetchRequest,
-        managedObjectContext: managedObjectContext,
-        sectionNameKeyPath: nil, cacheName: nil)
+                                                       managedObjectContext: PersistenceController.shared.container.viewContext,
+                                                       sectionNameKeyPath: nil, cacheName: nil)
 
         super.init()
 

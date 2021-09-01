@@ -25,7 +25,7 @@ struct GoCyclingApp: App {
         self._preferences = StateObject(wrappedValue: preferencesStorage)
         let bikeRidesStorage = BikeRideStorage(managedObjectContext: managedObjectContext)
         self._bikeRides = StateObject(wrappedValue: bikeRidesStorage)
-        let recordsStroage = RecordsStorage(managedObjectContext: managedObjectContext)
+        let recordsStroage = RecordsStorage.shared
         self._records = StateObject(wrappedValue: recordsStroage)
     }
 

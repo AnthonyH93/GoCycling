@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ActivityAwardsView: View {
+    
+    @StateObject var activityAwardsViewModel = ActivityAwardsViewModel()
+        
     let persistenceController = PersistenceController.shared
     
     @EnvironmentObject var preferences: PreferencesStorage
@@ -17,9 +20,12 @@ struct ActivityAwardsView: View {
     var body: some View {
         Section (header: Text(RecordsFormatting.headerStrings[2]), footer: Text(RecordsFormatting.footerStrings[1])) {
             VStack {
-                SingleActivityAwardView(progress: 0.7, iconName: "Name", progressString: "Progress", medal: Medal.bronze)
-                SingleActivityAwardView(progress: 0.7, iconName: "Name", progressString: "Progress", medal: Medal.silver)
-                SingleActivityAwardView(progress: 0.7, iconName: "Name", progressString: "Progress", medal: Medal.gold)
+                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[0], iconName: "Name", progressString: "Progress", medal: Medal.bronze)
+                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[1], iconName: "Name", progressString: "Progress", medal: Medal.silver)
+                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[2], iconName: "Name", progressString: "Progress", medal: Medal.gold)
+                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[3], iconName: "Name", progressString: "Progress", medal: Medal.bronze)
+                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[4], iconName: "Name", progressString: "Progress", medal: Medal.silver)
+                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[5], iconName: "Name", progressString: "Progress", medal: Medal.gold)
             }
         }
     }
