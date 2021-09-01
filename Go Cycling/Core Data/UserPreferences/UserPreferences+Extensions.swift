@@ -34,17 +34,4 @@ extension UserPreferences {
         }
         return ""
     }
-    
-    static func storedUsingMetric() -> Bool {
-        let context = PersistenceController.shared.container.viewContext
-        let fetchRequest: NSFetchRequest<UserPreferences> = UserPreferences.fetchRequest()
-        do {
-            let items = try context.fetch(fetchRequest)
-            return items[0].usingMetric
-        }
-        catch let error as NSError {
-            print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
-        }
-        return false
-    }
 }

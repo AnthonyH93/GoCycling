@@ -13,8 +13,6 @@ import Combine
 class ActivityAwardsViewModel: ObservableObject {
     
     private var initialRecords = Records.getStoredRecords()
-    // Need to know unit system for string formation
-    private var usingMetric = UserPreferences.storedUsingMetric()
     
     @Published var progressValues: [CGFloat] = [CGFloat].init(repeating: 0.0, count: 6)
     @Published var unlockedIcons = Records.getUnlockedIcons()
@@ -60,6 +58,9 @@ class ActivityAwardsViewModel: ObservableObject {
             }
         }
     }
+    
+    // Used by the activity awards view to display the correct medal for each award
+    var medalOrder: [Medal] = [.bronze, .silver, .gold, .bronze, .silver, .gold]
     
     private var cancellable: AnyCancellable?
     

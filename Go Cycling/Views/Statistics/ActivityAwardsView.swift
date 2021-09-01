@@ -21,12 +21,9 @@ struct ActivityAwardsView: View {
     var body: some View {
         Section (header: Text(RecordsFormatting.headerStrings[2]), footer: Text(RecordsFormatting.footerStrings[1])) {
             VStack {
-                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[0], iconName: activityAwardsViewModel.getAwardName(index: 0, usingMetric: preferences.storedPreferences[0].usingMetric), progressString: activityAwardsViewModel.progressStrings[0], medal: Medal.bronze)
-                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[1], iconName: activityAwardsViewModel.getAwardName(index: 1, usingMetric: preferences.storedPreferences[0].usingMetric), progressString: activityAwardsViewModel.progressStrings[1], medal: Medal.silver)
-                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[2], iconName: activityAwardsViewModel.getAwardName(index: 2, usingMetric: preferences.storedPreferences[0].usingMetric), progressString: activityAwardsViewModel.progressStrings[2], medal: Medal.gold)
-                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[3], iconName: activityAwardsViewModel.getAwardName(index: 3, usingMetric: preferences.storedPreferences[0].usingMetric), progressString: activityAwardsViewModel.progressStrings[3], medal: Medal.bronze)
-                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[4], iconName: activityAwardsViewModel.getAwardName(index: 4, usingMetric: preferences.storedPreferences[0].usingMetric), progressString: activityAwardsViewModel.progressStrings[4], medal: Medal.silver)
-                SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[5], iconName: activityAwardsViewModel.getAwardName(index: 5, usingMetric: preferences.storedPreferences[0].usingMetric), progressString: activityAwardsViewModel.progressStrings[5], medal: Medal.gold)
+                ForEach (0..<Records.awardValues.count) { index in
+                    SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[index], iconName: activityAwardsViewModel.getAwardName(index: index, usingMetric: preferences.storedPreferences[0].usingMetric), progressString: activityAwardsViewModel.progressStrings[index], medal: activityAwardsViewModel.medalOrder[index])
+                }
             }
         }
     }
