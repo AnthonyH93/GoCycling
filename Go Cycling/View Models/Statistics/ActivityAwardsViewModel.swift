@@ -13,13 +13,17 @@ import Combine
 class ActivityAwardsViewModel: ObservableObject {
     
     private var initialRecords = Records.getStoredRecords()
+    // Need to know unit system for string formation
+    private var usingMetric = UserPreferences.storedUsingMetric()
+    
     @Published var progressValues: [CGFloat] = [CGFloat].init(repeating: 0.0, count: 6)
     @Published var unlockedIcons = Records.getUnlockedIcons()
+    @Published var progressStrings: [String] = [String].init(repeating: "0% Complete", count: 6)
     
     @Published var records: Records? {
         willSet {
-            print("Running")
-            for index in 0..<awardValues.count {
+            // Update published values when records change
+            for index in 0..<Records.awardValues.count {
                 var progressFloat: CGFloat = 0.0
                 // If icon is already unlocked then set progress to 100%
                 if (unlockedIcons[index]) {
@@ -28,33 +32,34 @@ class ActivityAwardsViewModel: ObservableObject {
                 // Single route awards
                 if (index < 3) {
                     if let distance = self.records?.longestCyclingDistance {
-                        progressFloat = CGFloat(distance/awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/awardValues[index])
+                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
                         progressValues[index] = progressFloat
                     }
                     // Use initial values if records have not updated yet
                     else if let distance = self.initialRecords?.longestCyclingDistance {
-                        progressFloat = CGFloat(distance/awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/awardValues[index])
+                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
                         progressValues[index] = progressFloat
                     }
+                    let roundedProgress = round(progressFloat * 10000) / 100.0
+                    progressStrings[index] = "\(roundedProgress)% Complete"
                 }
                 // Cummulative route awards
                 else {
                     if let distance = self.records?.totalCyclingDistance {
-                        progressFloat = CGFloat(distance/awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/awardValues[index])
+                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
                         progressValues[index] = progressFloat
                     }
                     // Use initial values if records have not updated yet
                     else if let distance = self.initialRecords?.totalCyclingDistance {
-                        progressFloat = CGFloat(distance/awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/awardValues[index])
+                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
                         progressValues[index] = progressFloat
                     }
+                    let roundedProgress = round(progressFloat * 10000) / 100.0
+                    progressStrings[index] = "\(roundedProgress)% Complete"
                 }
             }
         }
     }
-    
-    // Distance are stored in m, must multiply by 1000 for km
-    private var awardValues: [Double] = [10.0 * 1000, 25.0 * 1000, 50.0 * 1000, 100.0 * 1000, 250.0 * 1000, 500.0 * 1000]
     
     private var cancellable: AnyCancellable?
     
@@ -63,6 +68,15 @@ class ActivityAwardsViewModel: ObservableObject {
             print("Updating records")
             self.records = records[0]
         }
-        
+    }
+    
+    func getAwardName(index: Int, usingMetric: Bool) -> String {
+        let distanceString = MetricsFormatting.formatDistance(distance: Records.awardValues[index], usingMetric: usingMetric)
+        if (index < 3) {
+            return "Cycle at least \(distanceString) in a single route"
+        }
+        else {
+            return "Cycle a total of at least \(distanceString)"
+        }
     }
 }

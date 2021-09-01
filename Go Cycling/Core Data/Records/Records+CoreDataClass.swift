@@ -11,6 +11,9 @@ import CoreData
 
 @objc(Records)
 public class Records: NSManagedObject {
+    // Distance are stored in m, must multiply by 1000 for km
+    static let awardValues: [Double] = [10.0 * 1000, 25.0 * 1000, 50.0 * 1000, 100.0 * 1000, 250.0 * 1000, 500.0 * 1000]
+    
     // Determines unlocked icons bool array based on class members
     func setUnlockedIcons() {
         for index in 0..<self.unlockedIcons.count {
@@ -20,34 +23,16 @@ public class Records: NSManagedObject {
             }
             else {
                 // Indexes 0-2 are for individual ride distance records
-                switch index {
-                case 0:
-                    if (self.longestCyclingDistance >= 10 * 1000) {
+                if (index < 3) {
+                    if (self.longestCyclingDistance >= Records.awardValues[index]) {
                         self.unlockedIcons[index] = true
                     }
-                case 1:
-                    if (self.longestCyclingDistance >= 25 * 1000) {
-                        self.unlockedIcons[index] = true
-                    }
-                case 2:
-                    if (self.longestCyclingDistance >= 50 * 1000) {
-                        self.unlockedIcons[index] = true
-                    }
+                }
                 // Indexes 3-5 are for total distance records
-                case 3:
-                    if (self.totalCyclingDistance >= 100 * 1000) {
+                else {
+                    if (self.totalCyclingDistance >= Records.awardValues[index]) {
                         self.unlockedIcons[index] = true
                     }
-                case 4:
-                    if (self.totalCyclingDistance >= 250 * 1000) {
-                        self.unlockedIcons[index] = true
-                    }
-                case 5:
-                    if (self.totalCyclingDistance >= 500 * 1000) {
-                        self.unlockedIcons[index] = true
-                    }
-                default:
-                    fatalError("Index out of range")
                 }
             }
         }
