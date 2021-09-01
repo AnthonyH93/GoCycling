@@ -13,11 +13,7 @@ struct CyclingSingleRecordView: View {
     let recordDate: String?
     let firstEntry: Bool
     
-    let persistenceController = PersistenceController.shared
-    
     @EnvironmentObject var preferences: PreferencesStorage
-    
-    @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
         VStack {

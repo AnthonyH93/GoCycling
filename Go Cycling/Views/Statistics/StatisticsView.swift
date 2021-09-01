@@ -8,14 +8,6 @@
 import SwiftUI
 
 struct StatisticsView: View {
-    let persistenceController = PersistenceController.shared
-    
-    @EnvironmentObject var preferences: PreferencesStorage
-    @EnvironmentObject var bikeRides: BikeRideStorage
-    @EnvironmentObject var records: RecordsStorage
-    
-    @Environment(\.managedObjectContext) private var managedObjectContext
-    
     var body: some View {
         NavigationView {
             Form {

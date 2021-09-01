@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct BikeRideFilterSheetView: View {
-    let persistenceController = PersistenceController.shared
-    
     @EnvironmentObject var bikeRides: BikeRideStorage
 
-    @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
     
     @Binding var showingSheet: Bool

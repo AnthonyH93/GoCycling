@@ -8,15 +8,9 @@
 import SwiftUI
 
 struct ActivityAwardsView: View {
-    
     @StateObject var activityAwardsViewModel = ActivityAwardsViewModel()
-        
-    let persistenceController = PersistenceController.shared
     
-    @EnvironmentObject var records: RecordsStorage
     @EnvironmentObject var preferences: PreferencesStorage
-    
-    @Environment(\.managedObjectContext) private var managedObjectContext
 
     var body: some View {
         Section (header: Text(RecordsFormatting.headerStrings[2]), footer: Text(RecordsFormatting.footerStrings[1])) {
