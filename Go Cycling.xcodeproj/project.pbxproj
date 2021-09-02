@@ -21,6 +21,8 @@
 		9D3808EA26D3709C0058DE1E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3808E926D3709C0058DE1E /* StatisticsView.swift */; };
 		9D55B9F726522D8D00B622E5 /* RouteRenameModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D55B9F626522D8D00B622E5 /* RouteRenameModalView.swift */; };
 		9D601E5626DEF6E100844CD1 /* ActivityAwardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5526DEF6E100844CD1 /* ActivityAwardsViewModel.swift */; };
+		9D601E5926E0732100844CD1 /* SingleChartListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5826E0732100844CD1 /* SingleChartListCellView.swift */; };
+		9D601E5B26E085B700844CD1 /* CyclingChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5A26E085B700844CD1 /* CyclingChartsViewModel.swift */; };
 		9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */; };
 		9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */; };
 		9D62F4E02634F7CC00E28991 /* MetricsFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */; };
@@ -129,6 +131,8 @@
 		9D3808E926D3709C0058DE1E /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		9D55B9F626522D8D00B622E5 /* RouteRenameModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRenameModalView.swift; sourceTree = "<group>"; };
 		9D601E5526DEF6E100844CD1 /* ActivityAwardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAwardsViewModel.swift; sourceTree = "<group>"; };
+		9D601E5826E0732100844CD1 /* SingleChartListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChartListCellView.swift; sourceTree = "<group>"; };
+		9D601E5A26E085B700844CD1 /* CyclingChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingChartsViewModel.swift; sourceTree = "<group>"; };
 		9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotView.swift; sourceTree = "<group>"; };
 		9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMetricView.swift; sourceTree = "<group>"; };
 		9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsFormatting.swift; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				9DF9304A26DDE81900D4EEC5 /* ActivityAwardsView.swift */,
 				9DF9304E26DDFAC400D4EEC5 /* SingleActivityAwardView.swift */,
 				9DF9304C26DDFA4E00D4EEC5 /* LockedIconCoverView.swift */,
+				9D601E5826E0732100844CD1 /* SingleChartListCellView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				9D601E5526DEF6E100844CD1 /* ActivityAwardsViewModel.swift */,
+				9D601E5A26E085B700844CD1 /* CyclingChartsViewModel.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -680,9 +686,11 @@
 				9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */,
 				9DF9304926DDE3F400D4EEC5 /* CyclingChartsView.swift in Sources */,
 				9D62F4EF2636064100E28991 /* LargeSingleMetricView.swift in Sources */,
+				9D601E5926E0732100844CD1 /* SingleChartListCellView.swift in Sources */,
 				9D8169FA263FA4CE00DED7F8 /* IconNames.swift in Sources */,
 				9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */,
 				9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */,
+				9D601E5B26E085B700844CD1 /* CyclingChartsViewModel.swift in Sources */,
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
 				9D62F4EA2636020000E28991 /* LargeMetricsView.swift in Sources */,
 				9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */,

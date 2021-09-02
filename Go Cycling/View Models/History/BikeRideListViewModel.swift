@@ -53,7 +53,7 @@ class BikeRideListViewModel: ObservableObject {
         currentSortChoice = .timeAscending
     }
     
-    func getActionSheetTitle() -> String {
+    func getSortActionSheetTitle() -> String {
         var title = ""
         switch currentSortChoice {
         case .distanceAscending:
