@@ -25,7 +25,7 @@ class RecordsFormatting {
                                  "Total Cycling Time",
                                  "Total Saved Cycling Routes",
                                  "Longest Distance Cycled",
-                                 "Longest Time Cycled",
+                                 "Longest Cycling Time",
                                  "Best Average Cycling Speed"]
     
     // Header and footer strings for the vrious sections of the statistics tab form
@@ -33,7 +33,7 @@ class RecordsFormatting {
                                 "Cycling Charts",
                                 "Activity Awards"]
     
-    static let footerStrings = ["For week data, each week starts on Monday and ends on Sunday.",
+    static let footerStrings = ["Click on a row above to view a detailed chart of that activity period. Percentage changes compare the current activity period to the previous one.",
                                 "Progress towards unlocking exclusive alternate app icons. Unlocked icons will not be lost when routes are deleted or statistics are reset."]
     
     // Text to mention that only routes longer than 1 KM are counted towards best average speed

@@ -74,6 +74,6 @@ struct SingleChartListCellView: View {
         if (percentageChange == 0) {
             return "0%"
         }
-        return "\(percentageChange > 0 ? "↑" : "↓")\(abs(percentageChange))%"
+        return "\(percentageChange > 0 ? "↑" : "↓")\(abs(percentageChange) < 999 ? "\(abs(percentageChange))" : ">999")%"
     }
 }
