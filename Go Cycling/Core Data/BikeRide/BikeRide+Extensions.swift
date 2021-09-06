@@ -134,7 +134,7 @@ extension BikeRide {
         return [BikeRide]()
     }
     
-    static func bikeRidesInPast26Weeks() -> [BikeRide] {
+    static func bikeRidesInPast30Weeks() -> [BikeRide] {
         let context = PersistenceController.shared.container.viewContext
         let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequestsWithDateRanges()[4] ?? BikeRide.fetchRequest()
         do {

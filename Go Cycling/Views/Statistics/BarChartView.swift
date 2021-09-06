@@ -15,17 +15,20 @@ struct BarChartView: View {
     @EnvironmentObject var preferences: PreferencesStorage
     @Environment(\.colorScheme) var colorScheme
     
-    @State private var selectedValue = ""
+    @State private var selectedDistanceValue = ""
+    @State private var selectedDateValue = ""
     @State private var touchLocation: CGFloat = -1
     @State private var currentOpacity: Double = 1.0
     
     var body: some View {
         VStack (alignment: .leading) {
-            if (selectedValue == "") {
+            if (selectedDistanceValue == "") {
                 
             }
             else {
-                Text("Selected Value: \(selectedValue)")
+                Text("\(index == 0 ? "Date Selected:" : "Date Range Selected:") \(selectedDateValue)")
+                    .bold()
+                Text("Distance Cycled: \(selectedDistanceValue)")
                     .bold()
             }
             // Chart
@@ -49,7 +52,7 @@ struct BarChartView: View {
                             updateCurrentValue()
                         })
                         .onEnded({ position in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                                 resetValues()
                             }
                         })
@@ -72,17 +75,19 @@ struct BarChartView: View {
     
     func updateCurrentValue()    {
         let id = Int(touchLocation * CGFloat(chartViewModel.pastData[index].count))
-        guard index < chartViewModel.pastData[index].count && index >= 0 else {
-            selectedValue = ""
+        guard id < chartViewModel.pastData[index].count && id >= 0 else {
+            selectedDistanceValue = ""
+            selectedDateValue = ""
             return
         }
-        selectedValue = "\(chartViewModel.pastData[index][id])"
-        //currentLabel = data[index].label
+        selectedDistanceValue = "\(MetricsFormatting.formatDistance(distance: chartViewModel.pastData[index][id], usingMetric: preferences.storedPreferences[0].usingMetric))"
+        selectedDateValue = chartViewModel.getIndividualDateRange(index: index, entryIndex: id)
     }
     
     func resetValues() {
         touchLocation = -1
-        selectedValue = ""
+        selectedDistanceValue = ""
+        selectedDateValue = ""
         currentOpacity = 1
     }
 }

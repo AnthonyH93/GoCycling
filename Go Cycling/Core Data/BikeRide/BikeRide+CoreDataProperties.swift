@@ -105,11 +105,11 @@ extension BikeRide {
             requests.append(nil)
         }
         
-        // 4: Past 26 weeks
+        // 4: Past 30 weeks
         let request5: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
         request5.sortDescriptors = []
         
-        let dateFrom5 = calendar.date(byAdding: .day, value: -181, to: startOfToday)
+        let dateFrom5 = calendar.date(byAdding: .day, value: -209, to: startOfToday)
 
         if let date1 = dateFrom5, let date2 = endOfToday {
             // Set predicate to range of accepted dates
@@ -124,12 +124,12 @@ extension BikeRide {
             requests.append(nil)
         }
         
-        // 5: Past 52 - 26 weeks
+        // 5: Past 60 - 30 weeks
         let request6: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
         request6.sortDescriptors = []
         
-        let dateTo6 = calendar.date(byAdding: .day, value: -182, to: startOfToday)
-        let dateFrom6 = calendar.date(byAdding: .day, value: -364, to: startOfToday)
+        let dateTo6 = calendar.date(byAdding: .day, value: -210, to: startOfToday)
+        let dateFrom6 = calendar.date(byAdding: .day, value: -420, to: startOfToday)
 
         if let date1 = dateFrom6, let date2 = dateTo6 {
             // Set predicate to range of accepted dates
