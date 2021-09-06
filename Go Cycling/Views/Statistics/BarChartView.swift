@@ -22,8 +22,8 @@ struct BarChartView: View {
             GeometryReader { geometry in
                 VStack {
                     HStack {
-                        ForEach (0..<chartViewModel.pastWeekDistances.count, id: \.self) { index in
-                            BarChartCellView(value: chartViewModel.pastWeekDistancesNormalized[index], barColor: Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                        ForEach (0..<chartViewModel.pastData[index].count, id: \.self) { id in
+                            BarChartCellView(value: chartViewModel.pastDataNormalized[index][id], barColor: Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
                                 .animation(.spring())
                                 .padding(.top)
                         }
