@@ -22,12 +22,10 @@ struct BarChartView: View {
     
     var body: some View {
         VStack (alignment: .leading) {
-            if (selectedDistanceValue == "") {
-                
-            }
-            else {
+            if (selectedDistanceValue != "") {
                 Text("\(index == 0 ? "Date Selected:" : "Date Range Selected:") \(selectedDateValue)")
                     .bold()
+                    .padding(.bottom, 10)
                 Text("Distance Cycled: \(selectedDistanceValue)")
                     .bold()
             }

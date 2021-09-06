@@ -19,12 +19,10 @@ struct ChangeAppIconView: View {
         if (self.iconNames.iconNames.count > 3) {
             Picker("App Icon", selection: $preferences.storedPreferences[0].iconIndex) {
                 // Need to manually set these icon names instead of programmatically due to SwiftUI bug with navigation titles
-                Text(self.iconNames.iconNamesOrdered[0] ?? "Default").tag(0)
-                Text(self.iconNames.iconNamesOrdered[1] ?? "Default").tag(1)
-                Text(self.iconNames.iconNamesOrdered[2] ?? "Default").tag(2)
-                Text(self.iconNames.iconNamesOrdered[3] ?? "Default").tag(3)
-                    .navigationBarTitle("Choose your App Icon", displayMode: .inline)
-
+                ForEach (0..<self.iconNames.iconNamesOrdered.count) { index in
+                    Text(self.iconNames.iconNamesOrdered[index] ?? "Default").tag(index)
+                }
+                .navigationBarTitle("Choose your App Icon", displayMode: .inline)
             }
             .onChange(of: preferences.storedPreferences[0].iconIndex) { value in
 

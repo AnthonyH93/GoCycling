@@ -51,7 +51,7 @@ extension BikeRide {
         request2.sortDescriptors = []
         
         let dateTo2 = calendar.date(byAdding: .day, value: -7, to: startOfToday)
-        let dateFrom2 = calendar.date(byAdding: .day, value: -14, to: startOfToday)
+        let dateFrom2 = calendar.date(byAdding: .day, value: -13, to: startOfToday)
 
         if let date1 = dateFrom2, let date2 = dateTo2 {
             // Set predicate to range of accepted dates
@@ -90,7 +90,7 @@ extension BikeRide {
         request4.sortDescriptors = []
         
         let dateTo4 = calendar.date(byAdding: .day, value: -35, to: startOfToday)
-        let dateFrom4 = calendar.date(byAdding: .day, value: -70, to: startOfToday)
+        let dateFrom4 = calendar.date(byAdding: .day, value: -69, to: startOfToday)
 
         if let date1 = dateFrom4, let date2 = dateTo4 {
             // Set predicate to range of accepted dates
@@ -129,7 +129,7 @@ extension BikeRide {
         request6.sortDescriptors = []
         
         let dateTo6 = calendar.date(byAdding: .day, value: -210, to: startOfToday)
-        let dateFrom6 = calendar.date(byAdding: .day, value: -420, to: startOfToday)
+        let dateFrom6 = calendar.date(byAdding: .day, value: -419, to: startOfToday)
 
         if let date1 = dateFrom6, let date2 = dateTo6 {
             // Set predicate to range of accepted dates

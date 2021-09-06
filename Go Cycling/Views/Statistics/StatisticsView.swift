@@ -17,6 +17,7 @@ struct StatisticsView: View {
             }
             .navigationBarTitle("Cycling Statistics", displayMode: .automatic)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

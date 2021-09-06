@@ -26,6 +26,46 @@
 		9D601E5D26E0992500844CD1 /* DateDistanceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5C26E0992500844CD1 /* DateDistanceExtension.swift */; };
 		9D601E5F26E09D4600844CD1 /* BarChartCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5E26E09D4600844CD1 /* BarChartCellView.swift */; };
 		9D601E6126E09D9A00844CD1 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E6026E09D9A00844CD1 /* BarChartView.swift */; };
+		9D601E6726E6CFC900844CD1 /* Interstellar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6226E6CFC900844CD1 /* Interstellar@3x.png */; };
+		9D601E6826E6CFC900844CD1 /* Interstellar~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6326E6CFC900844CD1 /* Interstellar~ipad.png */; };
+		9D601E6926E6CFC900844CD1 /* Interstellar@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6426E6CFC900844CD1 /* Interstellar@2x~ipad.png */; };
+		9D601E6A26E6CFC900844CD1 /* Interstellar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6526E6CFC900844CD1 /* Interstellar@2x.png */; };
+		9D601E6B26E6CFC900844CD1 /* Interstellar-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6626E6CFC900844CD1 /* Interstellar-83.5@2x~ipad.png */; };
+		9D601E7126E6CFFD00844CD1 /* Interstellar Inverted@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6C26E6CFFD00844CD1 /* Interstellar Inverted@2x~ipad.png */; };
+		9D601E7226E6CFFD00844CD1 /* Interstellar Inverted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6D26E6CFFD00844CD1 /* Interstellar Inverted@2x.png */; };
+		9D601E7326E6CFFD00844CD1 /* Interstellar Inverted-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6E26E6CFFD00844CD1 /* Interstellar Inverted-83.5@2x~ipad.png */; };
+		9D601E7426E6CFFD00844CD1 /* Interstellar Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E6F26E6CFFD00844CD1 /* Interstellar Inverted@3x.png */; };
+		9D601E7526E6CFFD00844CD1 /* Interstellar Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E7026E6CFFD00844CD1 /* Interstellar Inverted~ipad.png */; };
+		9D601E7B26E6D02200844CD1 /* Bronze-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E7626E6D02200844CD1 /* Bronze-83.5@2x~ipad.png */; };
+		9D601E7C26E6D02200844CD1 /* Bronze~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E7726E6D02200844CD1 /* Bronze~ipad.png */; };
+		9D601E7D26E6D02200844CD1 /* Bronze@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E7826E6D02200844CD1 /* Bronze@2x.png */; };
+		9D601E7E26E6D02200844CD1 /* Bronze@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E7926E6D02200844CD1 /* Bronze@2x~ipad.png */; };
+		9D601E7F26E6D02200844CD1 /* Bronze@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E7A26E6D02200844CD1 /* Bronze@3x.png */; };
+		9D601E8526E6D03E00844CD1 /* Bronze Inverted@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8026E6D03E00844CD1 /* Bronze Inverted@2x~ipad.png */; };
+		9D601E8626E6D03E00844CD1 /* Bronze Inverted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8126E6D03E00844CD1 /* Bronze Inverted@2x.png */; };
+		9D601E8726E6D03E00844CD1 /* Bronze Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8226E6D03E00844CD1 /* Bronze Inverted~ipad.png */; };
+		9D601E8826E6D03E00844CD1 /* Bronze Inverted-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8326E6D03E00844CD1 /* Bronze Inverted-83.5@2x~ipad.png */; };
+		9D601E8926E6D03E00844CD1 /* Bronze Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8426E6D03E00844CD1 /* Bronze Inverted@3x.png */; };
+		9D601E8F26E6D04E00844CD1 /* Silver~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8A26E6D04E00844CD1 /* Silver~ipad.png */; };
+		9D601E9026E6D04E00844CD1 /* Silver-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8B26E6D04E00844CD1 /* Silver-83.5@2x~ipad.png */; };
+		9D601E9126E6D04E00844CD1 /* Silver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8C26E6D04E00844CD1 /* Silver@2x.png */; };
+		9D601E9226E6D04E00844CD1 /* Silver@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8D26E6D04E00844CD1 /* Silver@2x~ipad.png */; };
+		9D601E9326E6D04E00844CD1 /* Silver@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E8E26E6D04E00844CD1 /* Silver@3x.png */; };
+		9D601E9926E6D06000844CD1 /* Silver Inverted-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E9426E6D05F00844CD1 /* Silver Inverted-83.5@2x~ipad.png */; };
+		9D601E9A26E6D06000844CD1 /* Silver Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E9526E6D05F00844CD1 /* Silver Inverted~ipad.png */; };
+		9D601E9B26E6D06000844CD1 /* Silver Inverted@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E9626E6D05F00844CD1 /* Silver Inverted@2x~ipad.png */; };
+		9D601E9C26E6D06000844CD1 /* Silver Inverted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E9726E6D05F00844CD1 /* Silver Inverted@2x.png */; };
+		9D601E9D26E6D06000844CD1 /* Silver Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E9826E6D06000844CD1 /* Silver Inverted@3x.png */; };
+		9D601EA326E6D06C00844CD1 /* Gold@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E9E26E6D06C00844CD1 /* Gold@2x~ipad.png */; };
+		9D601EA426E6D06C00844CD1 /* Gold@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601E9F26E6D06C00844CD1 /* Gold@3x.png */; };
+		9D601EA526E6D06C00844CD1 /* Gold~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601EA026E6D06C00844CD1 /* Gold~ipad.png */; };
+		9D601EA626E6D06C00844CD1 /* Gold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601EA126E6D06C00844CD1 /* Gold@2x.png */; };
+		9D601EA726E6D06C00844CD1 /* Gold-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601EA226E6D06C00844CD1 /* Gold-83.5@2x~ipad.png */; };
+		9D601EAD26E6D07A00844CD1 /* Gold Inverted@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601EA826E6D07A00844CD1 /* Gold Inverted@2x~ipad.png */; };
+		9D601EAE26E6D07A00844CD1 /* Gold Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601EA926E6D07A00844CD1 /* Gold Inverted@3x.png */; };
+		9D601EAF26E6D07A00844CD1 /* Gold Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601EAA26E6D07A00844CD1 /* Gold Inverted~ipad.png */; };
+		9D601EB026E6D07A00844CD1 /* Gold Inverted-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601EAB26E6D07A00844CD1 /* Gold Inverted-83.5@2x~ipad.png */; };
+		9D601EB126E6D07A00844CD1 /* Gold Inverted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601EAC26E6D07A00844CD1 /* Gold Inverted@2x.png */; };
 		9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */; };
 		9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */; };
 		9D62F4E02634F7CC00E28991 /* MetricsFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */; };
@@ -139,6 +179,46 @@
 		9D601E5C26E0992500844CD1 /* DateDistanceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDistanceExtension.swift; sourceTree = "<group>"; };
 		9D601E5E26E09D4600844CD1 /* BarChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartCellView.swift; sourceTree = "<group>"; };
 		9D601E6026E09D9A00844CD1 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
+		9D601E6226E6CFC900844CD1 /* Interstellar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar@3x.png"; sourceTree = "<group>"; };
+		9D601E6326E6CFC900844CD1 /* Interstellar~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar~ipad.png"; sourceTree = "<group>"; };
+		9D601E6426E6CFC900844CD1 /* Interstellar@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E6526E6CFC900844CD1 /* Interstellar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar@2x.png"; sourceTree = "<group>"; };
+		9D601E6626E6CFC900844CD1 /* Interstellar-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E6C26E6CFFD00844CD1 /* Interstellar Inverted@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar Inverted@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E6D26E6CFFD00844CD1 /* Interstellar Inverted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar Inverted@2x.png"; sourceTree = "<group>"; };
+		9D601E6E26E6CFFD00844CD1 /* Interstellar Inverted-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar Inverted-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E6F26E6CFFD00844CD1 /* Interstellar Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar Inverted@3x.png"; sourceTree = "<group>"; };
+		9D601E7026E6CFFD00844CD1 /* Interstellar Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Interstellar Inverted~ipad.png"; sourceTree = "<group>"; };
+		9D601E7626E6D02200844CD1 /* Bronze-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E7726E6D02200844CD1 /* Bronze~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze~ipad.png"; sourceTree = "<group>"; };
+		9D601E7826E6D02200844CD1 /* Bronze@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze@2x.png"; sourceTree = "<group>"; };
+		9D601E7926E6D02200844CD1 /* Bronze@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E7A26E6D02200844CD1 /* Bronze@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze@3x.png"; sourceTree = "<group>"; };
+		9D601E8026E6D03E00844CD1 /* Bronze Inverted@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze Inverted@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E8126E6D03E00844CD1 /* Bronze Inverted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze Inverted@2x.png"; sourceTree = "<group>"; };
+		9D601E8226E6D03E00844CD1 /* Bronze Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze Inverted~ipad.png"; sourceTree = "<group>"; };
+		9D601E8326E6D03E00844CD1 /* Bronze Inverted-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze Inverted-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E8426E6D03E00844CD1 /* Bronze Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bronze Inverted@3x.png"; sourceTree = "<group>"; };
+		9D601E8A26E6D04E00844CD1 /* Silver~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver~ipad.png"; sourceTree = "<group>"; };
+		9D601E8B26E6D04E00844CD1 /* Silver-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E8C26E6D04E00844CD1 /* Silver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver@2x.png"; sourceTree = "<group>"; };
+		9D601E8D26E6D04E00844CD1 /* Silver@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E8E26E6D04E00844CD1 /* Silver@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver@3x.png"; sourceTree = "<group>"; };
+		9D601E9426E6D05F00844CD1 /* Silver Inverted-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver Inverted-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E9526E6D05F00844CD1 /* Silver Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver Inverted~ipad.png"; sourceTree = "<group>"; };
+		9D601E9626E6D05F00844CD1 /* Silver Inverted@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver Inverted@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E9726E6D05F00844CD1 /* Silver Inverted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver Inverted@2x.png"; sourceTree = "<group>"; };
+		9D601E9826E6D06000844CD1 /* Silver Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver Inverted@3x.png"; sourceTree = "<group>"; };
+		9D601E9E26E6D06C00844CD1 /* Gold@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601E9F26E6D06C00844CD1 /* Gold@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold@3x.png"; sourceTree = "<group>"; };
+		9D601EA026E6D06C00844CD1 /* Gold~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold~ipad.png"; sourceTree = "<group>"; };
+		9D601EA126E6D06C00844CD1 /* Gold@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold@2x.png"; sourceTree = "<group>"; };
+		9D601EA226E6D06C00844CD1 /* Gold-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601EA826E6D07A00844CD1 /* Gold Inverted@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold Inverted@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601EA926E6D07A00844CD1 /* Gold Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold Inverted@3x.png"; sourceTree = "<group>"; };
+		9D601EAA26E6D07A00844CD1 /* Gold Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold Inverted~ipad.png"; sourceTree = "<group>"; };
+		9D601EAB26E6D07A00844CD1 /* Gold Inverted-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold Inverted-83.5@2x~ipad.png"; sourceTree = "<group>"; };
+		9D601EAC26E6D07A00844CD1 /* Gold Inverted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold Inverted@2x.png"; sourceTree = "<group>"; };
 		9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotView.swift; sourceTree = "<group>"; };
 		9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMetricView.swift; sourceTree = "<group>"; };
 		9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsFormatting.swift; sourceTree = "<group>"; };
@@ -426,6 +506,46 @@
 				9D816A2B2642562900DED7F8 /* Light@2x~ipad.png */,
 				9D816A2D2642562A00DED7F8 /* Light~ipad.png */,
 				9D8169F2263FA48500DED7F8 /* Light@3x.png */,
+				9D601E6626E6CFC900844CD1 /* Interstellar-83.5@2x~ipad.png */,
+				9D601E6526E6CFC900844CD1 /* Interstellar@2x.png */,
+				9D601E6426E6CFC900844CD1 /* Interstellar@2x~ipad.png */,
+				9D601E6226E6CFC900844CD1 /* Interstellar@3x.png */,
+				9D601E6326E6CFC900844CD1 /* Interstellar~ipad.png */,
+				9D601E6E26E6CFFD00844CD1 /* Interstellar Inverted-83.5@2x~ipad.png */,
+				9D601E6D26E6CFFD00844CD1 /* Interstellar Inverted@2x.png */,
+				9D601E6C26E6CFFD00844CD1 /* Interstellar Inverted@2x~ipad.png */,
+				9D601E6F26E6CFFD00844CD1 /* Interstellar Inverted@3x.png */,
+				9D601E7026E6CFFD00844CD1 /* Interstellar Inverted~ipad.png */,
+				9D601E7626E6D02200844CD1 /* Bronze-83.5@2x~ipad.png */,
+				9D601E7826E6D02200844CD1 /* Bronze@2x.png */,
+				9D601E7926E6D02200844CD1 /* Bronze@2x~ipad.png */,
+				9D601E7A26E6D02200844CD1 /* Bronze@3x.png */,
+				9D601E7726E6D02200844CD1 /* Bronze~ipad.png */,
+				9D601E8326E6D03E00844CD1 /* Bronze Inverted-83.5@2x~ipad.png */,
+				9D601E8126E6D03E00844CD1 /* Bronze Inverted@2x.png */,
+				9D601E8026E6D03E00844CD1 /* Bronze Inverted@2x~ipad.png */,
+				9D601E8426E6D03E00844CD1 /* Bronze Inverted@3x.png */,
+				9D601E8226E6D03E00844CD1 /* Bronze Inverted~ipad.png */,
+				9D601E8B26E6D04E00844CD1 /* Silver-83.5@2x~ipad.png */,
+				9D601E8C26E6D04E00844CD1 /* Silver@2x.png */,
+				9D601E8D26E6D04E00844CD1 /* Silver@2x~ipad.png */,
+				9D601E8E26E6D04E00844CD1 /* Silver@3x.png */,
+				9D601E8A26E6D04E00844CD1 /* Silver~ipad.png */,
+				9D601E9426E6D05F00844CD1 /* Silver Inverted-83.5@2x~ipad.png */,
+				9D601E9726E6D05F00844CD1 /* Silver Inverted@2x.png */,
+				9D601E9626E6D05F00844CD1 /* Silver Inverted@2x~ipad.png */,
+				9D601E9826E6D06000844CD1 /* Silver Inverted@3x.png */,
+				9D601E9526E6D05F00844CD1 /* Silver Inverted~ipad.png */,
+				9D601EA226E6D06C00844CD1 /* Gold-83.5@2x~ipad.png */,
+				9D601EA126E6D06C00844CD1 /* Gold@2x.png */,
+				9D601E9E26E6D06C00844CD1 /* Gold@2x~ipad.png */,
+				9D601E9F26E6D06C00844CD1 /* Gold@3x.png */,
+				9D601EA026E6D06C00844CD1 /* Gold~ipad.png */,
+				9D601EAB26E6D07A00844CD1 /* Gold Inverted-83.5@2x~ipad.png */,
+				9D601EAC26E6D07A00844CD1 /* Gold Inverted@2x.png */,
+				9D601EA826E6D07A00844CD1 /* Gold Inverted@2x~ipad.png */,
+				9D601EA926E6D07A00844CD1 /* Gold Inverted@3x.png */,
+				9D601EAA26E6D07A00844CD1 /* Gold Inverted~ipad.png */,
 			);
 			path = "Alternate App Icons";
 			sourceTree = "<group>";
@@ -638,27 +758,67 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D601E7326E6CFFD00844CD1 /* Interstellar Inverted-83.5@2x~ipad.png in Resources */,
+				9D601E7126E6CFFD00844CD1 /* Interstellar Inverted@2x~ipad.png in Resources */,
+				9D601E7F26E6D02200844CD1 /* Bronze@3x.png in Resources */,
+				9D601EA326E6D06C00844CD1 /* Gold@2x~ipad.png in Resources */,
+				9D601E8626E6D03E00844CD1 /* Bronze Inverted@2x.png in Resources */,
 				9D816A402642564E00DED7F8 /* Default@2x~ipad.png in Resources */,
+				9D601E7E26E6D02200844CD1 /* Bronze@2x~ipad.png in Resources */,
+				9D601E9226E6D04E00844CD1 /* Silver@2x~ipad.png in Resources */,
+				9D601E6726E6CFC900844CD1 /* Interstellar@3x.png in Resources */,
+				9D601EAD26E6D07A00844CD1 /* Gold Inverted@2x~ipad.png in Resources */,
 				9D816A2F2642562A00DED7F8 /* Light-83.5@2x~ipad.png in Resources */,
 				9D1C40CF26426E740032125A /* Default Inverted@3x.png in Resources */,
+				9D601EAF26E6D07A00844CD1 /* Gold Inverted~ipad.png in Resources */,
+				9D601E7D26E6D02200844CD1 /* Bronze@2x.png in Resources */,
 				9D1C40D726426E7F0032125A /* Default Inverted-83.5@2x~ipad.png in Resources */,
+				9D601E7526E6CFFD00844CD1 /* Interstellar Inverted~ipad.png in Resources */,
+				9D601E9026E6D04E00844CD1 /* Silver-83.5@2x~ipad.png in Resources */,
+				9D601EA726E6D06C00844CD1 /* Gold-83.5@2x~ipad.png in Resources */,
+				9D601E7426E6CFFD00844CD1 /* Interstellar Inverted@3x.png in Resources */,
+				9D601E6826E6CFC900844CD1 /* Interstellar~ipad.png in Resources */,
+				9D601E8F26E6D04E00844CD1 /* Silver~ipad.png in Resources */,
 				9D816A2E2642562A00DED7F8 /* Light@2x~ipad.png in Resources */,
 				9D1C40CE26426E740032125A /* Default Inverted@2x.png in Resources */,
+				9D601E8726E6D03E00844CD1 /* Bronze Inverted~ipad.png in Resources */,
+				9D601E9B26E6D06000844CD1 /* Silver Inverted@2x~ipad.png in Resources */,
+				9D601E9A26E6D06000844CD1 /* Silver Inverted~ipad.png in Resources */,
+				9D601E9926E6D06000844CD1 /* Silver Inverted-83.5@2x~ipad.png in Resources */,
+				9D601E6B26E6CFC900844CD1 /* Interstellar-83.5@2x~ipad.png in Resources */,
+				9D601E7226E6CFFD00844CD1 /* Interstellar Inverted@2x.png in Resources */,
+				9D601E6926E6CFC900844CD1 /* Interstellar@2x~ipad.png in Resources */,
+				9D601E9C26E6D06000844CD1 /* Silver Inverted@2x.png in Resources */,
 				9D1C40D626426E7F0032125A /* Default Inverted~ipad.png in Resources */,
+				9D601E8826E6D03E00844CD1 /* Bronze Inverted-83.5@2x~ipad.png in Resources */,
+				9D601E7C26E6D02200844CD1 /* Bronze~ipad.png in Resources */,
+				9D601EA426E6D06C00844CD1 /* Gold@3x.png in Resources */,
 				9D816A162640A4F000DED7F8 /* Default@2x.png in Resources */,
 				9D816A412642564E00DED7F8 /* Default~ipad.png in Resources */,
 				9D8169F5263FA48500DED7F8 /* Light@2x.png in Resources */,
 				9D8169EE263FA47A00DED7F8 /* Dark@3x.png in Resources */,
+				9D601EA526E6D06C00844CD1 /* Gold~ipad.png in Resources */,
 				9D816A392642563D00DED7F8 /* Dark@2x~ipad.png in Resources */,
 				9D1C40D826426E7F0032125A /* Default Inverted@2x~ipad.png in Resources */,
+				9D601E7B26E6D02200844CD1 /* Bronze-83.5@2x~ipad.png in Resources */,
+				9D601EB026E6D07A00844CD1 /* Gold Inverted-83.5@2x~ipad.png in Resources */,
+				9D601E8526E6D03E00844CD1 /* Bronze Inverted@2x~ipad.png in Resources */,
 				9D8169F4263FA48500DED7F8 /* Light@3x.png in Resources */,
+				9D601E9326E6D04E00844CD1 /* Silver@3x.png in Resources */,
+				9D601E6A26E6CFC900844CD1 /* Interstellar@2x.png in Resources */,
 				9D816A372642563D00DED7F8 /* Dark~ipad.png in Resources */,
 				9D8169ED263FA47A00DED7F8 /* Dark@2x.png in Resources */,
+				9D601EA626E6D06C00844CD1 /* Gold@2x.png in Resources */,
 				9D816A422642564E00DED7F8 /* Default-83.5@2x~ipad.png in Resources */,
 				9D816A382642563D00DED7F8 /* Dark-83.5@2x~ipad.png in Resources */,
+				9D601EAE26E6D07A00844CD1 /* Gold Inverted@3x.png in Resources */,
+				9D601E8926E6D03E00844CD1 /* Bronze Inverted@3x.png in Resources */,
+				9D601E9126E6D04E00844CD1 /* Silver@2x.png in Resources */,
+				9D601EB126E6D07A00844CD1 /* Gold Inverted@2x.png in Resources */,
 				9DAB831F25FECAD400F5C42E /* Preview Assets.xcassets in Resources */,
 				9D816A302642562A00DED7F8 /* Light~ipad.png in Resources */,
 				9DAB831C25FECAD400F5C42E /* Assets.xcassets in Resources */,
+				9D601E9D26E6D06000844CD1 /* Silver Inverted@3x.png in Resources */,
 				9D816A152640A4F000DED7F8 /* Default@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

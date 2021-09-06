@@ -37,7 +37,7 @@ class IconNames: ObservableObject {
     
     func getOrderedAlternateIconNames() {
         if (iconNames.count > 1) {
-            let correctOrder = ["Default Inverted", "Dark", "Light"]
+            let correctOrder = ["Default Inverted", "Dark", "Light", "Interstellar", "Interstellar Inverted", "Bronze", "Bronze Inverted", "Silver", "Silver Inverted", "Gold", "Gold Inverted"]
             for (index, name) in correctOrder.enumerated() {
                 if (iconNames.contains(correctOrder[index])) {
                     iconNamesOrdered.append(name)
