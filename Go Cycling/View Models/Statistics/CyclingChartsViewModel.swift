@@ -10,9 +10,9 @@ import SwiftUI
 
 // Contains all of the data to be used to construct the statistics charts
 class CyclingChartsViewModel: ObservableObject {
-    static let titleStrings: [String] = ["Activity in the past 7 days",
-                                         "Activity in the past 5 weeks",
-                                         "Activity in the past 26 weeks"]
+    static let titleStrings: [String] = ["Activity in the Past 7 Days",
+                                         "Activity in the Past 5 Weeks",
+                                         "Activity in the Past 26 Weeks"]
     
     @Published var pastWeekData: [BikeRide] = BikeRide.bikeRidesInPastWeek()
     @Published var past5WeeksData: [BikeRide] = BikeRide.bikeRidesInPast5Weeks()
@@ -110,5 +110,29 @@ class CyclingChartsViewModel: ObservableObject {
                 pastDataNormalized[2][index] = pastData[2][index]/maxDistance
             }
         }
+    }
+    
+    // Get a string to display the date range being shown
+    func getDateRange(index: Int) -> String {
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        let startOfToday = calendar.startOfDay(for: Date())
+        
+        var daysBack = 0
+        if (index == 0) {
+            daysBack = -6
+        }
+        else if (index == 1) {
+            daysBack = -34
+        }
+        else {
+            daysBack = -181
+        }
+        
+        let dateFrom = calendar.date(byAdding: .day, value: daysBack, to: startOfToday)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        return "\(dateFormatter.string(from: dateFrom ?? startOfToday)) - \(dateFormatter.string(from: startOfToday))"
     }
 }
