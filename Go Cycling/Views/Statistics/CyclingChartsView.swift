@@ -50,7 +50,9 @@ struct CyclingChartsView: View {
             if (!self.invalidData) {
                 List {
                     ForEach (0..<3) { index in
-                        SingleChartListCellView(distances: self.getDistanceData(index: index), times: self.getTimeData(index: index), numberOfRoutes: self.getNumberOfRoutes(index: index), index: index)
+                        NavigationLink(destination: BarChartView(index: index)) {
+                            SingleChartListCellView(distances: self.getDistanceData(index: index), times: self.getTimeData(index: index), numberOfRoutes: self.getNumberOfRoutes(index: index), index: index)
+                        }
                     }
                 }
             }
