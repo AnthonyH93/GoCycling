@@ -21,7 +21,11 @@ struct ChangeAppIconView: View {
             Picker("App Icon", selection: $preferences.storedPreferences[0].iconIndex) {
                 ForEach (0..<self.iconNames.iconNamesOrdered.count) { index in
                     if (index < 10 || records.storedRecords[0].unlockedIcons[iconNames.getCorrectIndex(index: index)]) {
-                        Text(self.iconNames.iconNamesOrdered[index] ?? "Default").tag(index)
+                        HStack {
+                            Image(self.iconNames.iconNamesOrdered[index] ?? "Default")
+                                .cornerRadius(15)
+                            Text(self.iconNames.iconNamesOrdered[index] ?? "Default").tag(index)
+                        }
                     }
                     else {
                         EmptyView().tag(index)
