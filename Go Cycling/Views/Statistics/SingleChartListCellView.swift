@@ -30,7 +30,7 @@ struct SingleChartListCellView: View {
                     .bold()
                 Text(getPercentageString(index: 0))
                     .bold()
-                    .foregroundColor(getPercentageChange(index: 0) > 0 ? .green : .red)
+                    .foregroundColor(getPercentageChange(index: 0) >= 0 ? .green : .red)
             }
             HStack {
                 Text("Cycling Time")
@@ -39,7 +39,7 @@ struct SingleChartListCellView: View {
                     .bold()
                 Text(getPercentageString(index: 1))
                     .bold()
-                    .foregroundColor(getPercentageChange(index: 1) > 0 ? .green : .red)
+                    .foregroundColor(getPercentageChange(index: 1) >= 0 ? .green : .red)
             }
             HStack {
                 Text("Completed Routes")
@@ -48,21 +48,30 @@ struct SingleChartListCellView: View {
                     .bold()
                 Text(getPercentageString(index: 2))
                     .bold()
-                    .foregroundColor(getPercentageChange(index: 2) > 0 ? .green : .red)
+                    .foregroundColor(getPercentageChange(index: 2) >= 0 ? .green : .red)
             }
         }
     }
     
     func getPercentageChange(index: Int) -> Int {
         if (index == 0) {
+            if (distances[0] == 0 && distances[1] == 0) {
+                return 0
+            }
             let change = distances[0] != 0 ? ((distances[1] - distances[0])/distances[0]) * 100 : 100
             return Int(round(change))
         }
         if (index == 1) {
+            if (times[0] == 0 && times[1] == 0) {
+                return 0
+            }
             let change = times[0] != 0 ? ((times[1] - times[0])/times[0]) * 100 : 100
             return Int(round(change))
         }
         if (index == 2) {
+            if (numberOfRoutes[0] == 0 && numberOfRoutes[1] == 0) {
+                return 0
+            }
             let change = numberOfRoutes[0] != 0 ? ((numberOfRoutes[1] - numberOfRoutes[0])/numberOfRoutes[0]) * 100 : 100
             return change
         }

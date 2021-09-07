@@ -65,6 +65,7 @@ struct CycleView: View {
                     }
                 }
             }
+            // Confirmation alert about ending the current route
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Are you sure that you want to end the current route?"),
                       message: Text("Please confirm that you are ready to end the current route."),
