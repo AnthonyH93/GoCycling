@@ -12,6 +12,24 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>Bronze</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Bronze</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Bronze Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Bronze Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 			<key>Dark</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -30,6 +48,42 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
+			<key>Gold</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Gold</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Gold Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Gold Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Interstellar</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Interstellar</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Interstellar Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Interstellar Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 			<key>Light</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -39,114 +93,60 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-            <key>Interstellar</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Interstellar</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Interstellar Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Interstellar Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Ocean</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Ocean</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Ocean Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Ocean Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Sunset</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Sunset</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Sunset Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Sunset Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Bronze</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Bronze</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Bronze Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Bronze Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Silver</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Silver</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Silver Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Silver Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Gold</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Gold</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Gold Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Gold Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
+			<key>Ocean</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Ocean</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Ocean Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Ocean Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Silver</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Silver</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Silver Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Silver Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Sunset</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Sunset</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Sunset Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Sunset Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
@@ -164,6 +164,24 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>Bronze</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Bronze</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Bronze Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Bronze Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 			<key>Dark</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -182,6 +200,42 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
+			<key>Gold</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Gold</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Gold Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Gold Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Interstellar</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Interstellar</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Interstellar Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Interstellar Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 			<key>Light</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -191,114 +245,60 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-            <key>Interstellar</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Interstellar</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Interstellar Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Interstellar Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Ocean</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Ocean</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Ocean Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Ocean Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Sunset</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Sunset</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Sunset Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Sunset Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Bronze</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Bronze</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Bronze Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Bronze Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Silver</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Silver</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Silver Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Silver Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Gold</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Gold</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>Gold Inverted</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>Gold Inverted</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
+			<key>Ocean</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Ocean</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Ocean Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Ocean Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Silver</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Silver</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Silver Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Silver Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Sunset</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Sunset</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>Sunset Inverted</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Sunset Inverted</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
