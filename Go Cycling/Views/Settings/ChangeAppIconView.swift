@@ -20,7 +20,7 @@ struct ChangeAppIconView: View {
         if (self.iconNames.iconNames.count > 3) {
             Picker("App Icon", selection: $preferences.storedPreferences[0].iconIndex) {
                 ForEach (0..<self.iconNames.iconNamesOrdered.count) { index in
-                    if (index < 6 || records.storedRecords[0].unlockedIcons[index - 6]) {
+                    if (index < 10 || records.storedRecords[0].unlockedIcons[iconNames.getCorrectIndex(index: index)]) {
                         Text(self.iconNames.iconNamesOrdered[index] ?? "Default").tag(index)
                     }
                     else {

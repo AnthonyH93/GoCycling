@@ -35,7 +35,6 @@ class ActivityAwardsViewModel: ObservableObject {
                     case 0:
                         if (!UserDefaults.standard.bool(forKey: "alertedBronze1")) {
                             UserDefaults.standard.set(true, forKey: "alertedBronze1")
-                            print("Displaying")
                             alertForNewIcon = true
                         }
                     case 1:

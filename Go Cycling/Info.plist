@@ -57,6 +57,42 @@
                 <key>UIPrerenderedIcon</key>
                 <false/>
             </dict>
+            <key>Ocean</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Ocean</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+            <key>Ocean Inverted</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Ocean Inverted</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+            <key>Sunset</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Sunset</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+            <key>Sunset Inverted</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Sunset Inverted</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
             <key>Bronze</key>
             <dict>
                 <key>CFBundleIconFiles</key>
@@ -169,6 +205,42 @@
                 <key>CFBundleIconFiles</key>
                 <array>
                     <string>Interstellar Inverted</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+            <key>Ocean</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Ocean</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+            <key>Ocean Inverted</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Ocean Inverted</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+            <key>Sunset</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Sunset</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
+            <key>Sunset Inverted</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>Sunset Inverted</string>
                 </array>
                 <key>UIPrerenderedIcon</key>
                 <false/>
