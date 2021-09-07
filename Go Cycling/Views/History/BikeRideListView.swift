@@ -60,7 +60,7 @@ struct BikeRideListView: View {
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button (bikeRideViewModel.getActionSheetTitle()) {
+                        Button (bikeRideViewModel.getSortActionSheetTitle()) {
                             if (min(geometry.size.width, geometry.size.height) < 600) {
                                 self.showingActionSheet = true
                             }

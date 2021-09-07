@@ -10,6 +10,18 @@
         <attribute name="cyclingStartTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="cyclingTime" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="Records" representedClassName="Records" syncable="YES">
+        <attribute name="fastestAverageSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fastestAverageSpeedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="longestCyclingDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longestCyclingDistanceDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="longestCyclingTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longestCyclingTimeDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="totalCyclingDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="totalCyclingRoutes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalCyclingTime" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="unlockedIcons" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="Bool"/>
+    </entity>
     <entity name="UserPreferences" representedClassName="UserPreferences" syncable="YES">
         <attribute name="colourChoice" optional="YES" attributeType="String"/>
         <attribute name="deletionConfirmation" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -24,6 +36,7 @@
     </entity>
     <elements>
         <element name="BikeRide" positionX="-63" positionY="9" width="128" height="149"/>
-        <element name="UserPreferences" positionX="-63" positionY="-18" width="128" height="179"/>
+        <element name="UserPreferences" positionX="-258.8984375" positionY="-12.41773986816406" width="128" height="179"/>
+        <element name="Records" positionX="-504.380615234375" positionY="-16.89202880859375" width="128" height="193"/>
     </elements>
 </model>

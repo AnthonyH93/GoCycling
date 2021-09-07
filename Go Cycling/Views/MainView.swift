@@ -22,6 +22,10 @@ struct MainView: View {
                 .tabItem {
                     Label("History", systemImage: "clock.arrow.circlepath")
                 }
+            StatisticsView()
+                .tabItem {
+                    Label("Statistics", systemImage: "chart.bar.xaxis")
+                }
             SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gear")

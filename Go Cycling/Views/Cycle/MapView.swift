@@ -24,6 +24,7 @@ struct MapView: UIViewRepresentable {
     
     @Environment(\.managedObjectContext) private var managedObjectContext
     @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var records: RecordsStorage
     
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -117,6 +118,21 @@ struct MapView: UIViewRepresentable {
                                                         elevations: locationManager.cyclingAltitudes,
                                                         startTime: cyclingStartTime,
                                                         time: timeCycling)
+
+                    // Determine the new values of the records object after this cycling route
+                    let values = Records.getBrokenRecords(existingRecords: records.storedRecords[0], speeds: locationManager.cyclingSpeeds, distance: locationManager.cyclingTotalDistance, startTime: cyclingStartTime, time: timeCycling)
+                    persistenceController.updateRecords(
+                        existingRecords: records.storedRecords[0],
+                        totalDistance: values.totalDistance,
+                        totalTime: values.totalTime,
+                        totalRoutes: values.totalRoutes,
+                        longestDistance: values.longestDistance,
+                        longestTime: values.longestTime,
+                        fastestAvgSpeed: values.fastestAvgSpeed,
+                        longestDistanceDate: values.longestDistanceDate,
+                        longestTimeDate: values.longestTimeDate,
+                        fastestAvgSpeedDate: values.fastestAvgSpeedDate)
+                    
                     locationManager.clearLocationArray()
                     locationManager.stopTrackingBackgroundLocation()
                 }
