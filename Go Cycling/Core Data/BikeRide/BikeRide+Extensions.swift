@@ -106,4 +106,44 @@ extension BikeRide {
         
         return categories
     }
+    
+    // Functions to get data for the charts on the statistics tab
+    static func bikeRidesInPastWeek() -> [BikeRide] {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequestsWithDateRanges()[0] ?? BikeRide.fetchRequest()
+        do {
+            let items = try context.fetch(fetchRequest)
+            return items
+        }
+        catch let error as NSError {
+            print("Error getting BikeRides: \(error.localizedDescription), \(error.userInfo)")
+        }
+        return [BikeRide]()
+    }
+    
+    static func bikeRidesInPast5Weeks() -> [BikeRide] {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequestsWithDateRanges()[2] ?? BikeRide.fetchRequest()
+        do {
+            let items = try context.fetch(fetchRequest)
+            return items
+        }
+        catch let error as NSError {
+            print("Error getting BikeRides: \(error.localizedDescription), \(error.userInfo)")
+        }
+        return [BikeRide]()
+    }
+    
+    static func bikeRidesInPast30Weeks() -> [BikeRide] {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequestsWithDateRanges()[4] ?? BikeRide.fetchRequest()
+        do {
+            let items = try context.fetch(fetchRequest)
+            return items
+        }
+        catch let error as NSError {
+            print("Error getting BikeRides: \(error.localizedDescription), \(error.userInfo)")
+        }
+        return [BikeRide]()
+    }
 }

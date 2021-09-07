@@ -27,7 +27,7 @@ extension UserPreferences {
         let fetchRequest: NSFetchRequest<UserPreferences> = UserPreferences.fetchRequest()
         do {
             let items = try context.fetch(fetchRequest)
-            return (items[0].namedRoutes == true) ? items[0].selectedRoute : ""
+            return (items[0].namedRoutes) ? items[0].selectedRoute : ""
         }
         catch let error as NSError {
             print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
