@@ -50,7 +50,7 @@ struct BarChartView: View {
                             updateCurrentValue()
                         })
                         .onEnded({ position in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                                 resetValues()
                             }
                         })
