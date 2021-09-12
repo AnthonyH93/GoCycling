@@ -90,12 +90,12 @@ struct BarChartView: View {
     }
     
     func barIsTouched(id: Int) -> Bool {
-        touchLocation > CGFloat(id)/CGFloat(chartViewModel.pastData[index + ((index < 1 ? 1 : barChartUnitsSelection.id) * 3)].count) && touchLocation < CGFloat(id+1)/CGFloat(chartViewModel.pastData[index + ((index < 1 ? 1 : barChartUnitsSelection.id) * 3)].count)
+        touchLocation > CGFloat(id)/CGFloat(chartViewModel.pastData[index + (barChartUnitsSelection.id * 3)].count) && touchLocation < CGFloat(id+1)/CGFloat(chartViewModel.pastData[index + (barChartUnitsSelection.id * 3)].count)
     }
     
     func updateCurrentValue()    {
         let id = Int(touchLocation * CGFloat(chartViewModel.pastData[index + (barChartUnitsSelection.id * 3)].count))
-        guard id < chartViewModel.pastData[index + ((index < 1 ? 1 : barChartUnitsSelection.id) * 3)].count && id >= 0 else {
+        guard id < chartViewModel.pastData[index + (barChartUnitsSelection.id * 3)].count && id >= 0 else {
             selectedValue = ""
             selectedDateValue = ""
             return
