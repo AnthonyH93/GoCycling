@@ -260,7 +260,7 @@ struct ListView: View {
                     }
                 }
                 .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
-                .onChange(of: shouldBeDeleted, perform: { value in
+                .onChange(of: shouldBeDeleted, perform: { _ in
                     if (shouldBeDeleted == true) {
                         self.deleteBikeRide(at: self.toBeDeleted!)
                         self.toBeDeleted = nil

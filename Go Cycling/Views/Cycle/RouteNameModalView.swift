@@ -38,7 +38,7 @@ struct RouteNameModalView: View {
                 .font(.headline)
                 .padding()
             
-            Picker("Preferred Units", selection: $namedRoutesViewSelection) {
+            Picker("Selected Category", selection: $namedRoutesViewSelection) {
                 Text("Create a New Category").tag(NamedRoutesViewSelection.new)
                 Text("Use an Existing Category").tag(NamedRoutesViewSelection.existing)
             }
@@ -205,6 +205,7 @@ struct RouteNameModalView: View {
     }
 }
 
+// Used for the picker
 enum NamedRoutesViewSelection: String, CaseIterable, Identifiable {
     case new
     case existing
