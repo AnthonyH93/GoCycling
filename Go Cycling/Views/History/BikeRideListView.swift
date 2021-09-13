@@ -41,7 +41,7 @@ struct BikeRideListView: View {
     var body: some View {
         NavigationView {
             GeometryReader { (geometry) in
-                ListView(sortDescripter: sortDescriptor, name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted)
+                ListView(sortDescripter: bikeRideViewModel.getSortDescriptor(), name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted)
                 .listStyle(PlainListStyle())
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
                 .toolbar {
@@ -74,20 +74,6 @@ struct BikeRideListView: View {
                     }
                 }
                 .onAppear {
-                    switch bikeRideViewModel.currentSortChoice {
-                    case .distanceAscending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
-                    case .distanceDescending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
-                    case .dateAscending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
-                    case .dateDescending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
-                    case .timeAscending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
-                    case .timeDescending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
-                    }
                     sortChoice = bikeRideViewModel.currentSortChoice
                 }
                 // Filter action sheet
@@ -110,21 +96,7 @@ struct BikeRideListView: View {
                         .cancel()
                     ])
                 })
-                .onChange(of: bikeRideViewModel.currentSortChoice, perform: { value in
-                    switch bikeRideViewModel.currentSortChoice {
-                    case .distanceAscending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
-                    case .distanceDescending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
-                    case .dateAscending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
-                    case .dateDescending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
-                    case .timeAscending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
-                    case .timeDescending:
-                        sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
-                    }
+                .onChange(of: bikeRideViewModel.currentSortChoice, perform: { _ in
                     persistenceController.updateUserPreferences(
                         existingPreferences: preferences.storedPreferences[0],
                         unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
@@ -154,10 +126,10 @@ struct BikeRideListView: View {
                         bikeRideViewModel.sortByTimeDescending()
                     }
                 })
-                .onChange(of: selectedName, perform: { value in
+                .onChange(of: selectedName, perform: { _ in
                     bikeRideViewModel.setCurrentName(name: selectedName)
                 })
-                .onChange(of: bikeRideViewModel.currentName, perform: { value in
+                .onChange(of: bikeRideViewModel.currentName, perform: { _ in
                     persistenceController.updateUserPreferences(
                         existingPreferences: preferences.storedPreferences[0],
                         unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
@@ -172,6 +144,7 @@ struct BikeRideListView: View {
                         selectedRoute: bikeRideViewModel.currentName)
                 })
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         // Move alert outside of navigation view due to a SwiftUI bug
         .alert(isPresented: $showingDeleteAlert) {
