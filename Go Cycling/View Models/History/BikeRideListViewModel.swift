@@ -128,5 +128,9 @@ class BikeRideListViewModel: ObservableObject {
     // Function to update categories
     func updateCategories() {
         categories = BikeRide.allCategories()
+        let valid = validateCategory(name: currentName)
+        if (valid == false) {
+            currentName = ""
+        }
     }
 }
