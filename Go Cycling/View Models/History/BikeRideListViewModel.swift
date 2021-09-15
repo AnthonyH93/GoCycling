@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 class BikeRideListViewModel: ObservableObject {
 
@@ -104,5 +105,32 @@ class BikeRideListViewModel: ObservableObject {
             }
         }
         return validName
+    }
+    
+    // Used to create the correctly ordered list of bike rides to display
+    func getSortDescriptor() -> NSSortDescriptor {
+        switch self.currentSortChoice {
+            case .distanceAscending:
+                return NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: true)
+            case .distanceDescending:
+                return NSSortDescriptor(keyPath: \BikeRide.cyclingDistance, ascending: false)
+            case .dateAscending:
+                return NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: true)
+            case .dateDescending:
+                return NSSortDescriptor(keyPath: \BikeRide.cyclingStartTime, ascending: false)
+            case .timeAscending:
+                return NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
+            case .timeDescending:
+                return NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
+        }
+    }
+    
+    // Function to update categories
+    func updateCategories() {
+        categories = BikeRide.allCategories()
+        let valid = validateCategory(name: currentName)
+        if (valid == false) {
+            currentName = ""
+        }
     }
 }
