@@ -124,4 +124,9 @@ class BikeRideListViewModel: ObservableObject {
                 return NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
         }
     }
+    
+    // Function to update categories
+    func updateCategories() {
+        categories = BikeRide.allCategories()
+    }
 }

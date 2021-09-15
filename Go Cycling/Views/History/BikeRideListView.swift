@@ -75,6 +75,7 @@ struct BikeRideListView: View {
                 }
                 .onAppear {
                     sortChoice = bikeRideViewModel.currentSortChoice
+                    bikeRideViewModel.updateCategories()
                 }
                 // Filter action sheet
                 .sheet(isPresented: $showingFilterSheet, content: {
