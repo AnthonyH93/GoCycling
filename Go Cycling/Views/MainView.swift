@@ -11,6 +11,13 @@ import CoreData
 struct MainView: View {
     @EnvironmentObject var preferences: PreferencesStorage
     
+    init() {
+        /* For iOS 15 */
+        if #available(iOS 15, *) {
+            UITableView.appearance().sectionHeaderTopPadding = 0
+        }
+    }
+    
     var body: some View {
         TabView {
             CycleView()

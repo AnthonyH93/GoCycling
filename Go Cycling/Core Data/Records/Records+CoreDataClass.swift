@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 @objc(Records)
 public class Records: NSManagedObject {
