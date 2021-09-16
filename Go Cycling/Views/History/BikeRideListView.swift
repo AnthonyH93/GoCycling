@@ -19,12 +19,12 @@ struct BikeRideListView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     @State private var showingActionSheet = false
-    @State private var showingFilterSheet = false
     @State private var showingPopover = false
     @State private var showingFilterPopover = false
     @State private var showingDeleteAlert = false
     @State private var shouldBeDeleted = false
-    @State private var showingEditSheet = false
+    @State private var showingSheet = false
+    @State private var sheetToPresent: SheetToPresent = .filter
     @State private var toBeDeleted: IndexSet?
     @State private var sortChoice: SortChoice = .dateDescending
     @State private var selectedName: String = UserPreferences.storedSelectedRoute()
@@ -46,16 +46,18 @@ struct BikeRideListView: View {
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.bikeRides.count > 0) {
+                        if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.filterEnabledCheck()) {
                             Button (bikeRideViewModel.getFilterActionSheetTitle()) {
-                                self.showingFilterSheet = true
+                                self.sheetToPresent = .filter
+                                self.showingSheet = true
                             }
                         }
                     }
                     ToolbarItem(placement: .navigationBarLeading) {
                         if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.editEnabledCheck()) {
                             Button ("Edit") {
-                                self.showingEditSheet = true
+                                self.sheetToPresent = .edit
+                                self.showingSheet = true
                             }
                         }
                     }
@@ -78,13 +80,14 @@ struct BikeRideListView: View {
                     bikeRideViewModel.updateCategories()
                 }
                 // Filter action sheet
-                .sheet(isPresented: $showingFilterSheet, content: {
-                    BikeRideFilterSheetView(showingSheet: $showingFilterSheet, selectedName: $selectedName, names: bikeRideViewModel.categories)
+                .sheet(isPresented: $showingSheet, content: {
+                    switch sheetToPresent {
+                    case .filter:
+                        BikeRideFilterSheetView(showingSheet: $showingSheet, selectedName: $selectedName, names: bikeRideViewModel.categories)
+                    case .edit:
+                        RouteRenameModalView(showEditModal: $showingSheet, names: bikeRideViewModel.categories)
+                    }
                 })
-                // Edit sheet
-                .sheet(isPresented: $showingEditSheet) {
-                    RouteRenameModalView(showEditModal: $showingEditSheet, names: bikeRideViewModel.categories)
-                }
                 // Sort action sheet
                 .actionSheet(isPresented: $showingActionSheet, content: {
                     ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order."), buttons:[
@@ -279,6 +282,14 @@ struct ListView: View {
         }
     }
 
+}
+
+// To decide which sheet to present
+enum SheetToPresent: String, CaseIterable, Identifiable {
+    case filter
+    case edit
+
+    var id: String { self.rawValue }
 }
 
 struct BikeRideListView_Previews: PreviewProvider {

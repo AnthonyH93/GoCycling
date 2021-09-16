@@ -96,6 +96,13 @@ class BikeRideListViewModel: ObservableObject {
         }
     }
     
+    func filterEnabledCheck() -> Bool {
+        if (self.categories.count > 0) {
+            return true
+        }
+        return false
+    }
+    
     func validateCategory(name: String) -> Bool {
         var validName = false
         for category in categories {
