@@ -47,6 +47,7 @@ struct BikeRideFilterSheetView: View {
             Divider()
             Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
                 Text("Cancel")
+                    .foregroundColor(Color.blue)
                     .bold()
             }
             .padding()

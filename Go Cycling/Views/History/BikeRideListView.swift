@@ -25,23 +25,17 @@ struct BikeRideListView: View {
     @State private var shouldBeDeleted = false
     @State private var showingSheet = false
     @State private var sheetToPresent: SheetToPresent = .filter
+    @State private var updateCategories = false
     @State private var toBeDeleted: IndexSet?
     @State private var sortChoice: SortChoice = .dateDescending
     @State private var selectedName: String = UserPreferences.storedSelectedRoute()
-    
-    init() {
-        let valid = bikeRideViewModel.validateCategory(name: selectedName)
-        if (valid == false) {
-            self.selectedName = ""
-        }
-    }
     
     @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
     
     var body: some View {
         NavigationView {
             GeometryReader { (geometry) in
-                ListView(sortDescripter: bikeRideViewModel.getSortDescriptor(), name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted)
+                ListView(sortDescripter: bikeRideViewModel.getSortDescriptor(), name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted, updateCategories: $updateCategories)
                 .listStyle(PlainListStyle())
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
                 .toolbar {
@@ -147,6 +141,12 @@ struct BikeRideListView: View {
                         namedRoutes: preferences.storedPreferences[0].namedRoutes,
                         selectedRoute: bikeRideViewModel.currentName)
                 })
+                .onChange(of: updateCategories, perform: { _ in
+                    /* For iOS 15 */
+                    if #available(iOS 15, *) {
+                        bikeRideViewModel.updateCategories()
+                    }
+                })
             }
             .navigationViewStyle(StackNavigationViewStyle())
         }
@@ -183,12 +183,13 @@ struct ListView: View {
     
     @Binding private var showingDeleteAlert: Bool
     @Binding private var shouldBeDeleted: Bool
+    @Binding private var updateCategories: Bool
     
     @State private var toBeDeleted: IndexSet?
     
     @FetchRequest var bikeRides: FetchedResults<BikeRide>
 
-    init(sortDescripter: NSSortDescriptor, name: String, showingDeleteAlert: Binding<Bool>, shouldBeDeleted: Binding<Bool>) {
+    init(sortDescripter: NSSortDescriptor, name: String, showingDeleteAlert: Binding<Bool>, shouldBeDeleted: Binding<Bool>, updateCategories: Binding<Bool>) {
         let request: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
         if (name != "") {
             request.predicate = NSPredicate(format: "cyclingRouteName == %@", name)
@@ -197,6 +198,7 @@ struct ListView: View {
         _bikeRides = FetchRequest<BikeRide>(fetchRequest: request)
         self._showingDeleteAlert = showingDeleteAlert
         self._shouldBeDeleted = shouldBeDeleted
+        self._updateCategories = updateCategories
     }
 
     var body: some View {
@@ -277,6 +279,7 @@ struct ListView: View {
         }
         do {
             try managedObjectContext.save()
+            updateCategories.toggle()
         } catch {
             print(error.localizedDescription)
         }
