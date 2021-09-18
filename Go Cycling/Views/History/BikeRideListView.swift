@@ -25,6 +25,7 @@ struct BikeRideListView: View {
     @State private var shouldBeDeleted = false
     @State private var showingSheet = false
     @State private var sheetToPresent: SheetToPresent = .filter
+    @State private var updateCategories = false
     @State private var toBeDeleted: IndexSet?
     @State private var sortChoice: SortChoice = .dateDescending
     @State private var selectedName: String = UserPreferences.storedSelectedRoute()
