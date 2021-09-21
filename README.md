@@ -84,8 +84,8 @@ Cycling Statistics Comparison View | Cycling Statistics Past Week Chart | Cyclin
 * Option to reset all settings back to the defaults and delete all stored cycling routes
 * Selected sort order in the History tab will persistent through future usage
 
-### Device Screenshots for Some of the Settings Features
-General Settings View | General Settings View Dark | Changing App Icon to Default Inverted | Setting Cycling History Sort Order
+### Device Screenshots of Settings Features
+General Settings View | General Settings View Dark | Changing App Icon to Default | Setting Cycling History Sort Order
 ------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
 ![alt text](Screenshots/AppStoreVersion1_2_0/10.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/13.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/14.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/17.png?raw=true)
 
