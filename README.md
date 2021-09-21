@@ -39,7 +39,7 @@ More routes can be created in this same way and they can all be viewed, sorted a
 
 ## App Features
 
-Go Cycling has many features packed into three tabs; Cycle, History and Settings. It also fully supports both light and dark mode, automatically setting the mode based on device settings.
+Go Cycling has many features packed into four tabs; Cycle, History, Statistics and Settings. It also fully supports both light and dark mode, automatically setting the mode based on device settings.
 
 Note: All screenshots shown were taken on an iPhone 12 Pro Max simulator.
 
@@ -53,7 +53,7 @@ Note: All screenshots shown were taken on an iPhone 12 Pro Max simulator.
 ### Device Screenshots of the Cycle Tab
 Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle Tab With Ongoing Route | Cycle Tab With Ongoing Route Dark
 ------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
-![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/1.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/2.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/3.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/4.png?raw=true)
+![alt text](Screenshots/AppStoreVersion1_2_0/1.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/2.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/3.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/4.png?raw=true)
 
 ### Features of the History Tab
 * View all past cycling routes in an easily readable list
@@ -63,9 +63,20 @@ Cycle Tab Without Ongoing Route | Cycle Tab Without Ongoing Route Dark | Cycle T
 * Each list entry is deletable by swiping to the left
 
 ### Device Screenshots of the History Tab
-Cycling History List View | Cycling History List View Dark | Single Cycling Route Detailed View | Single Cycling Route Detailed View Dark
+Cycling History List View | Single Cycling Route Detailed View | Single Cycling Route Detailed View Dark | Filter Cycling History
 ------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
-![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/5.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/6.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/7.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/8.png?raw=true)
+![alt text](Screenshots/AppStoreVersion1_2_0/5.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/6.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/12.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/16.png?raw=true)
+
+### Features of the Statistics Tab
+* View detailed charts of cycling activity of past week, 5 weeks and 30 weeks
+* Compare activity between present and past time frames
+* View records for single routes and cumulative cycling
+* Progress toward 6 alternate app icons unlocked at certain activity milestones
+
+### Device Screenshots of the Statistics Tab
+Cycling Statistics Comparison View | Cycling Statistics Past Week Chart | Cycling Statistics Past Week Chart With Selection | Cycling Records View Dark
+------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
+![alt text](Screenshots/AppStoreVersion1_2_0/7.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/8.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/9.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/15.png?raw=true)
 
 ### Settings Feautures Throughout the App
 * Customize the app theme and app icon to fit your preferences
@@ -76,13 +87,11 @@ Cycling History List View | Cycling History List View Dark | Single Cycling Rout
 ### Device Screenshots for Some of the Settings Features
 General Settings View | General Settings View Dark | Changing App Icon to Default Inverted | Setting Cycling History Sort Order
 ------------------------------- | ------------------------------------ | ---------------------------- | ---------------------------------
-![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/9.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/10.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/12.png?raw=true) | ![alt text](Screenshots/App_Store_iPhone_12_Pro_Max/11.png?raw=true)
+![alt text](Screenshots/AppStoreVersion1_2_0/10.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/13.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/14.png?raw=true) | ![alt text](Screenshots/AppStoreVersion1_2_0/17.png?raw=true)
 
 ## Future Development
 
 This app has been an immense amount of fun to develop and I have greatly enjoyed using SwiftUI! I am planning on continuing to add features as time permits and some ideas that are on my roadmap are listed below:
-* Statistics tab displaying graphs about past cycling trends (also all time records such as longest route, furthest distance travelled in one month, etc)
-  * Could also add goals to this, so that users could set cycling goals and track their progress towards them
 * iCloud integration with CloudKit
   * This would allow data to be synced between devices and recovered when the user gets a new device
 * Calorie tracking within the app as an optional metric
