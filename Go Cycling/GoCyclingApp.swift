@@ -17,6 +17,7 @@ struct GoCyclingApp: App {
     @StateObject var bikeRides: BikeRideStorage
     @StateObject var records: RecordsStorage
     @StateObject var cyclingStatus = CyclingStatus()
+    @StateObject var newPreferences = Preferences()
     
     init() {
         // Retrieve stored data to be used by all views - create state objects for environment objects
@@ -37,6 +38,7 @@ struct GoCyclingApp: App {
                 .environmentObject(bikeRides)
                 .environmentObject(records)
                 .environmentObject(cyclingStatus)
+                .environmentObject(newPreferences)
                 .onAppear(perform: {
                     
                     // LOOK HERE
@@ -47,6 +49,13 @@ struct GoCyclingApp: App {
                     // USER PREFERENCES MIGHT NEED TO BE ALLOWED TO FAIL TO REMEMBER ON RELAUNCH, BUT AT LEAST RECORDS AND BIKE RIDES WILL SYNC AND SAVE
                     // POTENTIALLY REPLACE USERPREFERENCES WITH A BUNCH OF NSUbiquitousKeyValueStore ON ICLOUD DEVICES (MAYBE HAVE ICLOUD SETTING FOR THIS)
                     
+                    // For first launch with UserPreferences set
+                    if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before")) {
+                        NSUbiquitousKeyValueStore.default.set(true, forKey: "didLaunch1.4.0Before")
+                        // Migrate existing UserPreferences
+                        newPreferences.initialUserPreferencesMigration(existingPreferences: preferences.storedPreferences[0])
+                    }
+                    
                     // Check if iCloud is available
                     var iCloudAvailable = false
                     if FileManager.default.ubiquityIdentityToken != nil {
@@ -55,141 +64,141 @@ struct GoCyclingApp: App {
                     
                     // NSUbiquitousKeyValueStore syncs across devices in iCloud
                     // First time launching with iCloud on (perform necessary setup)
-                    if (iCloudAvailable && !NSUbiquitousKeyValueStore.default.bool(forKey: "didSetupiCloud")) {
-                        NSUbiquitousKeyValueStore.default.set(true, forKey: "didSetupiCloud")
-
-                        // Default namedRoutes to true on version 1.1.0
-                        if (!UserDefaults.standard.bool(forKey: "didLaunch1.1.0Before")) {
-                            UserDefaults.standard.set(true, forKey: "didLaunch1.1.0Before")
-                            persistenceController.updateUserPreferences(
-                                existingPreferences: preferences.storedPreferences[0],
-                                unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                                displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                                colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                                largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                                sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
-                                deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                                deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                                iconIndex: preferences.storedPreferences[0].iconIndex,
-                                namedRoutes: true,
-                                selectedRoute: "")
-                            // Changed current "Unnamed" to "Uncategorized"
-                            for ride in bikeRides.storedBikeRides {
-                                persistenceController.updateBikeRideRouteName(
-                                    existingBikeRide: ride,
-                                    latitudes: ride.cyclingLatitudes,
-                                    longitudes: ride.cyclingLongitudes,
-                                    speeds: ride.cyclingSpeeds,
-                                    distance: ride.cyclingDistance,
-                                    elevations: ride.cyclingElevations,
-                                    startTime: ride.cyclingStartTime,
-                                    time: ride.cyclingTime,
-                                    routeName: "Uncategorized")
-                            }
-                        }
-                        
-                        // Create initial records object on version 1.2.0
-                        if (!UserDefaults.standard.bool(forKey: "didLaunch1.2.0Before")) {
-                            UserDefaults.standard.set(true, forKey: "didLaunch1.2.0Before")
-                            if (bikeRides.storedBikeRides.count > 0) {
-                                let values = Records.getDefaultRecordsValues(bikeRides: bikeRides.storedBikeRides)
-                                persistenceController.storeRecords(
-                                    totalDistance: values.totalDistance,
-                                    totalTime: values.totalTime,
-                                    totalRoutes: values.totalRoutes,
-                                    unlockedIcons: values.unlockedIcons,
-                                    longestDistance: values.longestDistance,
-                                    longestTime: values.longestTime,
-                                    fastestAvgSpeed: values.fastestAvgSpeed,
-                                    longestDistanceDate: values.longestDistanceDate,
-                                    longestTimeDate: values.longestTimeDate,
-                                    fastestAvgSpeedDate: values.fastestAvgSpeedDate)
-                            }
-                            else {
-                                // Use default values if no routes are saved
-                                persistenceController.storeRecords(
-                                    totalDistance: 0.0,
-                                    totalTime: 0.0,
-                                    totalRoutes: 0,
-                                    unlockedIcons: [Bool](repeating: false, count: 6),
-                                    longestDistance: 0.0,
-                                    longestTime: 0.0,
-                                    fastestAvgSpeed: 0.0,
-                                    longestDistanceDate: nil,
-                                    longestTimeDate: nil,
-                                    fastestAvgSpeedDate: nil)
-                            }
-                        }
-                    }
-                    // Launching with iCloud and not the first time (no setup required)
-                    else if (iCloudAvailable && NSUbiquitousKeyValueStore.default.bool(forKey: "didSetupiCloud")){
-                        // Do nothing
-                    }
-                    // Legacy non-iCloud setup path
-                    else {
-                        // Default namedRoutes to true on version 1.1.0
-                        if (!UserDefaults.standard.bool(forKey: "didLaunch1.1.0Before")) {
-                            UserDefaults.standard.set(true, forKey: "didLaunch1.1.0Before")
-                            persistenceController.updateUserPreferences(
-                                existingPreferences: preferences.storedPreferences[0],
-                                unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                                displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                                colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                                largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                                sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
-                                deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                                deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                                iconIndex: preferences.storedPreferences[0].iconIndex,
-                                namedRoutes: true,
-                                selectedRoute: "")
-                            // Changed current "Unnamed" to "Uncategorized"
-                            for ride in bikeRides.storedBikeRides {
-                                persistenceController.updateBikeRideRouteName(
-                                    existingBikeRide: ride,
-                                    latitudes: ride.cyclingLatitudes,
-                                    longitudes: ride.cyclingLongitudes,
-                                    speeds: ride.cyclingSpeeds,
-                                    distance: ride.cyclingDistance,
-                                    elevations: ride.cyclingElevations,
-                                    startTime: ride.cyclingStartTime,
-                                    time: ride.cyclingTime,
-                                    routeName: "Uncategorized")
-                            }
-                        }
-                        
-                        // Create initial records object on version 1.2.0
-                        if (!UserDefaults.standard.bool(forKey: "didLaunch1.2.0Before")) {
-                            UserDefaults.standard.set(true, forKey: "didLaunch1.2.0Before")
-                            if (bikeRides.storedBikeRides.count > 0) {
-                                let values = Records.getDefaultRecordsValues(bikeRides: bikeRides.storedBikeRides)
-                                persistenceController.storeRecords(
-                                    totalDistance: values.totalDistance,
-                                    totalTime: values.totalTime,
-                                    totalRoutes: values.totalRoutes,
-                                    unlockedIcons: values.unlockedIcons,
-                                    longestDistance: values.longestDistance,
-                                    longestTime: values.longestTime,
-                                    fastestAvgSpeed: values.fastestAvgSpeed,
-                                    longestDistanceDate: values.longestDistanceDate,
-                                    longestTimeDate: values.longestTimeDate,
-                                    fastestAvgSpeedDate: values.fastestAvgSpeedDate)
-                            }
-                            else {
-                                // Use default values if no routes are saved
-                                persistenceController.storeRecords(
-                                    totalDistance: 0.0,
-                                    totalTime: 0.0,
-                                    totalRoutes: 0,
-                                    unlockedIcons: [Bool](repeating: false, count: 6),
-                                    longestDistance: 0.0,
-                                    longestTime: 0.0,
-                                    fastestAvgSpeed: 0.0,
-                                    longestDistanceDate: nil,
-                                    longestTimeDate: nil,
-                                    fastestAvgSpeedDate: nil)
-                            }
-                        }
-                    }
+//                    if (iCloudAvailable && !NSUbiquitousKeyValueStore.default.bool(forKey: "didSetupiCloud")) {
+//                        NSUbiquitousKeyValueStore.default.set(true, forKey: "didSetupiCloud")
+//
+//                        // Default namedRoutes to true on version 1.1.0
+//                        if (!UserDefaults.standard.bool(forKey: "didLaunch1.1.0Before")) {
+//                            UserDefaults.standard.set(true, forKey: "didLaunch1.1.0Before")
+//                            persistenceController.updateUserPreferences(
+//                                existingPreferences: preferences.storedPreferences[0],
+//                                unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+//                                displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+//                                colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+//                                largeMetrics: preferences.storedPreferences[0].largeMetrics,
+//                                sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
+//                                deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+//                                deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+//                                iconIndex: preferences.storedPreferences[0].iconIndex,
+//                                namedRoutes: true,
+//                                selectedRoute: "")
+//                            // Changed current "Unnamed" to "Uncategorized"
+//                            for ride in bikeRides.storedBikeRides {
+//                                persistenceController.updateBikeRideRouteName(
+//                                    existingBikeRide: ride,
+//                                    latitudes: ride.cyclingLatitudes,
+//                                    longitudes: ride.cyclingLongitudes,
+//                                    speeds: ride.cyclingSpeeds,
+//                                    distance: ride.cyclingDistance,
+//                                    elevations: ride.cyclingElevations,
+//                                    startTime: ride.cyclingStartTime,
+//                                    time: ride.cyclingTime,
+//                                    routeName: "Uncategorized")
+//                            }
+//                        }
+//
+//                        // Create initial records object on version 1.2.0
+//                        if (!UserDefaults.standard.bool(forKey: "didLaunch1.2.0Before")) {
+//                            UserDefaults.standard.set(true, forKey: "didLaunch1.2.0Before")
+//                            if (bikeRides.storedBikeRides.count > 0) {
+//                                let values = Records.getDefaultRecordsValues(bikeRides: bikeRides.storedBikeRides)
+//                                persistenceController.storeRecords(
+//                                    totalDistance: values.totalDistance,
+//                                    totalTime: values.totalTime,
+//                                    totalRoutes: values.totalRoutes,
+//                                    unlockedIcons: values.unlockedIcons,
+//                                    longestDistance: values.longestDistance,
+//                                    longestTime: values.longestTime,
+//                                    fastestAvgSpeed: values.fastestAvgSpeed,
+//                                    longestDistanceDate: values.longestDistanceDate,
+//                                    longestTimeDate: values.longestTimeDate,
+//                                    fastestAvgSpeedDate: values.fastestAvgSpeedDate)
+//                            }
+//                            else {
+//                                // Use default values if no routes are saved
+//                                persistenceController.storeRecords(
+//                                    totalDistance: 0.0,
+//                                    totalTime: 0.0,
+//                                    totalRoutes: 0,
+//                                    unlockedIcons: [Bool](repeating: false, count: 6),
+//                                    longestDistance: 0.0,
+//                                    longestTime: 0.0,
+//                                    fastestAvgSpeed: 0.0,
+//                                    longestDistanceDate: nil,
+//                                    longestTimeDate: nil,
+//                                    fastestAvgSpeedDate: nil)
+//                            }
+//                        }
+//                    }
+//                    // Launching with iCloud and not the first time (no setup required)
+//                    else if (iCloudAvailable && NSUbiquitousKeyValueStore.default.bool(forKey: "didSetupiCloud")){
+//                        // Do nothing
+//                    }
+//                    // Legacy non-iCloud setup path
+//                    else {
+//                        // Default namedRoutes to true on version 1.1.0
+//                        if (!UserDefaults.standard.bool(forKey: "didLaunch1.1.0Before")) {
+//                            UserDefaults.standard.set(true, forKey: "didLaunch1.1.0Before")
+//                            persistenceController.updateUserPreferences(
+//                                existingPreferences: preferences.storedPreferences[0],
+//                                unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
+//                                displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
+//                                colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
+//                                largeMetrics: preferences.storedPreferences[0].largeMetrics,
+//                                sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
+//                                deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
+//                                deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
+//                                iconIndex: preferences.storedPreferences[0].iconIndex,
+//                                namedRoutes: true,
+//                                selectedRoute: "")
+//                            // Changed current "Unnamed" to "Uncategorized"
+//                            for ride in bikeRides.storedBikeRides {
+//                                persistenceController.updateBikeRideRouteName(
+//                                    existingBikeRide: ride,
+//                                    latitudes: ride.cyclingLatitudes,
+//                                    longitudes: ride.cyclingLongitudes,
+//                                    speeds: ride.cyclingSpeeds,
+//                                    distance: ride.cyclingDistance,
+//                                    elevations: ride.cyclingElevations,
+//                                    startTime: ride.cyclingStartTime,
+//                                    time: ride.cyclingTime,
+//                                    routeName: "Uncategorized")
+//                            }
+//                        }
+//
+//                        // Create initial records object on version 1.2.0
+//                        if (!UserDefaults.standard.bool(forKey: "didLaunch1.2.0Before")) {
+//                            UserDefaults.standard.set(true, forKey: "didLaunch1.2.0Before")
+//                            if (bikeRides.storedBikeRides.count > 0) {
+//                                let values = Records.getDefaultRecordsValues(bikeRides: bikeRides.storedBikeRides)
+//                                persistenceController.storeRecords(
+//                                    totalDistance: values.totalDistance,
+//                                    totalTime: values.totalTime,
+//                                    totalRoutes: values.totalRoutes,
+//                                    unlockedIcons: values.unlockedIcons,
+//                                    longestDistance: values.longestDistance,
+//                                    longestTime: values.longestTime,
+//                                    fastestAvgSpeed: values.fastestAvgSpeed,
+//                                    longestDistanceDate: values.longestDistanceDate,
+//                                    longestTimeDate: values.longestTimeDate,
+//                                    fastestAvgSpeedDate: values.fastestAvgSpeedDate)
+//                            }
+//                            else {
+//                                // Use default values if no routes are saved
+//                                persistenceController.storeRecords(
+//                                    totalDistance: 0.0,
+//                                    totalTime: 0.0,
+//                                    totalRoutes: 0,
+//                                    unlockedIcons: [Bool](repeating: false, count: 6),
+//                                    longestDistance: 0.0,
+//                                    longestTime: 0.0,
+//                                    fastestAvgSpeed: 0.0,
+//                                    longestDistanceDate: nil,
+//                                    longestTimeDate: nil,
+//                                    fastestAvgSpeedDate: nil)
+//                            }
+//                        }
+//                    }
                 })
         }
         .onChange(of: scenePhase) { _ in

@@ -140,6 +140,7 @@
 		9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837425FED2F800F5C42E /* TimerButton.swift */; };
 		9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */; };
 		9DC758372805260A00BB2953 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC758362805260A00BB2953 /* CloudKit.framework */; };
+		9DC758392807A74900BB2953 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC758382807A74900BB2953 /* Preferences.swift */; };
 		9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21EC263638F200506FA5 /* UnitsChoice.swift */; };
 		9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */; };
 		9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */; };
@@ -321,6 +322,7 @@
 		9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		9DC75834280525F900BB2953 /* Go Cycling.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Go Cycling.entitlements"; sourceTree = "<group>"; };
 		9DC758362805260A00BB2953 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		9DC758382807A74900BB2953 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		9DCD21EC263638F200506FA5 /* UnitsChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsChoice.swift; sourceTree = "<group>"; };
 		9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListViewModel.swift; sourceTree = "<group>"; };
 		9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+Extensions.swift"; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 				9D2F48FD265097F000094575 /* Category.swift */,
 				9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */,
 				9DF9305226DE06A600D4EEC5 /* Medal.swift */,
+				9DC758382807A74900BB2953 /* Preferences.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -960,6 +963,7 @@
 				9D62F4EA2636020000E28991 /* LargeMetricsView.swift in Sources */,
 				9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */,
 				9DEAD6CB2632589500392D88 /* BikeRideStorage.swift in Sources */,
+				9DC758392807A74900BB2953 /* Preferences.swift in Sources */,
 				9DF9305326DE06A600D4EEC5 /* Medal.swift in Sources */,
 				9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */,
 				9DF9304326DCAAD300D4EEC5 /* CyclingRecordsView.swift in Sources */,
