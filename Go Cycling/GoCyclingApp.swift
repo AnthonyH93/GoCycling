@@ -58,9 +58,10 @@ struct GoCyclingApp: App {
                     }
                     
                     // Check if iCloud is available
-                    var iCloudAvailable = false
                     if FileManager.default.ubiquityIdentityToken != nil {
-                        iCloudAvailable = true
+                        if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before")) {
+                            NSUbiquitousKeyValueStore.default.set(true, forKey: "didLaunch1.4.0Before")
+                        }
                     }
                     
                     // NSUbiquitousKeyValueStore syncs across devices in iCloud

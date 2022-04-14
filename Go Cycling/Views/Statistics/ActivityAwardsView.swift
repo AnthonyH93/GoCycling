@@ -10,7 +10,7 @@ import SwiftUI
 struct ActivityAwardsView: View {
     @StateObject var activityAwardsViewModel = ActivityAwardsViewModel()
     
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var newPreferences: Preferences
     
     @State var showingNewIconAlert = false
 
@@ -18,7 +18,7 @@ struct ActivityAwardsView: View {
         Section (header: Text(RecordsFormatting.headerStrings[2]), footer: Text(RecordsFormatting.footerStrings[1])) {
             VStack {
                 ForEach (0..<Records.awardValues.count) { index in
-                    SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[index], iconName: activityAwardsViewModel.getAwardName(index: index, usingMetric: preferences.storedPreferences[0].usingMetric), progressString: activityAwardsViewModel.progressStrings[index], medal: activityAwardsViewModel.medalOrder[index])
+                    SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[index], iconName: activityAwardsViewModel.getAwardName(index: index, usingMetric: newPreferences.usingMetric), progressString: activityAwardsViewModel.progressStrings[index], medal: activityAwardsViewModel.medalOrder[index])
                 }
             }
         }

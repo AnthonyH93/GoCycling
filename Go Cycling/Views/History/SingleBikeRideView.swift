@@ -13,7 +13,7 @@ struct SingleBikeRideView: View {
     let bikeRide: BikeRide
     let navigationTitle: String
     
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var newPreferences: Preferences
     
     @State private var showingEditPopover = false
     
@@ -21,7 +21,7 @@ struct SingleBikeRideView: View {
         GeometryReader { (geometry) in
             VStack {
                 VStack (spacing: 0) {
-                    if (preferences.storedPreferences[0].namedRoutes && bikeRide.cyclingRouteName != "Uncategorized") {
+                    if (newPreferences.namedRoutes && bikeRide.cyclingRouteName != "Uncategorized") {
                         Text("\(bikeRide.cyclingRouteName)")
                             .bold()
                             .padding(.top, 10)
@@ -35,18 +35,18 @@ struct SingleBikeRideView: View {
                     VStack(spacing: 10) {
                         HStack {
                             Spacer()
-                            HistoryMetricView(systemImageString: "location", metricName: "Distance", metricText: MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
+                            HistoryMetricView(systemImageString: "location", metricName: "Distance", metricText: MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: newPreferences.usingMetric))
                             Spacer()
                             HistoryMetricView(systemImageString: "timer", metricName: "Time", metricText: MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
                             Spacer()
-                            HistoryMetricView(systemImageString: "arrow.up.arrow.down", metricName: "Elev. Gain", metricText: MetricsFormatting.formatElevation(elevations: bikeRide.cyclingElevations, usingMetric: preferences.storedPreferences[0].usingMetric))
+                            HistoryMetricView(systemImageString: "arrow.up.arrow.down", metricName: "Elev. Gain", metricText: MetricsFormatting.formatElevation(elevations: bikeRide.cyclingElevations, usingMetric: newPreferences.usingMetric))
                             Spacer()
                         }
                         HStack {
                             Spacer()
-                            HistoryMetricView(systemImageString: "speedometer", metricName: "Average Speed", metricText: MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
+                            HistoryMetricView(systemImageString: "speedometer", metricName: "Average Speed", metricText: MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: newPreferences.usingMetric))
                             Spacer()
-                            HistoryMetricView(systemImageString: "speedometer", metricName: "Top Speed", metricText: MetricsFormatting.formatTopSpeed(speeds: bikeRide.cyclingSpeeds, usingMetric: preferences.storedPreferences[0].usingMetric))
+                            HistoryMetricView(systemImageString: "speedometer", metricName: "Top Speed", metricText: MetricsFormatting.formatTopSpeed(speeds: bikeRide.cyclingSpeeds, usingMetric: newPreferences.usingMetric))
                             Spacer()
                         }
                     }
@@ -56,15 +56,15 @@ struct SingleBikeRideView: View {
                     HStack {
                         Spacer()
                         HStack {
-                            HistoryMetricView(systemImageString: "location", metricName: "Distance", metricText: MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
+                            HistoryMetricView(systemImageString: "location", metricName: "Distance", metricText: MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: newPreferences.usingMetric))
                             Spacer()
                             HistoryMetricView(systemImageString: "timer", metricName: "Time", metricText: MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
                             Spacer()
-                            HistoryMetricView(systemImageString: "arrow.up.arrow.down", metricName: "Elev. Gain", metricText: MetricsFormatting.formatElevation(elevations: bikeRide.cyclingElevations, usingMetric: preferences.storedPreferences[0].usingMetric))
+                            HistoryMetricView(systemImageString: "arrow.up.arrow.down", metricName: "Elev. Gain", metricText: MetricsFormatting.formatElevation(elevations: bikeRide.cyclingElevations, usingMetric: newPreferences.usingMetric))
                             Spacer()
-                            HistoryMetricView(systemImageString: "speedometer", metricName: "Average Speed", metricText: MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
+                            HistoryMetricView(systemImageString: "speedometer", metricName: "Average Speed", metricText: MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: newPreferences.usingMetric))
                             Spacer()
-                            HistoryMetricView(systemImageString: "speedometer", metricName: "Top Speed", metricText: MetricsFormatting.formatTopSpeed(speeds: bikeRide.cyclingSpeeds, usingMetric: preferences.storedPreferences[0].usingMetric))
+                            HistoryMetricView(systemImageString: "speedometer", metricName: "Top Speed", metricText: MetricsFormatting.formatTopSpeed(speeds: bikeRide.cyclingSpeeds, usingMetric: newPreferences.usingMetric))
                         }
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                         Spacer()
@@ -76,7 +76,7 @@ struct SingleBikeRideView: View {
         .navigationBarTitle(navigationTitle, displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                if (preferences.storedPreferences[0].namedRoutes) {
+                if (newPreferences.namedRoutes) {
                     Button ("Edit") {
                         self.showingEditPopover = true
                     }
