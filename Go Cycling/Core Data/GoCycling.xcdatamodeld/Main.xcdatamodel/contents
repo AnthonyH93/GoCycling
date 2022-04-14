@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="BikeRide" representedClassName="BikeRide" syncable="YES">
         <attribute name="cyclingDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="cyclingElevations" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer"/>
@@ -20,7 +20,7 @@
         <attribute name="totalCyclingDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="totalCyclingRoutes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalCyclingTime" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="unlockedIcons" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="Bool"/>
+        <attribute name="unlockedIcons" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="Bool"/>
     </entity>
     <entity name="UserPreferences" representedClassName="UserPreferences" syncable="YES">
         <attribute name="colourChoice" optional="YES" attributeType="String"/>
@@ -36,7 +36,7 @@
     </entity>
     <elements>
         <element name="BikeRide" positionX="-63" positionY="9" width="128" height="149"/>
+        <element name="Records" positionX="-504.380615234375" positionY="-16.89202880859375" width="128" height="179"/>
         <element name="UserPreferences" positionX="-258.8984375" positionY="-12.41773986816406" width="128" height="179"/>
-        <element name="Records" positionX="-504.380615234375" positionY="-16.89202880859375" width="128" height="193"/>
     </elements>
 </model>

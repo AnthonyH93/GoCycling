@@ -139,6 +139,7 @@
 		9DAB837025FED0A300F5C42E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB836F25FED0A300F5C42E /* HistoryView.swift */; };
 		9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837425FED2F800F5C42E /* TimerButton.swift */; };
 		9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */; };
+		9DC758372805260A00BB2953 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC758362805260A00BB2953 /* CloudKit.framework */; };
 		9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21EC263638F200506FA5 /* UnitsChoice.swift */; };
 		9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */; };
 		9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */; };
@@ -318,6 +319,8 @@
 		9DAB836F25FED0A300F5C42E /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		9DAB837425FED2F800F5C42E /* TimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButton.swift; sourceTree = "<group>"; };
 		9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+		9DC75834280525F900BB2953 /* Go Cycling.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Go Cycling.entitlements"; sourceTree = "<group>"; };
+		9DC758362805260A00BB2953 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		9DCD21EC263638F200506FA5 /* UnitsChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsChoice.swift; sourceTree = "<group>"; };
 		9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListViewModel.swift; sourceTree = "<group>"; };
 		9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+Extensions.swift"; sourceTree = "<group>"; };
@@ -346,6 +349,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DC758372805260A00BB2953 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +621,7 @@
 				9DAB832825FECAD400F5C42E /* Go CyclingTests */,
 				9DAB833325FECAD400F5C42E /* Go CyclingUITests */,
 				9DAB831525FECAD300F5C42E /* Products */,
+				9DC758352805260A00BB2953 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -633,6 +638,7 @@
 		9DAB831625FECAD300F5C42E /* Go Cycling */ = {
 			isa = PBXGroup;
 			children = (
+				9DC75834280525F900BB2953 /* Go Cycling.entitlements */,
 				9D6E5383262CECCC008FD7C1 /* Core Data */,
 				9D1ED54E2643D38D005A97ED /* UIKit */,
 				9D8169E2263F84C900DED7F8 /* Resources */,
@@ -693,6 +699,14 @@
 				9D6E53412627AE9B008FD7C1 /* Cycle */,
 			);
 			path = "View Models";
+			sourceTree = "<group>";
+		};
+		9DC758352805260A00BB2953 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9DC758362805260A00BB2953 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9DEAD6C92632586200392D88 /* BikeRide */ = {
@@ -1149,6 +1163,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
@@ -1173,6 +1188,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";

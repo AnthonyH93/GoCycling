@@ -16,7 +16,12 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "GoCycling")
+        container = NSPersistentCloudKitContainer(name: "GoCycling")
+        
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        // Pin the viewContext to the current generation token and set it to keep itself up to date with local changes.
+        container.viewContext.automaticallyMergesChangesFromParent = true
 
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
