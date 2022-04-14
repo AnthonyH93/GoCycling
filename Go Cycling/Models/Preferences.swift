@@ -126,6 +126,20 @@ class Preferences: ObservableObject {
         }
     }
     
+    // Function to update class members
+    private func writeToClassMembers() {
+        self.usingMetric = UserDefaults.standard.bool(forKey: Preferences.keys[0])
+        self.displayingMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[1])
+        self.colourChoice = UserDefaults.standard.string(forKey: Preferences.keys[2])!
+        self.largeMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[3])
+        self.sortingChoice = UserDefaults.standard.string(forKey: Preferences.keys[4])!
+        self.deletionConfirmation = UserDefaults.standard.bool(forKey: Preferences.keys[5])
+        self.deletionEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[6])
+        self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.keys[7])
+        self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[8])
+        self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[9])!
+    }
+    
     static private func iCloudAvailable() -> Bool {
         // Check if iCloud is available
         var iCloudAvailable = false
@@ -296,5 +310,12 @@ class Preferences: ObservableObject {
         if self.iCloudConnection {
             Preferences.syncLocalAndCloud(localToCloud: true)
         }
+    }
+    
+    // For the reset to default settings button on the settings tab
+    public func resetPreferences() {
+        Preferences.writeDefaults(iCloud: false)
+        Preferences.syncLocalAndCloud(localToCloud: true)
+        self.writeToClassMembers()
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct MainView: View {
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var newPreferences: Preferences
     
     init() {
         /* For iOS 15 */
@@ -38,7 +38,7 @@ struct MainView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
-        .accentColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+        .accentColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted)))
     }
 }
 
