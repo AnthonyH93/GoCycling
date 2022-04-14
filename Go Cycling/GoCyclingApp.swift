@@ -50,8 +50,9 @@ struct GoCyclingApp: App {
                     // POTENTIALLY REPLACE USERPREFERENCES WITH A BUNCH OF NSUbiquitousKeyValueStore ON ICLOUD DEVICES (MAYBE HAVE ICLOUD SETTING FOR THIS)
                     
                     // For first launch with UserPreferences set
-                    if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before")) {
+                    if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before") && !UserDefaults.standard.bool(forKey: "didLaunch1.4.0Before")) {
                         NSUbiquitousKeyValueStore.default.set(true, forKey: "didLaunch1.4.0Before")
+                        UserDefaults.standard.set(true, forKey: "didLaunch1.4.0Before")
                         // Migrate existing UserPreferences
                         newPreferences.initialUserPreferencesMigration(existingPreferences: preferences.storedPreferences[0])
                     }

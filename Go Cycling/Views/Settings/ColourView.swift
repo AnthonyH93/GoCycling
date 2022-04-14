@@ -10,11 +10,11 @@ import SwiftUI
 struct ColourView: View {
     let persistenceController = PersistenceController.shared
     
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var newPreferences: Preferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        Picker("Colour", selection: $preferences.storedPreferences[0].colourChoiceConverted) {
+        Picker("Colour", selection: $newPreferences.colourChoiceConverted) {
             Text("Red").tag(ColourChoice.red)
             Text("Orange").tag(ColourChoice.orange)
             Text("Yellow").tag(ColourChoice.yellow)
@@ -23,19 +23,8 @@ struct ColourView: View {
             Text("Indigo").tag(ColourChoice.indigo)
             Text("Violet").tag(ColourChoice.violet)
                 .navigationBarTitle("Choose your Colour", displayMode: .inline)
-                .onChange(of: preferences.storedPreferences[0].colourChoiceConverted) { value in
-                    persistenceController.updateUserPreferences(
-                        existingPreferences: preferences.storedPreferences[0],
-                        unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                        displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                        largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                        sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
-                        deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                        iconIndex: preferences.storedPreferences[0].iconIndex,
-                        namedRoutes: preferences.storedPreferences[0].namedRoutes,
-                        selectedRoute: preferences.storedPreferences[0].selectedRoute)
+                .onChange(of: newPreferences.colourChoiceConverted) { _ in
+                    newPreferences.updateStringPreference(preference: CustomizablePreferences.colour, value: newPreferences.colourChoice)
                 }
         }
     }
