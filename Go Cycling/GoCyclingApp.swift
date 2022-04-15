@@ -13,7 +13,6 @@ struct GoCyclingApp: App {
     let persistenceController = PersistenceController.shared
     @Environment(\.scenePhase) var scenePhase
     
-    @StateObject var preferences: PreferencesStorage
     @StateObject var bikeRides: BikeRideStorage
     @StateObject var records: RecordsStorage
     @StateObject var cyclingStatus = CyclingStatus()
@@ -22,8 +21,6 @@ struct GoCyclingApp: App {
     init() {
         // Retrieve stored data to be used by all views - create state objects for environment objects
         let managedObjectContext = persistenceController.container.viewContext
-        let preferencesStorage = PreferencesStorage(managedObjectContext: managedObjectContext)
-        self._preferences = StateObject(wrappedValue: preferencesStorage)
         let bikeRidesStorage = BikeRideStorage(managedObjectContext: managedObjectContext)
         self._bikeRides = StateObject(wrappedValue: bikeRidesStorage)
         let recordsStroage = RecordsStorage.shared
@@ -34,7 +31,6 @@ struct GoCyclingApp: App {
         WindowGroup {
             MainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environmentObject(preferences)
                 .environmentObject(bikeRides)
                 .environmentObject(records)
                 .environmentObject(cyclingStatus)
@@ -46,7 +42,9 @@ struct GoCyclingApp: App {
                         NSUbiquitousKeyValueStore.default.set(true, forKey: "didLaunch1.4.0Before")
                         UserDefaults.standard.set(true, forKey: "didLaunch1.4.0Before")
                         // Migrate existing UserPreferences
-                        newPreferences.initialUserPreferencesMigration(existingPreferences: preferences.storedPreferences[0])
+                        if let oldPreferences = UserPreferences.savedPreferences() {
+                            newPreferences.initialUserPreferencesMigration(existingPreferences: oldPreferences)
+                        }
                     }
                     
                     // Check if iCloud is available

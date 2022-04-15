@@ -47,55 +47,6 @@ struct PersistenceController {
         }
     }
     
-    // MARK: User preference methods
-    func storeUserPreferences(unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool, iconIndex: Int, namedRoutes: Bool, selectedRoute: String) {
-        let context = container.viewContext
-        
-        let newPreferences = UserPreferences(context: context)
-        newPreferences.usingMetric = unitsChoice.id == "metric" ? true : false
-        newPreferences.displayingMetrics = displayingMetrics
-        newPreferences.colourChoice = colourChoice.rawValue
-        newPreferences.largeMetrics = largeMetrics
-        newPreferences.sortingChoice = sortChoice.rawValue
-        newPreferences.deletionConfirmation = deletionConfirmation
-        newPreferences.deletionEnabled = deletionEnabled
-        newPreferences.iconIndex = iconIndex
-        newPreferences.namedRoutes = namedRoutes
-        newPreferences.selectedRoute = selectedRoute
-        
-        do {
-            try context.save()
-            print("Preferences saved")
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    // We only need 1 stored UserPreferences object, so update that single object instead of creating new ones
-    func updateUserPreferences(existingPreferences: UserPreferences, unitsChoice: UnitsChoice, displayingMetrics: Bool, colourChoice: ColourChoice, largeMetrics: Bool, sortChoice: SortChoice, deletionConfirmation: Bool, deletionEnabled: Bool, iconIndex: Int, namedRoutes: Bool, selectedRoute: String) {
-        let context = container.viewContext
-        
-        context.performAndWait {
-            existingPreferences.usingMetric = unitsChoice.id == "metric" ? true : false
-            existingPreferences.displayingMetrics = displayingMetrics
-            existingPreferences.colourChoice = colourChoice.rawValue
-            existingPreferences.largeMetrics = largeMetrics
-            existingPreferences.sortingChoice = sortChoice.rawValue
-            existingPreferences.deletionConfirmation = deletionConfirmation
-            existingPreferences.deletionEnabled = deletionEnabled
-            existingPreferences.iconIndex = iconIndex
-            existingPreferences.namedRoutes = namedRoutes
-            existingPreferences.selectedRoute = selectedRoute
-            
-            do {
-                try context.save()
-                print("Preferences updated")
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
     // MARK: Bike ride methods
     func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevations: [CLLocationDistance?], startTime: Date, time: Double) {
         let context = container.viewContext

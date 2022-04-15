@@ -102,7 +102,6 @@
 		9D6E538B262CEE0A008FD7C1 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */; };
 		9D6E5391262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E538F262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift */; };
 		9D6E5392262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5390262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift */; };
-		9D6E5397262D090C008FD7C1 /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */; };
 		9D75E29226C85C9C00DE536D /* BikeRideSortPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D75E29126C85C9C00DE536D /* BikeRideSortPopoverView.swift */; };
 		9D75E29426C8636F00DE536D /* BikeRideFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */; };
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
@@ -140,6 +139,7 @@
 		9DAB837C25FEDEF100F5C42E /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */; };
 		9DC758372805260A00BB2953 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC758362805260A00BB2953 /* CloudKit.framework */; };
 		9DC758392807A74900BB2953 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC758382807A74900BB2953 /* Preferences.swift */; };
+		9DC7583B2809506300BB2953 /* CyclingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC7583A2809506300BB2953 /* CyclingRecords.swift */; };
 		9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21EC263638F200506FA5 /* UnitsChoice.swift */; };
 		9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */; };
 		9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */; };
@@ -276,7 +276,6 @@
 		9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		9D6E538F262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9D6E5390262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
 		9D75E29126C85C9C00DE536D /* BikeRideSortPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideSortPopoverView.swift; sourceTree = "<group>"; };
 		9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideFilterSheetView.swift; sourceTree = "<group>"; };
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -321,6 +320,7 @@
 		9DC75834280525F900BB2953 /* Go Cycling.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Go Cycling.entitlements"; sourceTree = "<group>"; };
 		9DC758362805260A00BB2953 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		9DC758382807A74900BB2953 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		9DC7583A2809506300BB2953 /* CyclingRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingRecords.swift; sourceTree = "<group>"; };
 		9DCD21EC263638F200506FA5 /* UnitsChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsChoice.swift; sourceTree = "<group>"; };
 		9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListViewModel.swift; sourceTree = "<group>"; };
 		9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+Extensions.swift"; sourceTree = "<group>"; };
@@ -485,7 +485,6 @@
 				9D6E53A1262D387B008FD7C1 /* UserPreferences */,
 				9D6E5384262CECFA008FD7C1 /* GoCycling.xcdatamodeld */,
 				9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */,
-				9D6E5396262D090C008FD7C1 /* PreferencesStorage.swift */,
 				9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */,
 				9DF9303E26DB44B100D4EEC5 /* RecordsStorage.swift */,
 			);
@@ -514,6 +513,7 @@
 				9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */,
 				9DF9305226DE06A600D4EEC5 /* Medal.swift */,
 				9DC758382807A74900BB2953 /* Preferences.swift */,
+				9DC7583A2809506300BB2953 /* CyclingRecords.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -946,6 +946,7 @@
 				9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */,
 				9DF9304526DCAB0600D4EEC5 /* CyclingSingleRecordView.swift in Sources */,
 				9D75E29226C85C9C00DE536D /* BikeRideSortPopoverView.swift in Sources */,
+				9DC7583B2809506300BB2953 /* CyclingRecords.swift in Sources */,
 				9DF9304126DB47C500D4EEC5 /* Records+Extensions.swift in Sources */,
 				9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */,
 				9DF9304926DDE3F400D4EEC5 /* CyclingChartsView.swift in Sources */,
@@ -971,7 +972,6 @@
 				9D1ED54D2643CF5A005A97ED /* UIAppearViewController.swift in Sources */,
 				9D816A0F263FBD0600DED7F8 /* CyclingStatus.swift in Sources */,
 				9D55B9F726522D8D00B622E5 /* RouteRenameModalView.swift in Sources */,
-				9D6E5397262D090C008FD7C1 /* PreferencesStorage.swift in Sources */,
 				9D6E5357262BB299008FD7C1 /* ColourView.swift in Sources */,
 				9D8169DC263F815600DED7F8 /* ChangeAppIconView.swift in Sources */,
 				9D2F48F72650751200094575 /* RouteNameModalView.swift in Sources */,

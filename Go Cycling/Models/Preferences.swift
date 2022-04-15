@@ -198,10 +198,10 @@ class Preferences: ObservableObject {
         // Sync local to cloud
         if localToCloud {
             for (i, k) in keys.enumerated() {
-                print("\(i) \(k)")
                 switch keyTypes[i] {
                 // Integer
                 case 1:
+                    print(UserDefaults.standard.integer(forKey: k))
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.integer(forKey: k), forKey: k)
                 // String
                 case 2:
@@ -209,6 +209,7 @@ class Preferences: ObservableObject {
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.string(forKey: k)!, forKey: k)
                 // Bool
                 default:
+                    print(UserDefaults.standard.bool(forKey: k))
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.bool(forKey: k), forKey: k)
                 }
             }
@@ -244,10 +245,8 @@ class Preferences: ObservableObject {
         UserDefaults.standard.set(existingPreferences.namedRoutes, forKey: Preferences.keys[8])
         UserDefaults.standard.set(existingPreferences.selectedRoute, forKey: Preferences.keys[9])
         
-        // Sync to iCloud if connected
-        if self.iCloudConnection {
-            Preferences.syncLocalAndCloud(localToCloud: true)
-        }
+        // Sync to iCloud
+        Preferences.syncLocalAndCloud(localToCloud: true)
     }
     
     // To be called when an update of a preference is needed
@@ -275,9 +274,8 @@ class Preferences: ObservableObject {
             fatalError("Incorrect parameter for preference")
         }
         
-        if self.iCloudConnection {
-            Preferences.syncLocalAndCloud(localToCloud: true)
-        }
+        // Update iCloud data
+        Preferences.syncLocalAndCloud(localToCloud: true)
     }
     
     public func updateStringPreference(preference: CustomizablePreferences, value: String) {
@@ -295,9 +293,8 @@ class Preferences: ObservableObject {
             fatalError("Incorrect parameter for preference")
         }
         
-        if self.iCloudConnection {
-            Preferences.syncLocalAndCloud(localToCloud: true)
-        }
+        // Update iCloud data
+        Preferences.syncLocalAndCloud(localToCloud: true)
     }
     
     public func updateIntPreference(preference: CustomizablePreferences, value: Int) {
@@ -309,9 +306,8 @@ class Preferences: ObservableObject {
             fatalError("Incorrect parameter for preference")
         }
         
-        if self.iCloudConnection {
-            Preferences.syncLocalAndCloud(localToCloud: true)
-        }
+        // Update iCloud data
+        Preferences.syncLocalAndCloud(localToCloud: true)
     }
     
     // For the reset to default settings button on the settings tab
@@ -324,12 +320,11 @@ class Preferences: ObservableObject {
     // Used in BikeRideViewModel where the environment object is not available
     static func storedSortingChoice() -> SortChoice {
         let stringValue = UserDefaults.standard.string(forKey: Preferences.keys[4])!
-        print(stringValue)
+
         return SortChoice(rawValue: stringValue) ?? SortChoice.dateDescending
     }
     
     static func storedSelectedRoute() -> String {
-        print(UserDefaults.standard.string(forKey: Preferences.keys[9]))
         return UserDefaults.standard.string(forKey: Preferences.keys[9])!
     }
 }
