@@ -198,12 +198,14 @@ class Preferences: ObservableObject {
         // Sync local to cloud
         if localToCloud {
             for (i, k) in keys.enumerated() {
-                switch i {
+                print("\(i) \(k)")
+                switch keyTypes[i] {
                 // Integer
                 case 1:
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.integer(forKey: k), forKey: k)
                 // String
                 case 2:
+                    print(UserDefaults.standard.string(forKey: k)!)
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.string(forKey: k)!, forKey: k)
                 // Bool
                 default:
@@ -214,7 +216,7 @@ class Preferences: ObservableObject {
         // Sync cloud to local
         else {
             for (i, k) in keys.enumerated() {
-                switch i {
+                switch keyTypes[i] {
                 // Integer
                 case 1:
                     UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.object(forKey: k) as! Int, forKey: k)
@@ -317,5 +319,17 @@ class Preferences: ObservableObject {
         Preferences.writeDefaults(iCloud: false)
         Preferences.syncLocalAndCloud(localToCloud: true)
         self.writeToClassMembers()
+    }
+    
+    // Used in BikeRideViewModel where the environment object is not available
+    static func storedSortingChoice() -> SortChoice {
+        let stringValue = UserDefaults.standard.string(forKey: Preferences.keys[4])!
+        print(stringValue)
+        return SortChoice(rawValue: stringValue) ?? SortChoice.dateDescending
+    }
+    
+    static func storedSelectedRoute() -> String {
+        print(UserDefaults.standard.string(forKey: Preferences.keys[9]))
+        return UserDefaults.standard.string(forKey: Preferences.keys[9])!
     }
 }

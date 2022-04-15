@@ -107,7 +107,6 @@
 		9D75E29426C8636F00DE536D /* BikeRideFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */; };
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
 		9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169BB263E0C5200DED7F8 /* SortChoice.swift */; };
-		9D8169CF263E182700DED7F8 /* UserPreferences+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169CE263E182700DED7F8 /* UserPreferences+Extensions.swift */; };
 		9D8169DC263F815600DED7F8 /* ChangeAppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169DB263F815600DED7F8 /* ChangeAppIconView.swift */; };
 		9D8169ED263FA47A00DED7F8 /* Dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8169EB263FA47A00DED7F8 /* Dark@2x.png */; };
 		9D8169EE263FA47A00DED7F8 /* Dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8169EC263FA47A00DED7F8 /* Dark@3x.png */; };
@@ -282,7 +281,6 @@
 		9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideFilterSheetView.swift; sourceTree = "<group>"; };
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		9D8169BB263E0C5200DED7F8 /* SortChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortChoice.swift; sourceTree = "<group>"; };
-		9D8169CE263E182700DED7F8 /* UserPreferences+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+Extensions.swift"; sourceTree = "<group>"; };
 		9D8169DB263F815600DED7F8 /* ChangeAppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAppIconView.swift; sourceTree = "<group>"; };
 		9D8169EB263FA47A00DED7F8 /* Dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark@2x.png"; sourceTree = "<group>"; };
 		9D8169EC263FA47A00DED7F8 /* Dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark@3x.png"; sourceTree = "<group>"; };
@@ -499,7 +497,6 @@
 			children = (
 				9D6E538F262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift */,
 				9D6E5390262CF1AF008FD7C1 /* UserPreferences+CoreDataProperties.swift */,
-				9D8169CE263E182700DED7F8 /* UserPreferences+Extensions.swift */,
 			);
 			path = UserPreferences;
 			sourceTree = "<group>";
@@ -991,7 +988,6 @@
 				9D6E5367262CE32F008FD7C1 /* UnitsView.swift in Sources */,
 				9D601E6126E09D9A00844CD1 /* BarChartView.swift in Sources */,
 				9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */,
-				9D8169CF263E182700DED7F8 /* UserPreferences+Extensions.swift in Sources */,
 				9D6E53492628071B008FD7C1 /* MapWithSpeedView.swift in Sources */,
 				9DF9303B26DB439300D4EEC5 /* Records+CoreDataClass.swift in Sources */,
 				9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */,

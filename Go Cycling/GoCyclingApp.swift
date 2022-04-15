@@ -41,14 +41,6 @@ struct GoCyclingApp: App {
                 .environmentObject(newPreferences)
                 .onAppear(perform: {
                     
-                    // LOOK HERE
-                    
-                    // ADD LOGIC TO CORRECT CYCLING RECORDS WHEN THEY ARE MISMATCHED FROM BIKE RIDES IF I CLOUD HAS ALREADY BEEN SETUP
-                    // THIS MIGHT NOT BE THE RIGHT SPOT BUT FIND THE RIGHT SPOT TO DO THE ABOVE
-                    
-                    // USER PREFERENCES MIGHT NEED TO BE ALLOWED TO FAIL TO REMEMBER ON RELAUNCH, BUT AT LEAST RECORDS AND BIKE RIDES WILL SYNC AND SAVE
-                    // POTENTIALLY REPLACE USERPREFERENCES WITH A BUNCH OF NSUbiquitousKeyValueStore ON ICLOUD DEVICES (MAYBE HAVE ICLOUD SETTING FOR THIS)
-                    
                     // For first launch with UserPreferences set
                     if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before") && !UserDefaults.standard.bool(forKey: "didLaunch1.4.0Before")) {
                         NSUbiquitousKeyValueStore.default.set(true, forKey: "didLaunch1.4.0Before")
