@@ -13,7 +13,7 @@ struct CyclingSingleRecordView: View {
     let recordDate: String?
     let firstEntry: Bool
     
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     
     var body: some View {
         VStack {
@@ -29,7 +29,7 @@ struct CyclingSingleRecordView: View {
                     Spacer()
                     Text(dateString)
                         .font(.headline)
-                        .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted)))
+                        .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                 }
                 .padding(.top, 5)
             }

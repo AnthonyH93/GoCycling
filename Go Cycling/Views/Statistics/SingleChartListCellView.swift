@@ -13,20 +13,20 @@ struct SingleChartListCellView: View {
     var numberOfRoutes: [Int]
     var index: Int
     
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     
     var body: some View {
         VStack(spacing: 10) {
             HStack {
                 Text(CyclingChartsViewModel.titleStrings[index])
                     .font(.headline)
-                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted)))
+                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                 Spacer()
             }
             HStack {
                 Text("Distance Cycled")
                 Spacer()
-                Text(MetricsFormatting.formatDistance(distance: distances[1], usingMetric: newPreferences.usingMetric))
+                Text(MetricsFormatting.formatDistance(distance: distances[1], usingMetric: preferences.usingMetric))
                     .bold()
                 Text(getPercentageString(index: 0))
                     .bold()

@@ -10,11 +10,11 @@ import SwiftUI
 struct ColourView: View {
     let persistenceController = PersistenceController.shared
     
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        Picker("Colour", selection: $newPreferences.colourChoiceConverted) {
+        Picker("Colour", selection: $preferences.colourChoiceConverted) {
             Text("Red").tag(ColourChoice.red)
             Text("Orange").tag(ColourChoice.orange)
             Text("Yellow").tag(ColourChoice.yellow)
@@ -23,8 +23,8 @@ struct ColourView: View {
             Text("Indigo").tag(ColourChoice.indigo)
             Text("Violet").tag(ColourChoice.violet)
                 .navigationBarTitle("Choose your Colour", displayMode: .inline)
-                .onChange(of: newPreferences.colourChoiceConverted) { _ in
-                    newPreferences.updateStringPreference(preference: CustomizablePreferences.colour, value: newPreferences.colourChoice)
+                .onChange(of: preferences.colourChoiceConverted) { _ in
+                    preferences.updateStringPreference(preference: CustomizablePreferences.colour, value: preferences.colourChoice)
                 }
         }
     }

@@ -201,15 +201,12 @@ class Preferences: ObservableObject {
                 switch keyTypes[i] {
                 // Integer
                 case 1:
-                    print(UserDefaults.standard.integer(forKey: k))
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.integer(forKey: k), forKey: k)
                 // String
                 case 2:
-                    print(UserDefaults.standard.string(forKey: k)!)
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.string(forKey: k)!, forKey: k)
                 // Bool
                 default:
-                    print(UserDefaults.standard.bool(forKey: k))
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.bool(forKey: k), forKey: k)
                 }
             }

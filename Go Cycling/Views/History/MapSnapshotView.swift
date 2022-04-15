@@ -13,7 +13,7 @@ struct MapSnapshotView: View {
     let span: CLLocationDegrees
     let coordinates: [CLLocationCoordinate2D]?
     
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     
     @State private var snapshotImage: UIImage? = nil
     
@@ -95,7 +95,7 @@ struct MapSnapshotView: View {
                     }
 
                     path.lineWidth = 8
-                    UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted).setStroke()
+                    UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted).setStroke()
                     path.stroke()
                 }
                 self.snapshotImage = finalImage

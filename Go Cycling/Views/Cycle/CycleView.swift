@@ -18,7 +18,7 @@ struct CycleView: View {
     @State private var timeCycling = 0.0
     @State private var showingRouteNamingPopover = false
     
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     
     var body: some View {
         GeometryReader { (geometry) in
@@ -77,7 +77,7 @@ struct CycleView: View {
                         cyclingStatus.stoppedCycling()
                         
                         // Present route naming popover if necessary
-                        if (newPreferences.namedRoutes) {
+                        if (preferences.namedRoutes) {
                             self.showingRouteNamingPopover = true
                         }
                       },

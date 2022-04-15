@@ -10,30 +10,30 @@ import SwiftUI
 struct UnitsView: View {
     let persistenceController = PersistenceController.shared
     
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
         HStack {
             Text("Prefered Units")
             Spacer()
-            Picker("Prefered Units", selection: $newPreferences.metricsChoiceConverted) {
+            Picker("Prefered Units", selection: $preferences.metricsChoiceConverted) {
                 Text("Imperial").tag(UnitsChoice.imperial)
                 Text("Metric").tag(UnitsChoice.metric)
-                    .onChange(of: newPreferences.metricsChoiceConverted) { _ in
-                        newPreferences.updateBoolPreference(preference: CustomizablePreferences.metric, value: newPreferences.usingMetric)
+                    .onChange(of: preferences.metricsChoiceConverted) { _ in
+                        preferences.updateBoolPreference(preference: CustomizablePreferences.metric, value: preferences.usingMetric)
                     }
             }
             .frame(maxWidth: 150)
             .pickerStyle(SegmentedPickerStyle())
         }
-        Toggle("Display Metrics on Map", isOn: $newPreferences.displayingMetrics)
-            .onChange(of: newPreferences.displayingMetrics) { value in
-                newPreferences.updateBoolPreference(preference: CustomizablePreferences.displayingMetrics, value: value)
+        Toggle("Display Metrics on Map", isOn: $preferences.displayingMetrics)
+            .onChange(of: preferences.displayingMetrics) { value in
+                preferences.updateBoolPreference(preference: CustomizablePreferences.displayingMetrics, value: value)
             }
-        Toggle("Large Metrics View", isOn: $newPreferences.largeMetrics)
-            .onChange(of: newPreferences.largeMetrics) { value in
-                newPreferences.updateBoolPreference(preference: CustomizablePreferences.largeMetrics, value: value)
+        Toggle("Large Metrics View", isOn: $preferences.largeMetrics)
+            .onChange(of: preferences.largeMetrics) { value in
+                preferences.updateBoolPreference(preference: CustomizablePreferences.largeMetrics, value: value)
             }
     }
 }

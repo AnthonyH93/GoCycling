@@ -10,7 +10,7 @@ import SwiftUI
 struct ResetView: View {
     let persistenceController = PersistenceController.shared
     
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     @EnvironmentObject var records: RecordsStorage
     @Environment(\.managedObjectContext) private var managedObjectContext
     
@@ -21,7 +21,7 @@ struct ResetView: View {
     var body: some View {
         Button (action: {self.showResetToDefaultAlert()}) {
             Text("Reset to Default Settings")
-                .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted)))
+                .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
         }
         .alert(isPresented: $showingResetToDefaultAlert) {
             Alert(title: Text("Are you sure that you want to reset to the default settings?"),
@@ -34,7 +34,7 @@ struct ResetView: View {
         }
         Button (action: {self.showDeleteAlert()}) {
             Text("Delete All Stored Routes")
-                .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted)))
+                .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
         }
         .alert(isPresented: $showingDeleteAlert) {
             Alert(title: Text("Are you sure that you want to delete all stored cycling routes?"),
@@ -47,7 +47,7 @@ struct ResetView: View {
         }
         Button (action: {self.showResetStatisticsAlert()}) {
             Text("Reset Stored Statistics")
-                .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted)))
+                .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
         }
         .alert(isPresented: $showingResetStatisticsAlert) {
             Alert(title: Text("Are you sure that you want to reset all stored statistics?"),
@@ -73,7 +73,7 @@ struct ResetView: View {
     }
     
     func resetToDefaultSettings() {
-        newPreferences.resetPreferences()
+        preferences.resetPreferences()
     }
     
     func deleteAllBikeRides() {

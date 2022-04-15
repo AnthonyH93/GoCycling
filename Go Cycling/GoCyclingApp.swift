@@ -16,7 +16,7 @@ struct GoCyclingApp: App {
     @StateObject var bikeRides: BikeRideStorage
     @StateObject var records: RecordsStorage
     @StateObject var cyclingStatus = CyclingStatus()
-    @StateObject var newPreferences = Preferences()
+    @StateObject var preferences = Preferences()
     
     init() {
         // Retrieve stored data to be used by all views - create state objects for environment objects
@@ -34,7 +34,7 @@ struct GoCyclingApp: App {
                 .environmentObject(bikeRides)
                 .environmentObject(records)
                 .environmentObject(cyclingStatus)
-                .environmentObject(newPreferences)
+                .environmentObject(preferences)
                 .onAppear(perform: {
                     
                     // For first launch with UserPreferences set
@@ -43,7 +43,7 @@ struct GoCyclingApp: App {
                         UserDefaults.standard.set(true, forKey: "didLaunch1.4.0Before")
                         // Migrate existing UserPreferences
                         if let oldPreferences = UserPreferences.savedPreferences() {
-                            newPreferences.initialUserPreferencesMigration(existingPreferences: oldPreferences)
+                            preferences.initialUserPreferencesMigration(existingPreferences: oldPreferences)
                         }
                     }
                     

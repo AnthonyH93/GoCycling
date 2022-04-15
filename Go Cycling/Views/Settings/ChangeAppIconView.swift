@@ -12,13 +12,13 @@ struct ChangeAppIconView: View {
     let persistenceController = PersistenceController.shared
     
     @EnvironmentObject var iconNames: IconNames
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     @EnvironmentObject var records: RecordsStorage
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
         if (self.iconNames.iconNames.count > 3) {
-            Picker("App Icon", selection: $newPreferences.iconIndex) {
+            Picker("App Icon", selection: $preferences.iconIndex) {
                 ForEach (0..<self.iconNames.iconNamesOrdered.count) { index in
                     if (index < 10 || records.storedRecords[0].unlockedIcons[iconNames.getCorrectIndex(index: index)]) {
                         HStack {
@@ -33,17 +33,17 @@ struct ChangeAppIconView: View {
                 }
                 .navigationBarTitle("Choose your App Icon", displayMode: .inline)
             }
-            .onChange(of: newPreferences.iconIndex) { value in
+            .onChange(of: preferences.iconIndex) { value in
 
                 let index = self.iconNames.iconNamesOrdered.firstIndex(of: UIApplication.shared.alternateIconName) ?? 0
 
                 if index != value {
-                    UIApplication.shared.setAlternateIconName(self.iconNames.iconNamesOrdered[newPreferences.iconIndex]) { error in
+                    UIApplication.shared.setAlternateIconName(self.iconNames.iconNamesOrdered[preferences.iconIndex]) { error in
                         if let error = error {
                             print(error.localizedDescription)
                         } else {
                             // Save new choice to device
-                            newPreferences.updateIntPreference(preference: CustomizablePreferences.iconIndex, value: newPreferences.iconIndex)
+                            preferences.updateIntPreference(preference: CustomizablePreferences.iconIndex, value: preferences.iconIndex)
                             print("Changed app icon successfully.")
                         }
                     }

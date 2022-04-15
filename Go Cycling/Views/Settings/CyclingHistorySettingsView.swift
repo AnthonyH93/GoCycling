@@ -10,21 +10,21 @@ import SwiftUI
 struct CyclingHistorySettingsView: View {
     let persistenceController = PersistenceController.shared
     
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        Toggle("Route Categorization Enabled", isOn: $newPreferences.namedRoutes)
-            .onChange(of: newPreferences.namedRoutes) { value in
-                newPreferences.updateBoolPreference(preference: CustomizablePreferences.namedRoutes, value: value)
+        Toggle("Route Categorization Enabled", isOn: $preferences.namedRoutes)
+            .onChange(of: preferences.namedRoutes) { value in
+                preferences.updateBoolPreference(preference: CustomizablePreferences.namedRoutes, value: value)
             }
-        Toggle("Deletion Enabled", isOn: $newPreferences.deletionEnabled)
-            .onChange(of: newPreferences.deletionEnabled) { value in
-                newPreferences.updateBoolPreference(preference: CustomizablePreferences.deletionEnabled, value: value)
+        Toggle("Deletion Enabled", isOn: $preferences.deletionEnabled)
+            .onChange(of: preferences.deletionEnabled) { value in
+                preferences.updateBoolPreference(preference: CustomizablePreferences.deletionEnabled, value: value)
             }
-        Toggle("Deletion Confirmation Alert", isOn: $newPreferences.deletionConfirmation)
-            .onChange(of: newPreferences.deletionConfirmation) { value in
-                newPreferences.updateBoolPreference(preference: CustomizablePreferences.deletionConfirmation, value: value)
+        Toggle("Deletion Confirmation Alert", isOn: $preferences.deletionConfirmation)
+            .onChange(of: preferences.deletionConfirmation) { value in
+                preferences.updateBoolPreference(preference: CustomizablePreferences.deletionConfirmation, value: value)
             }
     }
 }

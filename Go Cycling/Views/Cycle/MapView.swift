@@ -23,7 +23,7 @@ struct MapView: UIViewRepresentable {
     @Binding var timeCycling: TimeInterval
     
     @Environment(\.managedObjectContext) private var managedObjectContext
-    @EnvironmentObject var newPreferences: Preferences
+    @EnvironmentObject var preferences: Preferences
     @EnvironmentObject var records: RecordsStorage
     
     var userLatitude: String {
@@ -35,7 +35,7 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapView.Coordinator {
-        Coordinator(self, colour: UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted))
+        Coordinator(self, colour: UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted))
     }
 
     final class Coordinator: NSObject, MKMapViewDelegate {
@@ -99,8 +99,8 @@ struct MapView: UIViewRepresentable {
                         
                         // Update stroke colour if user changes colour preference after renderer was created
                         if let renderer = view.renderer(for: route) as? MKPolylineRenderer {
-                            if (renderer.strokeColor != UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted)) {
-                                renderer.strokeColor =  UserPreferences.convertColourChoiceToUIColor(colour: newPreferences.colourChoiceConverted)
+                            if (renderer.strokeColor != UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)) {
+                                renderer.strokeColor =  UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
                             }
                         }
                     }
