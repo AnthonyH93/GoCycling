@@ -14,17 +14,15 @@ struct GoCyclingApp: App {
     @Environment(\.scenePhase) var scenePhase
     
     @StateObject var bikeRides: BikeRideStorage
-    @StateObject var records: RecordsStorage
     @StateObject var cyclingStatus = CyclingStatus()
     @StateObject var preferences = Preferences()
+    @StateObject var records = CyclingRecords()
     
     init() {
         // Retrieve stored data to be used by all views - create state objects for environment objects
         let managedObjectContext = persistenceController.container.viewContext
         let bikeRidesStorage = BikeRideStorage(managedObjectContext: managedObjectContext)
         self._bikeRides = StateObject(wrappedValue: bikeRidesStorage)
-        let recordsStroage = RecordsStorage.shared
-        self._records = StateObject(wrappedValue: recordsStroage)
     }
 
     var body: some Scene {
@@ -47,7 +45,7 @@ struct GoCyclingApp: App {
                         }
                         // Migrate existing Records
                         if let oldRecords = Records.getStoredRecords() {
-                            
+                            records.initialRecordsMigration(existingRecords: oldRecords, existingBikeRides: bikeRides.storedBikeRides)
                         }
                     }
                     

@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 
 // Class to represent the cycling records of a user
-class CyclingRecords {
+class CyclingRecords: ObservableObject {
     @Published var totalCyclingTime: Double
     @Published var totalCyclingDistance: Double
     @Published var totalCyclingRoutes: Int
