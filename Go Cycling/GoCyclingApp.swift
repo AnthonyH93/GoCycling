@@ -45,6 +45,10 @@ struct GoCyclingApp: App {
                         if let oldPreferences = UserPreferences.savedPreferences() {
                             preferences.initialUserPreferencesMigration(existingPreferences: oldPreferences)
                         }
+                        // Migrate existing Records
+                        if let oldRecords = Records.getStoredRecords() {
+                            
+                        }
                     }
                     
                     // Check if iCloud is available
