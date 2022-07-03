@@ -46,7 +46,7 @@ extension UserPreferences {
             }
         }
         catch let error as NSError {
-            print("Error getting BikeRides: \(error.localizedDescription), \(error.userInfo)")
+            print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
         }
         return nil
     }

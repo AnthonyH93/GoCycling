@@ -260,6 +260,9 @@ class CyclingRecords: ObservableObject {
         
         // Sync to iCloud
         CyclingRecords.syncLocalAndCloud(localToCloud: true)
+        
+        // Update class members
+        self.writeToClassMembers()
     }
     
     // Updates CyclingRecords after a new bike ride has been completed

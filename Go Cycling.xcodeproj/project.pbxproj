@@ -150,7 +150,6 @@
 		9DEAD6CB2632589500392D88 /* BikeRideStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */; };
 		9DF9303B26DB439300D4EEC5 /* Records+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */; };
 		9DF9303C26DB439300D4EEC5 /* Records+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */; };
-		9DF9304126DB47C500D4EEC5 /* Records+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304026DB47C500D4EEC5 /* Records+Extensions.swift */; };
 		9DF9304326DCAAD300D4EEC5 /* CyclingRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304226DCAAD300D4EEC5 /* CyclingRecordsView.swift */; };
 		9DF9304526DCAB0600D4EEC5 /* CyclingSingleRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304426DCAB0600D4EEC5 /* CyclingSingleRecordView.swift */; };
 		9DF9304726DCABA400D4EEC5 /* RecordsFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */; };
@@ -330,7 +329,6 @@
 		9DEAD6CA2632589500392D88 /* BikeRideStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideStorage.swift; sourceTree = "<group>"; };
 		9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Records+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Records+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9DF9304026DB47C500D4EEC5 /* Records+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Records+Extensions.swift"; sourceTree = "<group>"; };
 		9DF9304226DCAAD300D4EEC5 /* CyclingRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingRecordsView.swift; sourceTree = "<group>"; };
 		9DF9304426DCAB0600D4EEC5 /* CyclingSingleRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingSingleRecordView.swift; sourceTree = "<group>"; };
 		9DF9304626DCABA400D4EEC5 /* RecordsFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsFormatting.swift; sourceTree = "<group>"; };
@@ -721,7 +719,6 @@
 			children = (
 				9DF9303926DB439300D4EEC5 /* Records+CoreDataClass.swift */,
 				9DF9303A26DB439300D4EEC5 /* Records+CoreDataProperties.swift */,
-				9DF9304026DB47C500D4EEC5 /* Records+Extensions.swift */,
 			);
 			path = Records;
 			sourceTree = "<group>";
@@ -943,7 +940,6 @@
 				9DF9304526DCAB0600D4EEC5 /* CyclingSingleRecordView.swift in Sources */,
 				9D75E29226C85C9C00DE536D /* BikeRideSortPopoverView.swift in Sources */,
 				9DC7583B2809506300BB2953 /* CyclingRecords.swift in Sources */,
-				9DF9304126DB47C500D4EEC5 /* Records+Extensions.swift in Sources */,
 				9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */,
 				9DF9304926DDE3F400D4EEC5 /* CyclingChartsView.swift in Sources */,
 				9D62F4EF2636064100E28991 /* LargeSingleMetricView.swift in Sources */,

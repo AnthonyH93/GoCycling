@@ -254,6 +254,8 @@ class Preferences: ObservableObject {
         
         // Sync to iCloud
         Preferences.syncLocalAndCloud(localToCloud: true)
+        
+        self.writeToClassMembers()
     }
     
     // To be called when an update of a preference is needed

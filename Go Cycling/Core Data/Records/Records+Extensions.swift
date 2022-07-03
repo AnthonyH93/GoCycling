@@ -19,7 +19,7 @@ extension Records {
             }
         }
         catch let error as NSError {
-            print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
+            print("Error getting Records: \(error.localizedDescription), \(error.userInfo)")
         }
         return nil
     }
@@ -32,7 +32,7 @@ extension Records {
             return items[0].unlockedIcons
         }
         catch let error as NSError {
-            print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
+            print("Error getting Records: \(error.localizedDescription), \(error.userInfo)")
         }
         return [Bool].init(repeating: false, count: 6)
     }
