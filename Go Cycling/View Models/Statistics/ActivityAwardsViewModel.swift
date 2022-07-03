@@ -12,20 +12,20 @@ import Combine
 
 class ActivityAwardsViewModel: ObservableObject {
     
-    private var initialRecords = Records.getStoredRecords()
+    private var initialRecords = CyclingRecords.shared
     
     @Published var progressValues: [CGFloat] = [CGFloat].init(repeating: 0.0, count: 6)
-    @Published var unlockedIcons = Records.getUnlockedIcons()
+    @Published var unlockedIcons = CyclingRecords.shared.unlockedIcons
     @Published var progressStrings: [String] = [String].init(repeating: "0% Complete", count: 6)
     
     // Boolean to display alert for newly unlocked icon
     @Published var alertForNewIcon = false
     
-    @Published var records: Records? {
+    @Published var records: CyclingRecords? {
         willSet {
             // Update published values when records change
-            unlockedIcons = Records.getUnlockedIcons()
-            for index in 0..<Records.awardValues.count {
+            unlockedIcons = CyclingRecords.shared.unlockedIcons
+            for index in 0..<CyclingRecords.awardValues.count {
                 var progressFloat: CGFloat = 0.0
                 // If icon is already unlocked then set progress to 100%
                 if (unlockedIcons[index]) {
@@ -68,29 +68,31 @@ class ActivityAwardsViewModel: ObservableObject {
                 }
                 // Single route awards
                 if (index < 3) {
-                    if let distance = self.records?.longestCyclingDistance {
-                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
-                        progressValues[index] = progressFloat
-                    }
+//                    if let distance = self.records?.longestCyclingDistance {
+//                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
+//                        progressValues[index] = progressFloat
+//                    }
                     // Use initial values if records have not updated yet
-                    else if let distance = self.initialRecords?.longestCyclingDistance {
-                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
+                   // else if let distance = self.initialRecords.longestCyclingDistance {
+                    let distance = self.initialRecords.longestCyclingDistance
+                        progressFloat = CGFloat(distance/CyclingRecords.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
                         progressValues[index] = progressFloat
-                    }
+                   // }
                     let roundedProgress = round(progressFloat * 10000) / 100.0
                     progressStrings[index] = "\(roundedProgress)% Complete"
                 }
                 // Cummulative route awards
                 else {
-                    if let distance = self.records?.totalCyclingDistance {
-                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
+//                    if let distance = self.records?.totalCyclingDistance {
+//                        progressFloat = CGFloat(distance/CyclingRecords.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
+//                        progressValues[index] = progressFloat
+//                    }
+//                    // Use initial values if records have not updated yet
+//                    else if let distance = self.initialRecords.totalCyclingDistance {
+                    let distance = self.initialRecords.totalCyclingDistance
+                        progressFloat = CGFloat(distance/CyclingRecords.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
                         progressValues[index] = progressFloat
-                    }
-                    // Use initial values if records have not updated yet
-                    else if let distance = self.initialRecords?.totalCyclingDistance {
-                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
-                        progressValues[index] = progressFloat
-                    }
+                    //}
                     let roundedProgress = round(progressFloat * 10000) / 100.0
                     progressStrings[index] = "\(roundedProgress)% Complete"
                 }
@@ -103,10 +105,11 @@ class ActivityAwardsViewModel: ObservableObject {
     
     private var cancellable: AnyCancellable?
     
-    init(recordsPublisher: AnyPublisher<[Records], Never> = RecordsStorage.shared.$storedRecords.eraseToAnyPublisher()) {
+    // Total cycling routes changes each time the records change
+    init(recordsPublisher: AnyPublisher<Int, Never> = CyclingRecords.shared.$totalCyclingRoutes.eraseToAnyPublisher()) {
         cancellable = recordsPublisher.sink { records in
             print("Updating records")
-            self.records = records[0]
+            self.records = self.initialRecords
         }
     }
     

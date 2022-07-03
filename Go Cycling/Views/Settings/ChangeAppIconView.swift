@@ -13,14 +13,14 @@ struct ChangeAppIconView: View {
     
     @EnvironmentObject var iconNames: IconNames
     @EnvironmentObject var preferences: Preferences
-    @EnvironmentObject var records: RecordsStorage
+    @EnvironmentObject var records: CyclingRecords
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
         if (self.iconNames.iconNames.count > 3) {
             Picker("App Icon", selection: $preferences.iconIndex) {
                 ForEach (0..<self.iconNames.iconNamesOrdered.count) { index in
-                    if (index < 10 || records.storedRecords[0].unlockedIcons[iconNames.getCorrectIndex(index: index)]) {
+                    if (index < 10 || records.unlockedIcons[iconNames.getCorrectIndex(index: index)]) {
                         HStack {
                             Image(self.iconNames.iconNamesOrdered[index] ?? "Default")
                                 .cornerRadius(15)

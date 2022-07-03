@@ -15,8 +15,8 @@ struct GoCyclingApp: App {
     
     @StateObject var bikeRides: BikeRideStorage
     @StateObject var cyclingStatus = CyclingStatus()
-    @StateObject var preferences = Preferences()
-    @StateObject var records = CyclingRecords()
+    @StateObject var preferences = Preferences.shared
+    @StateObject var records = CyclingRecords.shared
     
     init() {
         // Retrieve stored data to be used by all views - create state objects for environment objects
@@ -34,6 +34,12 @@ struct GoCyclingApp: App {
                 .environmentObject(cyclingStatus)
                 .environmentObject(preferences)
                 .onAppear(perform: {
+  
+                    // Clear iCloud key value pairs
+//                    let allKeys = NSUbiquitousKeyValueStore.default.dictionaryRepresentation.keys
+//                    for key in allKeys {
+//                        NSUbiquitousKeyValueStore.default.removeObject(forKey: key)
+//                    }
                     
                     // For first launch with UserPreferences set
                     if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before") && !UserDefaults.standard.bool(forKey: "didLaunch1.4.0Before")) {

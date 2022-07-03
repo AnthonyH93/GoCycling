@@ -24,6 +24,10 @@ enum CustomizablePreferences {
 
 // Class to represent the preferences of a user
 class Preferences: ObservableObject {
+    
+    // Singleton instance
+    static let shared: Preferences = Preferences()
+    
     @Published var usingMetric: Bool
     @Published var displayingMetrics: Bool
     @Published var colourChoice: String

@@ -10,6 +10,10 @@ import MapKit
 
 // Class to represent the cycling records of a user
 class CyclingRecords: ObservableObject {
+    
+    // Singleton instance
+    static let shared: CyclingRecords = CyclingRecords()
+    
     @Published var totalCyclingTime: Double
     @Published var totalCyclingDistance: Double
     @Published var totalCyclingRoutes: Int
@@ -70,6 +74,19 @@ class CyclingRecords: ObservableObject {
         }
         
         // Set class attributes based on local copy of data
+        self.totalCyclingTime = UserDefaults.standard.double(forKey: CyclingRecords.keys[0])
+        self.totalCyclingDistance = UserDefaults.standard.double(forKey: CyclingRecords.keys[1])
+        self.totalCyclingRoutes = UserDefaults.standard.integer(forKey: CyclingRecords.keys[2])
+        self.unlockedIcons = UserDefaults.standard.array(forKey: CyclingRecords.keys[3]) as! [Bool]
+        self.longestCyclingDistance = UserDefaults.standard.double(forKey: CyclingRecords.keys[4])
+        self.longestCyclingTime = UserDefaults.standard.double(forKey: CyclingRecords.keys[5])
+        self.fastestAverageSpeed = UserDefaults.standard.double(forKey: CyclingRecords.keys[6])
+        self.fastestAverageSpeedDate = UserDefaults.standard.object(forKey: CyclingRecords.keys[7]) as? Date
+        self.longestCyclingDistanceDate = UserDefaults.standard.object(forKey: CyclingRecords.keys[8]) as? Date
+        self.longestCyclingTimeDate = UserDefaults.standard.object(forKey: CyclingRecords.keys[9]) as? Date
+    }
+    
+    private func writeToClassMembers() {
         self.totalCyclingTime = UserDefaults.standard.double(forKey: CyclingRecords.keys[0])
         self.totalCyclingDistance = UserDefaults.standard.double(forKey: CyclingRecords.keys[1])
         self.totalCyclingRoutes = UserDefaults.standard.integer(forKey: CyclingRecords.keys[2])
@@ -277,10 +294,13 @@ class CyclingRecords: ObservableObject {
         self.writeClassMembersToUserDefaults()
         
         CyclingRecords.syncLocalAndCloud(localToCloud: true)
+        
+        // Update unlocked icons
+        self.updateUnlockedIcons()
     }
     
     // Determines unlocked icons bool array based on class members
-    func updateUnlockedIcons() {
+    public func updateUnlockedIcons() {
         var newUnlockedIcons = [Bool].init(repeating: false, count: CyclingRecords.numberOfUnlockableIcons)
         var change = false
         
@@ -316,5 +336,37 @@ class CyclingRecords: ObservableObject {
             // Sync to iCloud
             CyclingRecords.syncLocalAndCloud(localToCloud: true)
         }
+    }
+    
+    // Reset stored statistics
+    static public func resetStatistics() {
+        // Local
+        UserDefaults.standard.set(0.0, forKey: keys[0])
+        UserDefaults.standard.set(0.0, forKey: keys[1])
+        UserDefaults.standard.set(0, forKey: keys[2])
+        UserDefaults.standard.set([Bool].init(repeating: false, count: numberOfUnlockableIcons), forKey: keys[3])
+        UserDefaults.standard.set(0.0, forKey: keys[4])
+        UserDefaults.standard.set(0.0, forKey: keys[5])
+        UserDefaults.standard.set(0.0, forKey: keys[6])
+        // Need to be explicit about removing these as setting them to nil isn't going to work (the Date? typed records)
+        UserDefaults.standard.removeObject(forKey: keys[7])
+        UserDefaults.standard.removeObject(forKey: keys[8])
+        UserDefaults.standard.removeObject(forKey: keys[9])
+        
+        // iCloud
+        NSUbiquitousKeyValueStore.default.set(0.0, forKey: keys[0])
+        NSUbiquitousKeyValueStore.default.set(0.0, forKey: keys[1])
+        NSUbiquitousKeyValueStore.default.set(0, forKey: keys[2])
+        NSUbiquitousKeyValueStore.default.set([Bool].init(repeating: false, count: numberOfUnlockableIcons), forKey: keys[3])
+        NSUbiquitousKeyValueStore.default.set(0.0, forKey: keys[4])
+        NSUbiquitousKeyValueStore.default.set(0.0, forKey: keys[5])
+        NSUbiquitousKeyValueStore.default.set(0.0, forKey: keys[6])
+        // Need to be explicit about removing these as setting them to nil isn't going to work (the Date? typed records)
+        NSUbiquitousKeyValueStore.default.removeObject(forKey: keys[7])
+        NSUbiquitousKeyValueStore.default.removeObject(forKey: keys[8])
+        NSUbiquitousKeyValueStore.default.removeObject(forKey: keys[9])
+        
+        // Update class members
+        CyclingRecords.shared.writeToClassMembers()
     }
 }
