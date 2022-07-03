@@ -42,8 +42,10 @@ class Preferences: ObservableObject {
     private var iCloudConnection: Bool
     
     static private let initKey = "didSetupPreferences"
-    static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "iconIndex", "namedRoutes", "selectedRoute"]
-    static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 1, 0, 2] // 0: Bool, 1: Int, 2: String
+    static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute"]
+    // Icon index is a special case since it should only be stored locally
+    static private let iconIndexKey = "iconIndex"
+    static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2] // 0: Bool, 1: Int, 2: String
     
     init() {
         // First check if iCloud is available
@@ -92,9 +94,10 @@ class Preferences: ObservableObject {
         self.sortingChoice = UserDefaults.standard.string(forKey: Preferences.keys[4])!
         self.deletionConfirmation = UserDefaults.standard.bool(forKey: Preferences.keys[5])
         self.deletionEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[6])
-        self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.keys[7])
-        self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[8])
-        self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[9])!
+        self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[7])
+        self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
+        
+        self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
     }
     
     // Converters for Views
@@ -139,9 +142,10 @@ class Preferences: ObservableObject {
         self.sortingChoice = UserDefaults.standard.string(forKey: Preferences.keys[4])!
         self.deletionConfirmation = UserDefaults.standard.bool(forKey: Preferences.keys[5])
         self.deletionEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[6])
-        self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.keys[7])
-        self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[8])
-        self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[9])!
+        self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[7])
+        self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
+        
+        self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
     }
     
     static private func iCloudAvailable() -> Bool {
@@ -179,9 +183,8 @@ class Preferences: ObservableObject {
             NSUbiquitousKeyValueStore.default.set(SortChoice.dateDescending.rawValue, forKey: keys[4])
             NSUbiquitousKeyValueStore.default.set(true, forKey: keys[5])
             NSUbiquitousKeyValueStore.default.set(true, forKey: keys[6])
-            NSUbiquitousKeyValueStore.default.set(0, forKey: keys[7])
-            NSUbiquitousKeyValueStore.default.set(true, forKey: keys[8])
-            NSUbiquitousKeyValueStore.default.set("", forKey: keys[9])
+            NSUbiquitousKeyValueStore.default.set(true, forKey: keys[7])
+            NSUbiquitousKeyValueStore.default.set("", forKey: keys[8])
         }
         // Use UserDefaults for local storage
         else {
@@ -192,10 +195,12 @@ class Preferences: ObservableObject {
             UserDefaults.standard.set(SortChoice.dateDescending.rawValue, forKey: keys[4])
             UserDefaults.standard.set(true, forKey: keys[5])
             UserDefaults.standard.set(true, forKey: keys[6])
-            UserDefaults.standard.set(0, forKey: keys[7])
-            UserDefaults.standard.set(true, forKey: keys[8])
-            UserDefaults.standard.set("", forKey: keys[9])
+            UserDefaults.standard.set(true, forKey: keys[7])
+            UserDefaults.standard.set("", forKey: keys[8])
         }
+        
+        // Store iconIndex locally in either case
+        UserDefaults.standard.set(0, forKey: iconIndexKey)
     }
     
     static private func syncLocalAndCloud(localToCloud: Bool) {
@@ -242,9 +247,10 @@ class Preferences: ObservableObject {
         UserDefaults.standard.set(existingPreferences.sortingChoice, forKey: Preferences.keys[4])
         UserDefaults.standard.set(existingPreferences.deletionConfirmation, forKey: Preferences.keys[5])
         UserDefaults.standard.set(existingPreferences.deletionEnabled, forKey: Preferences.keys[6])
-        UserDefaults.standard.set(existingPreferences.iconIndex, forKey: Preferences.keys[7])
-        UserDefaults.standard.set(existingPreferences.namedRoutes, forKey: Preferences.keys[8])
-        UserDefaults.standard.set(existingPreferences.selectedRoute, forKey: Preferences.keys[9])
+        UserDefaults.standard.set(existingPreferences.namedRoutes, forKey: Preferences.keys[7])
+        UserDefaults.standard.set(existingPreferences.selectedRoute, forKey: Preferences.keys[8])
+        
+        UserDefaults.standard.set(existingPreferences.iconIndex, forKey: Preferences.iconIndexKey)
         
         // Sync to iCloud
         Preferences.syncLocalAndCloud(localToCloud: true)
@@ -269,7 +275,7 @@ class Preferences: ObservableObject {
             UserDefaults.standard.set(value, forKey: Preferences.keys[6])
             self.deletionEnabled = value
         case .namedRoutes:
-            UserDefaults.standard.set(value, forKey: Preferences.keys[8])
+            UserDefaults.standard.set(value, forKey: Preferences.keys[7])
             self.namedRoutes = value
         default:
             fatalError("Incorrect parameter for preference")
@@ -288,7 +294,7 @@ class Preferences: ObservableObject {
             UserDefaults.standard.set(value, forKey: Preferences.keys[4])
             self.sortingChoice = value
         case .selectedRoute:
-            UserDefaults.standard.set(value, forKey: Preferences.keys[9])
+            UserDefaults.standard.set(value, forKey: Preferences.keys[8])
             self.selectedRoute = value
         default:
             fatalError("Incorrect parameter for preference")
@@ -301,14 +307,11 @@ class Preferences: ObservableObject {
     public func updateIntPreference(preference: CustomizablePreferences, value: Int) {
         switch preference {
         case .iconIndex:
-            UserDefaults.standard.set(value, forKey: Preferences.keys[7])
+            UserDefaults.standard.set(value, forKey: Preferences.iconIndexKey)
             self.iconIndex = value
         default:
             fatalError("Incorrect parameter for preference")
         }
-        
-        // Update iCloud data
-        Preferences.syncLocalAndCloud(localToCloud: true)
     }
     
     // For the reset to default settings button on the settings tab
@@ -326,6 +329,6 @@ class Preferences: ObservableObject {
     }
     
     static func storedSelectedRoute() -> String {
-        return UserDefaults.standard.string(forKey: Preferences.keys[9])!
+        return UserDefaults.standard.string(forKey: Preferences.keys[8])!
     }
 }
