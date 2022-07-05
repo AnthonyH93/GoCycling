@@ -98,6 +98,19 @@ class Preferences: ObservableObject {
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
+        
+        // Used to watch for iCloud NSUbiquitousKeyValueStore change events to sync preferences from other devices
+        NotificationCenter.default.addObserver(self, selector: #selector(keysDidChangeOnCloud(notification:)),
+                                                       name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
+                                                       object: nil)
+    }
+    
+    @objc func keysDidChangeOnCloud(notification: Notification) {
+        // Force this update to run on the main thread, but asynchronously
+        DispatchQueue.main.async {
+            Preferences.syncLocalAndCloud(localToCloud: false)
+            self.writeToClassMembers()
+        }
     }
     
     // Converters for Views
@@ -219,6 +232,7 @@ class Preferences: ObservableObject {
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.bool(forKey: k), forKey: k)
                 }
             }
+            NSUbiquitousKeyValueStore.default.synchronize()
         }
         // Sync cloud to local
         else {

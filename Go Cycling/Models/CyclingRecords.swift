@@ -84,6 +84,19 @@ class CyclingRecords: ObservableObject {
         self.fastestAverageSpeedDate = UserDefaults.standard.object(forKey: CyclingRecords.keys[7]) as? Date
         self.longestCyclingDistanceDate = UserDefaults.standard.object(forKey: CyclingRecords.keys[8]) as? Date
         self.longestCyclingTimeDate = UserDefaults.standard.object(forKey: CyclingRecords.keys[9]) as? Date
+        
+        // Used to watch for iCloud NSUbiquitousKeyValueStore change events to sync records from other devices
+        NotificationCenter.default.addObserver(self, selector: #selector(keysDidChangeOnCloud(notification:)),
+                                                       name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
+                                                       object: nil)
+    }
+    
+    @objc func keysDidChangeOnCloud(notification: Notification) {
+        // Force this update to run on the main thread, but asynchronously
+        DispatchQueue.main.async {
+            CyclingRecords.syncLocalAndCloud(localToCloud: false)
+            self.writeToClassMembers()
+        }
     }
     
     private func writeToClassMembers() {
@@ -189,6 +202,7 @@ class CyclingRecords: ObservableObject {
                     NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.array(forKey: k) as! [Bool], forKey: k)
                 }
             }
+            NSUbiquitousKeyValueStore.default.synchronize()
         }
         // Sync cloud to local
         else {
@@ -267,7 +281,6 @@ class CyclingRecords: ObservableObject {
     
     // Updates CyclingRecords after a new bike ride has been completed
     public func updateCyclingRecords(speeds: [CLLocationSpeed?], distance: Double, startTime: Date, time: Double) {
-        
         self.totalCyclingDistance = self.totalCyclingDistance + distance
         self.totalCyclingTime = self.totalCyclingTime + time
         self.totalCyclingRoutes = self.totalCyclingRoutes + 1
