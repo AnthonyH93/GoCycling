@@ -30,6 +30,7 @@ class ActivityAwardsViewModel: ObservableObject {
                 // If icon is already unlocked then set progress to 100%
                 if (unlockedIcons[index]) {
                     progressValues[index] = 1.0
+                    progressStrings[index] = "100% Complete"
                     // Check if user has been alerted of this unlocked icon
                     switch index {
                     case 0:
@@ -67,7 +68,7 @@ class ActivityAwardsViewModel: ObservableObject {
                     }
                 }
                 // Single route awards
-                if (index < 3) {
+                else if (index < 3) {
 //                    if let distance = self.records?.longestCyclingDistance {
 //                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
 //                        progressValues[index] = progressFloat
