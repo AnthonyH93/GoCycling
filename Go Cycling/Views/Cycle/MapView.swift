@@ -23,8 +23,8 @@ struct MapView: UIViewRepresentable {
     @Binding var timeCycling: TimeInterval
     
     @Environment(\.managedObjectContext) private var managedObjectContext
-    @EnvironmentObject var preferences: PreferencesStorage
-    @EnvironmentObject var records: RecordsStorage
+    @EnvironmentObject var preferences: Preferences
+    @EnvironmentObject var records: CyclingRecords
     
     var userLatitude: String {
         return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -35,7 +35,7 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapView.Coordinator {
-        Coordinator(self, colour: UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted))
+        Coordinator(self, colour: UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted))
     }
 
     final class Coordinator: NSObject, MKMapViewDelegate {
@@ -99,8 +99,8 @@ struct MapView: UIViewRepresentable {
                         
                         // Update stroke colour if user changes colour preference after renderer was created
                         if let renderer = view.renderer(for: route) as? MKPolylineRenderer {
-                            if (renderer.strokeColor != UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)) {
-                                renderer.strokeColor =  UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)
+                            if (renderer.strokeColor != UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)) {
+                                renderer.strokeColor =  UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
                             }
                         }
                     }
@@ -118,20 +118,9 @@ struct MapView: UIViewRepresentable {
                                                         elevations: locationManager.cyclingAltitudes,
                                                         startTime: cyclingStartTime,
                                                         time: timeCycling)
-
-                    // Determine the new values of the records object after this cycling route
-                    let values = Records.getBrokenRecords(existingRecords: records.storedRecords[0], speeds: locationManager.cyclingSpeeds, distance: locationManager.cyclingTotalDistance, startTime: cyclingStartTime, time: timeCycling)
-                    persistenceController.updateRecords(
-                        existingRecords: records.storedRecords[0],
-                        totalDistance: values.totalDistance,
-                        totalTime: values.totalTime,
-                        totalRoutes: values.totalRoutes,
-                        longestDistance: values.longestDistance,
-                        longestTime: values.longestTime,
-                        fastestAvgSpeed: values.fastestAvgSpeed,
-                        longestDistanceDate: values.longestDistanceDate,
-                        longestTimeDate: values.longestTimeDate,
-                        fastestAvgSpeedDate: values.fastestAvgSpeedDate)
+                    
+                    // Update CyclingRecords with thise new entry in case any new records were set
+                    records.updateCyclingRecords(speeds: locationManager.cyclingSpeeds, distance: locationManager.cyclingTotalDistance, startTime: cyclingStartTime, time: timeCycling)
                     
                     locationManager.clearLocationArray()
                     locationManager.stopTrackingBackgroundLocation()

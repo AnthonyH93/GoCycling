@@ -14,10 +14,12 @@ extension Records {
         let fetchRequest: NSFetchRequest<Records> = Records.fetchRequest()
         do {
             let items = try context.fetch(fetchRequest)
-            return items[0]
+            if items.count > 0 {
+                return items[0]
+            }
         }
         catch let error as NSError {
-            print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
+            print("Error getting Records: \(error.localizedDescription), \(error.userInfo)")
         }
         return nil
     }
@@ -30,7 +32,7 @@ extension Records {
             return items[0].unlockedIcons
         }
         catch let error as NSError {
-            print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
+            print("Error getting Records: \(error.localizedDescription), \(error.userInfo)")
         }
         return [Bool].init(repeating: false, count: 6)
     }

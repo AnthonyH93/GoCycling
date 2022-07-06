@@ -12,7 +12,7 @@ struct BarChartView: View {
     
     @StateObject var chartViewModel = CyclingChartsViewModel()
     
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var preferences: Preferences
     @Environment(\.colorScheme) var colorScheme
     
     @State private var selectedValue = ""
@@ -53,7 +53,7 @@ struct BarChartView: View {
                 VStack {
                     HStack {
                         ForEach (0..<chartViewModel.pastData[index + (barChartUnitsSelection.id * 3)].count, id: \.self) { id in
-                            BarChartCellView(value: chartViewModel.pastDataNormalized[index + (barChartUnitsSelection.id * 3)][id], barColor: Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                            BarChartCellView(value: chartViewModel.pastDataNormalized[index + (barChartUnitsSelection.id * 3)][id], barColor: Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                                 .opacity(barIsTouched(id: id) ? 1 : currentOpacity)
                                 .scaleEffect(barIsTouched(id: id) ? CGSize(width: 1.05, height: 1) : CGSize(width: 1, height: 1), anchor: .bottom)
                                 .animation(.spring())
@@ -102,7 +102,7 @@ struct BarChartView: View {
         }
         switch (barChartUnitsSelection) {
         case .distance:
-            selectedValue = "\(MetricsFormatting.formatDistance(distance: chartViewModel.pastData[index + (barChartUnitsSelection.id * 3)][id], usingMetric: preferences.storedPreferences[0].usingMetric))"
+            selectedValue = "\(MetricsFormatting.formatDistance(distance: chartViewModel.pastData[index + (barChartUnitsSelection.id * 3)][id], usingMetric: preferences.usingMetric))"
         case .time:
             selectedValue = "\(MetricsFormatting.formatTime(time: chartViewModel.pastData[index + (barChartUnitsSelection.id * 3)][id]))"
         case .numberOfRoutes:

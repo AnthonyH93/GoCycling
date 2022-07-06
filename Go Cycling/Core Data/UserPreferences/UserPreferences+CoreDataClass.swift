@@ -31,3 +31,23 @@ public class UserPreferences: NSManagedObject {
         }
     }
 }
+
+extension UserPreferences {
+    static func savedPreferences() -> UserPreferences? {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<UserPreferences> = UserPreferences.fetchRequest()
+        do {
+            let items = try context.fetch(fetchRequest)
+            if items.count > 0 {
+                return items[0]
+            }
+            else {
+                return nil
+            }
+        }
+        catch let error as NSError {
+            print("Error getting UserPreferences: \(error.localizedDescription), \(error.userInfo)")
+        }
+        return nil
+    }
+}

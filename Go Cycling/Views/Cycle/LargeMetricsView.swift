@@ -17,17 +17,17 @@ struct LargeMetricsView: View {
     @Binding var currentDistance: CLLocationDistance
     
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var preferences: Preferences
     
     var screenWidth: CGFloat
     
     var body: some View {
         HStack {
-            if (preferences.storedPreferences[0].displayingMetrics) {
+            if (preferences.displayingMetrics) {
                 HStack(alignment: .center, spacing: 10) {
                     ZStack {
                         Rectangle()
-                            .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                            .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                             .opacity(0.4)
                             .frame(width: screenWidth/3 - 13.3, height: 90)
                             .cornerRadius(10)
@@ -35,14 +35,14 @@ struct LargeMetricsView: View {
                             Spacer()
                             LargeSingleMetricView(metricName: "Distance",
                                                   metricText: MetricsFormatting.formatDistanceWithoutUnits(distance: self.setCurrentDistance(),
-                                                  usingMetric: preferences.storedPreferences[0].usingMetric),
-                                                  metricUnits: MetricsFormatting.getDistanceUnits(usingMetric: preferences.storedPreferences[0].usingMetric))
+                                                  usingMetric: preferences.usingMetric),
+                                                  metricUnits: MetricsFormatting.getDistanceUnits(usingMetric: preferences.usingMetric))
                             Spacer()
                         }
                     }
                     ZStack {
                         Rectangle()
-                            .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                            .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                             .opacity(0.4)
                             .frame(width: screenWidth/3 - 13.3, height: 90)
                             .cornerRadius(10)
@@ -50,14 +50,14 @@ struct LargeMetricsView: View {
                             Spacer()
                             LargeSingleMetricView( metricName: "Speed",
                                                    metricText: MetricsFormatting.formatSpeedWithoutUnits(speed: currentSpeed ?? 0.0,
-                                                   usingMetric: preferences.storedPreferences[0].usingMetric),
-                                                   metricUnits: MetricsFormatting.getSpeedUnits(usingMetric: preferences.storedPreferences[0].usingMetric))
+                                                   usingMetric: preferences.usingMetric),
+                                                   metricUnits: MetricsFormatting.getSpeedUnits(usingMetric: preferences.usingMetric))
                             Spacer()
                         }
                     }
                     ZStack {
                         Rectangle()
-                            .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                            .fill(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                             .opacity(0.4)
                             .frame(width: screenWidth/3 - 13.3, height: 90)
                             .cornerRadius(10)
@@ -65,8 +65,8 @@ struct LargeMetricsView: View {
                             Spacer()
                             LargeSingleMetricView(metricName: "Altitude",
                                                   metricText: MetricsFormatting.formatElevationWithoutUnits(elevation: currentAltitude ?? 0.0,
-                                                  usingMetric: preferences.storedPreferences[0].usingMetric),
-                                                  metricUnits: MetricsFormatting.getElevationUnits(usingMetric: preferences.storedPreferences[0].usingMetric))
+                                                  usingMetric: preferences.usingMetric),
+                                                  metricUnits: MetricsFormatting.getElevationUnits(usingMetric: preferences.usingMetric))
                             Spacer()
                         }
                     }

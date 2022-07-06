@@ -18,7 +18,7 @@ struct MapWithSpeedView: View {
     
     @StateObject var locationManager = LocationViewModel.locationManager
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var preferences: Preferences
     
     @State var mapCentered: Bool = true
     
@@ -26,7 +26,7 @@ struct MapWithSpeedView: View {
         ZStack {
             MapView(centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             VStack {
-                if (preferences.storedPreferences[0].largeMetrics) {
+                if (preferences.largeMetrics) {
                     LargeMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, screenWidth: screenWidth)
                 }
                 else {
@@ -38,13 +38,13 @@ struct MapWithSpeedView: View {
                     ZStack {
                         if (mapCentered) {
                             Button (action: {self.toggleMapCentered()}) {
-                                MapSystemImageButton(systemImageString: "lock", buttonColour: (UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                                MapSystemImageButton(systemImageString: "lock", buttonColour: (UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                                     .padding(.bottom, 5)
                                 }
                         }
                         else {
                             Button (action: {self.toggleMapCentered()}) {
-                                MapSystemImageButton(systemImageString: "lock.open", buttonColour: (UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                                MapSystemImageButton(systemImageString: "lock.open", buttonColour: (UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                                     .padding(.bottom, 5)
                                 }
                         }

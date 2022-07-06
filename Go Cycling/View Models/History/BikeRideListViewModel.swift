@@ -13,8 +13,8 @@ class BikeRideListViewModel: ObservableObject {
 
     @Published var bikeRides: [BikeRide] = BikeRide.allBikeRidesSorted()
     @Published var categories: [Category] = BikeRide.allCategories()
-    @Published var currentSortChoice: SortChoice = UserPreferences.storedSortingChoice()
-    @Published var currentName: String = UserPreferences.storedSelectedRoute()
+    @Published var currentSortChoice: SortChoice = Preferences.storedSortingChoice()
+    @Published var currentName: String = Preferences.storedSelectedRoute()
     
     init() {
         let valid = validateCategory(name: currentName)

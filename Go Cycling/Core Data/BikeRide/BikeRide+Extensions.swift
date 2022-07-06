@@ -28,9 +28,8 @@ extension BikeRide {
         let context = PersistenceController.shared.container.viewContext
         let fetchRequest: NSFetchRequest<UserPreferences> = UserPreferences.fetchRequest()
         do {
-            let preferences = try context.fetch(fetchRequest)
             var bikeRides: [BikeRide] = []
-            switch preferences[0].sortingChoiceConverted {
+            switch Preferences.shared.sortingChoiceConverted {
             case .distanceAscending:
                 bikeRides = BikeRide.sortByDistance(list: bikeRidesUnsorted, ascending: true)
             case .distanceDescending:

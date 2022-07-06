@@ -103,3 +103,21 @@ public class Records: NSManagedObject {
         return (totalDistance: totalDistance, totalTime: totalTime, totalRoutes: totalRoutes, unlockedIcons: existingRecords.unlockedIcons, longestDistance: maxDistance, longestTime: maxTime, fastestAvgSpeed: bestAvgSpeed, longestDistanceDate: maxDistanceDate, longestTimeDate: maxTimeDate, fastestAvgSpeedDate: bestAvgSpeedDate)
     }
 }
+
+extension Records {
+    static func getStoredRecords() -> Records? {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<Records> = Records.fetchRequest()
+        do {
+            let items = try context.fetch(fetchRequest)
+            if items.count > 0 {
+                // There are 2 Record items
+                return items[items.count - 1]
+            }
+        }
+        catch let error as NSError {
+            print("Error getting Records: \(error.localizedDescription), \(error.userInfo)")
+        }
+        return nil
+    }
+}

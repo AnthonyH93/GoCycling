@@ -12,7 +12,7 @@ import CoreData
 struct BikeRideListView: View {
     let persistenceController = PersistenceController.shared
     
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var preferences: Preferences
     
     @ObservedObject var bikeRideViewModel = BikeRideListViewModel()
     
@@ -28,7 +28,7 @@ struct BikeRideListView: View {
     @State private var updateCategories = false
     @State private var toBeDeleted: IndexSet?
     @State private var sortChoice: SortChoice = .dateDescending
-    @State private var selectedName: String = UserPreferences.storedSelectedRoute()
+    @State private var selectedName: String = Preferences.storedSelectedRoute()
     
     @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
     
@@ -40,7 +40,7 @@ struct BikeRideListView: View {
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.filterEnabledCheck()) {
+                        if (preferences.namedRoutes && bikeRideViewModel.filterEnabledCheck()) {
                             Button (bikeRideViewModel.getFilterActionSheetTitle()) {
                                 self.sheetToPresent = .filter
                                 self.showingSheet = true
@@ -48,7 +48,7 @@ struct BikeRideListView: View {
                         }
                     }
                     ToolbarItem(placement: .navigationBarLeading) {
-                        if (preferences.storedPreferences[0].namedRoutes && bikeRideViewModel.editEnabledCheck()) {
+                        if (preferences.namedRoutes && bikeRideViewModel.editEnabledCheck()) {
                             Button ("Edit") {
                                 self.sheetToPresent = .edit
                                 self.showingSheet = true
@@ -95,18 +95,7 @@ struct BikeRideListView: View {
                     ])
                 })
                 .onChange(of: bikeRideViewModel.currentSortChoice, perform: { _ in
-                    persistenceController.updateUserPreferences(
-                        existingPreferences: preferences.storedPreferences[0],
-                        unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                        displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                        largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                        sortChoice: bikeRideViewModel.currentSortChoice,
-                        deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                        iconIndex: preferences.storedPreferences[0].iconIndex,
-                        namedRoutes: preferences.storedPreferences[0].namedRoutes,
-                        selectedRoute: preferences.storedPreferences[0].selectedRoute)
+                    preferences.updateStringPreference(preference: CustomizablePreferences.sortingChoice, value: bikeRideViewModel.currentSortChoice.rawValue)
                 })
                 .onChange(of: sortChoice, perform: { value in
                     switch sortChoice {
@@ -128,18 +117,7 @@ struct BikeRideListView: View {
                     bikeRideViewModel.setCurrentName(name: selectedName)
                 })
                 .onChange(of: bikeRideViewModel.currentName, perform: { _ in
-                    persistenceController.updateUserPreferences(
-                        existingPreferences: preferences.storedPreferences[0],
-                        unitsChoice: preferences.storedPreferences[0].metricsChoiceConverted,
-                        displayingMetrics: preferences.storedPreferences[0].displayingMetrics,
-                        colourChoice: preferences.storedPreferences[0].colourChoiceConverted,
-                        largeMetrics: preferences.storedPreferences[0].largeMetrics,
-                        sortChoice: preferences.storedPreferences[0].sortingChoiceConverted,
-                        deletionConfirmation: preferences.storedPreferences[0].deletionConfirmation,
-                        deletionEnabled: preferences.storedPreferences[0].deletionEnabled,
-                        iconIndex: preferences.storedPreferences[0].iconIndex,
-                        namedRoutes: preferences.storedPreferences[0].namedRoutes,
-                        selectedRoute: bikeRideViewModel.currentName)
+                    preferences.updateStringPreference(preference: CustomizablePreferences.selectedRoute, value: bikeRideViewModel.currentName)
                 })
                 .onChange(of: updateCategories, perform: { _ in
                     /* For iOS 15 */
@@ -165,7 +143,7 @@ struct BikeRideListView: View {
     }
     
     func getNavigationBarTitle(name: String) -> String {
-        if (preferences.storedPreferences[0].namedRoutes) {
+        if (preferences.namedRoutes) {
             return (name == "") ? "Cycling History" : name
         }
         else {
@@ -177,7 +155,7 @@ struct BikeRideListView: View {
 struct ListView: View {
     let persistenceController = PersistenceController.shared
     
-    @EnvironmentObject var preferences: PreferencesStorage
+    @EnvironmentObject var preferences: Preferences
     
     @Environment(\.managedObjectContext) private var managedObjectContext
     
@@ -211,16 +189,16 @@ struct ListView: View {
                             HStack {
                                 Text(MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))
                                     .font(.headline)
-                                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                                 Spacer()
                                 Text(MetricsFormatting.formatStartTime(date: bikeRide.cyclingStartTime))
                                     .font(.headline)
-                                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.storedPreferences[0].colourChoiceConverted)))
+                                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                             }
                             HStack {
                                 Text("Distance Cycled")
                                 Spacer()
-                                Text(MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.storedPreferences[0].usingMetric))
+                                Text(MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.usingMetric))
                                     .font(.headline)
                             }
                             HStack {
@@ -232,13 +210,13 @@ struct ListView: View {
                             HStack {
                                 Text("Average Speed")
                                 Spacer()
-                                Text(MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.storedPreferences[0].usingMetric))
+                                Text(MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.usingMetric))
                                     .font(.headline)
                             }
                         }
                     }
                 }
-                .onDelete(perform: preferences.storedPreferences[0].deletionEnabled ?  self.showDeleteAlert : nil)
+                .onDelete(perform: preferences.deletionEnabled ?  self.showDeleteAlert : nil)
                 .onChange(of: shouldBeDeleted, perform: { _ in
                     if (shouldBeDeleted == true) {
                         self.deleteBikeRide(at: self.toBeDeleted!)
@@ -262,12 +240,12 @@ struct ListView: View {
     
     func showDeleteAlert(at indexSet: IndexSet) {
         // Show alert
-        if (preferences.storedPreferences[0].deletionConfirmation && preferences.storedPreferences[0].deletionEnabled) {
+        if (preferences.deletionConfirmation && preferences.deletionEnabled) {
             self.showingDeleteAlert = true
             self.toBeDeleted = indexSet
         }
         // Delete without alert
-        else if (preferences.storedPreferences[0].deletionEnabled) {
+        else if (preferences.deletionEnabled) {
             deleteBikeRide(at: indexSet)
         }
     }
