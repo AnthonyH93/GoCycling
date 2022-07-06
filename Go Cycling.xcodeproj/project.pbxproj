@@ -495,7 +495,7 @@
 			path = UserPreferences;
 			sourceTree = "<group>";
 		};
-		9D76355E262298490026D948 /* Models */ = {
+		9D76355E262298490026D948 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				9D6E5373262CE773008FD7C1 /* ColourChoice.swift */,
@@ -510,7 +510,7 @@
 				9DC758382807A74900BB2953 /* Preferences.swift */,
 				9DC7583A2809506300BB2953 /* CyclingRecords.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		9D8169E2263F84C900DED7F8 /* Resources */ = {
@@ -638,9 +638,9 @@
 				9D1ED54E2643D38D005A97ED /* UIKit */,
 				9D8169E2263F84C900DED7F8 /* Resources */,
 				9D2F48FC26508DF200094575 /* Extensions */,
-				9D76355E262298490026D948 /* Models */,
-				9DAB837A25FEDEC000F5C42E /* View Models */,
-				9DAB836525FED02A00F5C42E /* Views */,
+				9D76355E262298490026D948 /* Model */,
+				9DAB837A25FEDEC000F5C42E /* View Model */,
+				9DAB836525FED02A00F5C42E /* View */,
 				9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */,
 				9DAB832025FECAD400F5C42E /* Info.plist */,
 				9DAB831D25FECAD400F5C42E /* Preview Content */,
@@ -674,7 +674,7 @@
 			path = "Go CyclingUITests";
 			sourceTree = "<group>";
 		};
-		9DAB836525FED02A00F5C42E /* Views */ = {
+		9DAB836525FED02A00F5C42E /* View */ = {
 			isa = PBXGroup;
 			children = (
 				9D6E534D262BAED2008FD7C1 /* Settings */,
@@ -683,17 +683,17 @@
 				9D6E53392623CD36008FD7C1 /* Cycle */,
 				9DAB835D25FECCB000F5C42E /* MainView.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
-		9DAB837A25FEDEC000F5C42E /* View Models */ = {
+		9DAB837A25FEDEC000F5C42E /* View Model */ = {
 			isa = PBXGroup;
 			children = (
 				9D601E5726DEFAC000844CD1 /* History */,
 				9D601E5426DEF6C300844CD1 /* Statistics */,
 				9D6E53412627AE9B008FD7C1 /* Cycle */,
 			);
-			path = "View Models";
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		9DC758352805260A00BB2953 /* Frameworks */ = {
