@@ -127,6 +127,8 @@
 		9D816A422642564E00DED7F8 /* Default-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */; };
 		9D9776E52633B0E70048B504 /* BikeRideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E42633B0E70048B504 /* BikeRideListView.swift */; };
 		9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E92633B4050048B504 /* SingleBikeRideView.swift */; };
+		9DA60D60287558D000072DA2 /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D5F287558D000072DA2 /* ReviewManager.swift */; };
+		9DA60D6228755AF900072DA2 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */; };
 		9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */; };
 		9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAB831925FECAD300F5C42E /* CycleView.swift */; };
 		9DAB831C25FECAD400F5C42E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DAB831B25FECAD400F5C42E /* Assets.xcassets */; };
@@ -299,6 +301,8 @@
 		9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-83.5@2x~ipad.png"; sourceTree = "<group>"; };
 		9D9776E42633B0E70048B504 /* BikeRideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListView.swift; sourceTree = "<group>"; };
 		9D9776E92633B4050048B504 /* SingleBikeRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBikeRideView.swift; sourceTree = "<group>"; };
+		9DA60D5F287558D000072DA2 /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
+		9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		9DAB831425FECAD300F5C42E /* Go Cycling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Cycling.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAB831725FECAD300F5C42E /* GoCyclingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoCyclingApp.swift; sourceTree = "<group>"; };
 		9DAB831925FECAD300F5C42E /* CycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleView.swift; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 				9D2F48F8265075FC00094575 /* ModalViewExtension.swift */,
 				9DF9305026DE03BC00D4EEC5 /* EmojiImageExtension.swift */,
 				9D601E5C26E0992500844CD1 /* DateDistanceExtension.swift */,
+				9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -509,6 +514,7 @@
 				9DF9305226DE06A600D4EEC5 /* Medal.swift */,
 				9DC758382807A74900BB2953 /* Preferences.swift */,
 				9DC7583A2809506300BB2953 /* CyclingRecords.swift */,
+				9DA60D5F287558D000072DA2 /* ReviewManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -980,6 +986,7 @@
 				9D6E5367262CE32F008FD7C1 /* UnitsView.swift in Sources */,
 				9D601E6126E09D9A00844CD1 /* BarChartView.swift in Sources */,
 				9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */,
+				9DA60D6228755AF900072DA2 /* UIApplicationExtension.swift in Sources */,
 				9D6E53492628071B008FD7C1 /* MapWithSpeedView.swift in Sources */,
 				9DF9303B26DB439300D4EEC5 /* Records+CoreDataClass.swift in Sources */,
 				9DAB831825FECAD300F5C42E /* GoCyclingApp.swift in Sources */,
@@ -995,6 +1002,7 @@
 				9DF9305126DE03BC00D4EEC5 /* EmojiImageExtension.swift in Sources */,
 				9D6E538B262CEE0A008FD7C1 /* PersistenceController.swift in Sources */,
 				9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */,
+				9DA60D60287558D000072DA2 /* ReviewManager.swift in Sources */,
 				9DF9304726DCABA400D4EEC5 /* RecordsFormatting.swift in Sources */,
 				9DF9304D26DDFA4E00D4EEC5 /* LockedIconCoverView.swift in Sources */,
 				9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */,

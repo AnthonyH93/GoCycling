@@ -31,6 +31,12 @@ class CyclingChartsViewModel: ObservableObject {
         self.setPastWeekFormattedData()
         self.setPast5WeeksFormattedData()
         self.setPast30WeeksFormattedData()
+        
+        // Launching charts view is a review worthy action
+        ReviewManager.incrementReviewWorthyCount()
+        
+        // Request for review if appropriate
+        ReviewManager.requestReviewIfAppropriate()
     }
     
     // Below are 3 functions to setup the arrays of data for the charts on the statistics tab

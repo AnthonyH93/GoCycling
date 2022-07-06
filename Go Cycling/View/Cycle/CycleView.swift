@@ -105,6 +105,10 @@ struct CycleView: View {
     }
     
     func confirmStop() {
+        // Completing a route is a review worthy event
+        ReviewManager.incrementReviewWorthyCount()
+        // Keep track of whether user has completed a route
+        ReviewManager.completedRoute()
         self.timer.pause()
         showingAlert = true
     }

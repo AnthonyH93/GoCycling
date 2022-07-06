@@ -21,6 +21,12 @@ class BikeRideListViewModel: ObservableObject {
         if (valid == false) {
             currentName = ""
         }
+        
+        // Launching history tab is a review worthy action
+        ReviewManager.incrementReviewWorthyCount()
+        
+        // Request for review if appropriate
+        ReviewManager.requestReviewIfAppropriate()
     }
     
     // This is the default ordering

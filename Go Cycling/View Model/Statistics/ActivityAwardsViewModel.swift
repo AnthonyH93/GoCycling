@@ -69,31 +69,17 @@ class ActivityAwardsViewModel: ObservableObject {
                 }
                 // Single route awards
                 else if (index < 3) {
-//                    if let distance = self.records?.longestCyclingDistance {
-//                        progressFloat = CGFloat(distance/Records.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
-//                        progressValues[index] = progressFloat
-//                    }
-                    // Use initial values if records have not updated yet
-                   // else if let distance = self.initialRecords.longestCyclingDistance {
                     let distance = self.initialRecords.longestCyclingDistance
-                        progressFloat = CGFloat(distance/CyclingRecords.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
-                        progressValues[index] = progressFloat
-                   // }
+                    progressFloat = CGFloat(distance/CyclingRecords.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
+                    progressValues[index] = progressFloat
                     let roundedProgress = round(progressFloat * 10000) / 100.0
                     progressStrings[index] = "\(roundedProgress)% Complete"
                 }
                 // Cummulative route awards
                 else {
-//                    if let distance = self.records?.totalCyclingDistance {
-//                        progressFloat = CGFloat(distance/CyclingRecords.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
-//                        progressValues[index] = progressFloat
-//                    }
-//                    // Use initial values if records have not updated yet
-//                    else if let distance = self.initialRecords.totalCyclingDistance {
                     let distance = self.initialRecords.totalCyclingDistance
-                        progressFloat = CGFloat(distance/CyclingRecords.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
-                        progressValues[index] = progressFloat
-                    //}
+                    progressFloat = CGFloat(distance/CyclingRecords.awardValues[index]) > 1.0 ? 1.0 : CGFloat(distance/Records.awardValues[index])
+                    progressValues[index] = progressFloat
                     let roundedProgress = round(progressFloat * 10000) / 100.0
                     progressStrings[index] = "\(roundedProgress)% Complete"
                 }
@@ -112,6 +98,12 @@ class ActivityAwardsViewModel: ObservableObject {
             print("Updating records")
             self.records = self.initialRecords
         }
+        
+        // Launching statistics tab is a review worthy action
+        ReviewManager.incrementReviewWorthyCount()
+        
+        // Request for review if appropriate
+        ReviewManager.requestReviewIfAppropriate()
     }
     
     func getAwardName(index: Int, usingMetric: Bool) -> String {

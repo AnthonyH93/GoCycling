@@ -34,7 +34,10 @@ struct ChangeAppIconView: View {
                 .navigationBarTitle("Choose your App Icon", displayMode: .inline)
             }
             .onChange(of: preferences.iconIndex) { value in
-
+                
+                // Changing app icon is a review worthy event
+                ReviewManager.incrementReviewWorthyCount()
+                
                 let index = self.iconNames.iconNamesOrdered.firstIndex(of: UIApplication.shared.alternateIconName) ?? 0
 
                 if index != value {
