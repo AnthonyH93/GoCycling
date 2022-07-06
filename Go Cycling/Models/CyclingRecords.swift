@@ -287,10 +287,10 @@ class CyclingRecords: ObservableObject {
     public func updateCyclingRecords(speeds: [CLLocationSpeed?], distance: Double, startTime: Date, time: Double) {
         self.totalCyclingDistance = self.totalCyclingDistance + distance
         self.totalCyclingTime = self.totalCyclingTime + time
-        self.longestCyclingDistance = max(distance, self.longestCyclingDistance)
         self.longestCyclingDistanceDate = distance > self.longestCyclingDistance ? startTime : self.longestCyclingDistanceDate
-        self.longestCyclingTime = max(time, self.longestCyclingTime)
+        self.longestCyclingDistance = max(distance, self.longestCyclingDistance)
         self.longestCyclingTimeDate = time > self.longestCyclingTime ? startTime : self.longestCyclingTimeDate
+        self.longestCyclingTime = max(time, self.longestCyclingTime)
         
         var bestAvgSpeed: Double = self.fastestAverageSpeed
         var bestAvgSpeedDate: Date? = self.fastestAverageSpeedDate
