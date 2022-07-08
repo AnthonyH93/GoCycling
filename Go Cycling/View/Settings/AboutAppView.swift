@@ -11,10 +11,10 @@ struct AboutAppView: View {
     
     let appVersionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     let openSourceURL = NSURL(string: "https://github.com/AnthonyH93/GoCycling")! as URL
-    let privacyPolicyURL = NSURL(string: "https://anthony55hopkins.wixsite.com/gocycling/privacy-policy")! as URL
-    let termsAndConditionsURL = NSURL(string: "https://anthony55hopkins.wixsite.com/gocycling/terms-and-conditions")! as URL
     
     @Environment(\.colorScheme) var colorScheme
+    
+    @State private var isShareSheetPresented: Bool = false
     
     var body: some View {
         HStack {
@@ -31,9 +31,34 @@ struct AboutAppView: View {
                 Image(colorScheme == .dark ? "GitHub-Light" : "GitHub-Dark")
             }
         }
-        Link("View Privacy Policy", destination: privacyPolicyURL)
-        Link("View Terms and Conditions", destination: termsAndConditionsURL)
+        Button(action: {
+            self.isShareSheetPresented = true
+        }) {
+            Text("Share")
+        }
+        .sheet(isPresented: $isShareSheetPresented, onDismiss: {
+        }, content: {
+            ActivityViewController(activityItems: [ReviewManager.getProductURL()])
+        })
+        
+        if let reviewURL = ReviewManager.getWriteReviewURL() {
+            Link("Review Go Cycling", destination: reviewURL)
+        }
     }
+}
+
+struct ActivityViewController: UIViewControllerRepresentable {
+
+    var activityItems: [Any]
+    var applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityViewController>) {}
+
 }
 
 struct AboutApp_Previews: PreviewProvider {

@@ -40,6 +40,9 @@ struct SettingsView: View {
                     Section(header: Text("About the app")) {
                         AboutAppView()
                     }
+                    Section(header: Text("Support")) {
+                        SupportView()
+                    }
                 }
                 .navigationBarTitle(Text("Settings"))
             }
