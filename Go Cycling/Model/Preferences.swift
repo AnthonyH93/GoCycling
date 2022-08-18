@@ -225,36 +225,39 @@ class Preferences: ObservableObject {
     }
     
     static private func syncLocalAndCloud(localToCloud: Bool) {
-        // Sync local to cloud
-        if localToCloud {
-            for (i, k) in keys.enumerated() {
-                switch keyTypes[i] {
-                // Integer
-                case 1:
-                    NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.integer(forKey: k), forKey: k)
-                // String
-                case 2:
-                    NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.string(forKey: k)!, forKey: k)
-                // Bool
-                default:
-                    NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.bool(forKey: k), forKey: k)
+        // Only sync if available
+        if Preferences.iCloudAvailable() {
+            // Sync local to cloud
+            if localToCloud {
+                for (i, k) in keys.enumerated() {
+                    switch keyTypes[i] {
+                    // Integer
+                    case 1:
+                        NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.integer(forKey: k), forKey: k)
+                    // String
+                    case 2:
+                        NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.string(forKey: k)!, forKey: k)
+                    // Bool
+                    default:
+                        NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.bool(forKey: k), forKey: k)
+                    }
                 }
+                NSUbiquitousKeyValueStore.default.synchronize()
             }
-            NSUbiquitousKeyValueStore.default.synchronize()
-        }
-        // Sync cloud to local
-        else {
-            for (i, k) in keys.enumerated() {
-                switch keyTypes[i] {
-                // Integer
-                case 1:
-                    UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.object(forKey: k) as! Int, forKey: k)
-                // String
-                case 2:
-                    UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.string(forKey: k)!, forKey: k)
-                // Bool
-                default:
-                    UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.bool(forKey: k), forKey: k)
+            // Sync cloud to local
+            else {
+                for (i, k) in keys.enumerated() {
+                    switch keyTypes[i] {
+                    // Integer
+                    case 1:
+                        UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.object(forKey: k) as! Int, forKey: k)
+                    // String
+                    case 2:
+                        UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.string(forKey: k)!, forKey: k)
+                    // Bool
+                    default:
+                        UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.bool(forKey: k), forKey: k)
+                    }
                 }
             }
         }
@@ -304,6 +307,9 @@ class Preferences: ObservableObject {
         case .namedRoutes:
             UserDefaults.standard.set(value, forKey: Preferences.keys[7])
             self.namedRoutes = value
+        case .iCloudSync:
+            UserDefaults.standard.set(value, forKey: Preferences.iCloudOnKey)
+            self.iCloudOn = value
         default:
             fatalError("Incorrect parameter for preference")
         }

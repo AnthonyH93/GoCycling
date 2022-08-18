@@ -18,14 +18,22 @@ struct PersistenceController {
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "GoCycling")
         
+        guard let description = container.persistentStoreDescriptions.first else {
+              fatalError("Failed to retrieve a persistent store description.")
+          }
+        
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         // Pin the viewContext to the current generation token and set it to keep itself up to date with local changes.
         container.viewContext.automaticallyMergesChangesFromParent = true
 
         if inMemory {
-            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+            description.url = URL(fileURLWithPath: "/dev/null")
         }
+        
+        if(!Preferences.iCloudAvailable()){
+              description.cloudKitContainerOptions = nil
+          }
 
         container.loadPersistentStores { description, error in
             if let error = error {
