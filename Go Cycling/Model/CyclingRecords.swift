@@ -26,8 +26,6 @@ class CyclingRecords: ObservableObject {
     // Total cycling distance is always changed last as the ActivityAwardsViewModel publishes changes when it changes
     @Published var totalCyclingDistance: Double
     
-    private var iCloudConnection: Bool
-    
     static private let initKey = "didSetupRecords"
     static private let keys = ["totalCyclingTime", "totalCyclingDistance", "unlockedIcons", "longestCyclingDistance", "longestCyclingTime", "fastestAverageSpeed", "fastestAverageSpeedDate", "longestCyclingDistanceDate", "longestCyclingTimeDate", "totalCyclingRoutes"]
     static private let keyTypes = [2, 2, 0, 2, 2, 2, 3, 3, 3, 1] // 0: [Bool], 1: Int, 2: Double, 3: Date
@@ -37,9 +35,7 @@ class CyclingRecords: ObservableObject {
     
     init() {
         // First check if iCloud is available
-        let iCloudStatus = CyclingRecords.iCloudAvailable()
-        
-        self.iCloudConnection = CyclingRecords.iCloudAvailable()
+        let iCloudStatus = Preferences.iCloudAvailable()
         
         // Next check if records have ever been setup
         let status = CyclingRecords.haveCyclingRecordsBeenInitialized()
@@ -111,15 +107,6 @@ class CyclingRecords: ObservableObject {
         self.longestCyclingDistanceDate = UserDefaults.standard.object(forKey: CyclingRecords.keys[7]) as? Date
         self.longestCyclingTimeDate = UserDefaults.standard.object(forKey: CyclingRecords.keys[8]) as? Date
         self.totalCyclingRoutes = UserDefaults.standard.integer(forKey: CyclingRecords.keys[9])
-    }
-    
-    static private func iCloudAvailable() -> Bool {
-        // Check if iCloud is available
-        var iCloudAvailable = false
-        if FileManager.default.ubiquityIdentityToken != nil {
-            iCloudAvailable = true
-        }
-        return iCloudAvailable
     }
     
     // 0: Nothing setup, 1: On device setup, 2: iCloud setup, 3: Both iCloud and on device setup

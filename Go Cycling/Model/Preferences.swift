@@ -38,20 +38,19 @@ class Preferences: ObservableObject {
     @Published var iconIndex: Int
     @Published var namedRoutes: Bool
     @Published var selectedRoute: String
-    
-    private var iCloudConnection: Bool
+    @Published var iCloudOn: Bool
     
     static private let initKey = "didSetupPreferences"
     static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute"]
     // Icon index is a special case since it should only be stored locally
     static private let iconIndexKey = "iconIndex"
+    // iCloud sync setting is also only stored locally
+    static private let iCloudOnKey = "iCloudOn"
     static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2] // 0: Bool, 1: Int, 2: String
     
     init() {
         // First check if iCloud is available
         let iCloudStatus = Preferences.iCloudAvailable()
-        
-        self.iCloudConnection = Preferences.iCloudAvailable()
         
         // Next check if preferences have ever been setup
         let status = Preferences.havePreferencesBeenInitialized()
@@ -98,6 +97,7 @@ class Preferences: ObservableObject {
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
+        self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
         
         // Used to watch for iCloud NSUbiquitousKeyValueStore change events to sync preferences from other devices
         NotificationCenter.default.addObserver(self, selector: #selector(keysDidChangeOnCloud(notification:)),
@@ -159,13 +159,21 @@ class Preferences: ObservableObject {
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
+        self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
     }
     
-    static private func iCloudAvailable() -> Bool {
+    static public func iCloudAvailable() -> Bool {
+        // Set iCloud preference if it doesn't exist
+        if UserDefaults.standard.object(forKey: Preferences.iCloudOnKey) == nil {
+            UserDefaults.standard.set(true, forKey: Preferences.iCloudOnKey)
+        }
         // Check if iCloud is available
         var iCloudAvailable = false
         if FileManager.default.ubiquityIdentityToken != nil {
             iCloudAvailable = true
+        }
+        if !UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey) {
+            iCloudAvailable = false
         }
         return iCloudAvailable
     }
@@ -265,6 +273,9 @@ class Preferences: ObservableObject {
         UserDefaults.standard.set(existingPreferences.selectedRoute, forKey: Preferences.keys[8])
         
         UserDefaults.standard.set(existingPreferences.iconIndex, forKey: Preferences.iconIndexKey)
+        
+        // Default iCloud to ON
+        UserDefaults.standard.set(true, forKey: Preferences.iCloudOnKey)
         
         // Sync to iCloud
         Preferences.syncLocalAndCloud(localToCloud: true)
