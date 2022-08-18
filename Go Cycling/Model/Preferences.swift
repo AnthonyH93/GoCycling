@@ -53,7 +53,17 @@ class Preferences: ObservableObject {
         let iCloudStatus = Preferences.iCloudAvailable()
         
         // Next check if preferences have ever been setup
-        let status = Preferences.havePreferencesBeenInitialized()
+        var status = Preferences.havePreferencesBeenInitialized()
+        
+        // On device only if iCloud is off
+        if !iCloudStatus {
+            if (UserDefaults.standard.object(forKey: Preferences.initKey) == nil) {
+                status = 0
+            }
+            else {
+                status = 1
+            }
+        }
         
         switch status {
         // Nothing is setup
@@ -165,7 +175,7 @@ class Preferences: ObservableObject {
     static public func iCloudAvailable() -> Bool {
         // Set iCloud preference if it doesn't exist
         if UserDefaults.standard.object(forKey: Preferences.iCloudOnKey) == nil {
-            UserDefaults.standard.set(true, forKey: Preferences.iCloudOnKey)
+            UserDefaults.standard.set(false, forKey: Preferences.iCloudOnKey)
         }
         // Check if iCloud is available
         var iCloudAvailable = false

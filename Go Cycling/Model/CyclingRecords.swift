@@ -38,7 +38,17 @@ class CyclingRecords: ObservableObject {
         let iCloudStatus = Preferences.iCloudAvailable()
         
         // Next check if records have ever been setup
-        let status = CyclingRecords.haveCyclingRecordsBeenInitialized()
+        var status = CyclingRecords.haveCyclingRecordsBeenInitialized()
+        
+        // On device only if iCloud is off
+        if !iCloudStatus {
+            if (UserDefaults.standard.object(forKey: CyclingRecords.initKey) == nil) {
+                status = 0
+            }
+            else {
+                status = 1
+            }
+        }
         
         switch status {
         // Nothing is setup

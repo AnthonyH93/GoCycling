@@ -20,7 +20,11 @@ struct PersistenceController {
         
         guard let description = container.persistentStoreDescriptions.first else {
               fatalError("Failed to retrieve a persistent store description.")
-          }
+        }
+        
+        description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+
+        description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
         
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
