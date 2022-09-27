@@ -287,11 +287,10 @@ class Preferences: ObservableObject {
         
         UserDefaults.standard.set(existingPreferences.iconIndex, forKey: Preferences.iconIndexKey)
         
-        // Default iCloud to ON
-        UserDefaults.standard.set(true, forKey: Preferences.iCloudOnKey)
+        // Default iCloud to OFF
+        UserDefaults.standard.set(false, forKey: Preferences.iCloudOnKey)
         
-        // Sync to iCloud
-        Preferences.syncLocalAndCloud(localToCloud: true)
+        UserDefaults.standard.set(true, forKey: Preferences.initKey)
         
         self.writeToClassMembers()
     }
@@ -318,6 +317,13 @@ class Preferences: ObservableObject {
             UserDefaults.standard.set(value, forKey: Preferences.keys[7])
             self.namedRoutes = value
         case .iCloudSync:
+            // Special case for turning on iCloud
+            // Check if iCloud has been setup
+            let status = Preferences.havePreferencesBeenInitialized()
+            if (status == 3 && value) {
+                Preferences.syncLocalAndCloud(localToCloud: false)
+                self.writeToClassMembers()
+            }
             UserDefaults.standard.set(value, forKey: Preferences.iCloudOnKey)
             self.iCloudOn = value
         default:

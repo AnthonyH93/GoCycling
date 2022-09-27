@@ -42,7 +42,7 @@ struct GoCyclingApp: App {
                 .onAppear(perform: {
                     
                     // For first launch with UserPreferences set
-                    if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before") && !UserDefaults.standard.bool(forKey: "didLaunch1.4.0Before")) {
+                    if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before") || !UserDefaults.standard.bool(forKey: "didLaunch1.4.0Before")) {
                         NSUbiquitousKeyValueStore.default.set(true, forKey: "didLaunch1.4.0Before")
                         UserDefaults.standard.set(true, forKey: "didLaunch1.4.0Before")
                         // Migrate existing UserPreferences
