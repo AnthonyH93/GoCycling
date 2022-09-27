@@ -250,6 +250,7 @@ class Preferences: ObservableObject {
                     // Bool
                     default:
                         NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.bool(forKey: k), forKey: k)
+                        print("LOCAL 2 CLOUD \(k) \(UserDefaults.standard.bool(forKey: k))")
                     }
                 }
                 NSUbiquitousKeyValueStore.default.synchronize()
@@ -267,6 +268,7 @@ class Preferences: ObservableObject {
                     // Bool
                     default:
                         UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.bool(forKey: k), forKey: k)
+                        print("CLOUD 2 LOCAL \(k) \(UserDefaults.standard.bool(forKey: k))")
                     }
                 }
             }
@@ -318,14 +320,14 @@ class Preferences: ObservableObject {
             self.namedRoutes = value
         case .iCloudSync:
             // Special case for turning on iCloud
+            UserDefaults.standard.set(value, forKey: Preferences.iCloudOnKey)
+            self.iCloudOn = value
             // Check if iCloud has been setup
             let status = Preferences.havePreferencesBeenInitialized()
             if (status == 3 && value) {
                 Preferences.syncLocalAndCloud(localToCloud: false)
                 self.writeToClassMembers()
             }
-            UserDefaults.standard.set(value, forKey: Preferences.iCloudOnKey)
-            self.iCloudOn = value
         default:
             fatalError("Incorrect parameter for preference")
         }
