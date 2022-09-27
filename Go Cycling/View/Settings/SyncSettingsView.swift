@@ -24,7 +24,7 @@ struct SyncSettingsView: View {
             // Confirmation alert about restarting app due to iCloud setting change
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Restart is Required"),
-                      message: Text("Please restart the application to \(preferences.iCloudOn ? "enable" : "disable") iCloud syncing.")
+                      message: Text("Please restart the application to \(preferences.iCloudOn ? "enable" : "disable") iCloud syncing for cycling routes.")
                         
                 )
             }
