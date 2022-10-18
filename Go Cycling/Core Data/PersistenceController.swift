@@ -13,7 +13,7 @@ struct PersistenceController {
     // A singleton for entire app to use
     static let shared = PersistenceController()
 
-    let container: NSPersistentContainer
+    let container: NSPersistentCloudKitContainer
 
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "GoCycling")
@@ -25,25 +25,27 @@ struct PersistenceController {
         description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
 
         description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
-        
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
-        // Pin the viewContext to the current generation token and set it to keep itself up to date with local changes.
-        container.viewContext.automaticallyMergesChangesFromParent = true
 
+        for description in container.persistentStoreDescriptions {
+            description.setOption(true as NSNumber, forKey:  NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        }
+        
         if inMemory {
             description.url = URL(fileURLWithPath: "/dev/null")
         }
         
         if(!Preferences.iCloudAvailable()){
               description.cloudKitContainerOptions = nil
-          }
+        }
 
         container.loadPersistentStores { description, error in
             if let error = error {
                 fatalError("Error: \(error.localizedDescription)")
             }
         }
+        
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
     func save() {
