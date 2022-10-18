@@ -17,6 +17,7 @@ Go Cycling makes use of many of Apple's frameworks and API's including:
 * Core Location for location data
 * MapKit for embedded maps throughout the app
 * Core Data for persistent data storage of cycling routes and user preferences
+* CloudKit for iCloud storage and synchronization of routes, records and preferences
 * Combine for location update event processing
 
 ## System Requirements
@@ -81,8 +82,9 @@ Cycling Statistics Comparison View | Cycling Statistics Past Week Chart | Cyclin
 ### Settings Feautures Throughout the App
 * Customize the app theme and app icon to fit your preferences
 * Set your preferred units and customize the metrics view on the Cycle tab
+* iCloud synchronization can be turned on or off
 * Option to reset all settings back to the defaults and delete all stored cycling routes
-* Selected sort order in the History tab will persistent through future usage
+* Selected sort order in the History tab will persist through future usage
 
 ### Device Screenshots of Settings Features
 General Settings View | General Settings View Dark | Changing App Icon to Default | Setting Cycling History Sort Order
@@ -92,8 +94,6 @@ General Settings View | General Settings View Dark | Changing App Icon to Defaul
 ## Future Development
 
 This app has been an immense amount of fun to develop and I have greatly enjoyed using SwiftUI! I am planning on continuing to add features as time permits and some ideas that are on my roadmap are listed below:
-* iCloud integration with CloudKit
-  * This would allow data to be synced between devices and recovered when the user gets a new device
 * Calorie tracking within the app as an optional metric
 * Route generator feature where a user could enter the distance they want to ride and the app could suggest a route for them
 
