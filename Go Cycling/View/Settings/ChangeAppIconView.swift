@@ -19,7 +19,7 @@ struct ChangeAppIconView: View {
     var body: some View {
         if (self.iconNames.iconNames.count > 3) {
             Picker("App Icon", selection: $preferences.iconIndex) {
-                ForEach (0..<self.iconNames.iconNamesOrdered.count) { index in
+                ForEach (0..<self.iconNames.iconNamesOrdered.count, id: \.self) { index in
                     if (index < 10 || records.unlockedIcons[iconNames.getCorrectIndex(index: index)]) {
                         HStack {
                             Image(self.iconNames.iconNamesOrdered[index] ?? "Default")

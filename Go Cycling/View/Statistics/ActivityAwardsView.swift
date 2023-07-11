@@ -17,7 +17,7 @@ struct ActivityAwardsView: View {
     var body: some View {
         Section (header: Text(RecordsFormatting.headerStrings[2]), footer: Text(RecordsFormatting.footerStrings[1])) {
             VStack {
-                ForEach (0..<Records.awardValues.count) { index in
+                ForEach (0..<Records.awardValues.count, id: \.self) { index in
                     SingleActivityAwardView(progress: activityAwardsViewModel.progressValues[index], iconName: activityAwardsViewModel.getAwardName(index: index, usingMetric: preferences.usingMetric), progressString: activityAwardsViewModel.progressStrings[index], medal: activityAwardsViewModel.medalOrder[index])
                 }
             }

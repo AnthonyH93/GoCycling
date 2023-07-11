@@ -79,7 +79,7 @@ struct RouteNameModalView: View {
             case .existing:
                 if (routeNamingViewModel.routeNames.count > 0) {
                     List {
-                        ForEach(0 ..< routeNamingViewModel.routeNames.count) { index in
+                        ForEach(0 ..< routeNamingViewModel.routeNames.count, id: \.self) { index in
                         Button(action: {
                             self.selectedNameIndex = index
                         }) {
