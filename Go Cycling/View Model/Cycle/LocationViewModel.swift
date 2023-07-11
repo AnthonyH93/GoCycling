@@ -24,11 +24,12 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var cyclingAltitudes: [CLLocationDistance?] = []
     @Published var cyclingDistances: [CLLocationDistance?] = []
     @Published var cyclingTotalDistance: CLLocationDistance = 0.0
+    @Published var cyclingDataPointCount: Int16 = 0
 
     override init() {
         super.init()
         locationManager.delegate = self
-        locationManager.distanceFilter = 10
+        locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
@@ -57,18 +58,27 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         lastLocation = location
-        cyclingLocations.append(lastLocation)
         cyclingSpeed = location.speed
         cyclingAltitude = location.altitude
-        cyclingSpeeds.append(cyclingSpeed)
-        cyclingAltitudes.append(cyclingAltitude)
         
-        // Add location to array
         let locationsCount = cyclingLocations.count
-        if (locationsCount > 1) {
-            let newDistanceInMeters = lastLocation?.distance(from: (cyclingLocations[locationsCount - 2] ?? lastLocation)!)
-            cyclingDistances.append(newDistanceInMeters)
-            cyclingTotalDistance += newDistanceInMeters ?? 0.0
+        
+        // Only add the point if enough have been processed
+        if (cyclingDataPointCount < 3 && locationsCount > 1) {
+            cyclingDataPointCount += 1
+        }
+        else {
+            cyclingDataPointCount = 0
+            cyclingLocations.append(lastLocation)
+            cyclingSpeeds.append(cyclingSpeed)
+            cyclingAltitudes.append(cyclingAltitude)
+            
+            // Add location to array
+            if (locationsCount > 1) {
+                let newDistanceInMeters = lastLocation?.distance(from: (cyclingLocations[locationsCount - 2] ?? lastLocation)!)
+                cyclingDistances.append(newDistanceInMeters)
+                cyclingTotalDistance += newDistanceInMeters ?? 0.0
+            }
         }
     }
     
