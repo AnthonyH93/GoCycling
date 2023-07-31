@@ -61,7 +61,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingSpeed = location.speed
         cyclingAltitude = location.altitude
         
-        let locationsCount = cyclingLocations.count
+        var locationsCount = cyclingLocations.count
         
         // Only add the point if enough have been processed
         if (cyclingDataPointCount < 3 && locationsCount > 1) {
@@ -72,6 +72,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             cyclingLocations.append(lastLocation)
             cyclingSpeeds.append(cyclingSpeed)
             cyclingAltitudes.append(cyclingAltitude)
+            
+            locationsCount += 1
             
             // Add location to array
             if (locationsCount > 1) {
