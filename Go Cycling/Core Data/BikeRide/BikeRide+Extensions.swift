@@ -25,30 +25,22 @@ extension BikeRide {
     
     static func allBikeRidesSorted() -> [BikeRide] {
         let bikeRidesUnsorted = allBikeRides()
-        let context = PersistenceController.shared.container.viewContext
-        let fetchRequest: NSFetchRequest<UserPreferences> = UserPreferences.fetchRequest()
-        do {
-            var bikeRides: [BikeRide] = []
-            switch Preferences.shared.sortingChoiceConverted {
-            case .distanceAscending:
-                bikeRides = BikeRide.sortByDistance(list: bikeRidesUnsorted, ascending: true)
-            case .distanceDescending:
-                bikeRides = BikeRide.sortByDistance(list: bikeRidesUnsorted, ascending: false)
-            case .dateAscending:
-                bikeRides = BikeRide.sortByDate(list: bikeRidesUnsorted, ascending: true)
-            case .dateDescending:
-                bikeRides = BikeRide.sortByDate(list: bikeRidesUnsorted, ascending: false)
-            case .timeAscending:
-                bikeRides = BikeRide.sortByTime(list: bikeRidesUnsorted, ascending: true)
-            case .timeDescending:
-                bikeRides = BikeRide.sortByTime(list: bikeRidesUnsorted, ascending: false)
-            }
-            return bikeRides
+        var bikeRides: [BikeRide] = []
+        switch Preferences.shared.sortingChoiceConverted {
+        case .distanceAscending:
+            bikeRides = BikeRide.sortByDistance(list: bikeRidesUnsorted, ascending: true)
+        case .distanceDescending:
+            bikeRides = BikeRide.sortByDistance(list: bikeRidesUnsorted, ascending: false)
+        case .dateAscending:
+            bikeRides = BikeRide.sortByDate(list: bikeRidesUnsorted, ascending: true)
+        case .dateDescending:
+            bikeRides = BikeRide.sortByDate(list: bikeRidesUnsorted, ascending: false)
+        case .timeAscending:
+            bikeRides = BikeRide.sortByTime(list: bikeRidesUnsorted, ascending: true)
+        case .timeDescending:
+            bikeRides = BikeRide.sortByTime(list: bikeRidesUnsorted, ascending: false)
         }
-        catch let error as NSError {
-            print("Error getting BikeRides: \(error.localizedDescription), \(error.userInfo)")
-        }
-        return [BikeRide]()
+        return bikeRides
     }
     
     static func allRouteNames() -> [String] {

@@ -30,7 +30,7 @@ struct BikeRideFilterSheetView: View {
                 .padding()
             if (self.categories.count > 0) {
                 List {
-                    ForEach(0 ..< self.categories.count) { index in
+                    ForEach(0 ..< self.categories.count, id: \.self) { index in
                         HStack {
                             Button (self.categories[index].name) {
                                 self.selectedName = index == 0 ? "" : self.categories[index].name

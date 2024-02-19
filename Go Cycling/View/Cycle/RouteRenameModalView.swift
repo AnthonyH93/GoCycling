@@ -47,7 +47,7 @@ struct RouteRenameModalView: View {
                 .padding()
             if (routeNamingViewModel.routeNames.count > 0) {
                 List {
-                    ForEach(0 ..< self.routeNamingViewModel.routeNames.count) { index in
+                    ForEach(0 ..< self.routeNamingViewModel.routeNames.count, id: \.self) { index in
                     Button(action: {
                         self.selectedNameIndex = index
                         self.text = ""
