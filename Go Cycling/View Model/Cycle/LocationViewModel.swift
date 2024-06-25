@@ -81,13 +81,17 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         let messageIfAllowedWhileInUse =
         """
         Go Cycling requires your location to be set to "Always" to function with the app closed.
+        
         Please visit your app settings and verify that location access is allowed.
+        
         If you plan to leave your device screen on while cycling then your current location access will work.
         """
         let messageIfNotAllowed =
         """
         Go Cycling requires location permissions to track your cycling routes.
+        
         Please visit your app settings and verify that location access is allowed.
+        
         All of your location data will be stored solely on your device and will never be shared with anyone.
         """
         
