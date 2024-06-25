@@ -16,8 +16,8 @@ struct CyclingView: View {
     var body: some View {
         Toggle("Disable Auto-Lock", isOn: $preferences.autoLockDisabled)
             .onChange(of: preferences.autoLockDisabled) { value in
-                UIApplication.shared.isIdleTimerDisabled = !value
-                preferences.updateBoolPreference(preference: CustomizablePreferences.autoLockDisabled, value: !value)
+                UIApplication.shared.isIdleTimerDisabled = value
+                preferences.updateBoolPreference(preference: CustomizablePreferences.autoLockDisabled, value: value)
             }
     }
 }

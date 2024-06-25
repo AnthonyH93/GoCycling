@@ -326,7 +326,7 @@ class Preferences: ObservableObject {
             UserDefaults.standard.set(value, forKey: Preferences.keys[7])
             self.namedRoutes = value
         case .autoLockDisabled:
-            UserDefaults.standard.set(value, forKey: Preferences.keys[8])
+            UserDefaults.standard.set(value, forKey: Preferences.keys[9])
             self.autoLockDisabled = value
         case .iCloudSync:
             // Special case for turning on iCloud
