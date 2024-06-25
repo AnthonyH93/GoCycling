@@ -29,6 +29,10 @@ struct SettingsView: View {
                         UnitsView()
                     }
                     .disabled(cyclingStatus.isCycling)
+                    Section(header: Text("Cycling")) {
+                        CyclingView()
+                    }
+                    .disabled(cyclingStatus.isCycling)
                     Section(header: Text("Cycling History")) {
                         CyclingHistorySettingsView()
                     }
