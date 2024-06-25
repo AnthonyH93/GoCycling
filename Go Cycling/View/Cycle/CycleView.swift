@@ -18,12 +18,25 @@ struct CycleView: View {
     @State private var timeCycling = 0.0
     @State private var showingRouteNamingPopover = false
     
+    @StateObject var locationManager = LocationViewModel.locationManager
+    
     @EnvironmentObject var preferences: Preferences
     
     var body: some View {
         GeometryReader { (geometry) in
             VStack {
                 MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling, screenWidth: geometry.size.width)
+                // Alert about visiting settings if location access is not allowed
+                .alert(isPresented: $locationManager.showLocationSettingsAlert) {
+                    Alert(title: Text("Location settings may not be correct"),
+                          message: Text(locationManager.locationSettingsAlertMessage),
+                          primaryButton: .default(Text("Open Settings")) {
+                            // Open Settings app
+                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                          },
+                          secondaryButton: .cancel(Text("Ignore"))
+                    )
+                }
                 Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                     .font(.custom("Avenir", size: 40))
                 Spacer()
@@ -65,24 +78,24 @@ struct CycleView: View {
                         }
                     }
                 }
+                // Confirmation alert about ending the current route
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Are you sure that you want to end the current route?"),
+                          message: Text("Please confirm that you are ready to end the current route."),
+                          primaryButton: .destructive(Text("Stop")) {
+                            self.timeCycling = timer.totalAccumulatedTime
+                            self.timer.stop()
+                            cyclingStatus.stoppedCycling()
+                            
+                            // Present route naming popover if necessary
+                            if (preferences.namedRoutes) {
+                                self.showingRouteNamingPopover = true
+                            }
+                          },
+                          secondaryButton: .cancel()
+                    )
+                }
                 Spacer()
-            }
-            // Confirmation alert about ending the current route
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Are you sure that you want to end the current route?"),
-                      message: Text("Please confirm that you are ready to end the current route."),
-                      primaryButton: .destructive(Text("Stop")) {
-                        self.timeCycling = timer.totalAccumulatedTime
-                        self.timer.stop()
-                        cyclingStatus.stoppedCycling()
-                        
-                        // Present route naming popover if necessary
-                        if (preferences.namedRoutes) {
-                            self.showingRouteNamingPopover = true
-                        }
-                      },
-                      secondaryButton: .cancel()
-                )
             }
             .sheet(isPresented: $showingRouteNamingPopover) {
                 RouteNameModalView(showEditModal: $showingRouteNamingPopover, bikeRideToEdit: nil)
