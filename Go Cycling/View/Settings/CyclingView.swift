@@ -14,10 +14,10 @@ struct CyclingView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     var body: some View {
-        Toggle("Disable Auto-Lock", isOn: $preferences.deletionConfirmation)
-            .onChange(of: preferences.deletionConfirmation) { value in
+        Toggle("Disable Auto-Lock", isOn: $preferences.autoLockDisabled)
+            .onChange(of: preferences.autoLockDisabled) { value in
                 UIApplication.shared.isIdleTimerDisabled = !value
-                preferences.updateBoolPreference(preference: CustomizablePreferences.autoLockEnabled, value: !value)
+                preferences.updateBoolPreference(preference: CustomizablePreferences.autoLockDisabled, value: !value)
             }
     }
 }

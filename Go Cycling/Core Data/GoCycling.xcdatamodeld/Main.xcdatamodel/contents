@@ -23,7 +23,7 @@
         <attribute name="unlockedIcons" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="Bool"/>
     </entity>
     <entity name="UserPreferences" representedClassName="UserPreferences" syncable="YES">
-        <attribute name="autoLockEnabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="autoLockDisabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="colourChoice" optional="YES" attributeType="String"/>
         <attribute name="deletionConfirmation" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="deletionEnabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

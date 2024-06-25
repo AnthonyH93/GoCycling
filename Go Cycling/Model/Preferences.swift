@@ -20,7 +20,7 @@ enum CustomizablePreferences {
     case namedRoutes
     case selectedRoute
     case iCloudSync
-    case autoLockEnabled
+    case autoLockDisabled
 }
 
 // Class to represent the preferences of a user
@@ -40,10 +40,10 @@ class Preferences: ObservableObject {
     @Published var namedRoutes: Bool
     @Published var selectedRoute: String
     @Published var iCloudOn: Bool
-    @Published var autoLockEnabled: Bool
+    @Published var autoLockDisabled: Bool
     
     static private let initKey = "didSetupPreferences"
-    static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute", "autoLockEnabled"]
+    static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute", "autoLockDisabled"]
     // Icon index is a special case since it should only be stored locally
     static private let iconIndexKey = "iconIndex"
     // iCloud sync setting is also only stored locally
@@ -107,7 +107,7 @@ class Preferences: ObservableObject {
         self.deletionEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[6])
         self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[7])
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
-        self.autoLockEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
+        self.autoLockDisabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
         
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
         self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
@@ -170,7 +170,7 @@ class Preferences: ObservableObject {
         self.deletionEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[6])
         self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[7])
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
-        self.autoLockEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
+        self.autoLockDisabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
         
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
         self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
@@ -220,7 +220,7 @@ class Preferences: ObservableObject {
             NSUbiquitousKeyValueStore.default.set(true, forKey: keys[6])
             NSUbiquitousKeyValueStore.default.set(true, forKey: keys[7])
             NSUbiquitousKeyValueStore.default.set("", forKey: keys[8])
-            NSUbiquitousKeyValueStore.default.set(true, forKey: keys[9])
+            NSUbiquitousKeyValueStore.default.set(false, forKey: keys[9])
         }
         // Use UserDefaults for local storage
         else {
@@ -233,7 +233,7 @@ class Preferences: ObservableObject {
             UserDefaults.standard.set(true, forKey: keys[6])
             UserDefaults.standard.set(true, forKey: keys[7])
             UserDefaults.standard.set("", forKey: keys[8])
-            UserDefaults.standard.set(true, forKey: keys[9])
+            UserDefaults.standard.set(false, forKey: keys[9])
         }
         
         // Store iconIndex locally in either case
@@ -292,7 +292,7 @@ class Preferences: ObservableObject {
         UserDefaults.standard.set(existingPreferences.deletionEnabled, forKey: Preferences.keys[6])
         UserDefaults.standard.set(existingPreferences.namedRoutes, forKey: Preferences.keys[7])
         UserDefaults.standard.set(existingPreferences.selectedRoute, forKey: Preferences.keys[8])
-        UserDefaults.standard.set(existingPreferences.autoLockEnabled, forKey: Preferences.keys[9])
+        UserDefaults.standard.set(existingPreferences.autoLockDisabled, forKey: Preferences.keys[9])
         
         UserDefaults.standard.set(existingPreferences.iconIndex, forKey: Preferences.iconIndexKey)
         
@@ -325,9 +325,9 @@ class Preferences: ObservableObject {
         case .namedRoutes:
             UserDefaults.standard.set(value, forKey: Preferences.keys[7])
             self.namedRoutes = value
-        case .autoLockEnabled:
+        case .autoLockDisabled:
             UserDefaults.standard.set(value, forKey: Preferences.keys[8])
-            self.autoLockEnabled = value
+            self.autoLockDisabled = value
         case .iCloudSync:
             // Special case for turning on iCloud
             UserDefaults.standard.set(value, forKey: Preferences.iCloudOnKey)
