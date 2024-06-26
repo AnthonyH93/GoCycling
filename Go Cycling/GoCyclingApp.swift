@@ -29,11 +29,6 @@ struct GoCyclingApp: App {
         let managedObjectContext = persistenceController.container.viewContext
         let bikeRidesStorage = BikeRideStorage(managedObjectContext: managedObjectContext)
         self._bikeRides = StateObject(wrappedValue: bikeRidesStorage)
-        
-        // Disable auto lock if that setting is enabled
-        if (preferences.autoLockDisabled) {
-            UIApplication.shared.isIdleTimerDisabled = true
-        }
     }
 
     var body: some Scene {
@@ -65,6 +60,11 @@ struct GoCyclingApp: App {
                         if (!NSUbiquitousKeyValueStore.default.bool(forKey: "didLaunch1.4.0Before")) {
                             NSUbiquitousKeyValueStore.default.set(true, forKey: "didLaunch1.4.0Before")
                         }
+                    }
+                    
+                    // Disable auto lock if that setting is enabled
+                    if (preferences.autoLockDisabled) {
+                        UIApplication.shared.isIdleTimerDisabled = true
                     }
                 })
         }
