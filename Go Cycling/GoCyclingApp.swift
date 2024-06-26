@@ -61,6 +61,11 @@ struct GoCyclingApp: App {
                             NSUbiquitousKeyValueStore.default.set(true, forKey: "didLaunch1.4.0Before")
                         }
                     }
+                    
+                    // Disable auto lock if that setting is enabled
+                    if (preferences.autoLockDisabled) {
+                        UIApplication.shared.isIdleTimerDisabled = true
+                    }
                 })
         }
         .onChange(of: scenePhase) { _ in

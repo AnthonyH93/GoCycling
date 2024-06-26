@@ -33,6 +33,10 @@ struct SettingsView: View {
                         CyclingHistorySettingsView()
                     }
                     .disabled(cyclingStatus.isCycling)
+                    Section(header: Text("Cycling")) {
+                        CyclingView()
+                    }
+                    .disabled(cyclingStatus.isCycling)
                     Section(header: Text("Sync")) {
                         SyncSettingsView()
                     }

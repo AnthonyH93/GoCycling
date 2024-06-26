@@ -24,6 +24,10 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var cyclingAltitudes: [CLLocationDistance?] = []
     @Published var cyclingDistances: [CLLocationDistance?] = []
     @Published var cyclingTotalDistance: CLLocationDistance = 0.0
+    
+    // A boolean for whether the location alert should be displayed
+    @Published var showLocationSettingsAlert = false
+    @Published var locationSettingsAlertMessage = ""
 
     override init() {
         super.init()
@@ -72,7 +76,39 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
+    // Used to determine whether to display a message to the user to update their location settings
+    func determineLocationSettingsAlertSetup(status: CLAuthorizationStatus) -> String {
+        let messageIfAllowedWhileInUse =
+        """
+        Go Cycling requires your location to be set to "Always" to function while the app is not on the screen.
+        
+        Please visit your app settings and verify that location access is allowed.
+        
+        If you plan to leave your device screen on while cycling then your current location access will work.
+        """
+        let messageIfNotAllowed =
+        """
+        Go Cycling requires location permissions to track your cycling routes.
+        
+        Please visit your app settings and verify that location access is allowed.
+        
+        All of your location data will be stored solely on your device and will never be shared with anyone.
+        """
+        
+        switch status {
+            case .authorizedAlways: return ""
+            case .authorizedWhenInUse: return messageIfAllowedWhileInUse
+            default: return messageIfNotAllowed
+        }
+    }
+    
     func startedCycling() {
+        // Check what the location settings currently are and send an alert if necessary
+        locationSettingsAlertMessage = determineLocationSettingsAlertSetup(status: locationStatus ?? .notDetermined)
+        if (locationSettingsAlertMessage != "") {
+            showLocationSettingsAlert = true
+        }
+        
         // Setup background location checking if authorized
         if locationStatus == .authorizedAlways {
             locationManager.pausesLocationUpdatesAutomatically = false

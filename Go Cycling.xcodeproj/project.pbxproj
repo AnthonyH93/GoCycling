@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -147,6 +147,7 @@
 		9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21EC263638F200506FA5 /* UnitsChoice.swift */; };
 		9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */; };
 		9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */; };
+		9DD9AD9B2B833D8C00307945 /* CyclingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD9AD9A2B833D8C00307945 /* CyclingView.swift */; };
 		9DEAD6B6262D423E00392D88 /* AboutAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6B5262D423E00392D88 /* AboutAppView.swift */; };
 		9DEAD6BE262FBFF900392D88 /* MapSystemImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6BD262FBFF900392D88 /* MapSystemImageButton.swift */; };
 		9DEAD6C4263257A500392D88 /* BikeRide+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6C2263257A500392D88 /* BikeRide+CoreDataClass.swift */; };
@@ -330,6 +331,7 @@
 		9DCD21EC263638F200506FA5 /* UnitsChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsChoice.swift; sourceTree = "<group>"; };
 		9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListViewModel.swift; sourceTree = "<group>"; };
 		9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+Extensions.swift"; sourceTree = "<group>"; };
+		9DD9AD9A2B833D8C00307945 /* CyclingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingView.swift; sourceTree = "<group>"; };
 		9DEAD6B5262D423E00392D88 /* AboutAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppView.swift; sourceTree = "<group>"; };
 		9DEAD6BD262FBFF900392D88 /* MapSystemImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSystemImageButton.swift; sourceTree = "<group>"; };
 		9DEAD6C2263257A500392D88 /* BikeRide+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				9D1ED54F26448F4F005A97ED /* CyclingHistorySettingsView.swift */,
 				9DA60D632875617600072DA2 /* SupportView.swift */,
 				9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */,
+				9DD9AD9A2B833D8C00307945 /* CyclingView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -985,6 +988,7 @@
 				9DF9304B26DDE81900D4EEC5 /* ActivityAwardsView.swift in Sources */,
 				9DF9303C26DB439300D4EEC5 /* Records+CoreDataProperties.swift in Sources */,
 				9D62F4E52635FD6600E28991 /* SmallMetricsView.swift in Sources */,
+				9DD9AD9B2B833D8C00307945 /* CyclingView.swift in Sources */,
 				9DA60D642875617600072DA2 /* SupportView.swift in Sources */,
 				9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */,
 				9DF9304F26DDFAC400D4EEC5 /* SingleActivityAwardView.swift in Sources */,
@@ -1184,7 +1188,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1209,7 +1213,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
