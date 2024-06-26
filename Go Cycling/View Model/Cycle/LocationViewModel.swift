@@ -80,7 +80,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func determineLocationSettingsAlertSetup(status: CLAuthorizationStatus) -> String {
         let messageIfAllowedWhileInUse =
         """
-        Go Cycling requires your location to be set to "Always" to function with the app closed.
+        Go Cycling requires your location to be set to "Always" to function while the app is not on the screen.
         
         Please visit your app settings and verify that location access is allowed.
         
@@ -98,9 +98,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         switch status {
             case .authorizedAlways: return ""
             case .authorizedWhenInUse: return messageIfAllowedWhileInUse
-            case .restricted: return messageIfNotAllowed
-            case .denied: return messageIfNotAllowed
-            default: return ""
+            default: return messageIfNotAllowed
         }
     }
     
