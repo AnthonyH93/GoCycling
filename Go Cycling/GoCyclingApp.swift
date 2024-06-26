@@ -29,6 +29,11 @@ struct GoCyclingApp: App {
         let managedObjectContext = persistenceController.container.viewContext
         let bikeRidesStorage = BikeRideStorage(managedObjectContext: managedObjectContext)
         self._bikeRides = StateObject(wrappedValue: bikeRidesStorage)
+        
+        // Disable auto lock if that setting is enabled
+        if (preferences.autoLockDisabled) {
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
     }
 
     var body: some Scene {
