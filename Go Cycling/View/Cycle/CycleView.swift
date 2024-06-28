@@ -111,6 +111,8 @@ struct CycleView: View {
     }
     
     func startCycling() {
+        // Send an alert about location settings if it is necessary
+        locationManager.setLocationAlertStatus()
         cyclingStatus.startedCycling()
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0

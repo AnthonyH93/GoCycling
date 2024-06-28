@@ -120,9 +120,6 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func startedCycling() {
-        // Check what the location settings currently are and send an alert if necessary
-        setLocationAlertStatus()
-        
         // Setup background location checking if authorized
         if locationStatus == .authorizedAlways {
             locationManager.pausesLocationUpdatesAutomatically = false
