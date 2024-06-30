@@ -31,6 +31,8 @@ struct CycleView: View {
                     Alert(title: Text("Location settings may not be correct"),
                           message: Text(locationManager.locationSettingsAlertMessage),
                           primaryButton: .default(Text("Open Settings")) {
+                            // Pause the current cycling session
+                            self.timer.pause()
                             // Open Settings app
                             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
                           },
@@ -111,6 +113,8 @@ struct CycleView: View {
     }
     
     func startCycling() {
+        // Send an alert about location settings if it is necessary
+        locationManager.setLocationAlertStatus()
         cyclingStatus.startedCycling()
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0

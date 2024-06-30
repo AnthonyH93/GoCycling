@@ -37,6 +37,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+        // Get the initial location settings alert message
+        setLocationAlertMessage()
     }
     
     var statusString: String {
@@ -56,6 +58,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationStatus = status
+        // Update the location settings alert message each time the user changes the authorization status
+        setLocationAlertMessage()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -86,6 +90,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         If you plan to leave your device screen on while cycling then your current location access will work.
         """
+        
         let messageIfNotAllowed =
         """
         Go Cycling requires location permissions to track your cycling routes.
@@ -102,13 +107,19 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    func startedCycling() {
-        // Check what the location settings currently are and send an alert if necessary
+    // Used to keep the alert message up to date as the authorization status changes
+    func setLocationAlertMessage() {
         locationSettingsAlertMessage = determineLocationSettingsAlertSetup(status: locationStatus ?? .notDetermined)
+    }
+    
+    // Used to decide whether to show a location settings alert when the user starts a session
+    func setLocationAlertStatus() {
         if (locationSettingsAlertMessage != "") {
             showLocationSettingsAlert = true
         }
-        
+    }
+    
+    func startedCycling() {
         // Setup background location checking if authorized
         if locationStatus == .authorizedAlways {
             locationManager.pausesLocationUpdatesAutomatically = false
