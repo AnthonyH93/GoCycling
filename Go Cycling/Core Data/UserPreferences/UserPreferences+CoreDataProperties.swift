@@ -27,6 +27,7 @@ extension UserPreferences {
     @NSManaged public var namedRoutes: Bool
     @NSManaged public var selectedRoute: String
     @NSManaged public var autoLockDisabled: Bool
+    @NSManaged public var healthSyncEnabled: Bool
         
     var colourChoiceConverted: ColourChoice {
         set {
