@@ -28,6 +28,12 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     // A boolean for whether the location alert should be displayed
     @Published var showLocationSettingsAlert = false
     @Published var locationSettingsAlertMessage = ""
+    
+    // Need access to health kit manager to update cycling distance
+    var healthKitManager = HealthKitManager.healthKitManager
+    
+    // Track time stamps to update health kit
+    var lastHealthLocationTime = Date()
 
     override init() {
         super.init()
@@ -70,6 +76,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingAltitude = location.altitude
         cyclingSpeeds.append(cyclingSpeed)
         cyclingAltitudes.append(cyclingAltitude)
+        lastHealthLocationTime = Date()
         
         // Add location to array
         let locationsCount = cyclingLocations.count
@@ -77,6 +84,10 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             let newDistanceInMeters = lastLocation?.distance(from: (cyclingLocations[locationsCount - 2] ?? lastLocation)!)
             cyclingDistances.append(newDistanceInMeters)
             cyclingTotalDistance += newDistanceInMeters ?? 0.0
+            
+            // Update health kit data store
+            healthKitManager.writeCyclingDistance(startDate: lastHealthLocationTime, distanceToAdd: newDistanceInMeters ?? 0.0)
+            lastHealthLocationTime = Date()
         }
     }
     
