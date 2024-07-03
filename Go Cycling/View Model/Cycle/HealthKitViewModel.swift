@@ -16,9 +16,9 @@ class HealthKitManager: ObservableObject {
     
     var healthStore = HKHealthStore()
     
-    init() {
-        requestAuthorization()
-    }
+//    init() {
+//        requestAuthorization()
+//    }
     
     func requestAuthorization() {
         // Set the types of data we would like to write

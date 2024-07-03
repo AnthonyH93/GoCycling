@@ -15,6 +15,9 @@ struct SyncSettingsView: View {
     
     @State private var showingAlert = false
     
+    // Need to show the Health app authorization if that setting is toggled
+    @StateObject var healthKitManager = HealthKitManager.healthKitManager
+    
     var body: some View {
         // In iOS 16+ forms can have labels attached to content
         if #available(iOS 16.0, *) {
@@ -41,6 +44,9 @@ struct SyncSettingsView: View {
                 Toggle("", isOn: $preferences.healthSyncEnabled)
                     .onChange(of: preferences.healthSyncEnabled) { value in
                         preferences.updateBoolPreference(preference: CustomizablePreferences.healthSyncEnabled, value: value)
+                        if value {
+                            healthKitManager.requestAuthorization()
+                        }
                     }
             } label: {
                 Label("Health", systemImage: "heart")
@@ -63,6 +69,9 @@ struct SyncSettingsView: View {
             Toggle("Health Sync", isOn: $preferences.healthSyncEnabled)
                 .onChange(of: preferences.healthSyncEnabled) { value in
                     preferences.updateBoolPreference(preference: CustomizablePreferences.healthSyncEnabled, value: value)
+                    if value {
+                        healthKitManager.requestAuthorization()
+                    }
                 }
         }
     }
