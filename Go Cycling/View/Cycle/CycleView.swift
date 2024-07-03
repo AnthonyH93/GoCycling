@@ -20,7 +20,7 @@ struct CycleView: View {
     
     @StateObject var locationManager = LocationViewModel.locationManager
     
-    @StateObject var healthKitManager = HealthKitManager.healthKitManager
+//    @StateObject var healthKitManager = HealthKitManager.healthKitManager
     
     @EnvironmentObject var preferences: Preferences
     
