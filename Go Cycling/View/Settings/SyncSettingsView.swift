@@ -38,10 +38,9 @@ struct SyncSettingsView: View {
             }
             // HealthKit sync setting
             LabeledContent {
-                Toggle("", isOn: $preferences.iCloudOn)
-                    .onChange(of: preferences.iCloudOn) { value in
-                        preferences.updateBoolPreference(preference: CustomizablePreferences.iCloudSync, value: value)
-                        self.showingAlert = true
+                Toggle("", isOn: $preferences.healthSyncEnabled)
+                    .onChange(of: preferences.healthSyncEnabled) { value in
+                        preferences.updateBoolPreference(preference: CustomizablePreferences.healthSyncEnabled, value: value)
                     }
             } label: {
                 Label("Health", systemImage: "heart")
@@ -61,10 +60,9 @@ struct SyncSettingsView: View {
                     )
                 }
             // TODO: Make sure this works in iOS 15
-            Toggle("Health Sync", isOn: $preferences.iCloudOn)
-                .onChange(of: preferences.iCloudOn) { value in
-                    preferences.updateBoolPreference(preference: CustomizablePreferences.iCloudSync, value: value)
-                    self.showingAlert = true
+            Toggle("Health Sync", isOn: $preferences.healthSyncEnabled)
+                .onChange(of: preferences.healthSyncEnabled) { value in
+                    preferences.updateBoolPreference(preference: CustomizablePreferences.healthSyncEnabled, value: value)
                 }
         }
     }
