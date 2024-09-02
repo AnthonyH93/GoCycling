@@ -40,12 +40,18 @@ struct MapWithSpeedView: View {
                             Button (action: {self.toggleMapCentered()}) {
                                 MapSystemImageButton(systemImageString: "lock", buttonColour: (UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                                     .padding(.bottom, 5)
+                                    .accessibilityLabel("Lock map")
+                                    .accessibilityAddTraits(.isButton)
+                                    .accessibilityRemoveTraits(.isSelected)
                                 }
                         }
                         else {
                             Button (action: {self.toggleMapCentered()}) {
                                 MapSystemImageButton(systemImageString: "lock.open", buttonColour: (UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                                     .padding(.bottom, 5)
+                                    .accessibilityLabel("Unlock map")
+                                    .accessibilityAddTraits(.isButton)
+                                    .accessibilityRemoveTraits(.isSelected)
                                 }
                         }
                     }
