@@ -291,7 +291,7 @@
 		9D8169F9263FA4CE00DED7F8 /* IconNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconNames.swift; sourceTree = "<group>"; };
 		9D816A0E263FBD0600DED7F8 /* CyclingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingStatus.swift; sourceTree = "<group>"; };
 		9D816A132640A4F000DED7F8 /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@3x.png"; path = "Default@3x.png"; sourceTree = "<group>"; };
-		9D816A142640A4F000DED7F8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../../../AppIcons/GoCycling/Default_AppIcons/Assets.xcassets/AppIcon.appiconset/Default@2x.png"; sourceTree = "<group>"; };
+		9D816A142640A4F000DED7F8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9D816A1D2641BAD000DED7F8 /* ResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetView.swift; sourceTree = "<group>"; };
 		9D816A2B2642562900DED7F8 /* Light@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Light@2x~ipad.png"; sourceTree = "<group>"; };
 		9D816A2C2642562A00DED7F8 /* Light-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Light-83.5@2x~ipad.png"; sourceTree = "<group>"; };
