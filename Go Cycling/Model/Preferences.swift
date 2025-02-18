@@ -399,6 +399,11 @@ class Preferences: ObservableObject {
         return SortChoice(rawValue: stringValue) ?? SortChoice.dateDescending
     }
     
+    // Used in HealthKitViewModel where the environment object is not available
+    static func storedHealthSyncEnabled() -> Bool {
+        return UserDefaults.standard.bool(forKey: Preferences.keys[10])
+    }
+    
     static func storedSelectedRoute() -> String {
         return UserDefaults.standard.string(forKey: Preferences.keys[8])!
     }

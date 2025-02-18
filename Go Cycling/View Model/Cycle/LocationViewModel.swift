@@ -34,6 +34,10 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     // Track time stamps to update health kit
     var lastHealthLocationTime = Date()
+    var writeHealthData = false
+    // Send health data in increments of 100 metres
+    var lastHealthStoreThreshold = 100.0
+    var distanceSinceLastHealthStore = 0.0
 
     override init() {
         super.init()
@@ -85,9 +89,13 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             cyclingDistances.append(newDistanceInMeters)
             cyclingTotalDistance += newDistanceInMeters ?? 0.0
             
-            // Update health kit data store
-            healthKitManager.writeCyclingDistance(startDate: lastHealthLocationTime, distanceToAdd: newDistanceInMeters ?? 0.0)
-            lastHealthLocationTime = Date()
+            // Update health kit data store if enabled
+            distanceSinceLastHealthStore += newDistanceInMeters ?? 0.0
+            if writeHealthData && distanceSinceLastHealthStore > lastHealthStoreThreshold {
+                healthKitManager.writeCyclingDistance(startDate: lastHealthLocationTime, distanceToAdd: distanceSinceLastHealthStore)
+                lastHealthLocationTime = Date()
+                distanceSinceLastHealthStore = 0.0
+            }
         }
     }
     
@@ -148,9 +156,21 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingSpeeds.removeAll()
         cyclingAltitudes.removeAll()
         cyclingTotalDistance = 0.0
+        
+        // Start writing health data if the setting is enabled
+        writeHealthData = Preferences.storedHealthSyncEnabled()
     }
     
+    // Happens at the end of the cycling route
     func clearLocationArray() {
+        // Store the last health kit data point if enabled
+        if writeHealthData {
+            healthKitManager.writeCyclingDistance(startDate: lastHealthLocationTime, distanceToAdd: distanceSinceLastHealthStore)
+        }
+        
+        // Stop writing health data
+        writeHealthData = false
+        
         cyclingLocations.removeAll()
         cyclingDistances.removeAll()
         cyclingSpeeds.removeAll()
