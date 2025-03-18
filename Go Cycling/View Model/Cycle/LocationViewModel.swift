@@ -158,6 +158,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingTotalDistance = 0.0
         
         // Start writing health data if the setting is enabled
+        distanceSinceLastHealthStore = 0.0
         writeHealthData = Preferences.storedHealthSyncEnabled()
     }
     
