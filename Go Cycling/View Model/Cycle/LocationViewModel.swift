@@ -35,8 +35,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     // Track time stamps to update health kit
     var lastHealthLocationTime = Date()
     var writeHealthData = false
-    // Send health data in increments of 100 metres
-    var lastHealthStoreThreshold = 100.0
+    // Send health data in increments of 500 metres
+    var lastHealthStoreThreshold = 500.0
     var distanceSinceLastHealthStore = 0.0
 
     override init() {
@@ -80,7 +80,6 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingAltitude = location.altitude
         cyclingSpeeds.append(cyclingSpeed)
         cyclingAltitudes.append(cyclingAltitude)
-        lastHealthLocationTime = Date()
         
         // Add location to array
         let locationsCount = cyclingLocations.count
@@ -158,6 +157,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingTotalDistance = 0.0
         
         // Start writing health data if the setting is enabled
+        lastHealthLocationTime = Date()
         distanceSinceLastHealthStore = 0.0
         writeHealthData = Preferences.storedHealthSyncEnabled()
     }
