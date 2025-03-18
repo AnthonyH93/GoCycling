@@ -147,6 +147,7 @@
 		9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21EC263638F200506FA5 /* UnitsChoice.swift */; };
 		9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */; };
 		9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */; };
+		9DD0B0742C350F3100ECFCA9 /* HealthKitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD0B0732C350F3100ECFCA9 /* HealthKitViewModel.swift */; };
 		9DD9AD9B2B833D8C00307945 /* CyclingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD9AD9A2B833D8C00307945 /* CyclingView.swift */; };
 		9DEAD6B6262D423E00392D88 /* AboutAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6B5262D423E00392D88 /* AboutAppView.swift */; };
 		9DEAD6BE262FBFF900392D88 /* MapSystemImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAD6BD262FBFF900392D88 /* MapSystemImageButton.swift */; };
@@ -331,6 +332,7 @@
 		9DCD21EC263638F200506FA5 /* UnitsChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsChoice.swift; sourceTree = "<group>"; };
 		9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListViewModel.swift; sourceTree = "<group>"; };
 		9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+Extensions.swift"; sourceTree = "<group>"; };
+		9DD0B0732C350F3100ECFCA9 /* HealthKitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitViewModel.swift; sourceTree = "<group>"; };
 		9DD9AD9A2B833D8C00307945 /* CyclingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingView.swift; sourceTree = "<group>"; };
 		9DEAD6B5262D423E00392D88 /* AboutAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppView.swift; sourceTree = "<group>"; };
 		9DEAD6BD262FBFF900392D88 /* MapSystemImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSystemImageButton.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 				9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */,
 				9DAB837B25FEDEF100F5C42E /* TimerViewModel.swift */,
 				9D2F48FA26507EC500094575 /* RouteNamingViewModel.swift */,
+				9DD0B0732C350F3100ECFCA9 /* HealthKitViewModel.swift */,
 			);
 			path = Cycle;
 			sourceTree = "<group>";
@@ -964,6 +967,7 @@
 				9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */,
 				9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */,
 				9D601E5D26E0992500844CD1 /* DateDistanceExtension.swift in Sources */,
+				9DD0B0742C350F3100ECFCA9 /* HealthKitViewModel.swift in Sources */,
 				9D601E5B26E085B700844CD1 /* CyclingChartsViewModel.swift in Sources */,
 				9DAB831A25FECAD300F5C42E /* CycleView.swift in Sources */,
 				9D62F4EA2636020000E28991 /* LargeMetricsView.swift in Sources */,
@@ -1180,17 +1184,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				DEVELOPMENT_TEAM = QMBJV5C74X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1205,17 +1210,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				DEVELOPMENT_TEAM = QMBJV5C74X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

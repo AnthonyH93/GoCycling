@@ -21,6 +21,7 @@ enum CustomizablePreferences {
     case selectedRoute
     case iCloudSync
     case autoLockDisabled
+    case healthSyncEnabled
 }
 
 // Class to represent the preferences of a user
@@ -41,14 +42,15 @@ class Preferences: ObservableObject {
     @Published var selectedRoute: String
     @Published var iCloudOn: Bool
     @Published var autoLockDisabled: Bool
+    @Published var healthSyncEnabled: Bool
     
     static private let initKey = "didSetupPreferences"
-    static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute", "autoLockDisabled"]
+    static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute", "autoLockDisabled", "healthSyncEnabled"]
     // Icon index is a special case since it should only be stored locally
     static private let iconIndexKey = "iconIndex"
     // iCloud sync setting is also only stored locally
     static private let iCloudOnKey = "iCloudOn"
-    static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2, 0] // 0: Bool, 1: Int, 2: String
+    static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0] // 0: Bool, 1: Int, 2: String
     
     init() {
         // First check if iCloud is available
@@ -108,6 +110,7 @@ class Preferences: ObservableObject {
         self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[7])
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         self.autoLockDisabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
+        self.healthSyncEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[10])
         
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
         self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
@@ -171,6 +174,7 @@ class Preferences: ObservableObject {
         self.namedRoutes = UserDefaults.standard.bool(forKey: Preferences.keys[7])
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         self.autoLockDisabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
+        self.healthSyncEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[10])
         
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
         self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
@@ -221,6 +225,7 @@ class Preferences: ObservableObject {
             NSUbiquitousKeyValueStore.default.set(true, forKey: keys[7])
             NSUbiquitousKeyValueStore.default.set("", forKey: keys[8])
             NSUbiquitousKeyValueStore.default.set(false, forKey: keys[9])
+            NSUbiquitousKeyValueStore.default.set(false, forKey: keys[10])
         }
         // Use UserDefaults for local storage
         else {
@@ -234,6 +239,7 @@ class Preferences: ObservableObject {
             UserDefaults.standard.set(true, forKey: keys[7])
             UserDefaults.standard.set("", forKey: keys[8])
             UserDefaults.standard.set(false, forKey: keys[9])
+            UserDefaults.standard.set(false, forKey: keys[10])
         }
         
         // Store iconIndex locally in either case
@@ -293,6 +299,7 @@ class Preferences: ObservableObject {
         UserDefaults.standard.set(existingPreferences.namedRoutes, forKey: Preferences.keys[7])
         UserDefaults.standard.set(existingPreferences.selectedRoute, forKey: Preferences.keys[8])
         UserDefaults.standard.set(existingPreferences.autoLockDisabled, forKey: Preferences.keys[9])
+        UserDefaults.standard.set(existingPreferences.healthSyncEnabled, forKey: Preferences.keys[10])
         
         UserDefaults.standard.set(existingPreferences.iconIndex, forKey: Preferences.iconIndexKey)
         
@@ -328,6 +335,9 @@ class Preferences: ObservableObject {
         case .autoLockDisabled:
             UserDefaults.standard.set(value, forKey: Preferences.keys[9])
             self.autoLockDisabled = value
+        case .healthSyncEnabled:
+            UserDefaults.standard.set(value, forKey: Preferences.keys[10])
+            self.healthSyncEnabled = value
         case .iCloudSync:
             // Special case for turning on iCloud
             UserDefaults.standard.set(value, forKey: Preferences.iCloudOnKey)
@@ -387,6 +397,11 @@ class Preferences: ObservableObject {
         let stringValue = UserDefaults.standard.string(forKey: Preferences.keys[4])!
 
         return SortChoice(rawValue: stringValue) ?? SortChoice.dateDescending
+    }
+    
+    // Used in HealthKitViewModel where the environment object is not available
+    static func storedHealthSyncEnabled() -> Bool {
+        return UserDefaults.standard.bool(forKey: Preferences.keys[10])
     }
     
     static func storedSelectedRoute() -> String {

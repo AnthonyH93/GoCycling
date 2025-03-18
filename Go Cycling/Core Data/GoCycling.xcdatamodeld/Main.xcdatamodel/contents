@@ -28,6 +28,7 @@
         <attribute name="deletionConfirmation" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="deletionEnabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="displayingMetrics" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="healthSyncEnabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="iconIndex" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="largeMetrics" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="namedRoutes" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

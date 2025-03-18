@@ -328,6 +328,10 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>This is required if you wish to add cycling distance tracking to your Health app. This data will only be stored on your device and never shared to anyone.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>This is required if you wish to add cycling distance tracking to your Health app. This data will only be stored on your device and never shared to anyone.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This is required to track your cycling routes while the app is closed. All of your location data will be stored solely on your device and will never be shared with anyone.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

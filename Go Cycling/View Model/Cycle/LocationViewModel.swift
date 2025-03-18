@@ -28,6 +28,16 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     // A boolean for whether the location alert should be displayed
     @Published var showLocationSettingsAlert = false
     @Published var locationSettingsAlertMessage = ""
+    
+    // Need access to health kit manager to update cycling distance
+    var healthKitManager = HealthKitManager.healthKitManager
+    
+    // Track time stamps to update health kit
+    var lastHealthLocationTime = Date()
+    var writeHealthData = false
+    // Send health data in increments of 500 metres
+    var lastHealthStoreThreshold = 500.0
+    var distanceSinceLastHealthStore = 0.0
 
     override init() {
         super.init()
@@ -77,6 +87,14 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             let newDistanceInMeters = lastLocation?.distance(from: (cyclingLocations[locationsCount - 2] ?? lastLocation)!)
             cyclingDistances.append(newDistanceInMeters)
             cyclingTotalDistance += newDistanceInMeters ?? 0.0
+            
+            // Update health kit data store if enabled
+            distanceSinceLastHealthStore += newDistanceInMeters ?? 0.0
+            if writeHealthData && distanceSinceLastHealthStore > lastHealthStoreThreshold {
+                healthKitManager.writeCyclingDistance(startDate: lastHealthLocationTime, distanceToAdd: distanceSinceLastHealthStore)
+                lastHealthLocationTime = Date()
+                distanceSinceLastHealthStore = 0.0
+            }
         }
     }
     
@@ -137,9 +155,23 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingSpeeds.removeAll()
         cyclingAltitudes.removeAll()
         cyclingTotalDistance = 0.0
+        
+        // Start writing health data if the setting is enabled
+        lastHealthLocationTime = Date()
+        distanceSinceLastHealthStore = 0.0
+        writeHealthData = Preferences.storedHealthSyncEnabled()
     }
     
+    // Happens at the end of the cycling route
     func clearLocationArray() {
+        // Store the last health kit data point if enabled
+        if writeHealthData {
+            healthKitManager.writeCyclingDistance(startDate: lastHealthLocationTime, distanceToAdd: distanceSinceLastHealthStore)
+        }
+        
+        // Stop writing health data
+        writeHealthData = false
+        
         cyclingLocations.removeAll()
         cyclingDistances.removeAll()
         cyclingSpeeds.removeAll()
