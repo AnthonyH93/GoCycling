@@ -165,7 +165,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     // Happens at the end of the cycling route
     func clearLocationArray() {
         // Store the last health kit data point if enabled
-        if writeHealthData {
+        // Only store the data point if the user has moved more than 1 metre
+        if writeHealthData && distanceSinceLastHealthStore > 0.9 {
             healthKitManager.writeCyclingDistance(startDate: lastHealthLocationTime, distanceToAdd: distanceSinceLastHealthStore)
         }
         
