@@ -144,6 +144,7 @@
 		9DC758372805260A00BB2953 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC758362805260A00BB2953 /* CloudKit.framework */; };
 		9DC758392807A74900BB2953 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC758382807A74900BB2953 /* Preferences.swift */; };
 		9DC7583B2809506300BB2953 /* CyclingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC7583A2809506300BB2953 /* CyclingRecords.swift */; };
+		9DC845412D9CDBCE0068519E /* TelemetryDeck in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC845402D9CDBCE0068519E /* TelemetryDeck */; };
 		9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21EC263638F200506FA5 /* UnitsChoice.swift */; };
 		9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */; };
 		9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */; };
@@ -358,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DC758372805260A00BB2953 /* CloudKit.framework in Frameworks */,
+				9DC845412D9CDBCE0068519E /* TelemetryDeck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,6 +831,9 @@
 				Base,
 			);
 			mainGroup = 9DAB830B25FECAD300F5C42E;
+			packageReferences = (
+				9DC8453F2D9CDBCE0068519E /* XCRemoteSwiftPackageReference "SwiftSDK" */,
+			);
 			productRefGroup = 9DAB831525FECAD300F5C42E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1353,6 +1358,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9DC8453F2D9CDBCE0068519E /* XCRemoteSwiftPackageReference "SwiftSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TelemetryDeck/SwiftSDK";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9DC845402D9CDBCE0068519E /* TelemetryDeck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DC8453F2D9CDBCE0068519E /* XCRemoteSwiftPackageReference "SwiftSDK" */;
+			productName = TelemetryDeck;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9D6E5384262CECFA008FD7C1 /* GoCycling.xcdatamodeld */ = {
