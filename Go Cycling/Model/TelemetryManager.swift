@@ -40,4 +40,94 @@ class TelemetryManager {
             TelemetryManager.telemetryOn = false
         }
     }
+    
+    func sendCyclingSignal(tab: TelemetryTab, action: TelemetryCyclingAction) {
+        if TelemetryManager.telemetryOn ?? false {
+            TelemetryDeck.signal(".\(tab).\(action)")
+        }
+    }
+
+    func sendSettingsSignal(section: TelemetrySettingsSection, action: TelemetrySettingsAction, parameters: [String : String]? = nil) {
+        if TelemetryManager.telemetryOn ?? false {
+            if let params = parameters {
+                TelemetryDeck.signal(
+                    ".\(TelemetryTab.Settings).\(section).\(action)",
+                    parameters: params
+                )
+            }
+            else {
+                TelemetryDeck.signal(".\(TelemetryTab.Settings).\(section).\(action)")
+            }
+        }
+    }
+}
+
+// Enums to control types of signals
+enum TelemetryTab: String {
+    case Cycle = "Cycle"
+    case History = "History"
+    case Statistics = "Statistics"
+    case Settings = "Settings"
+}
+
+enum TelemetryCyclingAction: String {
+    // Cycling actions
+    case Start = "startPressed"
+    case Stop = "stopPressed"
+    case Pause = "pausePressed"
+    case Resume = "resumePressed"
+    // Route actions
+    case Save = "savedRouteWithoutCategory"
+    case NewSave = "savedRouteWithNewCategory"
+    case ExistingSave = "savedRouteWithExistingCategory"
+    // History actions
+    case Filter = "historyFilterApplied"
+    case Sort = "sortOrderApplied"
+    case Click = "clickedOnRoute"
+    case EditCategory = "editedCategoryName"
+    case EditRoute = "editedRouteName"
+    case Delete = "deletedRoute"
+    // Statistics actions
+    case OneWeek = "clickedOn1Week"
+    case FiveWeeks = "clickedOn5Weeks"
+    case ThirtyWeeks = "clickedOn30Weeks"
+    case AwardUnlocked = "unlockedActivityAward"
+}
+
+enum TelemetrySettingsSection: String {
+    case Customization = "Customization"
+    case Metrics = "CyclingMetrics"
+    case History = "CyclingHistory"
+    case Cycling = "Cycling"
+    case Sync = "Sync"
+    case Reset = "Reset"
+    case About = "AboutTheApp"
+}
+
+enum TelemetrySettingsAction: String {
+    // Customization actions
+    case Colour = "colourChanged"
+    case AppIcon = "appIconChanged"
+    // Metrics actions
+    case Units = "preferredUnitsChanged"
+    case MetricsOnMap = "metricsOnMapSwitchPressed"
+    case LargeMetrics = "largeMetricsSwitchPressed"
+    // History actions
+    case RoutesEnabled = "routeCategorizationEnabledSwitchPressed"
+    case DeletionEnabled = "deletionEnabledSwitchPressed"
+    case DeletionConfirmtion = "deletionConfirmationSwitchPressed"
+    // Cycling actions
+    case AutoLock = "disableAutoLockSwitchPressed"
+    case ClearHistory = "clearLocalHistory"
+    // Sync actions
+    case iCloud = "iCloudSwitchPressed"
+    case Health = "healthSwitchPressed"
+    // Reset actions
+    case Defaults = "resetToDefaultSettingsPressed"
+    case DeleteRoutes = "deleteAllRoutesPressed"
+    case DeleteStats = "deleteAllStatisticsPressed"
+    // About the app actions
+    case OpenSource = "openSourcePressed"
+    case Share = "sharePressed"
+    case Review = "reviewPressed"
 }
