@@ -20,9 +20,10 @@ struct CycleView: View {
     
     @StateObject var locationManager = LocationViewModel.locationManager
     
-//    @StateObject var healthKitManager = HealthKitManager.healthKitManager
-    
     @EnvironmentObject var preferences: Preferences
+    
+    // Access singleton TelemetryManager class object
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
     
     var body: some View {
         GeometryReader { (geometry) in
