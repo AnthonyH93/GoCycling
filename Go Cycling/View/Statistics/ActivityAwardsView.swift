@@ -13,6 +13,10 @@ struct ActivityAwardsView: View {
     @EnvironmentObject var preferences: Preferences
     
     @State var showingNewIconAlert = false
+    
+    // Access singleton TelemetryManager class object
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.Statistics
 
     var body: some View {
         Section (header: Text(RecordsFormatting.headerStrings[2]), footer: Text(RecordsFormatting.footerStrings[1])) {
@@ -24,16 +28,22 @@ struct ActivityAwardsView: View {
         }
         // Alert to let the user know that they just unlocked a new icon
         .alert(isPresented: $showingNewIconAlert) {
-            Alert(title: Text("Congratulations! You have unlocked a new app icon!"),
-                  message: Text("Navigate to the settings tab to enable your new app icon."),
-                  dismissButton: .default(Text("OK")) {
+            Alert(
+                title: Text("Congratulations! You".capitalized + " have unlocked a new app icon! 🎉"),
+                message: Text("Navigate".capitalized +  " to the settings tab to enable your new app icon."),
+                dismissButton: .default(Text("OK")) {
                     activityAwardsViewModel.resetAlert()
-                  }
+                }
             )
         }
         .onAppear {
             if (activityAwardsViewModel.alertForNewIcon) {
                 showingNewIconAlert = true
+                
+                telemetryManager.sendCyclingSignal(
+                    tab: telemetryTab,
+                    action: TelemetryCyclingAction.AwardUnlocked
+                )
             }
         }
     }
