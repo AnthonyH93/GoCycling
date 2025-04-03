@@ -13,6 +13,11 @@ struct UnitsView: View {
     @EnvironmentObject var preferences: Preferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
+    // Access singleton TelemetryManager class object
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.Settings
+    let telemetryTabSection = TelemetrySettingsSection.Metrics
+    
     var body: some View {
         HStack {
             Text("Prefered Units")
@@ -22,6 +27,11 @@ struct UnitsView: View {
                 Text("Metric").tag(UnitsChoice.metric)
                     .onChange(of: preferences.metricsChoiceConverted) { _ in
                         preferences.updateBoolPreference(preference: CustomizablePreferences.metric, value: preferences.usingMetric)
+                        
+                        telemetryManager.sendSettingsSignal(
+                            section: telemetryTabSection,
+                            action: TelemetrySettingsAction.Units
+                        )
                     }
             }
             .frame(maxWidth: 150)
@@ -30,10 +40,20 @@ struct UnitsView: View {
         Toggle("Display Metrics on Map", isOn: $preferences.displayingMetrics)
             .onChange(of: preferences.displayingMetrics) { value in
                 preferences.updateBoolPreference(preference: CustomizablePreferences.displayingMetrics, value: value)
+                
+                telemetryManager.sendSettingsSignal(
+                    section: telemetryTabSection,
+                    action: TelemetrySettingsAction.MetricsOnMap
+                )
             }
         Toggle("Large Metrics View", isOn: $preferences.largeMetrics)
             .onChange(of: preferences.largeMetrics) { value in
                 preferences.updateBoolPreference(preference: CustomizablePreferences.largeMetrics, value: value)
+                
+                telemetryManager.sendSettingsSignal(
+                    section: telemetryTabSection,
+                    action: TelemetrySettingsAction.LargeMetrics
+                )
             }
     }
 }

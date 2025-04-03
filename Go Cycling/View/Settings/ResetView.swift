@@ -18,6 +18,11 @@ struct ResetView: View {
     @State var showingResetToDefaultAlert = false
     @State var showingResetStatisticsAlert = false
     
+    // Access singleton TelemetryManager class object
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.Settings
+    let telemetryTabSection = TelemetrySettingsSection.Reset
+    
     var body: some View {
         Button (action: {self.showResetToDefaultAlert()}) {
             Text("Reset to Default Settings")
@@ -74,15 +79,30 @@ struct ResetView: View {
     
     func resetToDefaultSettings() {
         preferences.resetPreferences()
+        
+        telemetryManager.sendSettingsSignal(
+            section: telemetryTabSection,
+            action: TelemetrySettingsAction.Defaults
+        )
     }
     
     func deleteAllBikeRides() {
         persistenceController.deleteAllBikeRides()
+        
+        telemetryManager.sendSettingsSignal(
+            section: telemetryTabSection,
+            action: TelemetrySettingsAction.DeleteRoutes
+        )
     }
     
     func resetStoredStatistics() {
         // Reset to default records
         CyclingRecords.resetStatistics()
+        
+        telemetryManager.sendSettingsSignal(
+            section: telemetryTabSection,
+            action: TelemetrySettingsAction.DeleteStats
+        )
     }
 }
 
