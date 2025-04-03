@@ -15,7 +15,6 @@ struct ColourView: View {
     
     // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
-    let telemetryTab = TelemetryTab.Settings
     let telemetryTabSection = TelemetrySettingsSection.Customization
     
     var body: some View {

@@ -20,7 +20,6 @@ struct SyncSettingsView: View {
     
     // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
-    let telemetryTab = TelemetryTab.Settings
     let telemetryTabSection = TelemetrySettingsSection.Sync
     
     var body: some View {

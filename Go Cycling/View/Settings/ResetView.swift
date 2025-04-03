@@ -20,7 +20,6 @@ struct ResetView: View {
     
     // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
-    let telemetryTab = TelemetryTab.Settings
     let telemetryTabSection = TelemetrySettingsSection.Reset
     
     var body: some View {

@@ -15,7 +15,6 @@ struct UnitsView: View {
     
     // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
-    let telemetryTab = TelemetryTab.Settings
     let telemetryTabSection = TelemetrySettingsSection.Metrics
     
     var body: some View {

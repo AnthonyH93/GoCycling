@@ -15,7 +15,6 @@ struct CyclingHistorySettingsView: View {
     
     // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
-    let telemetryTab = TelemetryTab.Settings
     let telemetryTabSection = TelemetrySettingsSection.History
     
     var body: some View {

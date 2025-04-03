@@ -17,7 +17,6 @@ struct ChangeAppIconView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     
     let telemetryManager = TelemetryManager.sharedTelemetryManager
-    let telemetryTab = TelemetryTab.Settings
     let telemetryTabSection = TelemetrySettingsSection.Customization
     
     var body: some View {
