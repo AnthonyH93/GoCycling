@@ -101,7 +101,6 @@ enum TelemetrySettingsSection: String {
     case Cycling = "Cycling"
     case Sync = "Sync"
     case Reset = "Reset"
-    case About = "AboutTheApp"
 }
 
 enum TelemetrySettingsAction: String {
@@ -126,8 +125,4 @@ enum TelemetrySettingsAction: String {
     case Defaults = "resetToDefaultSettingsPressed"
     case DeleteRoutes = "deleteAllRoutesPressed"
     case DeleteStats = "deleteAllStatisticsPressed"
-    // About the app actions
-    case OpenSource = "openSourcePressed"
-    case Share = "sharePressed"
-    case Review = "reviewPressed"
 }
