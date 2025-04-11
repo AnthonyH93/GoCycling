@@ -17,6 +17,9 @@ struct SingleBikeRideView: View {
     
     @State private var showingEditPopover = false
     
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.History
+    
     var body: some View {
         GeometryReader { (geometry) in
             VStack {
@@ -79,12 +82,23 @@ struct SingleBikeRideView: View {
                 if (preferences.namedRoutes) {
                     Button ("Edit") {
                         self.showingEditPopover = true
+                        
+                        telemetryManager.sendCyclingSignal(
+                            tab: telemetryTab,
+                            action: TelemetryCyclingAction.EditRoute
+                        )
                     }
                 }
             }
         }
         .sheet(isPresented: $showingEditPopover) {
             RouteNameModalView(showEditModal: $showingEditPopover, bikeRideToEdit: bikeRide)
+        }
+        .onAppear {
+            telemetryManager.sendCyclingSignal(
+                tab: telemetryTab,
+                action: TelemetryCyclingAction.Click
+            )
         }
     }
     

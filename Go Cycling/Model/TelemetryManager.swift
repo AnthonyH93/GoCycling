@@ -81,8 +81,10 @@ enum TelemetryCyclingAction: String {
     case NewSave = "savedRouteWithNewCategory"
     case ExistingSave = "savedRouteWithExistingCategory"
     // History actions
-    case Filter = "historyFilterApplied"
-    case Sort = "sortOrderApplied"
+    case FilterClick = "historyFilterClicked"
+    case SortClick = "sortOrderClicked"
+    case FilterApply = "historyFilterApplied"
+    case SortApply = "sortOrderApplied"
     case Click = "clickedOnRoute"
     case EditCategory = "editedCategoryName"
     case EditRoute = "editedRouteName"

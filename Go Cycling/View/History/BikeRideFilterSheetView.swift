@@ -17,6 +17,9 @@ struct BikeRideFilterSheetView: View {
     
     var categories: [Category]
     
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.History
+    
     init(showingSheet: Binding<Bool>, selectedName: Binding<String>, names: [Category]) {
         self._showingSheet = showingSheet
         self._selectedName = selectedName
@@ -35,6 +38,11 @@ struct BikeRideFilterSheetView: View {
                             Button (self.categories[index].name) {
                                 self.selectedName = index == 0 ? "" : self.categories[index].name
                                 self.presentationMode.wrappedValue.dismiss()
+                                
+                                telemetryManager.sendCyclingSignal(
+                                    tab: telemetryTab,
+                                    action: TelemetryCyclingAction.FilterApply
+                                )
                             }
                             Spacer()
                             Text("\(self.categories[index].number)")
