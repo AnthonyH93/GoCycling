@@ -22,7 +22,6 @@ struct CycleView: View {
     
     @EnvironmentObject var preferences: Preferences
     
-    // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTab = TelemetryTab.Cycle
     

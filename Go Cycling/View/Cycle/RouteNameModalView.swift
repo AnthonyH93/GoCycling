@@ -25,6 +25,9 @@ struct RouteNameModalView: View {
     
     private var bikeRideToEdit: BikeRide?
     
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.Cycle
+    
     init(showEditModal: Binding<Bool>, bikeRideToEdit: BikeRide?) {
         if (bikeRideToEdit != nil) {
             self.bikeRideToEdit = bikeRideToEdit
@@ -70,7 +73,16 @@ struct RouteNameModalView: View {
                 .disabled(!((self.typedRouteName.count > 0)))
                 .padding()
                 Divider()
-                Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+                Button (action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                    
+                    if (self.bikeRideToEdit == nil) {
+                        telemetryManager.sendCyclingSignal(
+                            tab: telemetryTab,
+                            action: TelemetryCyclingAction.Save
+                        )
+                    }
+                }) {
                     Text(self.bikeRideToEdit == nil ? "Save Without a Category" : "Cancel")
                         .bold()
                 }
@@ -145,8 +157,18 @@ struct RouteNameModalView: View {
         switch namedRoutesViewSelection {
         case .new:
             routeName = typedRouteName
+            
+            telemetryManager.sendCyclingSignal(
+                tab: telemetryTab,
+                action: TelemetryCyclingAction.NewSave
+            )
         case .existing:
             routeName = self.routeNamingViewModel.routeNames[self.selectedNameIndex]
+            
+            telemetryManager.sendCyclingSignal(
+                tab: telemetryTab,
+                action: TelemetryCyclingAction.ExistingSave
+            )
         }
         
         // This means that we are in the Cycle tab
