@@ -114,6 +114,11 @@ struct BikeRideListView: View {
                 })
                 .onChange(of: bikeRideViewModel.currentSortChoice, perform: { _ in
                     preferences.updateStringPreference(preference: CustomizablePreferences.sortingChoice, value: bikeRideViewModel.currentSortChoice.rawValue)
+                    
+                    telemetryManager.sendCyclingSignal(
+                        tab: telemetryTab,
+                        action: TelemetryCyclingAction.SortApply
+                    )
                 })
                 .onChange(of: sortChoice, perform: { value in
                     switch sortChoice {
@@ -130,11 +135,6 @@ struct BikeRideListView: View {
                     case .timeDescending:
                         bikeRideViewModel.sortByTimeDescending()
                     }
-                    
-                    telemetryManager.sendCyclingSignal(
-                        tab: telemetryTab,
-                        action: TelemetryCyclingAction.SortApply
-                    )
                 })
                 .onChange(of: selectedName, perform: { _ in
                     bikeRideViewModel.setCurrentName(name: selectedName)
