@@ -89,6 +89,11 @@ struct CycleView: View {
                     Alert(title: Text("Are you sure that you want to end the current route?"),
                           message: Text("Please confirm that you are ready to end the current route."),
                           primaryButton: .destructive(Text("Stop")) {
+                            // Completing a route is a review worthy event
+                            ReviewManager.incrementReviewWorthyCount()
+                            // Keep track of whether user has completed a route
+                            ReviewManager.completedRoute()
+                        
                             self.timeCycling = timer.totalAccumulatedTime
                             self.timer.stop()
                             cyclingStatus.stoppedCycling()
@@ -97,6 +102,11 @@ struct CycleView: View {
                             if (preferences.namedRoutes) {
                                 self.showingRouteNamingPopover = true
                             }
+                        
+                            telemetryManager.sendCyclingSignal(
+                                tab: telemetryTab,
+                                action: TelemetryCyclingAction.ConfirmStop
+                            )
                           },
                           secondaryButton: .cancel()
                     )
@@ -149,16 +159,12 @@ struct CycleView: View {
     }
     
     func confirmStop() {
-        // Completing a route is a review worthy event
-        ReviewManager.incrementReviewWorthyCount()
-        // Keep track of whether user has completed a route
-        ReviewManager.completedRoute()
         self.timer.pause()
         showingAlert = true
         
         telemetryManager.sendCyclingSignal(
             tab: telemetryTab,
-            action: TelemetryCyclingAction.ConfirmStop
+            action: TelemetryCyclingAction.Stop
         )
     }
 }
