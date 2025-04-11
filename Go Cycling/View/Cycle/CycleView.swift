@@ -24,6 +24,7 @@ struct CycleView: View {
     
     // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.Cycle
     
     var body: some View {
         GeometryReader { (geometry) in
@@ -47,7 +48,7 @@ struct CycleView: View {
                 Spacer()
                 HStack {
                     if (timer.isRunning) {
-                        Button (action: {self.timer.pause()}) {
+                        Button (action: {self.pauseCycling()}) {
                             TimerButton(label: "Pause", buttonColour: UIColor.systemYellow)
                                 .padding(.bottom, 20)
                                 .minimumScaleFactor(0.3)
@@ -69,7 +70,7 @@ struct CycleView: View {
                         }
                     }
                     if (timer.isPaused) {
-                        Button (action: {self.timer.start()}) {
+                        Button (action: {self.resumeCycling()}) {
                             TimerButton(label: "Resume", buttonColour: UIColor.systemGreen)
                                 .padding(.bottom, 20)
                                 .minimumScaleFactor(0.3)
@@ -122,6 +123,29 @@ struct CycleView: View {
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0
         self.timer.start()
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: TelemetryCyclingAction.Start
+        )
+    }
+    
+    func pauseCycling() {
+        self.timer.pause()
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: TelemetryCyclingAction.Pause
+        )
+    }
+    
+    func resumeCycling() {
+        self.timer.start()
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: TelemetryCyclingAction.Resume
+        )
     }
     
     func confirmStop() {
@@ -131,6 +155,11 @@ struct CycleView: View {
         ReviewManager.completedRoute()
         self.timer.pause()
         showingAlert = true
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: TelemetryCyclingAction.ConfirmStop
+        )
     }
 }
 

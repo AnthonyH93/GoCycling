@@ -74,6 +74,7 @@ enum TelemetryCyclingAction: String {
     // Cycling actions
     case Start = "startPressed"
     case Stop = "stopPressed"
+    case ConfirmStop = "confirmStopPressed"
     case Pause = "pausePressed"
     case Resume = "resumePressed"
     // Route actions
