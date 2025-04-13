@@ -1,1 +1,9 @@
 Go Cycling.xcodeproj/xcuserdata/*
+
+*.DS_Store
+
+*.xcconfig
+
+.build/
+
+build/

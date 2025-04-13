@@ -13,6 +13,10 @@ struct ColourView: View {
     @EnvironmentObject var preferences: Preferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
+    // Access singleton TelemetryManager class object
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTabSection = TelemetrySettingsSection.Customization
+    
     var body: some View {
         // The picker view within a form changed in iOS 16
         if #available(iOS 16.0, *) {
@@ -26,7 +30,7 @@ struct ColourView: View {
                 Text("Violet").tag(ColourChoice.violet)
                     .navigationBarTitle("Choose your Colour", displayMode: .inline)
                     .onChange(of: preferences.colourChoiceConverted) { _ in
-                        preferences.updateStringPreference(preference: CustomizablePreferences.colour, value: preferences.colourChoice)
+                        self.updateColourPreference(value: preferences.colourChoice)
                     }
             }
             // Use the navigation link picker style (how it looked before iOS 16)
@@ -43,10 +47,19 @@ struct ColourView: View {
                 Text("Violet").tag(ColourChoice.violet)
                     .navigationBarTitle("Choose your Colour", displayMode: .inline)
                     .onChange(of: preferences.colourChoiceConverted) { _ in
-                        preferences.updateStringPreference(preference: CustomizablePreferences.colour, value: preferences.colourChoice)
+                        self.updateColourPreference(value: preferences.colourChoice)
                     }
             }
         }
+    }
+    
+    func updateColourPreference(value: String) {
+        preferences.updateStringPreference(preference: CustomizablePreferences.colour, value: value)
+        
+        telemetryManager.sendSettingsSignal(
+            section: telemetryTabSection,
+            action: TelemetrySettingsAction.Colour
+        )
     }
 }
 

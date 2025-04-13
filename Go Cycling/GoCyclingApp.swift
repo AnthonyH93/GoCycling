@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TelemetryDeck
 
 @main
 struct GoCyclingApp: App {
@@ -18,7 +19,14 @@ struct GoCyclingApp: App {
     @StateObject var preferences = Preferences.shared
     @StateObject var records = CyclingRecords.shared
     
-    init() {        
+    init() {
+        // Initialize TelemetryDeck
+        // Attempt to find App ID
+        if let appID = Bundle.main.object(forInfoDictionaryKey: "GoCyclingAppID") {
+            // Setup the singleton class
+            TelemetryManager.setup(TelemetryManager.TelemetryManagerConfig(appID: appID as! String))
+        }
+        
         // Retrieve stored data to be used by all views - create state objects for environment objects
         let managedObjectContext = persistenceController.container.viewContext
         let bikeRidesStorage = BikeRideStorage(managedObjectContext: managedObjectContext)

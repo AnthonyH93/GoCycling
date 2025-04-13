@@ -18,6 +18,10 @@ struct SyncSettingsView: View {
     // Need to show the Health app authorization if that setting is toggled
     @StateObject var healthKitManager = HealthKitManager.healthKitManager
     
+    // Access singleton TelemetryManager class object
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTabSection = TelemetrySettingsSection.Sync
+    
     var body: some View {
         // In iOS 16+ forms can have labels attached to content
         if #available(iOS 16.0, *) {
@@ -25,7 +29,7 @@ struct SyncSettingsView: View {
             LabeledContent {
                 Toggle("", isOn: $preferences.iCloudOn)
                     .onChange(of: preferences.iCloudOn) { value in
-                        preferences.updateBoolPreference(preference: CustomizablePreferences.iCloudSync, value: value)
+                        self.updateSyncPreference(preference: CustomizablePreferences.iCloudSync, value: value)
                         self.showingAlert = true
                     }
                 // Confirmation alert about restarting app due to iCloud setting change
@@ -43,7 +47,7 @@ struct SyncSettingsView: View {
             LabeledContent {
                 Toggle("", isOn: $preferences.healthSyncEnabled)
                     .onChange(of: preferences.healthSyncEnabled) { value in
-                        preferences.updateBoolPreference(preference: CustomizablePreferences.healthSyncEnabled, value: value)
+                        self.updateSyncPreference(preference: CustomizablePreferences.healthSyncEnabled, value: value)
                         if value {
                             healthKitManager.requestAuthorization()
                         }
@@ -55,7 +59,7 @@ struct SyncSettingsView: View {
         } else {
             Toggle("iCloud Sync", isOn: $preferences.iCloudOn)
                 .onChange(of: preferences.iCloudOn) { value in
-                    preferences.updateBoolPreference(preference: CustomizablePreferences.iCloudSync, value: value)
+                    self.updateSyncPreference(preference: CustomizablePreferences.iCloudSync, value: value)
                     self.showingAlert = true
                 }
                 // Confirmation alert about restarting app due to iCloud setting change
@@ -68,12 +72,30 @@ struct SyncSettingsView: View {
             // TODO: Make sure this works in iOS 15
             Toggle("Health Sync", isOn: $preferences.healthSyncEnabled)
                 .onChange(of: preferences.healthSyncEnabled) { value in
-                    preferences.updateBoolPreference(preference: CustomizablePreferences.healthSyncEnabled, value: value)
+                    self.updateSyncPreference(preference: CustomizablePreferences.healthSyncEnabled, value: value)
                     if value {
                         healthKitManager.requestAuthorization()
                     }
                 }
         }
+    }
+    
+    func updateSyncPreference(preference: CustomizablePreferences, value: Bool) {
+        preferences.updateBoolPreference(preference: preference, value: value)
+        
+        // Send the correct telemetry signal
+        var telemetryAction = TelemetrySettingsAction.iCloud
+        switch preference {
+        case .healthSyncEnabled:
+            telemetryAction = TelemetrySettingsAction.Health
+        default:
+            telemetryAction = TelemetrySettingsAction.iCloud
+        }
+        
+        telemetryManager.sendSettingsSignal(
+            section: telemetryTabSection,
+            action: telemetryAction
+        )
     }
 }
 

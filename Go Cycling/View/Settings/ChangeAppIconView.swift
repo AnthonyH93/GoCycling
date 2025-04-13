@@ -16,6 +16,9 @@ struct ChangeAppIconView: View {
     @EnvironmentObject var records: CyclingRecords
     @Environment(\.managedObjectContext) private var managedObjectContext
     
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTabSection = TelemetrySettingsSection.Customization
+    
     var body: some View {
         if (self.iconNames.iconNames.count > 3) {
             // The picker view within a form changed in iOS 16
@@ -81,6 +84,11 @@ struct ChangeAppIconView: View {
                     print("Changed app icon successfully.")
                 }
             }
+            
+            telemetryManager.sendSettingsSignal(
+                section: telemetryTabSection,
+                action: TelemetrySettingsAction.AppIcon
+            )
         }
     }
 }

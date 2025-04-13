@@ -32,6 +32,9 @@ struct BikeRideListView: View {
     
     @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
     
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.History
+    
     var body: some View {
         NavigationView {
             GeometryReader { (geometry) in
@@ -44,6 +47,11 @@ struct BikeRideListView: View {
                             Button (bikeRideViewModel.getFilterActionSheetTitle()) {
                                 self.sheetToPresent = .filter
                                 self.showingSheet = true
+                                
+                                telemetryManager.sendCyclingSignal(
+                                    tab: telemetryTab,
+                                    action: TelemetryCyclingAction.FilterClick
+                                )
                             }
                         }
                     }
@@ -52,6 +60,11 @@ struct BikeRideListView: View {
                             Button ("Edit") {
                                 self.sheetToPresent = .edit
                                 self.showingSheet = true
+                                
+                                telemetryManager.sendCyclingSignal(
+                                    tab: telemetryTab,
+                                    action: TelemetryCyclingAction.EditCategory
+                                )
                             }
                         }
                     }
@@ -63,6 +76,11 @@ struct BikeRideListView: View {
                             else {
                                 showingPopover.toggle()
                             }
+                            
+                            telemetryManager.sendCyclingSignal(
+                                tab: telemetryTab,
+                                action: TelemetryCyclingAction.SortClick
+                            )
                         }
                         .popover(isPresented: $showingPopover) {
                             BikeRideSortPopoverView(showingPopover: $showingPopover, sortChoice: $sortChoice)
@@ -96,6 +114,11 @@ struct BikeRideListView: View {
                 })
                 .onChange(of: bikeRideViewModel.currentSortChoice, perform: { _ in
                     preferences.updateStringPreference(preference: CustomizablePreferences.sortingChoice, value: bikeRideViewModel.currentSortChoice.rawValue)
+                    
+                    telemetryManager.sendCyclingSignal(
+                        tab: telemetryTab,
+                        action: TelemetryCyclingAction.SortApply
+                    )
                 })
                 .onChange(of: sortChoice, perform: { value in
                     switch sortChoice {
@@ -134,6 +157,11 @@ struct BikeRideListView: View {
                   message: Text("This action is not reversible."),
                   primaryButton: .destructive(Text("Delete")) {
                     self.shouldBeDeleted = true
+                
+                    telemetryManager.sendCyclingSignal(
+                        tab: telemetryTab,
+                        action: TelemetryCyclingAction.Delete
+                    )
                   },
                   secondaryButton: .cancel() {
                     self.shouldBeDeleted = false

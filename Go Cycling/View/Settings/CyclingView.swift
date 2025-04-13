@@ -13,11 +13,20 @@ struct CyclingView: View {
     @EnvironmentObject var preferences: Preferences
     @Environment(\.managedObjectContext) private var managedObjectContext
     
+    // Access singleton TelemetryManager class object
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTabSection = TelemetrySettingsSection.Cycling
+    
     var body: some View {
         Toggle("Disable Auto-Lock", isOn: $preferences.autoLockDisabled)
             .onChange(of: preferences.autoLockDisabled) { value in
                 UIApplication.shared.isIdleTimerDisabled = value
                 preferences.updateBoolPreference(preference: CustomizablePreferences.autoLockDisabled, value: value)
+                
+                telemetryManager.sendSettingsSignal(
+                    section: telemetryTabSection,
+                    action: TelemetrySettingsAction.AutoLock
+                )
             }
     }
 }

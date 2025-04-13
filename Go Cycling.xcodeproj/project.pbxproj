@@ -144,6 +144,8 @@
 		9DC758372805260A00BB2953 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC758362805260A00BB2953 /* CloudKit.framework */; };
 		9DC758392807A74900BB2953 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC758382807A74900BB2953 /* Preferences.swift */; };
 		9DC7583B2809506300BB2953 /* CyclingRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC7583A2809506300BB2953 /* CyclingRecords.swift */; };
+		9DC845412D9CDBCE0068519E /* TelemetryDeck in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC845402D9CDBCE0068519E /* TelemetryDeck */; };
+		9DC845442D9CDF4A0068519E /* TelemetryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC845432D9CDF4A0068519E /* TelemetryManager.swift */; };
 		9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21EC263638F200506FA5 /* UnitsChoice.swift */; };
 		9DCD21F226363D8D00506FA5 /* BikeRideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */; };
 		9DCD21F72636426700506FA5 /* BikeRide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */; };
@@ -329,6 +331,8 @@
 		9DC758362805260A00BB2953 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		9DC758382807A74900BB2953 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		9DC7583A2809506300BB2953 /* CyclingRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingRecords.swift; sourceTree = "<group>"; };
+		9DC845422D9CDE380068519E /* TelemetryDeck.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = TelemetryDeck.xcconfig; sourceTree = "<group>"; };
+		9DC845432D9CDF4A0068519E /* TelemetryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryManager.swift; sourceTree = "<group>"; };
 		9DCD21EC263638F200506FA5 /* UnitsChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsChoice.swift; sourceTree = "<group>"; };
 		9DCD21F126363D8D00506FA5 /* BikeRideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListViewModel.swift; sourceTree = "<group>"; };
 		9DCD21F62636426700506FA5 /* BikeRide+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeRide+Extensions.swift"; sourceTree = "<group>"; };
@@ -358,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DC758372805260A00BB2953 /* CloudKit.framework in Frameworks */,
+				9DC845412D9CDBCE0068519E /* TelemetryDeck in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +532,7 @@
 				9DC758382807A74900BB2953 /* Preferences.swift */,
 				9DC7583A2809506300BB2953 /* CyclingRecords.swift */,
 				9DA60D5F287558D000072DA2 /* ReviewManager.swift */,
+				9DC845432D9CDF4A0068519E /* TelemetryManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -630,6 +636,7 @@
 		9DAB830B25FECAD300F5C42E = {
 			isa = PBXGroup;
 			children = (
+				9DC845422D9CDE380068519E /* TelemetryDeck.xcconfig */,
 				9DAB831625FECAD300F5C42E /* Go Cycling */,
 				9DAB832825FECAD400F5C42E /* Go CyclingTests */,
 				9DAB833325FECAD400F5C42E /* Go CyclingUITests */,
@@ -829,6 +836,9 @@
 				Base,
 			);
 			mainGroup = 9DAB830B25FECAD300F5C42E;
+			packageReferences = (
+				9DC8453F2D9CDBCE0068519E /* XCRemoteSwiftPackageReference "SwiftSDK" */,
+			);
 			productRefGroup = 9DAB831525FECAD300F5C42E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1000,6 +1010,7 @@
 				9D6E5386262CECFA008FD7C1 /* GoCycling.xcdatamodeld in Sources */,
 				9DAB837525FED2F800F5C42E /* TimerButton.swift in Sources */,
 				9D6E5367262CE32F008FD7C1 /* UnitsView.swift in Sources */,
+				9DC845442D9CDF4A0068519E /* TelemetryManager.swift in Sources */,
 				9D601E6126E09D9A00844CD1 /* BarChartView.swift in Sources */,
 				9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */,
 				9DA60D6228755AF900072DA2 /* UIApplicationExtension.swift in Sources */,
@@ -1179,6 +1190,7 @@
 		};
 		9DAB833A25FECAD400F5C42E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DC845422D9CDE380068519E /* TelemetryDeck.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1195,7 +1207,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1205,6 +1217,7 @@
 		};
 		9DAB833B25FECAD400F5C42E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DC845422D9CDE380068519E /* TelemetryDeck.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1221,7 +1234,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1353,6 +1366,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9DC8453F2D9CDBCE0068519E /* XCRemoteSwiftPackageReference "SwiftSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TelemetryDeck/SwiftSDK";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9DC845402D9CDBCE0068519E /* TelemetryDeck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DC8453F2D9CDBCE0068519E /* XCRemoteSwiftPackageReference "SwiftSDK" */;
+			productName = TelemetryDeck;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9D6E5384262CECFA008FD7C1 /* GoCycling.xcdatamodeld */ = {

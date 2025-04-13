@@ -22,6 +22,10 @@ struct BarChartView: View {
     
     @State private var barChartUnitsSelection = BarChartUnits.distance
     
+    // Access singleton TelemetryManager class object
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.Statistics
+    
     var body: some View {
         VStack (alignment: .leading) {
             Picker("Bar Chart Units", selection: $barChartUnitsSelection) {
@@ -87,6 +91,9 @@ struct BarChartView: View {
         .onChange(of: barChartUnitsSelection, perform: { _ in
             resetValues()
         })
+        .onAppear {
+            self.sendTelemetrySignal(index: index)
+        }
     }
     
     func barIsTouched(id: Int) -> Bool {
@@ -116,6 +123,24 @@ struct BarChartView: View {
         selectedValue = ""
         selectedDateValue = ""
         currentOpacity = 1
+    }
+    
+    func sendTelemetrySignal(index: Int) {
+        var telemetryAction = TelemetryCyclingAction.OneWeek
+        
+        switch index {
+        case 1:
+            telemetryAction = TelemetryCyclingAction.FiveWeeks
+        case 2:
+            telemetryAction = TelemetryCyclingAction.ThirtyWeeks
+        default:
+            telemetryAction = TelemetryCyclingAction.OneWeek
+        }
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: telemetryAction
+        )
     }
 }
 

@@ -20,9 +20,10 @@ struct CycleView: View {
     
     @StateObject var locationManager = LocationViewModel.locationManager
     
-//    @StateObject var healthKitManager = HealthKitManager.healthKitManager
-    
     @EnvironmentObject var preferences: Preferences
+    
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+    let telemetryTab = TelemetryTab.Cycle
     
     var body: some View {
         GeometryReader { (geometry) in
@@ -46,7 +47,7 @@ struct CycleView: View {
                 Spacer()
                 HStack {
                     if (timer.isRunning) {
-                        Button (action: {self.timer.pause()}) {
+                        Button (action: {self.pauseCycling()}) {
                             TimerButton(label: "Pause", buttonColour: UIColor.systemYellow)
                                 .padding(.bottom, 20)
                                 .minimumScaleFactor(0.3)
@@ -68,7 +69,7 @@ struct CycleView: View {
                         }
                     }
                     if (timer.isPaused) {
-                        Button (action: {self.timer.start()}) {
+                        Button (action: {self.resumeCycling()}) {
                             TimerButton(label: "Resume", buttonColour: UIColor.systemGreen)
                                 .padding(.bottom, 20)
                                 .minimumScaleFactor(0.3)
@@ -87,6 +88,11 @@ struct CycleView: View {
                     Alert(title: Text("Are you sure that you want to end the current route?"),
                           message: Text("Please confirm that you are ready to end the current route."),
                           primaryButton: .destructive(Text("Stop")) {
+                            // Completing a route is a review worthy event
+                            ReviewManager.incrementReviewWorthyCount()
+                            // Keep track of whether user has completed a route
+                            ReviewManager.completedRoute()
+                        
                             self.timeCycling = timer.totalAccumulatedTime
                             self.timer.stop()
                             cyclingStatus.stoppedCycling()
@@ -95,6 +101,11 @@ struct CycleView: View {
                             if (preferences.namedRoutes) {
                                 self.showingRouteNamingPopover = true
                             }
+                        
+                            telemetryManager.sendCyclingSignal(
+                                tab: telemetryTab,
+                                action: TelemetryCyclingAction.ConfirmStop
+                            )
                           },
                           secondaryButton: .cancel()
                     )
@@ -121,15 +132,39 @@ struct CycleView: View {
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0
         self.timer.start()
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: TelemetryCyclingAction.Start
+        )
+    }
+    
+    func pauseCycling() {
+        self.timer.pause()
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: TelemetryCyclingAction.Pause
+        )
+    }
+    
+    func resumeCycling() {
+        self.timer.start()
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: TelemetryCyclingAction.Resume
+        )
     }
     
     func confirmStop() {
-        // Completing a route is a review worthy event
-        ReviewManager.incrementReviewWorthyCount()
-        // Keep track of whether user has completed a route
-        ReviewManager.completedRoute()
         self.timer.pause()
         showingAlert = true
+        
+        telemetryManager.sendCyclingSignal(
+            tab: telemetryTab,
+            action: TelemetryCyclingAction.Stop
+        )
     }
 }
 
