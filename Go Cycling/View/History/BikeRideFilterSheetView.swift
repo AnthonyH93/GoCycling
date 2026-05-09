@@ -37,7 +37,7 @@ struct BikeRideFilterSheetView: View {
                         HStack {
                             Button (self.categories[index].name) {
                                 self.selectedName = index == 0 ? "" : self.categories[index].name
-                                self.presentationMode.wrappedValue.dismiss()
+                                presentationMode.wrappedValue.dismiss()
                                 
                                 telemetryManager.sendCyclingSignal(
                                     tab: telemetryTab,
@@ -49,11 +49,11 @@ struct BikeRideFilterSheetView: View {
                         }
                     }
                 }
-                .listStyle(InsetGroupedListStyle())
+                .listStyle(.insetGrouped)
             }
             Spacer()
             Divider()
-            Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+            Button (action: { presentationMode.wrappedValue.dismiss() }) {
                 Text("Cancel")
                     .foregroundColor(Color.blue)
                     .bold()

@@ -77,7 +77,7 @@ struct RouteRenameModalView: View {
                     }
                     }
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(.plain)
             }
             else {
                 Text("There are no saved categories.")
@@ -90,7 +90,7 @@ struct RouteRenameModalView: View {
             .padding()
             .disabled(self.selectedNameIndex != -1 && !((self.text.count > 0)))
             Divider()
-            Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+            Button (action: { presentationMode.wrappedValue.dismiss() }) {
                 Text("Cancel")
                     .bold()
             }

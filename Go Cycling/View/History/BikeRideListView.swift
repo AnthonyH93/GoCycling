@@ -18,19 +18,13 @@ struct BikeRideListView: View {
     
     @Environment(\.managedObjectContext) private var managedObjectContext
     
-    @State private var showingActionSheet = false
-    @State private var showingPopover = false
-    @State private var showingFilterPopover = false
     @State private var showingDeleteAlert = false
     @State private var shouldBeDeleted = false
     @State private var showingSheet = false
     @State private var sheetToPresent: SheetToPresent = .filter
     @State private var updateCategories = false
     @State private var toBeDeleted: IndexSet?
-    @State private var sortChoice: SortChoice = .dateDescending
     @State private var selectedName: String = Preferences.storedSelectedRoute()
-    
-    @State var sortDescriptor = NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
     
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTab = TelemetryTab.History
@@ -39,78 +33,62 @@ struct BikeRideListView: View {
         NavigationView {
             GeometryReader { (geometry) in
                 ListView(sortDescripter: bikeRideViewModel.getSortDescriptor(), name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted, updateCategories: $updateCategories)
-                .listStyle(PlainListStyle())
+                .listStyle(.plain)
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         if (preferences.namedRoutes && bikeRideViewModel.filterEnabledCheck()) {
-                            Button (bikeRideViewModel.getFilterActionSheetTitle()) {
+                            Button {
                                 self.sheetToPresent = .filter
                                 self.showingSheet = true
-                                
+
                                 telemetryManager.sendCyclingSignal(
                                     tab: telemetryTab,
                                     action: TelemetryCyclingAction.FilterClick
                                 )
+                            } label: {
+                                Image(systemName: "line.3.horizontal.decrease")
                             }
                         }
                     }
                     ToolbarItem(placement: .navigationBarLeading) {
                         if (preferences.namedRoutes && bikeRideViewModel.editEnabledCheck()) {
-                            Button ("Edit") {
+                            Button {
                                 self.sheetToPresent = .edit
                                 self.showingSheet = true
-                                
+
                                 telemetryManager.sendCyclingSignal(
                                     tab: telemetryTab,
                                     action: TelemetryCyclingAction.EditCategory
                                 )
+                            } label: {
+                                Image(systemName: "pencil")
                             }
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button (bikeRideViewModel.getSortActionSheetTitle()) {
-                            if (min(geometry.size.width, geometry.size.height) < 600) {
-                                self.showingActionSheet = true
-                            }
-                            else {
-                                showingPopover.toggle()
-                            }
-                            
-                            telemetryManager.sendCyclingSignal(
-                                tab: telemetryTab,
-                                action: TelemetryCyclingAction.SortClick
-                            )
-                        }
-                        .popover(isPresented: $showingPopover) {
-                            BikeRideSortPopoverView(showingPopover: $showingPopover, sortChoice: $sortChoice)
+                        Menu(bikeRideViewModel.getSortActionSheetTitle()) {
+                            Button("Date Descending (Default)", action: bikeRideViewModel.sortByDateDescending)
+                            Button("Date Ascending", action: bikeRideViewModel.sortByDateAscending)
+                            Button("Distance Descending", action: bikeRideViewModel.sortByDistanceDescending)
+                            Button("Distance Ascending", action: bikeRideViewModel.sortByDistanceAscending)
+                            Button("Time Descending", action: bikeRideViewModel.sortByTimeDescending)
+                            Button("Time Ascending", action: bikeRideViewModel.sortByTimeAscending)
                         }
                     }
                 }
                 .onAppear {
-                    sortChoice = bikeRideViewModel.currentSortChoice
                     bikeRideViewModel.updateCategories()
                 }
-                // Filter action sheet
-                .sheet(isPresented: $showingSheet, content: {
+                .sheet(isPresented: $showingSheet, onDismiss: {
+                    bikeRideViewModel.updateCategories()
+                }, content: {
                     switch sheetToPresent {
                     case .filter:
                         BikeRideFilterSheetView(showingSheet: $showingSheet, selectedName: $selectedName, names: bikeRideViewModel.categories)
                     case .edit:
                         RouteRenameModalView(showEditModal: $showingSheet, names: bikeRideViewModel.categories)
                     }
-                })
-                // Sort action sheet
-                .actionSheet(isPresented: $showingActionSheet, content: {
-                    ActionSheet(title: Text("Sort"), message: Text("Set your preferred sorting order."), buttons:[
-                        .default(Text("Date Descending (Default)"), action: bikeRideViewModel.sortByDateDescending),
-                        .default(Text("Date Ascending"), action: bikeRideViewModel.sortByDateAscending),
-                        .default(Text("Distance Descending"), action: bikeRideViewModel.sortByDistanceDescending),
-                        .default(Text("Distance Ascending"), action: bikeRideViewModel.sortByDistanceAscending),
-                        .default(Text("Time Descending"), action: bikeRideViewModel.sortByTimeDescending),
-                        .default(Text("Time Ascending"), action: bikeRideViewModel.sortByTimeAscending),
-                        .cancel()
-                    ])
                 })
                 .onChange(of: bikeRideViewModel.currentSortChoice, perform: { _ in
                     preferences.updateStringPreference(preference: CustomizablePreferences.sortingChoice, value: bikeRideViewModel.currentSortChoice.rawValue)
@@ -119,22 +97,6 @@ struct BikeRideListView: View {
                         tab: telemetryTab,
                         action: TelemetryCyclingAction.SortApply
                     )
-                })
-                .onChange(of: sortChoice, perform: { value in
-                    switch sortChoice {
-                    case .distanceAscending:
-                        bikeRideViewModel.sortByDistanceAscending()
-                    case .distanceDescending:
-                        bikeRideViewModel.sortByDistanceDescending()
-                    case .dateAscending:
-                        bikeRideViewModel.sortByDateAscending()
-                    case .dateDescending:
-                        bikeRideViewModel.sortByDateDescending()
-                    case .timeAscending:
-                        bikeRideViewModel.sortByTimeAscending()
-                    case .timeDescending:
-                        bikeRideViewModel.sortByTimeDescending()
-                    }
                 })
                 .onChange(of: selectedName, perform: { _ in
                     bikeRideViewModel.setCurrentName(name: selectedName)

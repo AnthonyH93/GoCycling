@@ -80,13 +80,15 @@ struct SingleBikeRideView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if (preferences.namedRoutes) {
-                    Button ("Edit") {
+                    Button {
                         self.showingEditPopover = true
-                        
+
                         telemetryManager.sendCyclingSignal(
                             tab: telemetryTab,
                             action: TelemetryCyclingAction.EditRoute
                         )
+                    } label: {
+                        Image(systemName: "pencil")
                     }
                 }
             }
