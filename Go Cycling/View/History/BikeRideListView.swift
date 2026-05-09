@@ -76,8 +76,9 @@ struct BikeRideListView: View {
                 .onAppear {
                     bikeRideViewModel.updateCategories()
                 }
-                // Filter action sheet
-                .sheet(isPresented: $showingSheet, content: {
+                .sheet(isPresented: $showingSheet, onDismiss: {
+                    bikeRideViewModel.updateCategories()
+                }, content: {
                     switch sheetToPresent {
                     case .filter:
                         BikeRideFilterSheetView(showingSheet: $showingSheet, selectedName: $selectedName, names: bikeRideViewModel.categories)
