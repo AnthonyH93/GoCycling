@@ -38,7 +38,7 @@ struct BikeRideListView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         if (preferences.namedRoutes && bikeRideViewModel.filterEnabledCheck()) {
-                            Button (bikeRideViewModel.getFilterActionSheetTitle()) {
+                            Button {
                                 self.sheetToPresent = .filter
                                 self.showingSheet = true
 
@@ -46,12 +46,14 @@ struct BikeRideListView: View {
                                     tab: telemetryTab,
                                     action: TelemetryCyclingAction.FilterClick
                                 )
+                            } label: {
+                                Image(systemName: "line.3.horizontal.decrease")
                             }
                         }
                     }
                     ToolbarItem(placement: .navigationBarLeading) {
                         if (preferences.namedRoutes && bikeRideViewModel.editEnabledCheck()) {
-                            Button ("Edit") {
+                            Button {
                                 self.sheetToPresent = .edit
                                 self.showingSheet = true
 
@@ -59,6 +61,8 @@ struct BikeRideListView: View {
                                     tab: telemetryTab,
                                     action: TelemetryCyclingAction.EditCategory
                                 )
+                            } label: {
+                                Image(systemName: "pencil")
                             }
                         }
                     }
