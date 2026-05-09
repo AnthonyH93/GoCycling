@@ -12,10 +12,9 @@ struct RouteNameModalView: View {
 
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
-    
+
     @Binding var showEditModal: Bool
-    
-    @State private var showModally = true
+
     @State private var selectedNameIndex = 0
     @State private var namedRoutesViewSelection = NamedRoutesViewSelection.new
     
@@ -45,7 +44,7 @@ struct RouteNameModalView: View {
                 Text("Create a New Category").tag(NamedRoutesViewSelection.new)
                 Text("Use an Existing Category").tag(NamedRoutesViewSelection.existing)
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .pickerStyle(.segmented)
             .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 10, trailing: 10))
             
             switch namedRoutesViewSelection {
@@ -74,8 +73,8 @@ struct RouteNameModalView: View {
                 .padding()
                 Divider()
                 Button (action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                    
+                    presentationMode.wrappedValue.dismiss()
+
                     if (self.bikeRideToEdit == nil) {
                         telemetryManager.sendCyclingSignal(
                             tab: telemetryTab,
@@ -108,7 +107,7 @@ struct RouteNameModalView: View {
                         }
                         }
                     }
-                    .listStyle(PlainListStyle())
+                    .listStyle(.plain)
                 }
                 else {
                     Text("There are no saved categories.")
@@ -131,7 +130,7 @@ struct RouteNameModalView: View {
                 .disabled(!(self.routeNamingViewModel.routeNames.count > 0))
                 Divider()
                 if (self.bikeRideToEdit != nil) {
-                    Button (action: {self.presentationMode.wrappedValue.dismiss()}) {
+                    Button (action: { presentationMode.wrappedValue.dismiss() }) {
                         Text("Cancel")
                             .bold()
                     }
@@ -139,8 +138,6 @@ struct RouteNameModalView: View {
                     Divider()
                 }
             }
-        }
-        .presentation(isModal: self.showModally) {
         }
         .onAppear {
             if (bikeRideToEdit != nil && bikeRideToEdit?.cyclingRouteName != "Uncategorized") {
@@ -188,9 +185,8 @@ struct RouteNameModalView: View {
                     time: ride.cyclingTime,
                     routeName: routeName)
             }
-            self.presentationMode.wrappedValue.dismiss()
+            presentationMode.wrappedValue.dismiss()
             self.showEditModal = false
-            self.showModally = false
         }
         else {
             let ride = self.bikeRideToEdit!
@@ -204,9 +200,8 @@ struct RouteNameModalView: View {
                 startTime: ride.cyclingStartTime,
                 time: ride.cyclingTime,
                 routeName: routeName)
-            self.presentationMode.wrappedValue.dismiss()
+            presentationMode.wrappedValue.dismiss()
             self.showEditModal = false
-            self.showModally = false
         }
     }
     
@@ -222,9 +217,8 @@ struct RouteNameModalView: View {
             startTime: ride.cyclingStartTime,
             time: ride.cyclingTime,
             routeName: "Uncategorized")
-        self.presentationMode.wrappedValue.dismiss()
+        presentationMode.wrappedValue.dismiss()
         self.showEditModal = false
-        self.showModally = false
     }
 }
 

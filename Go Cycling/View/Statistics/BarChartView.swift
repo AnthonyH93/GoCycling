@@ -33,7 +33,7 @@ struct BarChartView: View {
                 Text("Time").tag(BarChartUnits.time)
                 Text("Routes").tag(BarChartUnits.numberOfRoutes)
             }
-            .pickerStyle(SegmentedPickerStyle())
+            .pickerStyle(.segmented)
             .padding(.bottom, 10)
             
             if (selectedValue != "") {

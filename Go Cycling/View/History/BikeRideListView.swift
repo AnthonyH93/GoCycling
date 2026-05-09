@@ -33,7 +33,7 @@ struct BikeRideListView: View {
         NavigationView {
             GeometryReader { (geometry) in
                 ListView(sortDescripter: bikeRideViewModel.getSortDescriptor(), name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted, updateCategories: $updateCategories)
-                .listStyle(PlainListStyle())
+                .listStyle(.plain)
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {

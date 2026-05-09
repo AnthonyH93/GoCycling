@@ -34,7 +34,7 @@ struct UnitsView: View {
                     }
             }
             .frame(maxWidth: 150)
-            .pickerStyle(SegmentedPickerStyle())
+            .pickerStyle(.segmented)
         }
         Toggle("Display Metrics on Map", isOn: $preferences.displayingMetrics)
             .onChange(of: preferences.displayingMetrics) { value in
