@@ -105,6 +105,7 @@
 		9D75E29226C85C9C00DE536D /* BikeRideSortPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D75E29126C85C9C00DE536D /* BikeRideSortPopoverView.swift */; };
 		9D75E29426C8636F00DE536D /* BikeRideFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */; };
 		9D76355A262009230026D948 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D763559262009230026D948 /* MapView.swift */; };
+		AA0000012026051300000001 /* AutoPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026051300000002 /* AutoPauseState.swift */; };
 		9D8169BC263E0C5200DED7F8 /* SortChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169BB263E0C5200DED7F8 /* SortChoice.swift */; };
 		9D8169DC263F815600DED7F8 /* ChangeAppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8169DB263F815600DED7F8 /* ChangeAppIconView.swift */; };
 		9D8169ED263FA47A00DED7F8 /* Dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8169EB263FA47A00DED7F8 /* Dark@2x.png */; };
@@ -286,6 +287,7 @@
 		9D75E29126C85C9C00DE536D /* BikeRideSortPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideSortPopoverView.swift; sourceTree = "<group>"; };
 		9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideFilterSheetView.swift; sourceTree = "<group>"; };
 		9D763559262009230026D948 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		AA0000012026051300000002 /* AutoPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPauseState.swift; sourceTree = "<group>"; };
 		9D8169BB263E0C5200DED7F8 /* SortChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortChoice.swift; sourceTree = "<group>"; };
 		9D8169DB263F815600DED7F8 /* ChangeAppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAppIconView.swift; sourceTree = "<group>"; };
 		9D8169EB263FA47A00DED7F8 /* Dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark@2x.png"; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 				9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */,
 				9DCD21EC263638F200506FA5 /* UnitsChoice.swift */,
 				9D8169BB263E0C5200DED7F8 /* SortChoice.swift */,
+				AA0000012026051300000002 /* AutoPauseState.swift */,
 				9D8169F9263FA4CE00DED7F8 /* IconNames.swift */,
 				9D816A0E263FBD0600DED7F8 /* CyclingStatus.swift */,
 				9D2F48FD265097F000094575 /* Category.swift */,
@@ -989,6 +992,7 @@
 				9DC758392807A74900BB2953 /* Preferences.swift in Sources */,
 				9DF9305326DE06A600D4EEC5 /* Medal.swift in Sources */,
 				9DCD21ED263638F200506FA5 /* UnitsChoice.swift in Sources */,
+				AA0000012026051300000001 /* AutoPauseState.swift in Sources */,
 				9DF9304326DCAAD300D4EEC5 /* CyclingRecordsView.swift in Sources */,
 				9D62F4E02634F7CC00E28991 /* MetricsFormatting.swift in Sources */,
 				9DAB837025FED0A300F5C42E /* HistoryView.swift in Sources */,

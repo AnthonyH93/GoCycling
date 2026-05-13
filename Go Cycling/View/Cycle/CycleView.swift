@@ -49,8 +49,8 @@ struct CycleView: View {
                     Text("Auto-Paused")
                         .font(.caption)
                         .padding(6)
-                        .background(Color.orange.opacity(0.85))
-                        .foregroundColor(.white)
+                        .background(Color(UIColor.systemYellow))
+                        .foregroundColor(.black)
                         .cornerRadius(8)
                 }
                 Spacer()

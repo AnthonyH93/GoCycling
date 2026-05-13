@@ -9,10 +9,6 @@ import Foundation
 import CoreLocation
 import Combine
 
-enum AutoPauseState: Equatable {
-    case notCycling, moving, stopped, resumed
-}
-
 class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     // A singleton for the entire app - there should be only 1 instance of this class
