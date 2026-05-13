@@ -129,37 +129,17 @@ class Preferences: ObservableObject {
         }
     }
     
-    // Converters for Views
+    // Read-only converters for Views — use updateBoolPreference/updateStringPreference to write
     var colourChoiceConverted: ColourChoice {
-        set {
-            colourChoice = newValue.rawValue
-        }
-        get {
-            ColourChoice(rawValue: colourChoice) ?? .blue
-        }
+        ColourChoice(rawValue: colourChoice) ?? .blue
     }
-    
+
     var sortingChoiceConverted: SortChoice {
-        set {
-            sortingChoice = newValue.rawValue
-        }
-        get {
-            SortChoice(rawValue: sortingChoice) ?? .dateDescending
-        }
+        SortChoice(rawValue: sortingChoice) ?? .dateDescending
     }
-    
+
     var metricsChoiceConverted: UnitsChoice {
-        set {
-            if (newValue.id == "metric") {
-                usingMetric = true
-            }
-            else {
-                usingMetric = false
-            }
-        }
-        get {
-            usingMetric ? .metric : .imperial
-        }
+        usingMetric ? .metric : .imperial
     }
     
     // Function to update class members
