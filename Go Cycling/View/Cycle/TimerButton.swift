@@ -17,7 +17,6 @@ struct TimerButton: View {
 
     var body: some View {
         Text(label)
-            .font(isSmall ? .caption : nil)
             .foregroundColor(colorScheme == .dark ? .white : .black)
             .padding(.vertical, isSmall ? 6 : 20)
             .padding(.horizontal, isSmall ? 12 : 50)
