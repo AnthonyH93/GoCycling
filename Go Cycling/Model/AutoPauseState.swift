@@ -8,5 +8,8 @@
 import Foundation
 
 enum AutoPauseState: Equatable {
-    case notCycling, moving, stopped, resumed
+    case notCycling
+    case moving
+    case stopped
+    case resumed
 }
