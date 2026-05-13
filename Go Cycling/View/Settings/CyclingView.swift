@@ -26,6 +26,13 @@ struct CyclingView: View {
             UIApplication.shared.isIdleTimerDisabled = value
             telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.AutoLock)
         }
+        Toggle("Auto-Pause When Stopped", isOn: Binding(
+            get: { preferences.autoPauseEnabled },
+            set: { preferences.updateBoolPreference(preference: CustomizablePreferences.autoPauseEnabled, value: $0) }
+        ))
+        .onChange(of: preferences.autoPauseEnabled) { value in
+            telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.AutoPause)
+        }
     }
 }
 

@@ -128,6 +128,7 @@ enum TelemetrySettingsAction: String {
     case DeletionConfirmtion = "deletionConfirmationSwitchPressed"
     // Cycling actions
     case AutoLock = "disableAutoLockSwitchPressed"
+    case AutoPause = "autoPauseSwitchPressed"
     case ClearHistory = "clearLocalHistory"
     // Sync actions
     case iCloud = "iCloudSwitchPressed"

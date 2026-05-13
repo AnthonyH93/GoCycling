@@ -17,6 +17,7 @@ struct CycleView: View {
     @State private var cyclingStartTime = Date()
     @State private var timeCycling = 0.0
     @State private var showingRouteNamingPopover = false
+    @State private var isAutoPaused: Bool = false
     
     @StateObject var locationManager = LocationViewModel.locationManager
     
@@ -44,6 +45,14 @@ struct CycleView: View {
                 }
                 Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                     .font(.custom("Avenir", size: 40))
+                if isAutoPaused {
+                    Text("Auto-Paused")
+                        .font(.caption)
+                        .padding(6)
+                        .background(Color.orange.opacity(0.85))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
                 Spacer()
                 HStack {
                     if (timer.isRunning) {
@@ -93,6 +102,7 @@ struct CycleView: View {
                             // Keep track of whether user has completed a route
                             ReviewManager.completedRoute()
                         
+                            self.isAutoPaused = false
                             self.timeCycling = timer.totalAccumulatedTime
                             self.timer.stop()
                             cyclingStatus.stoppedCycling()
@@ -114,6 +124,24 @@ struct CycleView: View {
             }
             .sheet(isPresented: $showingRouteNamingPopover) {
                 RouteNameModalView(showEditModal: $showingRouteNamingPopover, bikeRideToEdit: nil)
+            }
+            .onChange(of: locationManager.autoPauseState) { state in
+                guard preferences.autoPauseEnabled else { return }
+                switch state {
+                case .stopped:
+                    if !isAutoPaused && timer.isRunning {
+                        pauseCycling()
+                        isAutoPaused = true
+                    }
+                case .resumed:
+                    if isAutoPaused {
+                        resumeCycling()
+                        isAutoPaused = false
+                        locationManager.autoPauseState = .moving
+                    }
+                default:
+                    break
+                }
             }
         }
     }
@@ -149,6 +177,7 @@ struct CycleView: View {
     }
     
     func resumeCycling() {
+        isAutoPaused = false
         self.timer.start()
         
         telemetryManager.sendCyclingSignal(
