@@ -130,13 +130,17 @@ struct CycleView: View {
                 switch state {
                 case .stopped:
                     if !isAutoPaused && timer.isRunning {
-                        pauseCycling()
-                        isAutoPaused = true
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            pauseCycling()
+                            isAutoPaused = true
+                        }
                     }
                 case .resumed:
                     if isAutoPaused {
-                        resumeCycling()
-                        isAutoPaused = false
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            resumeCycling()
+                            isAutoPaused = false
+                        }
                         locationManager.autoPauseState = .moving
                     }
                 default:
