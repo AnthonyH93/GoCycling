@@ -13,13 +13,15 @@ struct TimerButton: View {
     
     let label: String
     let buttonColour: UIColor
-    
+    var isSmall: Bool = false
+
     var body: some View {
         Text(label)
+            .font(isSmall ? .caption : nil)
             .foregroundColor(colorScheme == .dark ? .white : .black)
-            .padding(.vertical, 20)
-            .padding(.horizontal, 50)
+            .padding(.vertical, isSmall ? 6 : 20)
+            .padding(.horizontal, isSmall ? 12 : 50)
             .background(Color(buttonColour))
-            .cornerRadius(10)
+            .cornerRadius(isSmall ? 8 : 10)
     }
 }

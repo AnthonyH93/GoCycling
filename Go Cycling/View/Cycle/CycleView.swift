@@ -46,12 +46,7 @@ struct CycleView: View {
                 Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                     .font(.custom("Avenir", size: 40))
                 if isAutoPaused {
-                    Text("Auto-Paused")
-                        .font(.caption)
-                        .padding(6)
-                        .background(Color(UIColor.systemYellow))
-                        .foregroundColor(.black)
-                        .cornerRadius(8)
+                    TimerButton(label: "Auto-Paused", buttonColour: UIColor.systemYellow, isSmall: true)
                 }
                 Spacer()
                 HStack {
