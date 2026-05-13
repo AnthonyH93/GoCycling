@@ -77,6 +77,14 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         // Update the location settings alert message each time the user changes the authorization status
         setLocationAlertMessage()
     }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let clError = error as? CLError
+        // kCLErrorLocationUnknown is transient — location manager will keep trying
+        if clError?.code != .locationUnknown {
+            print("LocationViewModel didFailWithError: \(error)")
+        }
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
