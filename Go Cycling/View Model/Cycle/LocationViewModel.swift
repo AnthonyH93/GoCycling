@@ -190,10 +190,10 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private func handleStalenessTick() {
         let elapsed = Date().timeIntervalSince(lastLocationUpdateTime)
-        if elapsed >= 7.0 {
+        if elapsed >= 5.0 {
             displaySpeed = 0
             stoppedSpeedDuration += 1.0
-            if stoppedSpeedDuration >= 5.0 && autoPauseState == .moving {
+            if stoppedSpeedDuration >= 3.0 && autoPauseState == .moving {
                 autoPauseState = .stopped
             }
         }
