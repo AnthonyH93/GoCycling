@@ -35,7 +35,9 @@ extension BikeRideStorage: NSFetchedResultsControllerDelegate {
         guard let savedBikeRides = controller.fetchedObjects as? [BikeRide]
         else { return }
 
-        storedBikeRides = savedBikeRides
+        DispatchQueue.main.async {
+            self.storedBikeRides = savedBikeRides
+        }
     }
 }
 
