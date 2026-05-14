@@ -122,7 +122,9 @@ struct MapView: UIViewRepresentable {
                                                         time: timeCycling)
                     
                     // Update CyclingRecords with thise new entry in case any new records were set
-                    records.updateCyclingRecords(speeds: locationManager.cyclingSpeeds, distance: locationManager.cyclingTotalDistance, startTime: cyclingStartTime, time: timeCycling)
+                    DispatchQueue.main.async {
+                        records.updateCyclingRecords(speeds: locationManager.cyclingSpeeds, distance: locationManager.cyclingTotalDistance, startTime: cyclingStartTime, time: timeCycling)
+                    }
                     
                     DispatchQueue.main.async {
                         locationManager.clearLocationArray()
