@@ -80,7 +80,9 @@ struct MapView: UIViewRepresentable {
             if cyclingStatus.isCycling {
                 if (!startedCycling) {
                     startedCycling = true
-                    locationManager.startedCycling()
+                    DispatchQueue.main.async {
+                        locationManager.startedCycling()
+                    }
                 }
                 let locationsCount = locationManager.cyclingLocations.count
                 switch locationsCount {
@@ -122,7 +124,9 @@ struct MapView: UIViewRepresentable {
                     // Update CyclingRecords with thise new entry in case any new records were set
                     records.updateCyclingRecords(speeds: locationManager.cyclingSpeeds, distance: locationManager.cyclingTotalDistance, startTime: cyclingStartTime, time: timeCycling)
                     
-                    locationManager.clearLocationArray()
+                    DispatchQueue.main.async {
+                        locationManager.clearLocationArray()
+                    }
                     locationManager.stopTrackingBackgroundLocation()
                 }
             }
