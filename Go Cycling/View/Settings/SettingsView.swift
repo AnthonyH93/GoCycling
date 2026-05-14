@@ -41,6 +41,10 @@ struct SettingsView: View {
                         SyncSettingsView()
                     }
                     .disabled(cyclingStatus.isCycling)
+                    Section(header: Text("Privacy"),
+                            footer: Text("Analytics are completely anonymous and contain no personal or identifiable information. They help me understand how Go Cycling is used and what to improve next.")) {
+                        PrivacySettingsView()
+                    }
                     Section(header: Text("Reset")) {
                         ResetView()
                     }

@@ -128,6 +128,7 @@
 		9D9776E52633B0E70048B504 /* BikeRideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E42633B0E70048B504 /* BikeRideListView.swift */; };
 		9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E92633B4050048B504 /* SingleBikeRideView.swift */; };
 		9D9E8BEF28AE179C0057BCAB /* SyncSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */; };
+		AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000022026051300000002 /* PrivacySettingsView.swift */; };
 		9DA60D60287558D000072DA2 /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D5F287558D000072DA2 /* ReviewManager.swift */; };
 		9DA60D6228755AF900072DA2 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */; };
 		9DA60D642875617600072DA2 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D632875617600072DA2 /* SupportView.swift */; };
@@ -308,6 +309,7 @@
 		9D9776E42633B0E70048B504 /* BikeRideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListView.swift; sourceTree = "<group>"; };
 		9D9776E92633B4050048B504 /* SingleBikeRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBikeRideView.swift; sourceTree = "<group>"; };
 		9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncSettingsView.swift; sourceTree = "<group>"; };
+		AA0000022026051300000002 /* PrivacySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsView.swift; sourceTree = "<group>"; };
 		9DA60D5F287558D000072DA2 /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		9DA60D632875617600072DA2 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 				9D1ED54F26448F4F005A97ED /* CyclingHistorySettingsView.swift */,
 				9DA60D632875617600072DA2 /* SupportView.swift */,
 				9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */,
+				AA0000022026051300000002 /* PrivacySettingsView.swift */,
 				9DD9AD9A2B833D8C00307945 /* CyclingView.swift */,
 			);
 			path = Settings;
@@ -1022,6 +1025,7 @@
 				9D2F48FE265097F000094575 /* Category.swift in Sources */,
 				9D601E5626DEF6E100844CD1 /* ActivityAwardsViewModel.swift in Sources */,
 				9D9E8BEF28AE179C0057BCAB /* SyncSettingsView.swift in Sources */,
+				AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */,
 				9D9776E52633B0E70048B504 /* BikeRideListView.swift in Sources */,
 				9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */,
 				9DEAD6C4263257A500392D88 /* BikeRide+CoreDataClass.swift in Sources */,
