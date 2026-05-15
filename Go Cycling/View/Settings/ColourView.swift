@@ -17,10 +17,20 @@ struct ColourView: View {
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTabSection = TelemetrySettingsSection.Customization
     
+    var colourBinding: Binding<ColourChoice> {
+        Binding(
+            get: { preferences.colourChoiceConverted },
+            set: { value in
+                preferences.updateStringPreference(preference: CustomizablePreferences.colour, value: value.rawValue)
+                telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.Colour)
+            }
+        )
+    }
+
     var body: some View {
         // The picker view within a form changed in iOS 16
         if #available(iOS 16.0, *) {
-            Picker("Colour", selection: $preferences.colourChoiceConverted) {
+            Picker("Colour", selection: colourBinding) {
                 Text("Red").tag(ColourChoice.red)
                 Text("Orange").tag(ColourChoice.orange)
                 Text("Yellow").tag(ColourChoice.yellow)
@@ -28,16 +38,12 @@ struct ColourView: View {
                 Text("Blue").tag(ColourChoice.blue)
                 Text("Indigo").tag(ColourChoice.indigo)
                 Text("Violet").tag(ColourChoice.violet)
-                    .navigationBarTitle("Choose your Colour", displayMode: .inline)
-                    .onChange(of: preferences.colourChoiceConverted) { _ in
-                        self.updateColourPreference(value: preferences.colourChoice)
-                    }
             }
-            // Use the navigation link picker style (how it looked before iOS 16)
+            .navigationBarTitle("Choose your Colour", displayMode: .inline)
             .pickerStyle(.navigationLink)
         }
         else {
-            Picker("Colour", selection: $preferences.colourChoiceConverted) {
+            Picker("Colour", selection: colourBinding) {
                 Text("Red").tag(ColourChoice.red)
                 Text("Orange").tag(ColourChoice.orange)
                 Text("Yellow").tag(ColourChoice.yellow)
@@ -45,21 +51,9 @@ struct ColourView: View {
                 Text("Blue").tag(ColourChoice.blue)
                 Text("Indigo").tag(ColourChoice.indigo)
                 Text("Violet").tag(ColourChoice.violet)
-                    .navigationBarTitle("Choose your Colour", displayMode: .inline)
-                    .onChange(of: preferences.colourChoiceConverted) { _ in
-                        self.updateColourPreference(value: preferences.colourChoice)
-                    }
             }
+            .navigationBarTitle("Choose your Colour", displayMode: .inline)
         }
-    }
-    
-    func updateColourPreference(value: String) {
-        preferences.updateStringPreference(preference: CustomizablePreferences.colour, value: value)
-        
-        telemetryManager.sendSettingsSignal(
-            section: telemetryTabSection,
-            action: TelemetrySettingsAction.Colour
-        )
     }
 }
 

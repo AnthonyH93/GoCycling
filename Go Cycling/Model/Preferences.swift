@@ -22,6 +22,7 @@ enum CustomizablePreferences {
     case iCloudSync
     case autoLockDisabled
     case healthSyncEnabled
+    case telemetryEnabled
 }
 
 // Class to represent the preferences of a user
@@ -43,13 +44,16 @@ class Preferences: ObservableObject {
     @Published var iCloudOn: Bool
     @Published var autoLockDisabled: Bool
     @Published var healthSyncEnabled: Bool
-    
+    @Published var telemetryEnabled: Bool
+
     static private let initKey = "didSetupPreferences"
     static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute", "autoLockDisabled", "healthSyncEnabled"]
     // Icon index is a special case since it should only be stored locally
     static private let iconIndexKey = "iconIndex"
     // iCloud sync setting is also only stored locally
     static private let iCloudOnKey = "iCloudOn"
+    // Telemetry opt-out is stored locally only (privacy preference should stay device-local)
+    static let telemetryEnabledKey = "telemetryEnabled"
     static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0] // 0: Bool, 1: Int, 2: String
     
     init() {
@@ -111,10 +115,14 @@ class Preferences: ObservableObject {
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         self.autoLockDisabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
         self.healthSyncEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[10])
-        
+
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
         self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
-        
+        let storedTelemetry = UserDefaults.standard.object(forKey: Preferences.telemetryEnabledKey)
+        self.telemetryEnabled = storedTelemetry != nil
+            ? UserDefaults.standard.bool(forKey: Preferences.telemetryEnabledKey)
+            : true
+
         // Used to watch for iCloud NSUbiquitousKeyValueStore change events to sync preferences from other devices
         NotificationCenter.default.addObserver(self, selector: #selector(keysDidChangeOnCloud(notification:)),
                                                        name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
@@ -129,37 +137,17 @@ class Preferences: ObservableObject {
         }
     }
     
-    // Converters for Views
+    // Read-only converters for Views — use updateBoolPreference/updateStringPreference to write
     var colourChoiceConverted: ColourChoice {
-        set {
-            colourChoice = newValue.rawValue
-        }
-        get {
-            ColourChoice(rawValue: colourChoice) ?? .blue
-        }
+        ColourChoice(rawValue: colourChoice) ?? .blue
     }
-    
+
     var sortingChoiceConverted: SortChoice {
-        set {
-            sortingChoice = newValue.rawValue
-        }
-        get {
-            SortChoice(rawValue: sortingChoice) ?? .dateDescending
-        }
+        SortChoice(rawValue: sortingChoice) ?? .dateDescending
     }
-    
+
     var metricsChoiceConverted: UnitsChoice {
-        set {
-            if (newValue.id == "metric") {
-                usingMetric = true
-            }
-            else {
-                usingMetric = false
-            }
-        }
-        get {
-            usingMetric ? .metric : .imperial
-        }
+        usingMetric ? .metric : .imperial
     }
     
     // Function to update class members
@@ -175,9 +163,13 @@ class Preferences: ObservableObject {
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         self.autoLockDisabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
         self.healthSyncEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[10])
-        
+
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
         self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
+        let storedTelemetry = UserDefaults.standard.object(forKey: Preferences.telemetryEnabledKey)
+        self.telemetryEnabled = storedTelemetry != nil
+            ? UserDefaults.standard.bool(forKey: Preferences.telemetryEnabledKey)
+            : true
     }
     
     static public func iCloudAvailable() -> Bool {
@@ -338,6 +330,9 @@ class Preferences: ObservableObject {
         case .healthSyncEnabled:
             UserDefaults.standard.set(value, forKey: Preferences.keys[10])
             self.healthSyncEnabled = value
+        case .telemetryEnabled:
+            UserDefaults.standard.set(value, forKey: Preferences.telemetryEnabledKey)
+            self.telemetryEnabled = value
         case .iCloudSync:
             // Special case for turning on iCloud
             UserDefaults.standard.set(value, forKey: Preferences.iCloudOnKey)

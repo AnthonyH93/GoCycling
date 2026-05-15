@@ -41,15 +41,20 @@ struct SettingsView: View {
                         SyncSettingsView()
                     }
                     .disabled(cyclingStatus.isCycling)
-                    Section(header: Text("Reset")) {
-                        ResetView()
-                    }
-                    .disabled(cyclingStatus.isCycling)
                     Section(header: Text("About the app")) {
                         AboutAppView()
                     }
                     Section(header: Text("Support")) {
                         SupportView()
+                    }
+                    Section(header: Text("Reset")) {
+                        ResetView()
+                    }
+                    .disabled(cyclingStatus.isCycling)
+                    Section(header: Text("Privacy"),
+                            footer: Text("Analytics are completely anonymous and contain no personal or identifiable information. They help prioritize future improvements. You can opt out at any time.")
+                                .fixedSize(horizontal: false, vertical: true)) {
+                        PrivacySettingsView()
                     }
                 }
                 .navigationBarTitle(Text("Settings"))

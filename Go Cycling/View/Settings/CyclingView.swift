@@ -18,16 +18,14 @@ struct CyclingView: View {
     let telemetryTabSection = TelemetrySettingsSection.Cycling
     
     var body: some View {
-        Toggle("Disable Auto-Lock", isOn: $preferences.autoLockDisabled)
-            .onChange(of: preferences.autoLockDisabled) { value in
-                UIApplication.shared.isIdleTimerDisabled = value
-                preferences.updateBoolPreference(preference: CustomizablePreferences.autoLockDisabled, value: value)
-                
-                telemetryManager.sendSettingsSignal(
-                    section: telemetryTabSection,
-                    action: TelemetrySettingsAction.AutoLock
-                )
-            }
+        Toggle("Disable Auto-Lock", isOn: Binding(
+            get: { preferences.autoLockDisabled },
+            set: { preferences.updateBoolPreference(preference: CustomizablePreferences.autoLockDisabled, value: $0) }
+        ))
+        .onChange(of: preferences.autoLockDisabled) { value in
+            UIApplication.shared.isIdleTimerDisabled = value
+            telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.AutoLock)
+        }
     }
 }
 

@@ -16,6 +16,12 @@ class TelemetryManager {
     
     // Toggle for collecting telemetry data
     private static var telemetryOn: Bool?
+
+    // Set by setup() before singleton init — gates SDK initialization
+    private static var launchEnabled: Bool = true
+
+    // Set after launch to stop signals mid-session without re-initializing
+    var userDisabled: Bool = false
     
     // Structure for initializing the TelemetryManager
     struct TelemetryManagerConfig {
@@ -24,13 +30,14 @@ class TelemetryManager {
     
     private static var config: TelemetryManagerConfig?
     
-    class func setup(_ config: TelemetryManagerConfig) {
+    class func setup(_ config: TelemetryManagerConfig, enabled: Bool = true) {
         TelemetryManager.config = config
+        TelemetryManager.launchEnabled = enabled
     }
     
     private init(){
-        // Choose mode based on whether configuration is complete
-        if let config = TelemetryManager.config {
+        // Choose mode based on whether configuration is complete and user has not opted out
+        if let config = TelemetryManager.config, TelemetryManager.launchEnabled {
             let telemetryDeckConfig = TelemetryDeck.Config(appID: config.appID)
             telemetryDeckConfig.defaultSignalPrefix = "GoCycling"
             TelemetryDeck.initialize(config: telemetryDeckConfig)
@@ -42,13 +49,13 @@ class TelemetryManager {
     }
     
     func sendCyclingSignal(tab: TelemetryTab, action: TelemetryCyclingAction) {
-        if TelemetryManager.telemetryOn ?? false {
+        if (TelemetryManager.telemetryOn ?? false) && !userDisabled {
             TelemetryDeck.signal(".\(tab).\(action)")
         }
     }
 
     func sendSettingsSignal(section: TelemetrySettingsSection, action: TelemetrySettingsAction, parameters: [String : String]? = nil) {
-        if TelemetryManager.telemetryOn ?? false {
+        if (TelemetryManager.telemetryOn ?? false) && !userDisabled {
             if let params = parameters {
                 TelemetryDeck.signal(
                     ".\(TelemetryTab.Settings).\(section).\(action)",
@@ -103,6 +110,7 @@ enum TelemetrySettingsSection: String {
     case History = "CyclingHistory"
     case Cycling = "Cycling"
     case Sync = "Sync"
+    case Privacy = "Privacy"
     case Reset = "Reset"
 }
 
@@ -128,4 +136,6 @@ enum TelemetrySettingsAction: String {
     case Defaults = "resetToDefaultSettingsPressed"
     case DeleteRoutes = "deleteAllRoutesPressed"
     case DeleteStats = "deleteAllStatisticsPressed"
+    // Privacy actions
+    case TelemetryOptOut = "telemetryOptOutSwitchPressed"
 }

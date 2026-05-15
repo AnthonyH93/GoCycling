@@ -23,8 +23,14 @@ struct GoCyclingApp: App {
         // Initialize TelemetryDeck
         // Attempt to find App ID
         if let appID = Bundle.main.object(forInfoDictionaryKey: "GoCyclingAppID") {
-            // Setup the singleton class
-            TelemetryManager.setup(TelemetryManager.TelemetryManagerConfig(appID: appID as! String))
+            // Read telemetry preference before singleton init — missing key defaults to true (opted in)
+            let telemetryEnabled = UserDefaults.standard.object(forKey: Preferences.telemetryEnabledKey) != nil
+                ? UserDefaults.standard.bool(forKey: Preferences.telemetryEnabledKey)
+                : true
+            TelemetryManager.setup(
+                TelemetryManager.TelemetryManagerConfig(appID: appID as! String),
+                enabled: telemetryEnabled
+            )
         }
         
         // Retrieve stored data to be used by all views - create state objects for environment objects
@@ -68,6 +74,9 @@ struct GoCyclingApp: App {
                     if (preferences.autoLockDisabled) {
                         UIApplication.shared.isIdleTimerDisabled = true
                     }
+
+                    // Gate mid-session telemetry signals based on stored preference
+                    TelemetryManager.sharedTelemetryManager.userDisabled = !preferences.telemetryEnabled
                 })
         }
         .onChange(of: scenePhase) { _ in

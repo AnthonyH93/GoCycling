@@ -18,33 +18,27 @@ struct CyclingHistorySettingsView: View {
     let telemetryTabSection = TelemetrySettingsSection.History
     
     var body: some View {
-        Toggle("Route Categorization Enabled", isOn: $preferences.namedRoutes)
-            .onChange(of: preferences.namedRoutes) { value in
+        Toggle("Route Categorization Enabled", isOn: Binding(
+            get: { preferences.namedRoutes },
+            set: { value in
                 preferences.updateBoolPreference(preference: CustomizablePreferences.namedRoutes, value: value)
-                
-                telemetryManager.sendSettingsSignal(
-                    section: telemetryTabSection,
-                    action: TelemetrySettingsAction.RoutesEnabled
-                )
+                telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.RoutesEnabled)
             }
-        Toggle("Deletion Enabled", isOn: $preferences.deletionEnabled)
-            .onChange(of: preferences.deletionEnabled) { value in
+        ))
+        Toggle("Deletion Enabled", isOn: Binding(
+            get: { preferences.deletionEnabled },
+            set: { value in
                 preferences.updateBoolPreference(preference: CustomizablePreferences.deletionEnabled, value: value)
-                
-                telemetryManager.sendSettingsSignal(
-                    section: telemetryTabSection,
-                    action: TelemetrySettingsAction.DeletionEnabled
-                )
+                telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.DeletionEnabled)
             }
-        Toggle("Deletion Confirmation Alert", isOn: $preferences.deletionConfirmation)
-            .onChange(of: preferences.deletionConfirmation) { value in
+        ))
+        Toggle("Deletion Confirmation Alert", isOn: Binding(
+            get: { preferences.deletionConfirmation },
+            set: { value in
                 preferences.updateBoolPreference(preference: CustomizablePreferences.deletionConfirmation, value: value)
-                
-                telemetryManager.sendSettingsSignal(
-                    section: telemetryTabSection,
-                    action: TelemetrySettingsAction.DeletionConfirmtion
-                )
+                telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.DeletionConfirmtion)
             }
+        ))
     }
 }
 
