@@ -37,55 +37,44 @@ struct SyncSettingsView: View {
     }
 
     var body: some View {
-        // In iOS 16+ forms can have labels attached to content
-        if #available(iOS 16.0, *) {
-            // iCloud sync setting
-            LabeledContent {
-                Toggle("", isOn: iCloudBinding)
-                    .onChange(of: preferences.iCloudOn) { _ in
-                        self.showingAlert = true
-                        telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.iCloud)
-                    }
-                // Confirmation alert about restarting app due to iCloud setting change
-                    .alert(isPresented: $showingAlert) {
-                        Alert(title: Text("Restart is Required"),
-                              message: Text("Please restart the application to \(preferences.iCloudOn ? "enable" : "disable") iCloud syncing for cycling routes.")
-                        )
-                    }
-            } label: {
-                Label("iCloud", systemImage: "icloud")
-                Text("Sync all data with iCloud")
-                    .fixedSize(horizontal: false, vertical: true)
+        // iCloud sync setting
+        Toggle(isOn: iCloudBinding) {
+            Label {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("iCloud")
+                    Text("Sync all data with iCloud")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            } icon: {
+                Image(systemName: "icloud")
             }
-            // HealthKit sync setting
-            LabeledContent {
-                Toggle("", isOn: healthBinding)
-                    .onChange(of: preferences.healthSyncEnabled) { value in
-                        if value { healthKitManager.requestAuthorization() }
-                        telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.Health)
-                    }
-            } label: {
-                Label("Health", systemImage: "heart")
-                Text("Upload data to the Health app")
-                    .fixedSize(horizontal: false, vertical: true)
+        }
+        .onChange(of: preferences.iCloudOn) { _ in
+            self.showingAlert = true
+            telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.iCloud)
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Restart is Required"),
+                  message: Text("Please restart the application to \(preferences.iCloudOn ? "enable" : "disable") iCloud syncing for cycling routes.")
+            )
+        }
+        // HealthKit sync setting
+        Toggle(isOn: healthBinding) {
+            Label {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Health")
+                    Text("Upload data to the Health app")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            } icon: {
+                Image(systemName: "heart")
             }
-        } else {
-            Toggle("iCloud Sync", isOn: iCloudBinding)
-                .onChange(of: preferences.iCloudOn) { _ in
-                    self.showingAlert = true
-                    telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.iCloud)
-                }
-                // Confirmation alert about restarting app due to iCloud setting change
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Restart is Required"),
-                          message: Text("Please restart the application to \(preferences.iCloudOn ? "enable" : "disable") iCloud syncing for cycling routes.")
-                    )
-                }
-            Toggle("Health Sync", isOn: healthBinding)
-                .onChange(of: preferences.healthSyncEnabled) { value in
-                    if value { healthKitManager.requestAuthorization() }
-                    telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.Health)
-                }
+        }
+        .onChange(of: preferences.healthSyncEnabled) { value in
+            if value { healthKitManager.requestAuthorization() }
+            telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.Health)
         }
     }
 }
