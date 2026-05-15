@@ -27,10 +27,10 @@ struct MapWithSpeedView: View {
             MapView(centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             VStack {
                 if (preferences.largeMetrics) {
-                    LargeMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, screenWidth: screenWidth)
+                    LargeMetricsView(currentSpeed: $locationManager.displaySpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, screenWidth: screenWidth)
                 }
                 else {
-                    SmallMetricsView(currentSpeed: $locationManager.cyclingSpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance)
+                    SmallMetricsView(currentSpeed: $locationManager.displaySpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance)
                 }
                 Spacer()
                 HStack {

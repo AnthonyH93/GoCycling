@@ -20,6 +20,12 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var cyclingLocations: [CLLocation?] = []
     @Published var cyclingSpeed: CLLocationSpeed?
     @Published var cyclingSpeeds: [CLLocationSpeed?] = []
+    @Published var displaySpeed: CLLocationSpeed? = nil
+    @Published var autoPauseState: AutoPauseState = .notCycling
+
+    private var stalenessTimer: Timer?
+    private var lastLocationUpdateTime: Date = Date()
+    private var stoppedSpeedDuration: TimeInterval = 0.0
     @Published var cyclingAltitude: CLLocationDistance?
     @Published var cyclingAltitudes: [CLLocationDistance?] = []
     @Published var cyclingDistances: [CLLocationDistance?] = []
@@ -71,6 +77,14 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         // Update the location settings alert message each time the user changes the authorization status
         setLocationAlertMessage()
     }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let clError = error as? CLError
+        // kCLErrorLocationUnknown is transient — location manager will keep trying
+        if clError?.code != .locationUnknown {
+            print("LocationViewModel didFailWithError: \(error)")
+        }
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
@@ -80,6 +94,17 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         cyclingAltitude = location.altitude
         cyclingSpeeds.append(cyclingSpeed)
         cyclingAltitudes.append(cyclingAltitude)
+
+        lastLocationUpdateTime = Date()
+        displaySpeed = location.speed >= 0 ? location.speed : 0
+        stoppedSpeedDuration = 0.0
+
+        let speedThreshold: CLLocationSpeed = 0.5
+        if location.speed >= speedThreshold && autoPauseState == .stopped {
+            autoPauseState = .resumed
+        } else if location.speed >= speedThreshold {
+            autoPauseState = .moving
+        }
         
         // Add location to array
         let locationsCount = cyclingLocations.count
@@ -160,10 +185,40 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         lastHealthLocationTime = Date()
         distanceSinceLastHealthStore = 0.0
         writeHealthData = Preferences.storedHealthSyncEnabled()
+
+        stalenessTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.handleStalenessTick()
+        }
+        autoPauseState = .moving
     }
     
+    private func handleStalenessTick() {
+        let elapsed = Date().timeIntervalSince(lastLocationUpdateTime)
+        if elapsed >= 5.0 {
+            displaySpeed = 0
+            stoppedSpeedDuration += 1.0
+            if stoppedSpeedDuration >= 3.0 && autoPauseState == .moving {
+                autoPauseState = .stopped
+            }
+        }
+    }
+
+    // Called on manual resume so auto-pause can re-trigger if the user remains stopped.
+    // Set to -5 instead of 0 so the re-trigger window feels the same as the initial auto-pause
+    // (~8s total vs 3s). Safe to use a negative value since didUpdateLocations resets this to 0
+    // on every GPS update, so it self-corrects the moment the user starts moving.
+    func resetStalenessDuration() {
+        stoppedSpeedDuration = -5.0
+    }
+
     // Happens at the end of the cycling route
     func clearLocationArray() {
+        stalenessTimer?.invalidate()
+        stalenessTimer = nil
+        displaySpeed = nil
+        autoPauseState = .notCycling
+        stoppedSpeedDuration = 0.0
+
         // Store the last health kit data point if enabled
         // Only store the data point if the user has moved more than 1 metre
         if writeHealthData && distanceSinceLastHealthStore > 0.9 {

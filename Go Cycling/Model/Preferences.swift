@@ -22,6 +22,7 @@ enum CustomizablePreferences {
     case iCloudSync
     case autoLockDisabled
     case healthSyncEnabled
+    case autoPauseEnabled
     case telemetryEnabled
 }
 
@@ -44,17 +45,19 @@ class Preferences: ObservableObject {
     @Published var iCloudOn: Bool
     @Published var autoLockDisabled: Bool
     @Published var healthSyncEnabled: Bool
+    @Published var autoPauseEnabled: Bool
     @Published var telemetryEnabled: Bool
 
+
     static private let initKey = "didSetupPreferences"
-    static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute", "autoLockDisabled", "healthSyncEnabled"]
+    static private let keys = ["metric", "displayingMetrics", "colour", "largeMetrics", "sortingChoice", "deletionConfirmation", "deletionEnabled", "namedRoutes", "selectedRoute", "autoLockDisabled", "healthSyncEnabled", "autoPauseEnabled"]
     // Icon index is a special case since it should only be stored locally
     static private let iconIndexKey = "iconIndex"
     // iCloud sync setting is also only stored locally
     static private let iCloudOnKey = "iCloudOn"
     // Telemetry opt-out is stored locally only (privacy preference should stay device-local)
     static let telemetryEnabledKey = "telemetryEnabled"
-    static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0] // 0: Bool, 1: Int, 2: String
+    static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 0] // 0: Bool, 1: Int, 2: String
     
     init() {
         // First check if iCloud is available
@@ -115,6 +118,7 @@ class Preferences: ObservableObject {
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         self.autoLockDisabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
         self.healthSyncEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[10])
+        self.autoPauseEnabled = UserDefaults.standard.object(forKey: Preferences.keys[11]) == nil ? true : UserDefaults.standard.bool(forKey: Preferences.keys[11])
 
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
         self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
@@ -163,6 +167,7 @@ class Preferences: ObservableObject {
         self.selectedRoute = UserDefaults.standard.string(forKey: Preferences.keys[8])!
         self.autoLockDisabled = UserDefaults.standard.bool(forKey: Preferences.keys[9])
         self.healthSyncEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[10])
+        self.autoPauseEnabled = UserDefaults.standard.object(forKey: Preferences.keys[11]) == nil ? true : UserDefaults.standard.bool(forKey: Preferences.keys[11])
 
         self.iconIndex = UserDefaults.standard.integer(forKey: Preferences.iconIndexKey)
         self.iCloudOn = UserDefaults.standard.bool(forKey: Preferences.iCloudOnKey)
@@ -171,7 +176,7 @@ class Preferences: ObservableObject {
             ? UserDefaults.standard.bool(forKey: Preferences.telemetryEnabledKey)
             : true
     }
-    
+
     static public func iCloudAvailable() -> Bool {
         // Set iCloud preference if it doesn't exist
         if UserDefaults.standard.object(forKey: Preferences.iCloudOnKey) == nil {
@@ -218,6 +223,7 @@ class Preferences: ObservableObject {
             NSUbiquitousKeyValueStore.default.set("", forKey: keys[8])
             NSUbiquitousKeyValueStore.default.set(false, forKey: keys[9])
             NSUbiquitousKeyValueStore.default.set(false, forKey: keys[10])
+            NSUbiquitousKeyValueStore.default.set(true, forKey: keys[11])
         }
         // Use UserDefaults for local storage
         else {
@@ -232,8 +238,9 @@ class Preferences: ObservableObject {
             UserDefaults.standard.set("", forKey: keys[8])
             UserDefaults.standard.set(false, forKey: keys[9])
             UserDefaults.standard.set(false, forKey: keys[10])
+            UserDefaults.standard.set(true, forKey: keys[11])
         }
-        
+
         // Store iconIndex locally in either case
         UserDefaults.standard.set(0, forKey: iconIndexKey)
     }
@@ -330,6 +337,9 @@ class Preferences: ObservableObject {
         case .healthSyncEnabled:
             UserDefaults.standard.set(value, forKey: Preferences.keys[10])
             self.healthSyncEnabled = value
+        case .autoPauseEnabled:
+            UserDefaults.standard.set(value, forKey: Preferences.keys[11])
+            self.autoPauseEnabled = value
         case .telemetryEnabled:
             UserDefaults.standard.set(value, forKey: Preferences.telemetryEnabledKey)
             self.telemetryEnabled = value
