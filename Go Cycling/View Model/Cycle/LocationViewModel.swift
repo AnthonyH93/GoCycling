@@ -203,9 +203,12 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
-    // Called on manual resume so auto-pause can re-trigger if the user remains stopped
+    // Called on manual resume so auto-pause can re-trigger if the user remains stopped.
+    // Set to -5 instead of 0 so the re-trigger window feels the same as the initial auto-pause
+    // (~8s total vs 3s). Safe to use a negative value since didUpdateLocations resets this to 0
+    // on every GPS update, so it self-corrects the moment the user starts moving.
     func resetStalenessDuration() {
-        stoppedSpeedDuration = 0.0
+        stoppedSpeedDuration = -5.0
     }
 
     // Happens at the end of the cycling route
