@@ -177,6 +177,8 @@ struct CycleView: View {
     
     func resumeCycling() {
         isAutoPaused = false
+        locationManager.autoPauseState = .moving
+        locationManager.resetStalenessDuration()
         self.timer.start()
         
         telemetryManager.sendCyclingSignal(

@@ -203,6 +203,11 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
+    // Called on manual resume so auto-pause can re-trigger if the user remains stopped
+    func resetStalenessDuration() {
+        stoppedSpeedDuration = 0.0
+    }
+
     // Happens at the end of the cycling route
     func clearLocationArray() {
         stalenessTimer?.invalidate()
