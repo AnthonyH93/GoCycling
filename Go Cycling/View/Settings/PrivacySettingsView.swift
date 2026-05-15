@@ -29,7 +29,7 @@ struct PrivacySettingsView: View {
                         telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.TelemetryOptOut)
                     }
             } label: {
-                Label("Analytics", systemImage: "chart.bar")
+                Text("Share Anonymous Analytics")
                 Text("Share anonymous usage data to help improve the app")
             }
         } else {
