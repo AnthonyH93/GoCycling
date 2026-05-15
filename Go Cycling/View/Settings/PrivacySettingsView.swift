@@ -21,23 +21,11 @@ struct PrivacySettingsView: View {
     }
 
     var body: some View {
-        if #available(iOS 16.0, *) {
-            LabeledContent {
-                Toggle("", isOn: telemetryBinding)
-                    .onChange(of: preferences.telemetryEnabled) { value in
-                        TelemetryManager.sharedTelemetryManager.userDisabled = !value
-                        telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.TelemetryOptOut)
-                    }
-            } label: {
-                Text("Share Anonymous Analytics")
+        Toggle("Share Anonymous Analytics", isOn: telemetryBinding)
+            .onChange(of: preferences.telemetryEnabled) { value in
+                TelemetryManager.sharedTelemetryManager.userDisabled = !value
+                telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.TelemetryOptOut)
             }
-        } else {
-            Toggle("Share Anonymous Analytics", isOn: telemetryBinding)
-                .onChange(of: preferences.telemetryEnabled) { value in
-                    TelemetryManager.sharedTelemetryManager.userDisabled = !value
-                    telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.TelemetryOptOut)
-                }
-        }
     }
 }
 

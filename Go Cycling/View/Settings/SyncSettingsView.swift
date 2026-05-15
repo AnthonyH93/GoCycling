@@ -55,6 +55,7 @@ struct SyncSettingsView: View {
             } label: {
                 Label("iCloud", systemImage: "icloud")
                 Text("Sync all data with iCloud")
+                    .fixedSize(horizontal: false, vertical: true)
             }
             // HealthKit sync setting
             LabeledContent {
@@ -66,6 +67,7 @@ struct SyncSettingsView: View {
             } label: {
                 Label("Health", systemImage: "heart")
                 Text("Upload data to the Health app")
+                    .fixedSize(horizontal: false, vertical: true)
             }
         } else {
             Toggle("iCloud Sync", isOn: iCloudBinding)
