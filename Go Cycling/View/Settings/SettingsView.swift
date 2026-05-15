@@ -42,7 +42,7 @@ struct SettingsView: View {
                     }
                     .disabled(cyclingStatus.isCycling)
                     Section(header: Text("Privacy"),
-                            footer: Text("Analytics are completely anonymous and contain no personal or identifiable information. They help me understand how Go Cycling is used and what to improve next.")) {
+                            footer: Text("Analytics are completely anonymous and contain no personal or identifiable information. They help me understand how Go Cycling is used and decide what to improve. You can opt out at any time.")) {
                         PrivacySettingsView()
                     }
                     Section(header: Text("Reset")) {

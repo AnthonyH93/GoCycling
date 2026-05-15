@@ -30,7 +30,6 @@ struct PrivacySettingsView: View {
                     }
             } label: {
                 Text("Share Anonymous Analytics")
-                Text("Share anonymous usage data to help improve the app")
             }
         } else {
             Toggle("Share Anonymous Analytics", isOn: telemetryBinding)
