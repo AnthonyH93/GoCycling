@@ -20,8 +20,8 @@ class TelemetryManager {
     // Set by setup() before singleton init — gates SDK initialization
     private static var launchEnabled: Bool = true
 
-    // Set after launch to stop signals mid-session without re-initializing
-    var userDisabled: Bool = false
+    // Set after launch to gate signals mid-session without re-initializing
+    var userTelemetryEnabled: Bool = true
     
     // Structure for initializing the TelemetryManager
     struct TelemetryManagerConfig {
@@ -49,13 +49,13 @@ class TelemetryManager {
     }
     
     func sendCyclingSignal(tab: TelemetryTab, action: TelemetryCyclingAction) {
-        if (TelemetryManager.telemetryOn ?? false) && !userDisabled {
+        if (TelemetryManager.telemetryOn ?? false) && userTelemetryEnabled {
             TelemetryDeck.signal(".\(tab).\(action)")
         }
     }
 
     func sendSettingsSignal(section: TelemetrySettingsSection, action: TelemetrySettingsAction, parameters: [String : String]? = nil) {
-        if (TelemetryManager.telemetryOn ?? false) && !userDisabled {
+        if (TelemetryManager.telemetryOn ?? false) && userTelemetryEnabled {
             if let params = parameters {
                 TelemetryDeck.signal(
                     ".\(TelemetryTab.Settings).\(section).\(action)",

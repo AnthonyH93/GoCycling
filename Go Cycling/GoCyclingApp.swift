@@ -76,7 +76,7 @@ struct GoCyclingApp: App {
                     }
 
                     // Gate mid-session telemetry signals based on stored preference
-                    TelemetryManager.sharedTelemetryManager.userDisabled = !preferences.telemetryEnabled
+                    TelemetryManager.sharedTelemetryManager.userTelemetryEnabled = preferences.telemetryEnabled
                 })
         }
         .onChange(of: scenePhase) { _ in

@@ -23,7 +23,7 @@ struct PrivacySettingsView: View {
     var body: some View {
         Toggle("Share Anonymous Analytics", isOn: telemetryBinding)
             .onChange(of: preferences.telemetryEnabled) { value in
-                TelemetryManager.sharedTelemetryManager.userDisabled = !value
+                TelemetryManager.sharedTelemetryManager.userTelemetryEnabled = value
                 telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.TelemetryOptOut)
             }
     }
