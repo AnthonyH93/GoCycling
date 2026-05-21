@@ -23,10 +23,10 @@ struct TimerButton: View {
             if expandsHorizontally { Spacer(minLength: 0) }
             if let imageName = systemImageName {
                 Image(systemName: imageName)
-                    .font(.system(size: isSmall ? 11 : 17, weight: .semibold))
+                    .font(.system(size: isSmall ? 11 : 17, weight: .bold))
             }
             Text(label)
-                .font(.system(size: isSmall ? 13 : 17, weight: .semibold))
+                .font(.system(size: isSmall ? 13 : 17, weight: .bold))
                 .minimumScaleFactor(0.8)
                 .lineLimit(1)
             if expandsHorizontally { Spacer(minLength: 0) }

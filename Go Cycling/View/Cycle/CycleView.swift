@@ -48,17 +48,19 @@ struct CycleView: View {
                     .font(.custom("Avenir", size: 40))
                 if isAutoPaused {
                     HStack(spacing: 6) {
+                        Spacer(minLength: 0)
                         Image(systemName: "bolt.fill")
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(.system(size: 13, weight: .bold))
                         Text("Auto-Paused")
-                            .font(.system(size: 13, weight: .semibold))
+                            .font(.system(size: 14, weight: .bold))
+                        Spacer(minLength: 0)
                     }
                     .foregroundColor(Color(.systemYellow))
-                    .padding(.vertical, 6)
-                    .padding(.horizontal, 14)
+                    .padding(.vertical, 12)
                     .background(Color(.systemYellow).opacity(0.12))
                     .clipShape(Capsule())
                     .overlay(Capsule().stroke(Color(.systemYellow), lineWidth: 1.5))
+                    .padding(.horizontal, 24)
                 }
                 Spacer()
                 HStack(spacing: 16) {
