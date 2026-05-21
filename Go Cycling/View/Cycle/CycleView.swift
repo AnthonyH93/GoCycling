@@ -47,47 +47,45 @@ struct CycleView: View {
                 Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                     .font(.custom("Avenir", size: 40))
                 if isAutoPaused {
-                    TimerButton(label: "Auto-Paused", buttonColour: UIColor.systemYellow, isSmall: true)
+                    HStack(spacing: 6) {
+                        Image(systemName: "bolt.fill")
+                            .font(.system(size: 12, weight: .semibold))
+                        Text("Auto-Paused")
+                            .font(.system(size: 13, weight: .semibold))
+                    }
+                    .foregroundColor(Color(.systemYellow))
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 14)
+                    .background(Color(.systemYellow).opacity(0.12))
+                    .clipShape(Capsule())
+                    .overlay(Capsule().stroke(Color(.systemYellow), lineWidth: 1.5))
                 }
                 Spacer()
-                HStack {
-                    if (timer.isRunning) {
-                        Button (action: {self.pauseCycling()}) {
-                            TimerButton(label: "Pause", buttonColour: UIColor.systemYellow)
-                                .padding(.bottom, 20)
-                                .minimumScaleFactor(0.3)
-                                .lineLimit(1)
+                HStack(spacing: 16) {
+                    if timer.isRunning {
+                        Button(action: { self.pauseCycling() }) {
+                            TimerButton(label: "Pause", buttonColour: UIColor.systemYellow, systemImageName: "pause.fill", expandsHorizontally: true)
                         }
-                        Button (action: {self.confirmStop()}) {
-                            TimerButton(label: "Stop", buttonColour: UIColor.systemRed)
-                                .padding(.bottom, 20)
-                                .minimumScaleFactor(0.3)
-                                .lineLimit(1)
+                        Button(action: { self.confirmStop() }) {
+                            TimerButton(label: "Stop", buttonColour: UIColor.systemRed, isSecondary: true, systemImageName: "stop.fill")
                         }
                     }
-                    if (timer.isStopped) {
-                        Button (action: {self.startCycling()}) {
-                            TimerButton(label: "Start", buttonColour: UIColor.systemGreen)
-                                .padding(.bottom, 20)
-                                .minimumScaleFactor(0.3)
-                                .lineLimit(1)
+                    if timer.isStopped {
+                        Button(action: { self.startCycling() }) {
+                            TimerButton(label: "Start", buttonColour: UIColor.systemGreen, systemImageName: "play.fill", expandsHorizontally: true)
                         }
                     }
-                    if (timer.isPaused) {
-                        Button (action: {self.resumeCycling()}) {
-                            TimerButton(label: "Resume", buttonColour: UIColor.systemGreen)
-                                .padding(.bottom, 20)
-                                .minimumScaleFactor(0.3)
-                                .lineLimit(1)
+                    if timer.isPaused {
+                        Button(action: { self.resumeCycling() }) {
+                            TimerButton(label: "Resume", buttonColour: UIColor.systemGreen, systemImageName: "play.fill", expandsHorizontally: true)
                         }
-                        Button (action: {self.confirmStop()}) {
-                            TimerButton(label: "Stop", buttonColour: UIColor.systemRed)
-                                .padding(.bottom, 20)
-                                .minimumScaleFactor(0.3)
-                                .lineLimit(1)
+                        Button(action: { self.confirmStop() }) {
+                            TimerButton(label: "Stop", buttonColour: UIColor.systemRed, isSecondary: true, systemImageName: "stop.fill")
                         }
                     }
                 }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 20)
                 // Confirmation alert about ending the current route
                 .alert(isPresented: $showingAlert) {
                     Alert(title: Text("Are you sure that you want to end the current route?"),
