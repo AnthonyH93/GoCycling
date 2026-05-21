@@ -47,6 +47,14 @@ struct MapView: UIViewRepresentable {
             self.colour = colour
         }
 
+        func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+            if mode == .none && control.centerMapOnLocation {
+                DispatchQueue.main.async {
+                    self.control.centerMapOnLocation = false
+                }
+            }
+        }
+
         //Managing the Display of Overlays
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let polyline = overlay as? MKPolyline {
@@ -60,49 +68,51 @@ struct MapView: UIViewRepresentable {
     }
 
     func makeUIView(context: Context) -> MKMapView {
-        MKMapView(frame: .zero)
+        let mapView = MKMapView(frame: .zero)
+        mapView.delegate = context.coordinator
+        mapView.showsUserLocation = true
+        return mapView
     }
-    
+
     func updateUIView(_ view: MKMapView, context: Context) {
-        view.showsUserLocation = true
-        
         let authStatus = locationManager.statusString
-        
+
         if (authStatus == "authorizedAlways" || authStatus == "authorizedWhenInUse") {
-            let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(CLLocationDegrees(userLatitude)!, CLLocationDegrees(userLongitude)!)
-            let span = MKCoordinateSpan(latitudeDelta: 0.009, longitudeDelta: 0.009)
-            let region = MKCoordinateRegion(center: location, span: span)
-            if (centerMapOnLocation) {
-                view.setRegion(region, animated: true)
+            if centerMapOnLocation {
+                if view.userTrackingMode != .followWithHeading {
+                    view.setUserTrackingMode(.followWithHeading, animated: true)
+                }
+            } else {
+                if view.userTrackingMode == .followWithHeading {
+                    view.setUserTrackingMode(.none, animated: false)
+                }
             }
-            
+
             // Need to maintain the cyclists route if they are currently cycling
             if cyclingStatus.isCycling {
                 if (!startedCycling) {
                     startedCycling = true
-                    DispatchQueue.main.async {
-                        locationManager.startedCycling()
-                    }
-                }
-                let locationsCount = locationManager.cyclingLocations.count
-                switch locationsCount {
-                case _ where locationsCount < 2:
-                    break
-                default:
-                    var locationsToRoute : [CLLocationCoordinate2D] = []
-                    for location in locationManager.cyclingLocations {
-                        if (location != nil) {
-                            locationsToRoute.append(location!.coordinate)
+                } else {
+                    let locationsCount = locationManager.cyclingLocations.count
+                    switch locationsCount {
+                    case _ where locationsCount < 2:
+                        break
+                    default:
+                        var locationsToRoute : [CLLocationCoordinate2D] = []
+                        for location in locationManager.cyclingLocations {
+                            if (location != nil) {
+                                locationsToRoute.append(location!.coordinate)
+                            }
                         }
-                    }
-                    if (locationsToRoute.count > 1 && locationsToRoute.count <= locationManager.cyclingLocations.count) {
-                        let route = MKPolyline(coordinates: locationsToRoute, count: locationsCount)
-                        view.addOverlay(route)
-                        
-                        // Update stroke colour if user changes colour preference after renderer was created
-                        if let renderer = view.renderer(for: route) as? MKPolylineRenderer {
-                            if (renderer.strokeColor != UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)) {
-                                renderer.strokeColor =  UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+                        if (locationsToRoute.count > 1 && locationsToRoute.count <= locationManager.cyclingLocations.count) {
+                            let route = MKPolyline(coordinates: locationsToRoute, count: locationsCount)
+                            view.addOverlay(route)
+
+                            // Update stroke colour if user changes colour preference after renderer was created
+                            if let renderer = view.renderer(for: route) as? MKPolylineRenderer {
+                                if (renderer.strokeColor != UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)) {
+                                    renderer.strokeColor = UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+                                }
                             }
                         }
                     }
@@ -132,7 +142,6 @@ struct MapView: UIViewRepresentable {
                     locationManager.stopTrackingBackgroundLocation()
                 }
             }
-            view.delegate = context.coordinator
         }
     }
 }

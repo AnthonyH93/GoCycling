@@ -168,13 +168,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             locationManager.pausesLocationUpdatesAutomatically = false
             locationManager.allowsBackgroundLocationUpdates = true
         }
-        // Clear every location except most recent point
-        let locationsCount = cyclingLocations.count
-        if (locationsCount > 1) {
-            let locationToKeep = cyclingLocations[locationsCount - 1]
-            cyclingLocations.removeAll()
-            cyclingLocations.append(locationToKeep)
-        }
+        // Clear all pre-ride locations so the route starts from the actual ride start
+        cyclingLocations.removeAll()
         // Clear all distances
         cyclingDistances.removeAll()
         cyclingSpeeds.removeAll()
@@ -186,6 +181,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         distanceSinceLastHealthStore = 0.0
         writeHealthData = Preferences.storedHealthSyncEnabled()
 
+        locationManager.startUpdatingHeading()
         stalenessTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.handleStalenessTick()
         }
@@ -215,6 +211,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func clearLocationArray() {
         stalenessTimer?.invalidate()
         stalenessTimer = nil
+        locationManager.stopUpdatingHeading()
         displaySpeed = nil
         autoPauseState = .notCycling
         stoppedSpeedDuration = 0.0
