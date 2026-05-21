@@ -128,7 +128,6 @@
 		9D9776E52633B0E70048B504 /* BikeRideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E42633B0E70048B504 /* BikeRideListView.swift */; };
 		9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E92633B4050048B504 /* SingleBikeRideView.swift */; };
 		9D9E8BEF28AE179C0057BCAB /* SyncSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */; };
-		AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000022026051300000002 /* PrivacySettingsView.swift */; };
 		9DA60D60287558D000072DA2 /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D5F287558D000072DA2 /* ReviewManager.swift */; };
 		9DA60D6228755AF900072DA2 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */; };
 		9DA60D642875617600072DA2 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D632875617600072DA2 /* SupportView.swift */; };
@@ -169,6 +168,7 @@
 		9DF9305126DE03BC00D4EEC5 /* EmojiImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9305026DE03BC00D4EEC5 /* EmojiImageExtension.swift */; };
 		9DF9305326DE06A600D4EEC5 /* Medal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9305226DE06A600D4EEC5 /* Medal.swift */; };
 		AA0000012026051300000001 /* AutoPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026051300000002 /* AutoPauseState.swift */; };
+		AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000022026051300000002 /* PrivacySettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,7 +310,6 @@
 		9D9776E42633B0E70048B504 /* BikeRideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListView.swift; sourceTree = "<group>"; };
 		9D9776E92633B4050048B504 /* SingleBikeRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBikeRideView.swift; sourceTree = "<group>"; };
 		9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncSettingsView.swift; sourceTree = "<group>"; };
-		AA0000022026051300000002 /* PrivacySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsView.swift; sourceTree = "<group>"; };
 		9DA60D5F287558D000072DA2 /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		9DA60D632875617600072DA2 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
@@ -358,6 +357,7 @@
 		9DF9305026DE03BC00D4EEC5 /* EmojiImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiImageExtension.swift; sourceTree = "<group>"; };
 		9DF9305226DE06A600D4EEC5 /* Medal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medal.swift; sourceTree = "<group>"; };
 		AA0000012026051300000002 /* AutoPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPauseState.swift; sourceTree = "<group>"; };
+		AA0000022026051300000002 /* PrivacySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1208,7 +1208,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
@@ -1234,7 +1234,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
