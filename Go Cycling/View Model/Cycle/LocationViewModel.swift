@@ -53,7 +53,6 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
         // Get the initial location settings alert message
         setLocationAlertMessage()
     }
@@ -182,6 +181,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         distanceSinceLastHealthStore = 0.0
         writeHealthData = Preferences.storedHealthSyncEnabled()
 
+        locationManager.startUpdatingHeading()
         stalenessTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.handleStalenessTick()
         }
@@ -211,6 +211,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func clearLocationArray() {
         stalenessTimer?.invalidate()
         stalenessTimer = nil
+        locationManager.stopUpdatingHeading()
         displaySpeed = nil
         autoPauseState = .notCycling
         stoppedSpeedDuration = 0.0
