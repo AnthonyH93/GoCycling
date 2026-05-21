@@ -47,6 +47,14 @@ struct MapView: UIViewRepresentable {
             self.colour = colour
         }
 
+        func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+            if mode == .none && control.centerMapOnLocation {
+                DispatchQueue.main.async {
+                    self.control.centerMapOnLocation = false
+                }
+            }
+        }
+
         //Managing the Display of Overlays
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let polyline = overlay as? MKPolyline {
@@ -69,13 +77,16 @@ struct MapView: UIViewRepresentable {
         let authStatus = locationManager.statusString
         
         if (authStatus == "authorizedAlways" || authStatus == "authorizedWhenInUse") {
-            let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(CLLocationDegrees(userLatitude)!, CLLocationDegrees(userLongitude)!)
-            let span = MKCoordinateSpan(latitudeDelta: 0.009, longitudeDelta: 0.009)
-            let region = MKCoordinateRegion(center: location, span: span)
-            if (centerMapOnLocation) {
-                view.setRegion(region, animated: true)
+            if centerMapOnLocation {
+                if view.userTrackingMode != .followWithHeading {
+                    view.setUserTrackingMode(.followWithHeading, animated: true)
+                }
+            } else {
+                if view.userTrackingMode == .followWithHeading {
+                    view.setUserTrackingMode(.none, animated: false)
+                }
             }
-            
+
             // Need to maintain the cyclists route if they are currently cycling
             if cyclingStatus.isCycling {
                 if (!startedCycling) {

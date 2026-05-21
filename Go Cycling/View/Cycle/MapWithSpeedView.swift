@@ -53,9 +53,8 @@ struct MapWithSpeedView: View {
                 }
             }
         }
-        Spacer()
     }
-    
+
     func toggleMapCentered() {
         self.mapCentered = self.mapCentered ? false : true
     }
