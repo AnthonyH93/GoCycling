@@ -49,7 +49,7 @@ struct CycleView: View {
                 if isAutoPaused {
                     HStack(spacing: 6) {
                         Spacer(minLength: 0)
-                        Image(systemName: "bolt.fill")
+                        Image(systemName: "pause.circle.fill")
                             .font(.system(size: 13, weight: .bold))
                         Text("Auto-Paused")
                             .font(.system(size: 14, weight: .bold))
