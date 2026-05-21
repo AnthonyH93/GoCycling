@@ -169,13 +169,8 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             locationManager.pausesLocationUpdatesAutomatically = false
             locationManager.allowsBackgroundLocationUpdates = true
         }
-        // Clear every location except most recent point
-        let locationsCount = cyclingLocations.count
-        if (locationsCount > 1) {
-            let locationToKeep = cyclingLocations[locationsCount - 1]
-            cyclingLocations.removeAll()
-            cyclingLocations.append(locationToKeep)
-        }
+        // Clear all pre-ride locations so the route starts from the actual ride start
+        cyclingLocations.removeAll()
         // Clear all distances
         cyclingDistances.removeAll()
         cyclingSpeeds.removeAll()

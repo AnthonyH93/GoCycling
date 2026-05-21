@@ -92,9 +92,6 @@ struct MapView: UIViewRepresentable {
             if cyclingStatus.isCycling {
                 if (!startedCycling) {
                     startedCycling = true
-                    DispatchQueue.main.async {
-                        locationManager.startedCycling()
-                    }
                 } else {
                     let locationsCount = locationManager.cyclingLocations.count
                     switch locationsCount {

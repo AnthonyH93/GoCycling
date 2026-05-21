@@ -157,6 +157,9 @@ struct CycleView: View {
         // Send an alert about location settings if it is necessary
         locationManager.setLocationAlertStatus()
         cyclingStatus.startedCycling()
+        // Call synchronously before any SwiftUI re-renders so the pre-ride
+        // location/distance data is already cleared when MapView first draws the route
+        locationManager.startedCycling()
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0
         self.timer.start()
