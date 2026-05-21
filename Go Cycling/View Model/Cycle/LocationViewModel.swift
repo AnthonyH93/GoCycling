@@ -53,6 +53,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
         // Get the initial location settings alert message
         setLocationAlertMessage()
     }
