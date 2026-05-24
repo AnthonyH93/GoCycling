@@ -71,6 +71,7 @@ struct MapView: UIViewRepresentable {
         let mapView = MKMapView(frame: .zero)
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
+        mapView.showsCompass = false
         return mapView
     }
 
