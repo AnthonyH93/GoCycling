@@ -98,6 +98,61 @@ extension BikeRide {
         return categories
     }
     
+    // Fetch current and previous period rides for the new SwiftCharts path
+    static func fetchRidesForPeriod(_ period: ChartPeriod, calendar: Calendar = Calendar.current) -> (current: [BikeRide], previous: [BikeRide]) {
+        let context = PersistenceController.shared.container.viewContext
+
+        func fetch(from fromDate: Date, to toDate: Date) -> [BikeRide] {
+            let request: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
+            request.sortDescriptors = []
+            let fromPred = NSPredicate(format: "%@ <= %K", fromDate as NSDate, #keyPath(BikeRide.cyclingStartTime))
+            let toPred   = NSPredicate(format: "%K < %@",  #keyPath(BikeRide.cyclingStartTime), toDate as NSDate)
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPred, toPred])
+            return (try? context.fetch(request)) ?? []
+        }
+
+        var cal = calendar
+        cal.timeZone = .current
+        let today    = cal.startOfDay(for: Date())
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: today)!
+
+        switch period {
+        case .oneWeek:
+            let cFrom = cal.date(byAdding: .day, value: -6,  to: today)!
+            let pFrom = cal.date(byAdding: .day, value: -13, to: today)!
+            return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: cFrom))
+
+        case .oneMonth:
+            let cFrom = cal.date(byAdding: .day, value: -29, to: today)!
+            let pFrom = cal.date(byAdding: .day, value: -59, to: today)!
+            return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: cFrom))
+
+        case .threeMonths:
+            let cFrom = cal.date(byAdding: .day, value: -89,  to: today)!
+            let pFrom = cal.date(byAdding: .day, value: -179, to: today)!
+            return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: cFrom))
+
+        case .sixMonths:
+            let cFrom = cal.date(byAdding: .day, value: -179, to: today)!
+            let pFrom = cal.date(byAdding: .day, value: -359, to: today)!
+            return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: cFrom))
+
+        case .yearToDate:
+            let year = cal.component(.year, from: today)
+            var ytdComps = DateComponents(); ytdComps.year = year; ytdComps.month = 1; ytdComps.day = 1
+            let cFrom = cal.date(from: ytdComps) ?? today
+            var prevComps = DateComponents(); prevComps.year = year - 1; prevComps.month = 1; prevComps.day = 1
+            let pFrom = cal.date(from: prevComps) ?? today
+            let pTo   = cal.date(byAdding: .year, value: -1, to: tomorrow) ?? today
+            return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: pTo))
+
+        case .oneYear:
+            let cFrom = cal.date(byAdding: .day, value: -364, to: today)!
+            let pFrom = cal.date(byAdding: .day, value: -729, to: today)!
+            return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: cFrom))
+        }
+    }
+
     // Functions to get data for the charts on the statistics tab
     static func bikeRidesInPastWeek() -> [BikeRide] {
         let context = PersistenceController.shared.container.viewContext

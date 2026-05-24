@@ -101,6 +101,13 @@ enum TelemetryCyclingAction: String {
     case OneWeek = "clickedOn1Week"
     case FiveWeeks = "clickedOn5Weeks"
     case ThirtyWeeks = "clickedOn30Weeks"
+    case OneMonth = "clickedOn1Month"
+    case ThreeMonths = "clickedOn3Months"
+    case SixMonths = "clickedOn6Months"
+    case YearToDate = "clickedOnYTD"
+    case OneYear = "clickedOn1Year"
+    case HeatmapView = "clickedOnHeatmap"
+    case SpeedTrendView = "clickedOnSpeedTrend"
     case AwardUnlocked = "unlockedActivityAward"
 }
 
