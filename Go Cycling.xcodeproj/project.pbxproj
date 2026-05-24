@@ -21,6 +21,15 @@
 		9D3808EA26D3709C0058DE1E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3808E926D3709C0058DE1E /* StatisticsView.swift */; };
 		9D55B9F726522D8D00B622E5 /* RouteRenameModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D55B9F626522D8D00B622E5 /* RouteRenameModalView.swift */; };
 		9D601E5626DEF6E100844CD1 /* ActivityAwardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5526DEF6E100844CD1 /* ActivityAwardsViewModel.swift */; };
+		5C7A0A772DCA4EC8A6301B40 /* ChartPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B121F5773497F8C758E70 /* ChartPeriod.swift */; };
+		A5C14C69D04041C189DAFC06 /* ChartDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */; };
+		9B36B84F275F40279DF3199D /* StatisticsChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC307E08D38430BB4EC1FE9 /* StatisticsChartsViewModel.swift */; };
+		D44C55EB22EA4B9FAA4BF821 /* CyclingBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81299D31DF9348D68729394E /* CyclingBarChart.swift */; };
+		DF586DF102954377A82B408D /* ActivityHeatmapChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */; };
+		1C95F05D77EE49D3A9584731 /* SpeedTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F658A9F110B49A5AC215D38 /* SpeedTrendChart.swift */; };
+		B4A833C07E3242DD8DCD8E76 /* CyclingChartsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F00257C7A4240F58BD1371A /* CyclingChartsDetailView.swift */; };
+		3DCD3758A7A842959A6F73D8 /* ActivityHeatmapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */; };
+		E015D343585C4918B9C7EF21 /* SpeedTrendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A062C1FED5DD4ECDAD1E8E68 /* SpeedTrendDetailView.swift */; };
 		9D601E5926E0732100844CD1 /* SingleChartListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5826E0732100844CD1 /* SingleChartListCellView.swift */; };
 		9D601E5B26E085B700844CD1 /* CyclingChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5A26E085B700844CD1 /* CyclingChartsViewModel.swift */; };
 		9D601E5D26E0992500844CD1 /* DateDistanceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5C26E0992500844CD1 /* DateDistanceExtension.swift */; };
@@ -204,6 +213,15 @@
 		9D601E5526DEF6E100844CD1 /* ActivityAwardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAwardsViewModel.swift; sourceTree = "<group>"; };
 		9D601E5826E0732100844CD1 /* SingleChartListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChartListCellView.swift; sourceTree = "<group>"; };
 		9D601E5A26E085B700844CD1 /* CyclingChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingChartsViewModel.swift; sourceTree = "<group>"; };
+		DC0B121F5773497F8C758E70 /* ChartPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartPeriod.swift; sourceTree = "<group>"; };
+		033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataPoint.swift; sourceTree = "<group>"; };
+		4EC307E08D38430BB4EC1FE9 /* StatisticsChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsChartsViewModel.swift; sourceTree = "<group>"; };
+		81299D31DF9348D68729394E /* CyclingBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingBarChart.swift; sourceTree = "<group>"; };
+		B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeatmapChart.swift; sourceTree = "<group>"; };
+		4F658A9F110B49A5AC215D38 /* SpeedTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTrendChart.swift; sourceTree = "<group>"; };
+		5F00257C7A4240F58BD1371A /* CyclingChartsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingChartsDetailView.swift; sourceTree = "<group>"; };
+		99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeatmapDetailView.swift; sourceTree = "<group>"; };
+		A062C1FED5DD4ECDAD1E8E68 /* SpeedTrendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTrendDetailView.swift; sourceTree = "<group>"; };
 		9D601E5C26E0992500844CD1 /* DateDistanceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDistanceExtension.swift; sourceTree = "<group>"; };
 		9D601E5E26E09D4600844CD1 /* BarChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartCellView.swift; sourceTree = "<group>"; };
 		9D601E6026E09D9A00844CD1 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
@@ -417,6 +435,12 @@
 				9D601E5826E0732100844CD1 /* SingleChartListCellView.swift */,
 				9D601E5E26E09D4600844CD1 /* BarChartCellView.swift */,
 				9D601E6026E09D9A00844CD1 /* BarChartView.swift */,
+				81299D31DF9348D68729394E /* CyclingBarChart.swift */,
+				B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */,
+				4F658A9F110B49A5AC215D38 /* SpeedTrendChart.swift */,
+				5F00257C7A4240F58BD1371A /* CyclingChartsDetailView.swift */,
+				99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */,
+				A062C1FED5DD4ECDAD1E8E68 /* SpeedTrendDetailView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -426,6 +450,7 @@
 			children = (
 				9D601E5526DEF6E100844CD1 /* ActivityAwardsViewModel.swift */,
 				9D601E5A26E085B700844CD1 /* CyclingChartsViewModel.swift */,
+				4EC307E08D38430BB4EC1FE9 /* StatisticsChartsViewModel.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -536,6 +561,8 @@
 				9DC7583A2809506300BB2953 /* CyclingRecords.swift */,
 				9DA60D5F287558D000072DA2 /* ReviewManager.swift */,
 				9DC845432D9CDF4A0068519E /* TelemetryManager.swift */,
+				DC0B121F5773497F8C758E70 /* ChartPeriod.swift */,
+				033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1024,6 +1051,15 @@
 				9D2F48FB26507EC500094575 /* RouteNamingViewModel.swift in Sources */,
 				9D2F48FE265097F000094575 /* Category.swift in Sources */,
 				9D601E5626DEF6E100844CD1 /* ActivityAwardsViewModel.swift in Sources */,
+				5C7A0A772DCA4EC8A6301B40 /* ChartPeriod.swift in Sources */,
+				A5C14C69D04041C189DAFC06 /* ChartDataPoint.swift in Sources */,
+				9B36B84F275F40279DF3199D /* StatisticsChartsViewModel.swift in Sources */,
+				D44C55EB22EA4B9FAA4BF821 /* CyclingBarChart.swift in Sources */,
+				DF586DF102954377A82B408D /* ActivityHeatmapChart.swift in Sources */,
+				1C95F05D77EE49D3A9584731 /* SpeedTrendChart.swift in Sources */,
+				B4A833C07E3242DD8DCD8E76 /* CyclingChartsDetailView.swift in Sources */,
+				3DCD3758A7A842959A6F73D8 /* ActivityHeatmapDetailView.swift in Sources */,
+				E015D343585C4918B9C7EF21 /* SpeedTrendDetailView.swift in Sources */,
 				9D9E8BEF28AE179C0057BCAB /* SyncSettingsView.swift in Sources */,
 				AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */,
 				9D9776E52633B0E70048B504 /* BikeRideListView.swift in Sources */,
