@@ -47,14 +47,6 @@ struct MapView: UIViewRepresentable {
             self.colour = colour
         }
 
-        func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-            if mode == .none && control.centerMapOnLocation {
-                DispatchQueue.main.async {
-                    self.control.centerMapOnLocation = false
-                }
-            }
-        }
-
         //Managing the Display of Overlays
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let polyline = overlay as? MKPolyline {
