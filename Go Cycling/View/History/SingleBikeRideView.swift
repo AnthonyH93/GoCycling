@@ -29,10 +29,13 @@ struct SingleBikeRideView: View {
                             .bold()
                             .padding(.top, 10)
                     }
-                    MapSnapshotView(location: self.calculateCenter(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
-                                    span: self.calculateSpan(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
-                                    coordinates: self.setupCoordinates(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes))
-                        .padding(.bottom, 10)
+                    RouteDetailMapView(
+                        coordinates: self.setupCoordinates(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
+                        center: self.calculateCenter(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
+                        span: self.calculateSpan(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
+                        routeColor: UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+                    )
+                    .padding(.bottom, 10)
                 }
                 if (min(geometry.size.width, geometry.size.height) < 600) {
                     VStack(spacing: 10) {
