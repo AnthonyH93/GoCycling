@@ -41,6 +41,8 @@ struct MapView: UIViewRepresentable {
     final class Coordinator: NSObject, MKMapViewDelegate {
         var control: MapView
         var colour: UIColor
+        var currentRouteOverlay: MKPolyline?
+        var lastRenderedCount: Int = 0
 
         init(_ control: MapView, colour: UIColor) {
             self.control = control
@@ -93,24 +95,24 @@ struct MapView: UIViewRepresentable {
                     startedCycling = true
                 } else {
                     let locationsCount = locationManager.cyclingLocations.count
-                    switch locationsCount {
-                    case _ where locationsCount < 2:
-                        break
-                    default:
-                        var locationsToRoute : [CLLocationCoordinate2D] = []
-                        for location in locationManager.cyclingLocations {
-                            if (location != nil) {
-                                locationsToRoute.append(location!.coordinate)
+                    // Only rebuild the overlay when new locations have arrived
+                    if locationsCount >= 2 && locationsCount != context.coordinator.lastRenderedCount {
+                        let coords = locationManager.cyclingLocations.compactMap { $0?.coordinate }
+                        if coords.count > 1 {
+                            // Remove the single existing overlay and replace with one updated overlay
+                            if let old = context.coordinator.currentRouteOverlay {
+                                view.removeOverlay(old)
                             }
-                        }
-                        if (locationsToRoute.count > 1 && locationsToRoute.count <= locationManager.cyclingLocations.count) {
-                            let route = MKPolyline(coordinates: locationsToRoute, count: locationsCount)
+                            let route = MKPolyline(coordinates: coords, count: coords.count)
+                            context.coordinator.currentRouteOverlay = route
+                            context.coordinator.lastRenderedCount = locationsCount
                             view.addOverlay(route)
 
                             // Update stroke colour if user changes colour preference after renderer was created
                             if let renderer = view.renderer(for: route) as? MKPolylineRenderer {
-                                if (renderer.strokeColor != UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)) {
-                                    renderer.strokeColor = UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+                                let preferredColor = UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+                                if renderer.strokeColor != preferredColor {
+                                    renderer.strokeColor = preferredColor
                                 }
                             }
                         }
@@ -121,6 +123,8 @@ struct MapView: UIViewRepresentable {
                 // Means we need to store the current route and clear the map
                 if (startedCycling) {
                     startedCycling = false
+                    context.coordinator.currentRouteOverlay = nil
+                    context.coordinator.lastRenderedCount = 0
                     let overlays = view.overlays
                     view.removeOverlays(overlays)
                     persistenceController.storeBikeRide(locations: locationManager.cyclingLocations,
@@ -128,17 +132,11 @@ struct MapView: UIViewRepresentable {
                                                         distance: locationManager.cyclingTotalDistance,
                                                         elevations: locationManager.cyclingAltitudes,
                                                         startTime: cyclingStartTime,
-                                                        time: timeCycling)
-                    
-                    // Update CyclingRecords with thise new entry in case any new records were set
-                    DispatchQueue.main.async {
+                                                        time: timeCycling) {
                         records.updateCyclingRecords(speeds: locationManager.cyclingSpeeds, distance: locationManager.cyclingTotalDistance, startTime: cyclingStartTime, time: timeCycling)
-                    }
-                    
-                    DispatchQueue.main.async {
                         locationManager.clearLocationArray()
+                        locationManager.stopTrackingBackgroundLocation()
                     }
-                    locationManager.stopTrackingBackgroundLocation()
                 }
             }
         }
