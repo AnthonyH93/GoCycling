@@ -86,7 +86,7 @@
 		9D601ED726E72FD600844CD1 /* Sunset Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601ED226E72FD600844CD1 /* Sunset Inverted@3x.png */; };
 		9D601ED826E72FD600844CD1 /* Sunset Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601ED326E72FD600844CD1 /* Sunset Inverted~ipad.png */; };
 		9D601ED926E72FD600844CD1 /* Sunset Inverted-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601ED426E72FD600844CD1 /* Sunset Inverted-83.5@2x~ipad.png */; };
-		9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */; };
+		AEA9DB8B9ED54BD3B3900F2A /* RouteDetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */; };
 		9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */; };
 		9D62F4E02634F7CC00E28991 /* MetricsFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */; };
 		9D62F4E52635FD6600E28991 /* SmallMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4E42635FD6600E28991 /* SmallMetricsView.swift */; };
@@ -268,7 +268,7 @@
 		9D601ED226E72FD600844CD1 /* Sunset Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sunset Inverted@3x.png"; sourceTree = "<group>"; };
 		9D601ED326E72FD600844CD1 /* Sunset Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sunset Inverted~ipad.png"; sourceTree = "<group>"; };
 		9D601ED426E72FD600844CD1 /* Sunset Inverted-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sunset Inverted-83.5@2x~ipad.png"; sourceTree = "<group>"; };
-		9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapshotView.swift; sourceTree = "<group>"; };
+		2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailMapView.swift; sourceTree = "<group>"; };
 		9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMetricView.swift; sourceTree = "<group>"; };
 		9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsFormatting.swift; sourceTree = "<group>"; };
 		9D62F4E42635FD6600E28991 /* SmallMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMetricsView.swift; sourceTree = "<group>"; };
@@ -463,7 +463,7 @@
 				9DAB836F25FED0A300F5C42E /* HistoryView.swift */,
 				9D9776E42633B0E70048B504 /* BikeRideListView.swift */,
 				9D9776E92633B4050048B504 /* SingleBikeRideView.swift */,
-				9D62F4D52634DE4A00E28991 /* MapSnapshotView.swift */,
+				2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */,
 				9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */,
 				9D75E29126C85C9C00DE536D /* BikeRideSortPopoverView.swift */,
 				9D75E29326C8636F00DE536D /* BikeRideFilterSheetView.swift */,
@@ -1041,7 +1041,7 @@
 				9DA60D60287558D000072DA2 /* ReviewManager.swift in Sources */,
 				9DF9304726DCABA400D4EEC5 /* RecordsFormatting.swift in Sources */,
 				9DF9304D26DDFA4E00D4EEC5 /* LockedIconCoverView.swift in Sources */,
-				9D62F4D62634DE4A00E28991 /* MapSnapshotView.swift in Sources */,
+				AEA9DB8B9ED54BD3B3900F2A /* RouteDetailMapView.swift in Sources */,
 				9D75E29426C8636F00DE536D /* BikeRideFilterSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
