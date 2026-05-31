@@ -19,7 +19,7 @@ struct MapSystemImageButton: View {
             .foregroundColor(colorScheme == .dark ? .white : .black)
             .padding(.vertical, 20)
             .padding(.horizontal, 20)
-            .background(Color(buttonColour))
+            .background(Color(buttonColour).opacity(0.4))
             .cornerRadius(40)
     }
 }

@@ -42,10 +42,13 @@ struct MetricsPillView: View {
                 } else {
                     HStack(spacing: 12) {
                         Text("\(MetricsFormatting.formatSpeedWithoutUnits(speed: currentSpeed ?? 0.0, usingMetric: preferences.usingMetric)) \(MetricsFormatting.getSpeedUnits(usingMetric: preferences.usingMetric))")
-                        Text("|").foregroundColor(.secondary)
+                        Rectangle()
+                            .fill(Color.secondary.opacity(0.6))
+                            .frame(width: 1, height: 16)
                         Text("\(MetricsFormatting.formatDistanceWithoutUnits(distance: cyclingStatus.isCycling ? currentDistance : 0.0, usingMetric: preferences.usingMetric)) \(MetricsFormatting.getDistanceUnits(usingMetric: preferences.usingMetric))")
                     }
-                    .font(.subheadline)
+                    .font(.subheadline.bold())
+                    .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                     .transition(.opacity)
                 }
