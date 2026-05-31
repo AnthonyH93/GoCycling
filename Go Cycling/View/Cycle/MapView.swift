@@ -64,10 +64,16 @@ struct MapView: UIViewRepresentable {
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
         mapView.showsCompass = false
+        mapView.mapType = preferences.mapTypeChoiceConverted.mkMapType
         return mapView
     }
 
     func updateUIView(_ view: MKMapView, context: Context) {
+        let preferredMapType = preferences.mapTypeChoiceConverted.mkMapType
+        if view.mapType != preferredMapType {
+            view.mapType = preferredMapType
+        }
+
         let authStatus = locationManager.statusString
 
         if (authStatus == "authorizedAlways" || authStatus == "authorizedWhenInUse") {

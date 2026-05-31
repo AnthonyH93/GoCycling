@@ -41,6 +41,21 @@ struct UnitsView: View {
                 telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.MetricsOnMap)
             }
         ))
+        HStack {
+            Text("Map Type")
+            Spacer()
+            Picker("Map Type", selection: Binding(
+                get: { preferences.mapTypeChoiceConverted },
+                set: { value in
+                    preferences.updateStringPreference(preference: .mapTypeChoice, value: value.rawValue)
+                }
+            )) {
+                ForEach(MapTypeChoice.allCases, id: \.self) { choice in
+                    Text(choice.rawValue).tag(choice)
+                }
+            }
+            .pickerStyle(.menu)
+        }
     }
 }
 

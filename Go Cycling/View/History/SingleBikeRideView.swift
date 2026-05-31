@@ -28,7 +28,8 @@ struct SingleBikeRideView: View {
                 center: self.calculateCenter(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
                 span: self.calculateSpan(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
                 routeColor: UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted),
-                bottomInset: 175
+                bottomInset: 175,
+                mapType: preferences.mapTypeChoiceConverted.mkMapType
             )
             .ignoresSafeArea(edges: .bottom)
 
