@@ -48,7 +48,6 @@ struct RouteDetailMapView: UIViewRepresentable {
 
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             guard let point = annotation as? MKPointAnnotation else { return nil }
-
             let id = "dot"
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: id) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: id)
             view.annotation = annotation
