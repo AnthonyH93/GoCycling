@@ -30,7 +30,7 @@ struct RouteDetailMapView: UIViewRepresentable {
     }
 
     final class Coordinator: NSObject, MKMapViewDelegate {
-        let routeColor: UIColor
+        var routeColor: UIColor
 
         init(routeColor: UIColor) {
             self.routeColor = routeColor
@@ -77,6 +77,7 @@ struct RouteDetailMapView: UIViewRepresentable {
     }
 
     func updateUIView(_ mapView: MKMapView, context: Context) {
+        context.coordinator.routeColor = routeColor
         mapView.removeOverlays(mapView.overlays)
         mapView.removeAnnotations(mapView.annotations)
 
