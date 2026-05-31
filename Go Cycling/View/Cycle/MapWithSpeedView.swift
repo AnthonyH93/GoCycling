@@ -9,29 +9,28 @@ import SwiftUI
 import CoreLocation
 
 struct MapWithSpeedView: View {
-    
+
     @EnvironmentObject var cyclingStatus: CyclingStatus
-    
+
     @Binding var cyclingStartTime: Date
     @Binding var timeCycling: TimeInterval
-    var screenWidth: CGFloat
-    
+
     @StateObject var locationManager = LocationViewModel.locationManager
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var preferences: Preferences
-    
+
     @State var mapCentered: Bool = true
-    
+
     var body: some View {
         ZStack {
             MapView(centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
             VStack {
-                if (preferences.largeMetrics) {
-                    LargeMetricsView(currentSpeed: $locationManager.displaySpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance, screenWidth: screenWidth)
-                }
-                else {
-                    SmallMetricsView(currentSpeed: $locationManager.displaySpeed, currentAltitude: $locationManager.cyclingAltitude, currentDistance: $locationManager.cyclingTotalDistance)
-                }
+                MetricsPillView(
+                    currentSpeed: $locationManager.displaySpeed,
+                    currentAltitude: $locationManager.cyclingAltitude,
+                    currentDistance: $locationManager.cyclingTotalDistance,
+                    pillColor: Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted))
+                )
                 Spacer()
                 HStack {
                     Spacer()
@@ -62,6 +61,6 @@ struct MapWithSpeedView: View {
 
 struct MapWithSpeedView_Previews: PreviewProvider {
     static var previews: some View {
-        MapWithSpeedView(cyclingStartTime: .constant(Date()), timeCycling: .constant(10), screenWidth: UIScreen.main.bounds.width)
+        MapWithSpeedView(cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
     }
 }
