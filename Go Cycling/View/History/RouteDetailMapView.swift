@@ -24,6 +24,7 @@ struct RouteDetailMapView: UIViewRepresentable {
     let center: CLLocationCoordinate2D
     let span: CLLocationDegrees
     let routeColor: UIColor
+    var bottomInset: CGFloat = 0
 
     func makeCoordinator() -> Coordinator {
         Coordinator(routeColor: routeColor)
@@ -65,13 +66,15 @@ struct RouteDetailMapView: UIViewRepresentable {
         mapView.showsCompass = false
         mapView.isScrollEnabled = true
         mapView.isZoomEnabled = true
-        mapView.setRegion(
-            MKCoordinateRegion(
-                center: center,
-                span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
-            ),
-            animated: false
-        )
+        let topLeft = MKMapPoint(CLLocationCoordinate2D(latitude: center.latitude + span / 2, longitude: center.longitude - span / 2))
+        let bottomRight = MKMapPoint(CLLocationCoordinate2D(latitude: center.latitude - span / 2, longitude: center.longitude + span / 2))
+        let mapRect = MKMapRect(x: min(topLeft.x, bottomRight.x),
+                                y: min(topLeft.y, bottomRight.y),
+                                width: abs(topLeft.x - bottomRight.x),
+                                height: abs(topLeft.y - bottomRight.y))
+        mapView.setVisibleMapRect(mapRect,
+                                  edgePadding: UIEdgeInsets(top: 40, left: 20, bottom: bottomInset + 20, right: 20),
+                                  animated: false)
         return mapView
     }
 
