@@ -25,6 +25,7 @@ struct RouteDetailMapView: UIViewRepresentable {
     let span: CLLocationDegrees
     let routeColor: UIColor
     var bottomInset: CGFloat = 0
+    var mapType: MKMapType = .standard
 
     func makeCoordinator() -> Coordinator {
         Coordinator(routeColor: routeColor)
@@ -66,6 +67,7 @@ struct RouteDetailMapView: UIViewRepresentable {
         mapView.showsCompass = false
         mapView.isScrollEnabled = true
         mapView.isZoomEnabled = true
+        mapView.mapType = mapType
         let topLeft = MKMapPoint(CLLocationCoordinate2D(latitude: center.latitude + span / 2, longitude: center.longitude - span / 2))
         let bottomRight = MKMapPoint(CLLocationCoordinate2D(latitude: center.latitude - span / 2, longitude: center.longitude + span / 2))
         let mapRect = MKMapRect(x: min(topLeft.x, bottomRight.x),
@@ -80,6 +82,7 @@ struct RouteDetailMapView: UIViewRepresentable {
 
     func updateUIView(_ mapView: MKMapView, context: Context) {
         context.coordinator.routeColor = routeColor
+        if mapView.mapType != mapType { mapView.mapType = mapType }
         mapView.removeOverlays(mapView.overlays)
         mapView.removeAnnotations(mapView.annotations)
 

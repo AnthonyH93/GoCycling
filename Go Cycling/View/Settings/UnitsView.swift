@@ -41,6 +41,30 @@ struct UnitsView: View {
                 telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.MetricsOnMap)
             }
         ))
+        if #available(iOS 16.0, *) {
+            Picker("Map Type", selection: Binding(
+                get: { preferences.mapTypeChoiceConverted },
+                set: { value in
+                    preferences.updateStringPreference(preference: .mapTypeChoice, value: value.rawValue)
+                }
+            )) {
+                ForEach(MapTypeChoice.allCases, id: \.self) { choice in
+                    Text(choice.rawValue).tag(choice)
+                }
+            }
+            .pickerStyle(.navigationLink)
+        } else {
+            Picker("Map Type", selection: Binding(
+                get: { preferences.mapTypeChoiceConverted },
+                set: { value in
+                    preferences.updateStringPreference(preference: .mapTypeChoice, value: value.rawValue)
+                }
+            )) {
+                ForEach(MapTypeChoice.allCases, id: \.self) { choice in
+                    Text(choice.rawValue).tag(choice)
+                }
+            }
+        }
     }
 }
 

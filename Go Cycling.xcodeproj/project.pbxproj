@@ -96,6 +96,7 @@
 		9D6E5357262BB299008FD7C1 /* ColourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5356262BB299008FD7C1 /* ColourView.swift */; };
 		9D6E5367262CE32F008FD7C1 /* UnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5366262CE32F008FD7C1 /* UnitsView.swift */; };
 		9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5373262CE773008FD7C1 /* ColourChoice.swift */; };
+		42883D67661B4EC68F96065F /* MapTypeChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */; };
 		9D6E5386262CECFA008FD7C1 /* GoCycling.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5384262CECFA008FD7C1 /* GoCycling.xcdatamodeld */; };
 		9D6E538B262CEE0A008FD7C1 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */; };
 		9D6E5391262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E538F262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift */; };
@@ -276,6 +277,7 @@
 		9D6E5356262BB299008FD7C1 /* ColourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourView.swift; sourceTree = "<group>"; };
 		9D6E5366262CE32F008FD7C1 /* UnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsView.swift; sourceTree = "<group>"; };
 		9D6E5373262CE773008FD7C1 /* ColourChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourChoice.swift; sourceTree = "<group>"; };
+		2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeChoice.swift; sourceTree = "<group>"; };
 		9D6E5385262CECFA008FD7C1 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		9D6E538F262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 			isa = PBXGroup;
 			children = (
 				9D6E5373262CE773008FD7C1 /* ColourChoice.swift */,
+				2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */,
 				9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */,
 				9DCD21EC263638F200506FA5 /* UnitsChoice.swift */,
 				9D8169BB263E0C5200DED7F8 /* SortChoice.swift */,
@@ -976,6 +979,7 @@
 				9D8169FA263FA4CE00DED7F8 /* IconNames.swift in Sources */,
 				9DEAD6C5263257A500392D88 /* BikeRide+CoreDataProperties.swift in Sources */,
 				9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */,
+				42883D67661B4EC68F96065F /* MapTypeChoice.swift in Sources */,
 				9D601E5D26E0992500844CD1 /* DateDistanceExtension.swift in Sources */,
 				9DD0B0742C350F3100ECFCA9 /* HealthKitViewModel.swift in Sources */,
 				9D601E5B26E085B700844CD1 /* CyclingChartsViewModel.swift in Sources */,
