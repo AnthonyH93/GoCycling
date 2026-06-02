@@ -62,54 +62,63 @@ struct PersistenceController {
     }
     
     // MARK: Bike ride methods
-    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevations: [CLLocationDistance?], startTime: Date, time: Double) {
-        let context = container.viewContext
-        
-        var latitudes: [CLLocationDegrees] = []
-        var longitudes: [CLLocationDegrees] = []
-        var speedsValidated: [CLLocationSpeed] = []
-        var elevationsValidated: [CLLocationDistance] = []
-        
-        for location in locations {
-            // Only include coordinates where neither latitude nor longitude is nil
-            if let currentLatitude = location?.coordinate.latitude {
-                if let currentLongitude = location?.coordinate.longitude {
-                    latitudes.append(currentLatitude)
-                    longitudes.append(currentLongitude)
+    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevations: [CLLocationDistance?], startTime: Date, time: Double, completion: @escaping () -> Void) {
+        // Copy value-type arrays before handing off to the background task
+        let locationsCopy = locations
+        let speedsCopy = speeds
+        let elevationsCopy = elevations
+
+        container.performBackgroundTask { context in
+            var latitudes: [CLLocationDegrees] = []
+            var longitudes: [CLLocationDegrees] = []
+            var speedsValidated: [CLLocationSpeed] = []
+            var elevationsValidated: [CLLocationDistance] = []
+
+            for location in locationsCopy {
+                // Only include coordinates where neither latitude nor longitude is nil
+                if let currentLatitude = location?.coordinate.latitude {
+                    if let currentLongitude = location?.coordinate.longitude {
+                        latitudes.append(currentLatitude)
+                        longitudes.append(currentLongitude)
+                    }
                 }
             }
-        }
-        
-        for speed in speeds {
-            // Only store non nil speeds
-            if let currentSpeed = speed {
-                speedsValidated.append(currentSpeed)
+
+            for speed in speedsCopy {
+                // Only store non nil speeds
+                if let currentSpeed = speed {
+                    speedsValidated.append(currentSpeed)
+                }
             }
-        }
-        
-        for elevation in elevations {
-            // Only store non nil altitudes
-            if let currentElevation = elevation {
-                elevationsValidated.append(currentElevation)
+
+            for elevation in elevationsCopy {
+                // Only store non nil altitudes
+                if let currentElevation = elevation {
+                    elevationsValidated.append(currentElevation)
+                }
             }
-        }
-        
-        let newBikeRide = BikeRide(context: context)
-        newBikeRide.cyclingLatitudes = latitudes
-        newBikeRide.cyclingLongitudes = longitudes
-        newBikeRide.cyclingSpeeds = speedsValidated
-        newBikeRide.cyclingDistance = distance
-        newBikeRide.cyclingElevations = elevationsValidated
-        newBikeRide.cyclingStartTime = startTime
-        newBikeRide.cyclingTime = time
-        // Default category
-        newBikeRide.cyclingRouteName = "Uncategorized"
-        
-        do {
-            try context.save()
-            print("Bike ride saved")
-        } catch {
-            print(error.localizedDescription)
+
+            let newBikeRide = BikeRide(context: context)
+            newBikeRide.cyclingLatitudes = latitudes
+            newBikeRide.cyclingLongitudes = longitudes
+            newBikeRide.cyclingSpeeds = speedsValidated
+            newBikeRide.cyclingDistance = distance
+            newBikeRide.cyclingElevations = elevationsValidated
+            newBikeRide.cyclingStartTime = startTime
+            newBikeRide.cyclingTime = time
+            // Default category
+            newBikeRide.cyclingRouteName = "Uncategorized"
+
+            do {
+                try context.save()
+                print("Bike ride saved")
+            } catch {
+                print(error.localizedDescription)
+            }
+
+            DispatchQueue.main.async {
+                completion()
+            }
         }
     }
     
