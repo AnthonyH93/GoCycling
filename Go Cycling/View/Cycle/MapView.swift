@@ -105,7 +105,7 @@ struct MapView: UIViewRepresentable {
                             }
                             let route = MKPolyline(coordinates: coords, count: coords.count)
                             context.coordinator.currentRouteOverlay = route
-                            context.coordinator.lastRenderedCount = locationsCount
+                            context.coordinator.lastRenderedCount = coords.count
                             view.addOverlay(route)
 
                             // Update stroke colour if user changes colour preference after renderer was created
