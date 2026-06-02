@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42883D67661B4EC68F96065F /* MapTypeChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */; };
 		9D1C40CE26426E740032125A /* Default Inverted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40CC26426E740032125A /* Default Inverted@2x.png */; };
 		9D1C40CF26426E740032125A /* Default Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40CD26426E740032125A /* Default Inverted@3x.png */; };
 		9D1C40D626426E7F0032125A /* Default Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40D326426E7F0032125A /* Default Inverted~ipad.png */; };
@@ -86,17 +87,14 @@
 		9D601ED726E72FD600844CD1 /* Sunset Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601ED226E72FD600844CD1 /* Sunset Inverted@3x.png */; };
 		9D601ED826E72FD600844CD1 /* Sunset Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601ED326E72FD600844CD1 /* Sunset Inverted~ipad.png */; };
 		9D601ED926E72FD600844CD1 /* Sunset Inverted-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D601ED426E72FD600844CD1 /* Sunset Inverted-83.5@2x~ipad.png */; };
-		AEA9DB8B9ED54BD3B3900F2A /* RouteDetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */; };
 		9D62F4DB2634F69600E28991 /* HistoryMetricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */; };
 		9D62F4E02634F7CC00E28991 /* MetricsFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */; };
-		CD9ED7450AEC45829A892F0C /* MetricsPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5038958A2E4468B8CA85511 /* MetricsPillView.swift */; };
 		9D6E532F2623CCBF008FD7C1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */; };
 		9D6E53492628071B008FD7C1 /* MapWithSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E53482628071B008FD7C1 /* MapWithSpeedView.swift */; };
 		9D6E534F262BAEE0008FD7C1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E534E262BAEE0008FD7C1 /* SettingsView.swift */; };
 		9D6E5357262BB299008FD7C1 /* ColourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5356262BB299008FD7C1 /* ColourView.swift */; };
 		9D6E5367262CE32F008FD7C1 /* UnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5366262CE32F008FD7C1 /* UnitsView.swift */; };
 		9D6E5374262CE773008FD7C1 /* ColourChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5373262CE773008FD7C1 /* ColourChoice.swift */; };
-		42883D67661B4EC68F96065F /* MapTypeChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */; };
 		9D6E5386262CECFA008FD7C1 /* GoCycling.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E5384262CECFA008FD7C1 /* GoCycling.xcdatamodeld */; };
 		9D6E538B262CEE0A008FD7C1 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */; };
 		9D6E5391262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6E538F262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift */; };
@@ -168,6 +166,8 @@
 		9DF9305326DE06A600D4EEC5 /* Medal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9305226DE06A600D4EEC5 /* Medal.swift */; };
 		AA0000012026051300000001 /* AutoPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026051300000002 /* AutoPauseState.swift */; };
 		AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000022026051300000002 /* PrivacySettingsView.swift */; };
+		AEA9DB8B9ED54BD3B3900F2A /* RouteDetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */; };
+		CD9ED7450AEC45829A892F0C /* MetricsPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5038958A2E4468B8CA85511 /* MetricsPillView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +188,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeChoice.swift; sourceTree = "<group>"; };
+		2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailMapView.swift; sourceTree = "<group>"; };
 		9D1C40CC26426E740032125A /* Default Inverted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted@2x.png"; sourceTree = "<group>"; };
 		9D1C40CD26426E740032125A /* Default Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted@3x.png"; sourceTree = "<group>"; };
 		9D1C40D326426E7F0032125A /* Default Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted~ipad.png"; sourceTree = "<group>"; };
@@ -267,17 +269,14 @@
 		9D601ED226E72FD600844CD1 /* Sunset Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sunset Inverted@3x.png"; sourceTree = "<group>"; };
 		9D601ED326E72FD600844CD1 /* Sunset Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sunset Inverted~ipad.png"; sourceTree = "<group>"; };
 		9D601ED426E72FD600844CD1 /* Sunset Inverted-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sunset Inverted-83.5@2x~ipad.png"; sourceTree = "<group>"; };
-		2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailMapView.swift; sourceTree = "<group>"; };
 		9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMetricView.swift; sourceTree = "<group>"; };
 		9D62F4DF2634F7CC00E28991 /* MetricsFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsFormatting.swift; sourceTree = "<group>"; };
-		D5038958A2E4468B8CA85511 /* MetricsPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsPillView.swift; sourceTree = "<group>"; };
 		9D6E532E2623CCBF008FD7C1 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		9D6E53482628071B008FD7C1 /* MapWithSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWithSpeedView.swift; sourceTree = "<group>"; };
 		9D6E534E262BAEE0008FD7C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9D6E5356262BB299008FD7C1 /* ColourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourView.swift; sourceTree = "<group>"; };
 		9D6E5366262CE32F008FD7C1 /* UnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsView.swift; sourceTree = "<group>"; };
 		9D6E5373262CE773008FD7C1 /* ColourChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourChoice.swift; sourceTree = "<group>"; };
-		2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeChoice.swift; sourceTree = "<group>"; };
 		9D6E5385262CECFA008FD7C1 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		9D6E538A262CEE0A008FD7C1 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		9D6E538F262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -356,6 +355,7 @@
 		9DF9305226DE06A600D4EEC5 /* Medal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medal.swift; sourceTree = "<group>"; };
 		AA0000012026051300000002 /* AutoPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPauseState.swift; sourceTree = "<group>"; };
 		AA0000022026051300000002 /* PrivacySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsView.swift; sourceTree = "<group>"; };
+		D5038958A2E4468B8CA85511 /* MetricsPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsPillView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1204,7 +1204,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
@@ -1214,7 +1214,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1230,7 +1230,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
@@ -1240,7 +1240,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
