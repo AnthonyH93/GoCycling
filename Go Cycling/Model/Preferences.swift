@@ -267,7 +267,9 @@ class Preferences: ObservableObject {
                         NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.integer(forKey: k), forKey: k)
                     // String
                     case 2:
-                        NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.string(forKey: k)!, forKey: k)
+                        if let value = UserDefaults.standard.string(forKey: k) {
+                            NSUbiquitousKeyValueStore.default.set(value, forKey: k)
+                        }
                     // Bool
                     default:
                         NSUbiquitousKeyValueStore.default.set(UserDefaults.standard.bool(forKey: k), forKey: k)
@@ -282,10 +284,14 @@ class Preferences: ObservableObject {
                     switch keyTypes[i] {
                     // Integer
                     case 1:
-                        UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.object(forKey: k) as! Int, forKey: k)
+                        if let value = NSUbiquitousKeyValueStore.default.object(forKey: k) as? Int {
+                            UserDefaults.standard.set(value, forKey: k)
+                        }
                     // String
                     case 2:
-                        UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.string(forKey: k)!, forKey: k)
+                        if let value = NSUbiquitousKeyValueStore.default.string(forKey: k) {
+                            UserDefaults.standard.set(value, forKey: k)
+                        }
                     // Bool
                     default:
                         UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.bool(forKey: k), forKey: k)
