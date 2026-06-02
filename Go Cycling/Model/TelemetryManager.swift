@@ -121,7 +121,6 @@ enum TelemetrySettingsAction: String {
     // Metrics actions
     case Units = "preferredUnitsChanged"
     case MetricsOnMap = "metricsOnMapSwitchPressed"
-    case LargeMetrics = "largeMetricsSwitchPressed"
     // History actions
     case RoutesEnabled = "routeCategorizationEnabledSwitchPressed"
     case DeletionEnabled = "deletionEnabledSwitchPressed"

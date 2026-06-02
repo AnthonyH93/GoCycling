@@ -41,13 +41,6 @@ struct UnitsView: View {
                 telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.MetricsOnMap)
             }
         ))
-        Toggle("Large Metrics View", isOn: Binding(
-            get: { preferences.largeMetrics },
-            set: { value in
-                preferences.updateBoolPreference(preference: CustomizablePreferences.largeMetrics, value: value)
-                telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.LargeMetrics)
-            }
-        ))
     }
 }
 

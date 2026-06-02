@@ -29,7 +29,7 @@ struct CycleView: View {
     var body: some View {
         GeometryReader { (geometry) in
             VStack {
-                MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling, screenWidth: geometry.size.width)
+                MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
                 .layoutPriority(1)
                 // Alert about visiting settings if location access is not allowed
                 .alert(isPresented: $locationManager.showLocationSettingsAlert) {
