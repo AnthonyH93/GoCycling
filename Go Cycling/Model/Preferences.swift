@@ -12,6 +12,7 @@ enum CustomizablePreferences {
     case metric
     case displayingMetrics
     case colour
+    case largeMetrics
     case sortingChoice
     case deletionConfirmation
     case deletionEnabled
@@ -34,6 +35,7 @@ class Preferences: ObservableObject {
     @Published var usingMetric: Bool
     @Published var displayingMetrics: Bool
     @Published var colourChoice: String
+    @Published var largeMetrics: Bool
     @Published var sortingChoice: String
     @Published var deletionConfirmation: Bool
     @Published var deletionEnabled: Bool
@@ -108,6 +110,7 @@ class Preferences: ObservableObject {
         self.usingMetric = UserDefaults.standard.bool(forKey: Preferences.keys[0])
         self.displayingMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[1])
         self.colourChoice = UserDefaults.standard.string(forKey: Preferences.keys[2])!
+        self.largeMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[3])
         self.sortingChoice = UserDefaults.standard.string(forKey: Preferences.keys[4])!
         self.deletionConfirmation = UserDefaults.standard.bool(forKey: Preferences.keys[5])
         self.deletionEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[6])
@@ -156,6 +159,7 @@ class Preferences: ObservableObject {
         self.usingMetric = UserDefaults.standard.bool(forKey: Preferences.keys[0])
         self.displayingMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[1])
         self.colourChoice = UserDefaults.standard.string(forKey: Preferences.keys[2])!
+        self.largeMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[3])
         self.sortingChoice = UserDefaults.standard.string(forKey: Preferences.keys[4])!
         self.deletionConfirmation = UserDefaults.standard.bool(forKey: Preferences.keys[5])
         self.deletionEnabled = UserDefaults.standard.bool(forKey: Preferences.keys[6])
@@ -287,6 +291,7 @@ class Preferences: ObservableObject {
         UserDefaults.standard.set(existingPreferences.usingMetric, forKey: Preferences.keys[0])
         UserDefaults.standard.set(existingPreferences.displayingMetrics, forKey: Preferences.keys[1])
         UserDefaults.standard.set(existingPreferences.colourChoice, forKey: Preferences.keys[2])
+        UserDefaults.standard.set(existingPreferences.largeMetrics, forKey: Preferences.keys[3])
         UserDefaults.standard.set(existingPreferences.sortingChoice, forKey: Preferences.keys[4])
         UserDefaults.standard.set(existingPreferences.deletionConfirmation, forKey: Preferences.keys[5])
         UserDefaults.standard.set(existingPreferences.deletionEnabled, forKey: Preferences.keys[6])
@@ -314,6 +319,9 @@ class Preferences: ObservableObject {
         case .displayingMetrics:
             UserDefaults.standard.set(value, forKey: Preferences.keys[1])
             self.displayingMetrics = value
+        case .largeMetrics:
+            UserDefaults.standard.set(value, forKey: Preferences.keys[3])
+            self.largeMetrics = value
         case .deletionConfirmation:
             UserDefaults.standard.set(value, forKey: Preferences.keys[5])
             self.deletionConfirmation = value

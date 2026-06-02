@@ -19,12 +19,10 @@ struct MetricsPillView: View {
 
     let pillColor: Color
 
-    @State private var isExpanded = true
-
     var body: some View {
         if preferences.displayingMetrics {
             VStack(spacing: 0) {
-                if isExpanded {
+                if preferences.largeMetrics {
                     HStack(spacing: 0) {
                         metricColumn(label: "Speed",
                                      value: MetricsFormatting.formatSpeedWithoutUnits(speed: currentSpeed ?? 0.0, usingMetric: preferences.usingMetric),
@@ -62,9 +60,10 @@ struct MetricsPillView: View {
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .padding(.horizontal, 12)
             .padding(.top, 10)
+            // Persists expanded/collapsed state so the pill remembers the user's last preference across rides
             .onTapGesture {
                 withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
-                    isExpanded.toggle()
+                    preferences.updateBoolPreference(preference: .largeMetrics, value: !preferences.largeMetrics)
                 }
             }
         }
