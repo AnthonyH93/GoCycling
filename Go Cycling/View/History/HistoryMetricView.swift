@@ -11,19 +11,28 @@ struct HistoryMetricView: View {
     let systemImageString: String
     let metricName: String
     let metricText: String
-    
+
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
-            HStack (spacing: 10) {
-                Text(metricName)
-                    .minimumScaleFactor(0.3)
-                    .lineLimit(1)
-                Image(systemName: systemImageString)
-            }
+        VStack(alignment: .center, spacing: 4) {
+            Image(systemName: systemImageString)
+                .font(.title3)
+                .foregroundColor(.accentColor)
+            Text(metricName)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
             Text(metricText)
-                .font(.title)
-                .minimumScaleFactor(0.3)
+                .font(.headline)
+                .minimumScaleFactor(0.5)
                 .lineLimit(1)
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 10)
+        .padding(.horizontal, 4)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.primary.opacity(0.06))
+        )
     }
 }
