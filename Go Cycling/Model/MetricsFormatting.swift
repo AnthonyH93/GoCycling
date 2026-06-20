@@ -81,13 +81,18 @@ class MetricsFormatting {
     static func formatElevation(elevations: [CLLocationDistance], usingMetric: Bool) -> String {
         var elevationGain: CLLocationDistance = 0.0
         let elevationUnits = usingMetric ? "m" : "ft"
-        let threshold: CLLocationDistance = 5.0
 
-        for index in 0..<elevations.count {
-            if index > 0 {
-                let delta = elevations[index] - elevations[index - 1]
-                if delta > threshold {
-                    elevationGain += delta
+        if !elevations.isEmpty {
+            // Hysteresis: only count a rise as real once it exceeds 3m above the last low point.
+            // This filters GPS noise while still accumulating gradual climbs correctly.
+            let threshold: CLLocationDistance = 3.0
+            var baseline = elevations[0]
+            for elevation in elevations {
+                if elevation < baseline {
+                    baseline = elevation
+                } else if elevation > baseline + threshold {
+                    elevationGain += elevation - baseline
+                    baseline = elevation
                 }
             }
         }
