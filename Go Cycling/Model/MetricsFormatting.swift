@@ -18,10 +18,12 @@ class MetricsFormatting {
     
     static func formatStartTime(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        dateFormatter.dateFormat = "h:mm a"
-        return(dateFormatter.string(from: date))
+        dateFormatter.timeStyle = .short
+        return dateFormatter.string(from: date)
+    }
+
+    static func formatDateAndTime(date: Date) -> String {
+        "\(formatDate(date: date)) · \(formatStartTime(date: date))"
     }
     
     static func formatDistance(distance: CLLocationDistance, usingMetric: Bool) -> String {
