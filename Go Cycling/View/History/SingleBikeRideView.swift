@@ -28,7 +28,7 @@ struct SingleBikeRideView: View {
                 center: self.calculateCenter(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
                 span: self.calculateSpan(latitudes: bikeRide.cyclingLatitudes, longitudes: bikeRide.cyclingLongitudes),
                 routeColor: UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted),
-                bottomInset: 175,
+                bottomInset: 220,
                 mapType: preferences.mapTypeChoiceConverted.mkMapType
             )
             .ignoresSafeArea(edges: .bottom)
@@ -83,24 +83,15 @@ struct SingleBikeRideView: View {
                             .font(.headline)
                             .padding(.bottom, 8)
                     }
-                    VStack(spacing: 10) {
-                        HStack {
-                            Spacer()
-                            HistoryMetricView(systemImageString: "location", metricName: "Distance", metricText: MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.usingMetric))
-                            Spacer()
-                            HistoryMetricView(systemImageString: "timer", metricName: "Time", metricText: MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
-                            Spacer()
-                            HistoryMetricView(systemImageString: "arrow.up.arrow.down", metricName: "Elev. Gain", metricText: MetricsFormatting.formatElevation(elevations: bikeRide.cyclingElevations, usingMetric: preferences.usingMetric))
-                            Spacer()
-                        }
-                        HStack {
-                            Spacer()
-                            HistoryMetricView(systemImageString: "speedometer", metricName: "Average Speed", metricText: MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.usingMetric))
-                            Spacer()
-                            HistoryMetricView(systemImageString: "speedometer", metricName: "Top Speed", metricText: MetricsFormatting.formatTopSpeed(speeds: bikeRide.cyclingSpeeds, usingMetric: preferences.usingMetric))
-                            Spacer()
-                        }
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
+                        HistoryMetricView(systemImageString: "location", metricName: "Distance", metricText: MetricsFormatting.formatDistance(distance: bikeRide.cyclingDistance, usingMetric: preferences.usingMetric))
+                        HistoryMetricView(systemImageString: "timer", metricName: "Time", metricText: MetricsFormatting.formatTime(time: bikeRide.cyclingTime))
+                        HistoryMetricView(systemImageString: "arrow.up.arrow.down", metricName: "Elev. Gain", metricText: MetricsFormatting.formatElevation(elevations: bikeRide.cyclingElevations, usingMetric: preferences.usingMetric))
+                        HistoryMetricView(systemImageString: "speedometer", metricName: "Avg Speed", metricText: MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.usingMetric))
+                        HistoryMetricView(systemImageString: "speedometer", metricName: "Top Speed", metricText: MetricsFormatting.formatTopSpeed(speeds: bikeRide.cyclingSpeeds, usingMetric: preferences.usingMetric))
+                        HistoryMetricView(systemImageString: "arrow.up.to.line", metricName: "Max Elev.", metricText: MetricsFormatting.formatMaxElevation(elevations: bikeRide.cyclingElevations, usingMetric: preferences.usingMetric))
                     }
+                    .padding(.horizontal, 8)
                     .padding(.bottom, 12)
                 }
                 .transition(.opacity)
@@ -120,6 +111,7 @@ struct SingleBikeRideView: View {
         .frame(maxWidth: .infinity)
         .background(cardBackground)
         .clipShape(RoundedRectangle(cornerRadius: 20))
+        .frame(maxWidth: 560)
         .padding(.horizontal, 12)
         .onTapGesture {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {

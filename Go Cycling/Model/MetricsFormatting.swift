@@ -18,10 +18,12 @@ class MetricsFormatting {
     
     static func formatStartTime(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        dateFormatter.dateFormat = "h:mm a"
-        return(dateFormatter.string(from: date))
+        dateFormatter.timeStyle = .short
+        return dateFormatter.string(from: date)
+    }
+
+    static func formatDateAndTime(date: Date) -> String {
+        "\(formatDate(date: date)) · \(formatStartTime(date: date))"
     }
     
     static func formatDistance(distance: CLLocationDistance, usingMetric: Bool) -> String {
@@ -79,19 +81,31 @@ class MetricsFormatting {
     static func formatElevation(elevations: [CLLocationDistance], usingMetric: Bool) -> String {
         var elevationGain: CLLocationDistance = 0.0
         let elevationUnits = usingMetric ? "m" : "ft"
-        
+        let threshold: CLLocationDistance = 5.0
+
         for index in 0..<elevations.count {
-            if (index > 0) {
-                if (elevations[index] > elevations[index-1]) {
-                    elevationGain += elevations[index] - elevations[index-1]
+            if index > 0 {
+                let delta = elevations[index] - elevations[index - 1]
+                if delta > threshold {
+                    elevationGain += delta
                 }
             }
         }
-        
+
         let elevationMetres = round(100 * elevationGain)/100
         let elevationFeet = round(100 * (3.28084 * elevationGain))/100
         let elevationString = "\(usingMetric ? elevationMetres : elevationFeet) " + elevationUnits
         return elevationString
+    }
+
+    static func formatMaxElevation(elevations: [CLLocationDistance], usingMetric: Bool) -> String {
+        guard let maxElevation = elevations.max() else {
+            return usingMetric ? "0 m" : "0 ft"
+        }
+        let elevationUnits = usingMetric ? "m" : "ft"
+        let elevationMetres = round(100 * maxElevation) / 100
+        let elevationFeet = round(100 * (3.28084 * maxElevation)) / 100
+        return "\(usingMetric ? elevationMetres : elevationFeet) " + elevationUnits
     }
     
     static func formatTopSpeed(speeds: [CLLocationSpeed], usingMetric: Bool) -> String {

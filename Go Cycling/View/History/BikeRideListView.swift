@@ -173,7 +173,7 @@ struct ListView: View {
         if (bikeRides.count > 0) {
             List {
                 ForEach(bikeRides) { bikeRide in
-                    NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDate(date: bikeRide.cyclingStartTime))) {
+                    NavigationLink(destination: SingleBikeRideView(bikeRide: bikeRide, navigationTitle: MetricsFormatting.formatDateAndTime(date: bikeRide.cyclingStartTime))) {
                         // Bike ride list cell
                         VStack(spacing: 10) {
                             HStack {

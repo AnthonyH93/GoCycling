@@ -91,7 +91,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         lastLocation = location
         cyclingLocations.append(lastLocation)
         cyclingSpeed = location.speed
-        cyclingAltitude = location.altitude
+        cyclingAltitude = (location.verticalAccuracy > 0 && location.verticalAccuracy < 30) ? location.altitude : nil
         cyclingSpeeds.append(cyclingSpeed)
         cyclingAltitudes.append(cyclingAltitude)
 
