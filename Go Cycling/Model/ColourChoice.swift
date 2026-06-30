@@ -16,6 +16,7 @@ enum ColourChoice: String, CaseIterable, Identifiable {
     case blue
     case indigo
     case violet
+    case custom
 
     var id: String { self.rawValue }
 }

@@ -27,7 +27,7 @@ struct MapWithSpeedView: View {
             VStack {
                 MetricsPillView(
                     currentSpeed: $locationManager.displaySpeed,
-                    currentAltitude: $locationManager.cyclingAltitude,
+                    cyclingAltitudes: $locationManager.cyclingAltitudes,
                     currentDistance: $locationManager.cyclingTotalDistance,
                     pillColor: Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted))
                 )

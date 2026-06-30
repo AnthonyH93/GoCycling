@@ -12,6 +12,7 @@ enum CustomizablePreferences {
     case metric
     case displayingMetrics
     case colour
+    case customColour
     case largeMetrics
     case sortingChoice
     case deletionConfirmation
@@ -36,6 +37,7 @@ class Preferences: ObservableObject {
     @Published var usingMetric: Bool
     @Published var displayingMetrics: Bool
     @Published var colourChoice: String
+    @Published var customColourHex: String?
     @Published var largeMetrics: Bool
     @Published var sortingChoice: String
     @Published var deletionConfirmation: Bool
@@ -59,6 +61,8 @@ class Preferences: ObservableObject {
     static private let iCloudOnKey = "iCloudOn"
     // Telemetry opt-out is stored locally only (privacy preference should stay device-local)
     static let telemetryEnabledKey = "telemetryEnabled"
+    // Custom colour hex — synced to iCloud so the picker choice follows the user across devices
+    static let customColourHexKey = "customColourHex"
     static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2] // 0: Bool, 1: Int, 2: String
     
     init() {
@@ -112,6 +116,7 @@ class Preferences: ObservableObject {
         self.usingMetric = UserDefaults.standard.bool(forKey: Preferences.keys[0])
         self.displayingMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[1])
         self.colourChoice = UserDefaults.standard.string(forKey: Preferences.keys[2])!
+        self.customColourHex = UserDefaults.standard.string(forKey: Preferences.customColourHexKey)
         self.largeMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[3])
         self.sortingChoice = UserDefaults.standard.string(forKey: Preferences.keys[4])!
         self.deletionConfirmation = UserDefaults.standard.bool(forKey: Preferences.keys[5])
@@ -166,6 +171,7 @@ class Preferences: ObservableObject {
         self.usingMetric = UserDefaults.standard.bool(forKey: Preferences.keys[0])
         self.displayingMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[1])
         self.colourChoice = UserDefaults.standard.string(forKey: Preferences.keys[2])!
+        self.customColourHex = UserDefaults.standard.string(forKey: Preferences.customColourHexKey)
         self.largeMetrics = UserDefaults.standard.bool(forKey: Preferences.keys[3])
         self.sortingChoice = UserDefaults.standard.string(forKey: Preferences.keys[4])!
         self.deletionConfirmation = UserDefaults.standard.bool(forKey: Preferences.keys[5])
@@ -276,6 +282,12 @@ class Preferences: ObservableObject {
                         print("LOCAL 2 CLOUD \(k) \(UserDefaults.standard.bool(forKey: k))")
                     }
                 }
+                // Sync custom colour hex
+                if let hex = UserDefaults.standard.string(forKey: customColourHexKey) {
+                    NSUbiquitousKeyValueStore.default.set(hex, forKey: customColourHexKey)
+                } else {
+                    NSUbiquitousKeyValueStore.default.removeObject(forKey: customColourHexKey)
+                }
                 NSUbiquitousKeyValueStore.default.synchronize()
             }
             // Sync cloud to local
@@ -297,6 +309,12 @@ class Preferences: ObservableObject {
                         UserDefaults.standard.set(NSUbiquitousKeyValueStore.default.bool(forKey: k), forKey: k)
                         print("CLOUD 2 LOCAL \(k) \(UserDefaults.standard.bool(forKey: k))")
                     }
+                }
+                // Sync custom colour hex
+                if let hex = NSUbiquitousKeyValueStore.default.string(forKey: customColourHexKey) {
+                    UserDefaults.standard.set(hex, forKey: customColourHexKey)
+                } else {
+                    UserDefaults.standard.removeObject(forKey: customColourHexKey)
                 }
             }
         }
@@ -382,6 +400,9 @@ class Preferences: ObservableObject {
         case .colour:
             UserDefaults.standard.set(value, forKey: Preferences.keys[2])
             self.colourChoice = value
+        case .customColour:
+            UserDefaults.standard.set(value, forKey: Preferences.customColourHexKey)
+            self.customColourHex = value
         case .sortingChoice:
             UserDefaults.standard.set(value, forKey: Preferences.keys[4])
             self.sortingChoice = value
@@ -412,6 +433,8 @@ class Preferences: ObservableObject {
     // For the reset to default settings button on the settings tab
     public func resetPreferences() {
         Preferences.writeDefaults(iCloud: false)
+        UserDefaults.standard.removeObject(forKey: Preferences.customColourHexKey)
+        self.customColourHex = nil
         Preferences.syncLocalAndCloud(localToCloud: true)
         self.writeToClassMembers()
     }

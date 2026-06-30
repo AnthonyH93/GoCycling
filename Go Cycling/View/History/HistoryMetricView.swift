@@ -32,7 +32,7 @@ struct HistoryMetricView: View {
         .padding(.horizontal, 4)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.primary.opacity(0.06))
+                .fill(Color(.secondarySystemFill))
         )
     }
 }
