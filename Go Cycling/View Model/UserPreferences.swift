@@ -21,21 +21,35 @@ class UserPreferences: ObservableObject {
     
     static func convertColourChoiceToUIColor(colour: ColourChoice) -> UIColor {
         switch colour {
-        case .red:
-            return UIColor.systemRed
-        case .orange:
-            return UIColor.systemOrange
-        case .yellow:
-            return UIColor.systemYellow
-        case .green:
-            return UIColor.systemGreen
-        case .blue:
-            return UIColor.systemBlue
-        case .indigo:
-            return UIColor.systemIndigo
-        case .violet:
-            return UIColor.systemPurple
+        case .red:      return .systemRed
+        case .orange:   return .systemOrange
+        case .yellow:   return .systemYellow
+        case .green:    return .systemGreen
+        case .blue:     return .systemBlue
+        case .indigo:   return .systemIndigo
+        case .violet:   return .systemPurple
+        case .custom:
+            if let hex = UserDefaults.standard.string(forKey: Preferences.customColourHexKey),
+               let color = UIColor(hexRGB: hex) {
+                return color
+            }
+            return .systemBlue
         }
     }
 
+}
+
+extension UIColor {
+    convenience init?(hexRGB hex: String) {
+        let cleaned = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        guard cleaned.count == 6 else { return nil }
+        var value: UInt64 = 0
+        Scanner(string: cleaned).scanHexInt64(&value)
+        self.init(
+            red:   CGFloat((value >> 16) & 0xFF) / 255,
+            green: CGFloat((value >>  8) & 0xFF) / 255,
+            blue:  CGFloat( value        & 0xFF) / 255,
+            alpha: 1
+        )
+    }
 }
