@@ -12,11 +12,13 @@ struct HistoryMetricView: View {
     let metricName: String
     let metricText: String
 
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         VStack(alignment: .center, spacing: 4) {
             Image(systemName: systemImageString)
                 .font(.title3)
-                .foregroundColor(.accentColor)
+                .foregroundColor(.accentColor.opacity(colorScheme == .light ? 0.7 : 1.0))
             Text(metricName)
                 .font(.caption2)
                 .foregroundColor(.secondary)
@@ -32,7 +34,7 @@ struct HistoryMetricView: View {
         .padding(.horizontal, 4)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.primary.opacity(0.06))
+                .fill(Color(.secondarySystemFill))
         )
     }
 }
