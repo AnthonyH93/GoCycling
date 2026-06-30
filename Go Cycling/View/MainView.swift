@@ -18,13 +18,17 @@ struct MainView: View {
         }
     }
     
+    var themeUIColor: UIColor {
+        UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+    }
+
     var body: some View {
         TabView {
             CycleView()
                 .tabItem {
                     Label("Cycle", systemImage: "bicycle")
                 }
-            
+
             HistoryView()
                 .tabItem {
                     Label("History", systemImage: "clock.arrow.circlepath")
@@ -38,7 +42,16 @@ struct MainView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
-        .accentColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
+        .accentColor(Color(themeUIColor))
+        .onAppear {
+            UISwitch.appearance().onTintColor = themeUIColor
+        }
+        .onChange(of: preferences.colourChoice) { _ in
+            UISwitch.appearance().onTintColor = themeUIColor
+        }
+        .onChange(of: preferences.customColourHex) { _ in
+            UISwitch.appearance().onTintColor = themeUIColor
+        }
     }
 }
 
