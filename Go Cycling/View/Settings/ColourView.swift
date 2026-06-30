@@ -86,13 +86,26 @@ private struct ColourDetailView: View {
                     Text("Blue").tag(ColourChoice.blue)
                     Text("Indigo").tag(ColourChoice.indigo)
                     Text("Violet").tag(ColourChoice.violet)
+                    Text("Custom").tag(ColourChoice.custom)
                 }
                 .pickerStyle(.inline)
                 .labelsHidden()
             }
 
             Section(header: Text("Custom")) {
-                ColorPicker("Custom Colour", selection: customColourBinding, supportsOpacity: false)
+                HStack {
+                    // Tapping the label activates custom without opening the colour wheel
+                    Button("Custom Colour") {
+                        if preferences.colourChoiceConverted != .custom {
+                            preferences.updateStringPreference(preference: .colour, value: ColourChoice.custom.rawValue)
+                            telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.Colour)
+                        }
+                    }
+                    .foregroundColor(.primary)
+                    Spacer()
+                    ColorPicker("", selection: customColourBinding, supportsOpacity: false)
+                        .labelsHidden()
+                }
             }
         }
         .navigationBarTitle("Choose your Colour", displayMode: .inline)
