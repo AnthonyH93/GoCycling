@@ -86,7 +86,6 @@ private struct ColourDetailView: View {
                     Text("Blue").tag(ColourChoice.blue)
                     Text("Indigo").tag(ColourChoice.indigo)
                     Text("Violet").tag(ColourChoice.violet)
-                    Text("Custom").tag(ColourChoice.custom)
                 }
                 .pickerStyle(.inline)
                 .labelsHidden()
@@ -94,7 +93,6 @@ private struct ColourDetailView: View {
 
             Section(header: Text("Custom")) {
                 HStack {
-                    // Tapping the label activates custom without opening the colour wheel
                     Button("Custom Colour") {
                         if preferences.colourChoiceConverted != .custom {
                             preferences.updateStringPreference(preference: .colour, value: ColourChoice.custom.rawValue)
@@ -103,6 +101,11 @@ private struct ColourDetailView: View {
                     }
                     .foregroundColor(.primary)
                     Spacer()
+                    if preferences.colourChoiceConverted == .custom {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.accentColor)
+                            .padding(.trailing, 8)
+                    }
                     ColorPicker("", selection: customColourBinding, supportsOpacity: false)
                         .labelsHidden()
                 }
