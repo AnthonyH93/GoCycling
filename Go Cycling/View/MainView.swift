@@ -18,39 +18,38 @@ struct MainView: View {
         }
     }
     
-    var themeUIColor: UIColor {
-        UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+    var themeColor: Color {
+        Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted))
     }
 
     var body: some View {
-        TabView {
+        let tabs = TabView {
             CycleView()
-                .tabItem {
-                    Label("Cycle", systemImage: "bicycle")
-                }
-
+                .tabItem { Label("Cycle", systemImage: "bicycle") }
             HistoryView()
-                .tabItem {
-                    Label("History", systemImage: "clock.arrow.circlepath")
-                }
+                .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
             StatisticsView()
-                .tabItem {
-                    Label("Statistics", systemImage: "chart.bar.xaxis")
-                }
+                .tabItem { Label("Statistics", systemImage: "chart.bar.xaxis") }
             SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
+                .tabItem { Label("Settings", systemImage: "gear") }
+        }
+        .accentColor(themeColor)
+
+        if #available(iOS 15, *) {
+            // .tint() is the only reliable way to colour Toggle switches on iOS 15+
+            tabs.tint(themeColor)
+        } else {
+            // iOS 14: use UIAppearance, set before and on change
+            tabs
+                .onAppear {
+                    UISwitch.appearance().onTintColor = UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
                 }
-        }
-        .accentColor(Color(themeUIColor))
-        .onAppear {
-            UISwitch.appearance().onTintColor = themeUIColor
-        }
-        .onChange(of: preferences.colourChoice) { _ in
-            UISwitch.appearance().onTintColor = themeUIColor
-        }
-        .onChange(of: preferences.customColourHex) { _ in
-            UISwitch.appearance().onTintColor = themeUIColor
+                .onChange(of: preferences.colourChoice) { _ in
+                    UISwitch.appearance().onTintColor = UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+                }
+                .onChange(of: preferences.customColourHex) { _ in
+                    UISwitch.appearance().onTintColor = UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)
+                }
         }
     }
 }
