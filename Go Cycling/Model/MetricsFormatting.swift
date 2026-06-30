@@ -78,29 +78,44 @@ class MetricsFormatting {
         return speedString
     }
     
-    static func formatElevation(elevations: [CLLocationDistance], usingMetric: Bool) -> String {
-        var elevationGain: CLLocationDistance = 0.0
-        let elevationUnits = usingMetric ? "m" : "ft"
+    // Peak-and-valley hysteresis: commits a climb only after a confirmed descent of > threshold
+    // from the peak. This avoids the dead-zone bug of the prior baseline-reset approach, which
+    // missed the trailing portion of climbs that didn't clear a fresh threshold from the peak.
+    static func computeElevationGain(elevations: [CLLocationDistance]) -> CLLocationDistance {
+        guard elevations.count >= 2 else { return 0.0 }
+        let threshold: CLLocationDistance = 3.0
+        var localMin = elevations[0]
+        var localMax = elevations[0]
+        var gain: CLLocationDistance = 0.0
 
-        if !elevations.isEmpty {
-            // Hysteresis: only count a rise as real once it exceeds 3m above the last low point.
-            // This filters GPS noise while still accumulating gradual climbs correctly.
-            let threshold: CLLocationDistance = 3.0
-            var baseline = elevations[0]
-            for elevation in elevations {
-                if elevation < baseline {
-                    baseline = elevation
-                } else if elevation > baseline + threshold {
-                    elevationGain += elevation - baseline
-                    baseline = elevation
-                }
+        for elevation in elevations {
+            if elevation > localMax {
+                localMax = elevation
+            } else if elevation < localMax - threshold {
+                gain += localMax - localMin
+                localMin = elevation
+                localMax = elevation
             }
         }
+        if localMax - localMin > threshold {
+            gain += localMax - localMin
+        }
+        return gain
+    }
 
+    static func formatElevation(elevations: [CLLocationDistance], usingMetric: Bool) -> String {
+        let elevationGain = computeElevationGain(elevations: elevations)
+        let elevationUnits = usingMetric ? "m" : "ft"
         let elevationMetres = round(100 * elevationGain)/100
         let elevationFeet = round(100 * (3.28084 * elevationGain))/100
-        let elevationString = "\(usingMetric ? elevationMetres : elevationFeet) " + elevationUnits
-        return elevationString
+        return "\(usingMetric ? elevationMetres : elevationFeet) " + elevationUnits
+    }
+
+    static func formatElevationGainWithoutUnits(elevations: [CLLocationDistance], usingMetric: Bool) -> String {
+        let gain = computeElevationGain(elevations: elevations)
+        let elevationMetres = round(100 * gain) / 100
+        let elevationFeet = round(100 * (3.28084 * gain)) / 100
+        return "\(usingMetric ? elevationMetres : elevationFeet)"
     }
 
     static func formatMaxElevation(elevations: [CLLocationDistance], usingMetric: Bool) -> String {

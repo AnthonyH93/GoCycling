@@ -11,7 +11,7 @@ import CoreLocation
 struct MetricsPillView: View {
 
     @Binding var currentSpeed: CLLocationSpeed?
-    @Binding var currentAltitude: CLLocationDistance?
+    @Binding var cyclingAltitudes: [CLLocationDistance?]
     @Binding var currentDistance: CLLocationDistance
 
     @EnvironmentObject var preferences: Preferences
@@ -32,8 +32,8 @@ struct MetricsPillView: View {
                                      value: MetricsFormatting.formatDistanceWithoutUnits(distance: cyclingStatus.isCycling ? currentDistance : 0.0, usingMetric: preferences.usingMetric),
                                      units: MetricsFormatting.getDistanceUnits(usingMetric: preferences.usingMetric))
                         Divider().frame(height: 50)
-                        metricColumn(label: "Altitude",
-                                     value: MetricsFormatting.formatElevationWithoutUnits(elevation: currentAltitude ?? 0.0, usingMetric: preferences.usingMetric),
+                        metricColumn(label: "Elev. Gain",
+                                     value: MetricsFormatting.formatElevationGainWithoutUnits(elevations: cyclingAltitudes.compactMap { $0 }, usingMetric: preferences.usingMetric),
                                      units: MetricsFormatting.getElevationUnits(usingMetric: preferences.usingMetric))
                     }
                     .transition(.opacity)
