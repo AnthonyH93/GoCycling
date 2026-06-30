@@ -9,15 +9,39 @@ import SwiftUI
 import UIKit
 
 struct ColourView: View {
-    let persistenceController = PersistenceController.shared
-
     @EnvironmentObject var preferences: Preferences
-    @Environment(\.managedObjectContext) private var managedObjectContext
+
+    private var currentColourName: String {
+        switch preferences.colourChoiceConverted {
+        case .red:    return "Red"
+        case .orange: return "Orange"
+        case .yellow: return "Yellow"
+        case .green:  return "Green"
+        case .blue:   return "Blue"
+        case .indigo: return "Indigo"
+        case .violet: return "Violet"
+        case .custom: return "Custom"
+        }
+    }
+
+    var body: some View {
+        NavigationLink(destination: ColourDetailView()) {
+            HStack {
+                Text("Colour")
+                Spacer()
+                Text(currentColourName)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}
+
+private struct ColourDetailView: View {
+    @EnvironmentObject var preferences: Preferences
 
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTabSection = TelemetrySettingsSection.Customization
 
-    // Binding that drives the preset picker
     var colourBinding: Binding<ColourChoice> {
         Binding(
             get: { preferences.colourChoiceConverted },
@@ -28,7 +52,6 @@ struct ColourView: View {
         )
     }
 
-    // Binding that drives the ColorPicker — reads/writes the stored hex
     var customColourBinding: Binding<Color> {
         Binding(
             get: {
@@ -36,7 +59,7 @@ struct ColourView: View {
                    let uiColor = UIColor(hexRGB: hex) {
                     return Color(uiColor)
                 }
-                return Color.blue
+                return .blue
             },
             set: { color in
                 let uiColor = UIColor(color)
@@ -44,7 +67,6 @@ struct ColourView: View {
                 uiColor.getRed(&r, green: &g, blue: &b, alpha: &a)
                 let hex = String(format: "%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
                 preferences.updateStringPreference(preference: .customColour, value: hex)
-                // Ensure colour choice is set to custom
                 if preferences.colourChoiceConverted != .custom {
                     preferences.updateStringPreference(preference: .colour, value: ColourChoice.custom.rawValue)
                 }
@@ -56,7 +78,7 @@ struct ColourView: View {
     var body: some View {
         List {
             Section {
-                Picker("Preset Colour", selection: colourBinding) {
+                Picker("Preset", selection: colourBinding) {
                     Text("Red").tag(ColourChoice.red)
                     Text("Orange").tag(ColourChoice.orange)
                     Text("Yellow").tag(ColourChoice.yellow)
@@ -69,21 +91,8 @@ struct ColourView: View {
                 .labelsHidden()
             }
 
-            Section {
+            Section("Custom") {
                 ColorPicker("Custom Colour", selection: customColourBinding, supportsOpacity: false)
-                    .onChange(of: preferences.customColourHex) { _ in
-                        // Switch to custom when the picker is used
-                        if preferences.colourChoiceConverted != .custom {
-                            preferences.updateStringPreference(preference: .colour, value: ColourChoice.custom.rawValue)
-                        }
-                    }
-                if preferences.colourChoiceConverted == .custom {
-                    Text("Custom colour active")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-            } header: {
-                Text("Custom")
             }
         }
         .navigationBarTitle("Choose your Colour", displayMode: .inline)
