@@ -91,7 +91,7 @@ private struct ColourDetailView: View {
                 .labelsHidden()
             }
 
-            Section("Custom") {
+            Section(header: Text("Custom")) {
                 ColorPicker("Custom Colour", selection: customColourBinding, supportsOpacity: false)
             }
         }
