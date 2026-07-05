@@ -34,7 +34,7 @@ struct BikeRideListView: View {
             GeometryReader { (geometry) in
                 ListView(sortDescripter: bikeRideViewModel.getSortDescriptor(), name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted, updateCategories: $updateCategories)
                 .listStyle(.plain)
-                    .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .automatic)
+                    .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .large)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         if (preferences.namedRoutes && bikeRideViewModel.filterEnabledCheck()) {

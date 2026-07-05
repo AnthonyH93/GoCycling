@@ -172,10 +172,12 @@ private struct TabBarHider: UIViewControllerRepresentable {
     final class Controller: UIViewController {
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
+            guard UIDevice.current.userInterfaceIdiom != .pad else { return }
             tabBarController?.tabBar.isHidden = true
         }
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
+            guard UIDevice.current.userInterfaceIdiom != .pad else { return }
             tabBarController?.tabBar.isHidden = false
         }
     }
