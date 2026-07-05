@@ -83,21 +83,21 @@ class MetricsFormatting {
     // missed the trailing portion of climbs that didn't clear a fresh threshold from the peak.
     static func computeElevationGain(elevations: [CLLocationDistance]) -> CLLocationDistance {
         guard elevations.count >= 2 else { return 0.0 }
-        let threshold: CLLocationDistance = 3.0
+        let threshold: CLLocationDistance = 2.0
         var localMin = elevations[0]
         var localMax = elevations[0]
         var gain: CLLocationDistance = 0.0
 
         for elevation in elevations {
-            if elevation < localMin {
-                // New valley — reset both anchors so the next climb is measured from the true low
-                localMin = elevation
-                localMax = elevation
-            } else if elevation > localMax {
+            if elevation > localMax {
                 localMax = elevation
             } else if elevation < localMax - threshold {
                 // Confirmed descent from peak — commit the climb
                 gain += localMax - localMin
+                localMin = elevation
+                localMax = elevation
+            } else if elevation < localMin {
+                // Still descending below previous valley — track the true low
                 localMin = elevation
                 localMax = elevation
             }
