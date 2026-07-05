@@ -24,13 +24,13 @@ struct MetricsPillView: View {
             VStack(spacing: 0) {
                 if preferences.largeMetrics {
                     HStack(spacing: 0) {
-                        metricColumn(label: "Speed",
-                                     value: MetricsFormatting.formatSpeedWithoutUnits(speed: currentSpeed ?? 0.0, usingMetric: preferences.usingMetric),
-                                     units: MetricsFormatting.getSpeedUnits(usingMetric: preferences.usingMetric))
-                        Divider().frame(height: 50)
                         metricColumn(label: "Distance",
                                      value: MetricsFormatting.formatDistanceWithoutUnits(distance: cyclingStatus.isCycling ? currentDistance : 0.0, usingMetric: preferences.usingMetric),
                                      units: MetricsFormatting.getDistanceUnits(usingMetric: preferences.usingMetric))
+                        Divider().frame(height: 50)
+                        metricColumn(label: "Speed",
+                                     value: MetricsFormatting.formatSpeedWithoutUnits(speed: currentSpeed ?? 0.0, usingMetric: preferences.usingMetric),
+                                     units: MetricsFormatting.getSpeedUnits(usingMetric: preferences.usingMetric))
                         Divider().frame(height: 50)
                         metricColumn(label: "Elev. Gain",
                                      value: MetricsFormatting.formatElevationGainWithoutUnits(elevations: cyclingAltitudes.compactMap { $0 }, usingMetric: preferences.usingMetric),
@@ -39,11 +39,11 @@ struct MetricsPillView: View {
                     .transition(.opacity)
                 } else {
                     HStack(spacing: 12) {
-                        Text("\(MetricsFormatting.formatSpeedWithoutUnits(speed: currentSpeed ?? 0.0, usingMetric: preferences.usingMetric)) \(MetricsFormatting.getSpeedUnits(usingMetric: preferences.usingMetric))")
+                        Text("\(MetricsFormatting.formatDistanceWithoutUnits(distance: cyclingStatus.isCycling ? currentDistance : 0.0, usingMetric: preferences.usingMetric)) \(MetricsFormatting.getDistanceUnits(usingMetric: preferences.usingMetric))")
                         Rectangle()
                             .fill(Color.secondary.opacity(0.6))
                             .frame(width: 1, height: 16)
-                        Text("\(MetricsFormatting.formatDistanceWithoutUnits(distance: cyclingStatus.isCycling ? currentDistance : 0.0, usingMetric: preferences.usingMetric)) \(MetricsFormatting.getDistanceUnits(usingMetric: preferences.usingMetric))")
+                        Text("\(MetricsFormatting.formatSpeedWithoutUnits(speed: currentSpeed ?? 0.0, usingMetric: preferences.usingMetric)) \(MetricsFormatting.getSpeedUnits(usingMetric: preferences.usingMetric))")
                     }
                     .font(.subheadline.bold())
                     .padding(.horizontal, 16)
