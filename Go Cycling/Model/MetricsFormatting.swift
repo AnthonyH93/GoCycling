@@ -89,9 +89,14 @@ class MetricsFormatting {
         var gain: CLLocationDistance = 0.0
 
         for elevation in elevations {
-            if elevation > localMax {
+            if elevation < localMin {
+                // New valley — reset both anchors so the next climb is measured from the true low
+                localMin = elevation
+                localMax = elevation
+            } else if elevation > localMax {
                 localMax = elevation
             } else if elevation < localMax - threshold {
+                // Confirmed descent from peak — commit the climb
                 gain += localMax - localMin
                 localMin = elevation
                 localMax = elevation
