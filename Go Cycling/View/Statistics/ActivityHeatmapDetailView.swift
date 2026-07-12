@@ -30,9 +30,10 @@ struct ActivityHeatmapDetailView: View {
     // Map the selected metric to the right [Date: Double] dictionary
     var activeValueData: [Date: Double] {
         switch selectedMetric {
-        case .routes:   return viewModel.heatmapData.mapValues { Double($0) }
-        case .distance: return viewModel.heatmapDistanceData
-        case .time:     return viewModel.heatmapTimeData
+        case .routes:        return viewModel.heatmapData.mapValues { Double($0) }
+        case .distance:      return viewModel.heatmapDistanceData
+        case .time:          return viewModel.heatmapTimeData
+        case .elevationGain: return viewModel.heatmapElevationData
         }
     }
 
@@ -98,6 +99,9 @@ struct ActivityHeatmapDetailView: View {
                     Text(MetricsFormatting.formatDistance(distance: viewModel.totalCurrentDistance, usingMetric: preferences.usingMetric))
                 case .time:
                     Text(MetricsFormatting.formatTime(time: viewModel.totalCurrentTime))
+                case .elevationGain:
+                    let total = viewModel.heatmapElevationData.values.reduce(0, +)
+                    Text(MetricsFormatting.formatElevationWithoutUnits(elevation: total, usingMetric: preferences.usingMetric) + " " + MetricsFormatting.getElevationUnits(usingMetric: preferences.usingMetric))
                 }
             }
             .font(.title2.bold())

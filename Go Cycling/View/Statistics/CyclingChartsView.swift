@@ -77,6 +77,15 @@ private struct CyclingChartsMiniCard: View {
                     .foregroundColor(loader.distanceChangePct >= 0 ? .green : .red)
             }
             HStack {
+                Text("Elevation")
+                Spacer()
+                Text(MetricsFormatting.formatElevationWithoutUnits(elevation: loader.totalElevationGain, usingMetric: preferences.usingMetric) + " " + MetricsFormatting.getElevationUnits(usingMetric: preferences.usingMetric))
+                    .bold()
+                Text(loader.changeString(for: loader.elevationChangePct))
+                    .bold()
+                    .foregroundColor(loader.elevationChangePct >= 0 ? .green : .red)
+            }
+            HStack {
                 Text("Time")
                 Spacer()
                 Text(MetricsFormatting.formatTime(time: loader.totalTime))
@@ -104,9 +113,11 @@ private struct CyclingChartsMiniCard: View {
 private class ChartMiniCardLoader: ObservableObject {
     @Published var totalDistance: Double = 0
     @Published var totalTime: Double = 0
+    @Published var totalElevationGain: Double = 0
     @Published var distanceChangePct: Double = 0
     @Published var timeChangePct: Double = 0
     @Published var routesChangePct: Double = 0
+    @Published var elevationChangePct: Double = 0
     @Published var totalRoutes: Int = 0
 
     func changeString(for pct: Double) -> String {
@@ -119,11 +130,13 @@ private class ChartMiniCardLoader: ObservableObject {
 
     func load(period: ChartPeriod) {
         let vm = StatisticsChartsViewModel(period: period)
-        totalDistance  = vm.totalCurrentDistance
-        totalTime      = vm.totalCurrentTime
-        totalRoutes    = vm.totalCurrentRoutes
-        distanceChangePct = vm.distanceChangePct
-        timeChangePct     = vm.timeChangePct
+        totalDistance      = vm.totalCurrentDistance
+        totalTime          = vm.totalCurrentTime
+        totalElevationGain = vm.totalCurrentElevationGain
+        totalRoutes         = vm.totalCurrentRoutes
+        distanceChangePct   = vm.distanceChangePct
+        timeChangePct       = vm.timeChangePct
+        elevationChangePct  = vm.elevationChangePct
         let prev = vm.totalPreviousRoutes
         routesChangePct = prev > 0
             ? Double(vm.totalCurrentRoutes - prev) / Double(prev) * 100

@@ -13,14 +13,17 @@ class StatisticsChartsViewModel: ObservableObject {
     @Published var heatmapData: [Date: Int] = [:]
     @Published var heatmapDistanceData: [Date: Double] = [:]
     @Published var heatmapTimeData: [Date: Double] = [:]
+    @Published var heatmapElevationData: [Date: Double] = [:]
     @Published var speedPoints: [SpeedPoint] = []
 
     @Published var totalCurrentDistance: Double = 0
     @Published var totalCurrentTime: Double = 0
     @Published var totalCurrentRoutes: Int = 0
+    @Published var totalCurrentElevationGain: Double = 0
     @Published var totalPreviousDistance: Double = 0
     @Published var totalPreviousTime: Double = 0
     @Published var totalPreviousRoutes: Int = 0
+    @Published var totalPreviousElevationGain: Double = 0
 
     struct SpeedPoint: Identifiable {
         let id = UUID()
@@ -36,6 +39,11 @@ class StatisticsChartsViewModel: ObservableObject {
     var timeChangePct: Double {
         guard totalPreviousTime > 0 else { return totalCurrentTime > 0 ? 100 : 0 }
         return ((totalCurrentTime - totalPreviousTime) / totalPreviousTime) * 100
+    }
+
+    var elevationChangePct: Double {
+        guard totalPreviousElevationGain > 0 else { return totalCurrentElevationGain > 0 ? 100 : 0 }
+        return ((totalCurrentElevationGain - totalPreviousElevationGain) / totalPreviousElevationGain) * 100
     }
 
     var routeCountChange: Int { totalCurrentRoutes - totalPreviousRoutes }
@@ -68,21 +76,25 @@ class StatisticsChartsViewModel: ObservableObject {
         currentPoints  = buildBuckets(rides: currentRides,  period: period, isCurrent: true,  calendar: cal)
         previousPoints = buildBuckets(rides: previousRides, period: period, isCurrent: false, calendar: cal)
 
-        totalCurrentDistance  = currentRides.reduce(0)  { $0 + $1.cyclingDistance }
-        totalCurrentTime      = currentRides.reduce(0)  { $0 + $1.cyclingTime }
-        totalCurrentRoutes    = currentRides.count
-        totalPreviousDistance = previousRides.reduce(0) { $0 + $1.cyclingDistance }
-        totalPreviousTime     = previousRides.reduce(0) { $0 + $1.cyclingTime }
-        totalPreviousRoutes   = previousRides.count
+        totalCurrentDistance      = currentRides.reduce(0)  { $0 + $1.cyclingDistance }
+        totalCurrentTime          = currentRides.reduce(0)  { $0 + $1.cyclingTime }
+        totalCurrentRoutes        = currentRides.count
+        totalCurrentElevationGain = currentRides.reduce(0)  { $0 + MetricsFormatting.computeElevationGain(elevations: $1.cyclingElevations) }
+        totalPreviousDistance      = previousRides.reduce(0) { $0 + $1.cyclingDistance }
+        totalPreviousTime          = previousRides.reduce(0) { $0 + $1.cyclingTime }
+        totalPreviousRoutes        = previousRides.count
+        totalPreviousElevationGain = previousRides.reduce(0) { $0 + MetricsFormatting.computeElevationGain(elevations: $1.cyclingElevations) }
 
         heatmapData = [:]
         heatmapDistanceData = [:]
         heatmapTimeData = [:]
+        heatmapElevationData = [:]
         for ride in currentRides {
             let day = cal.startOfDay(for: ride.cyclingStartTime)
             heatmapData[day, default: 0] += 1
             heatmapDistanceData[day, default: 0] += ride.cyclingDistance
             heatmapTimeData[day, default: 0] += ride.cyclingTime
+            heatmapElevationData[day, default: 0] += MetricsFormatting.computeElevationGain(elevations: ride.cyclingElevations)
         }
 
         speedPoints = currentRides
@@ -106,9 +118,10 @@ class StatisticsChartsViewModel: ObservableObject {
         )
         for ride in rides {
             if let key = bucketKey(for: ride.cyclingStartTime, period: period, slots: slots, calendar: calendar) {
-                map[key]?.distance += ride.cyclingDistance
-                map[key]?.time     += ride.cyclingTime
-                map[key]?.routes   += 1
+                map[key]?.distance      += ride.cyclingDistance
+                map[key]?.time          += ride.cyclingTime
+                map[key]?.routes        += 1
+                map[key]?.elevationGain += MetricsFormatting.computeElevationGain(elevations: ride.cyclingElevations)
             }
         }
         return slots.compactMap { map[$0] }
@@ -210,32 +223,38 @@ class StatisticsChartsViewModel: ObservableObject {
         func km(_ v: Double) -> Double { v * 1000 }
         func mins(_ v: Double) -> Double { v * 60 }
 
+        // Rough "meters of climbing per km ridden" used to derive plausible
+        // elevation gain test values from the existing distance figures.
+        func gain(_ distanceKm: Double) -> Double { distanceKm * 15 }
+
         switch period {
         case .oneWeek:
             currentPoints = [
-                ChartDataPoint(bucketDate: daysAgo(6), distance: km(18.4), time: mins(52),  routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(5), distance: 0,        time: 0,         routes: 0),
-                ChartDataPoint(bucketDate: daysAgo(4), distance: km(27.1), time: mins(78),  routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(3), distance: 0,        time: 0,         routes: 0),
-                ChartDataPoint(bucketDate: daysAgo(2), distance: km(12.6), time: mins(38),  routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(1), distance: 0,        time: 0,         routes: 0),
-                ChartDataPoint(bucketDate: daysAgo(0), distance: km(32.0), time: mins(91),  routes: 1),
+                ChartDataPoint(bucketDate: daysAgo(6), distance: km(18.4), time: mins(52),  routes: 1, elevationGain: gain(18.4)),
+                ChartDataPoint(bucketDate: daysAgo(5), distance: 0,        time: 0,         routes: 0, elevationGain: 0),
+                ChartDataPoint(bucketDate: daysAgo(4), distance: km(27.1), time: mins(78),  routes: 1, elevationGain: gain(27.1)),
+                ChartDataPoint(bucketDate: daysAgo(3), distance: 0,        time: 0,         routes: 0, elevationGain: 0),
+                ChartDataPoint(bucketDate: daysAgo(2), distance: km(12.6), time: mins(38),  routes: 1, elevationGain: gain(12.6)),
+                ChartDataPoint(bucketDate: daysAgo(1), distance: 0,        time: 0,         routes: 0, elevationGain: 0),
+                ChartDataPoint(bucketDate: daysAgo(0), distance: km(32.0), time: mins(91),  routes: 1, elevationGain: gain(32.0)),
             ]
             previousPoints = [
-                ChartDataPoint(bucketDate: daysAgo(13), distance: km(14.2), time: mins(43), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(12), distance: 0,        time: 0,        routes: 0),
-                ChartDataPoint(bucketDate: daysAgo(11), distance: km(22.7), time: mins(65), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(10), distance: 0,        time: 0,        routes: 0),
-                ChartDataPoint(bucketDate: daysAgo(9),  distance: km(31.5), time: mins(90), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(8),  distance: 0,        time: 0,        routes: 0),
-                ChartDataPoint(bucketDate: daysAgo(7),  distance: 0,        time: 0,        routes: 0),
+                ChartDataPoint(bucketDate: daysAgo(13), distance: km(14.2), time: mins(43), routes: 1, elevationGain: gain(14.2)),
+                ChartDataPoint(bucketDate: daysAgo(12), distance: 0,        time: 0,        routes: 0, elevationGain: 0),
+                ChartDataPoint(bucketDate: daysAgo(11), distance: km(22.7), time: mins(65), routes: 1, elevationGain: gain(22.7)),
+                ChartDataPoint(bucketDate: daysAgo(10), distance: 0,        time: 0,        routes: 0, elevationGain: 0),
+                ChartDataPoint(bucketDate: daysAgo(9),  distance: km(31.5), time: mins(90), routes: 1, elevationGain: gain(31.5)),
+                ChartDataPoint(bucketDate: daysAgo(8),  distance: 0,        time: 0,        routes: 0, elevationGain: 0),
+                ChartDataPoint(bucketDate: daysAgo(7),  distance: 0,        time: 0,        routes: 0, elevationGain: 0),
             ]
-            totalCurrentDistance  = currentPoints.reduce(0)  { $0 + $1.distance }
-            totalCurrentTime      = currentPoints.reduce(0)  { $0 + $1.time }
-            totalCurrentRoutes    = currentPoints.reduce(0)  { $0 + $1.routes }
-            totalPreviousDistance = previousPoints.reduce(0) { $0 + $1.distance }
-            totalPreviousTime     = previousPoints.reduce(0) { $0 + $1.time }
-            totalPreviousRoutes   = previousPoints.reduce(0) { $0 + $1.routes }
+            totalCurrentDistance      = currentPoints.reduce(0)  { $0 + $1.distance }
+            totalCurrentTime          = currentPoints.reduce(0)  { $0 + $1.time }
+            totalCurrentRoutes        = currentPoints.reduce(0)  { $0 + $1.routes }
+            totalCurrentElevationGain = currentPoints.reduce(0)  { $0 + $1.elevationGain }
+            totalPreviousDistance      = previousPoints.reduce(0) { $0 + $1.distance }
+            totalPreviousTime          = previousPoints.reduce(0) { $0 + $1.time }
+            totalPreviousRoutes        = previousPoints.reduce(0) { $0 + $1.routes }
+            totalPreviousElevationGain = previousPoints.reduce(0) { $0 + $1.elevationGain }
 
         case .oneMonth:
             var cPts: [ChartDataPoint] = []
@@ -243,24 +262,26 @@ class StatisticsChartsViewModel: ObservableObject {
             let distances: [Double] = [32, 18, 25, 41, 15, 28, 22, 36, 19, 27, 33, 21, 29, 24]
             let times:     [Double] = [91, 52, 71, 117, 43, 80, 63, 102, 54, 77, 94, 60, 83, 68]
             for (i, offset) in rideOffsets.enumerated() {
-                cPts.append(ChartDataPoint(bucketDate: daysAgo(offset), distance: km(distances[i]), time: mins(times[i]), routes: 1))
+                cPts.append(ChartDataPoint(bucketDate: daysAgo(offset), distance: km(distances[i]), time: mins(times[i]), routes: 1, elevationGain: gain(distances[i])))
             }
             currentPoints = cPts
             previousPoints = [
-                ChartDataPoint(bucketDate: daysAgo(33), distance: km(22), time: mins(63), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(37), distance: km(31), time: mins(89), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(42), distance: km(18), time: mins(51), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(46), distance: km(27), time: mins(77), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(51), distance: km(35), time: mins(100), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(55), distance: km(20), time: mins(57), routes: 1),
-                ChartDataPoint(bucketDate: daysAgo(58), distance: km(29), time: mins(82), routes: 1),
+                ChartDataPoint(bucketDate: daysAgo(33), distance: km(22), time: mins(63), routes: 1, elevationGain: gain(22)),
+                ChartDataPoint(bucketDate: daysAgo(37), distance: km(31), time: mins(89), routes: 1, elevationGain: gain(31)),
+                ChartDataPoint(bucketDate: daysAgo(42), distance: km(18), time: mins(51), routes: 1, elevationGain: gain(18)),
+                ChartDataPoint(bucketDate: daysAgo(46), distance: km(27), time: mins(77), routes: 1, elevationGain: gain(27)),
+                ChartDataPoint(bucketDate: daysAgo(51), distance: km(35), time: mins(100), routes: 1, elevationGain: gain(35)),
+                ChartDataPoint(bucketDate: daysAgo(55), distance: km(20), time: mins(57), routes: 1, elevationGain: gain(20)),
+                ChartDataPoint(bucketDate: daysAgo(58), distance: km(29), time: mins(82), routes: 1, elevationGain: gain(29)),
             ]
-            totalCurrentDistance  = currentPoints.reduce(0)  { $0 + $1.distance }
-            totalCurrentTime      = currentPoints.reduce(0)  { $0 + $1.time }
-            totalCurrentRoutes    = currentPoints.count
-            totalPreviousDistance = previousPoints.reduce(0) { $0 + $1.distance }
-            totalPreviousTime     = previousPoints.reduce(0) { $0 + $1.time }
-            totalPreviousRoutes   = previousPoints.count
+            totalCurrentDistance      = currentPoints.reduce(0)  { $0 + $1.distance }
+            totalCurrentTime          = currentPoints.reduce(0)  { $0 + $1.time }
+            totalCurrentRoutes        = currentPoints.count
+            totalCurrentElevationGain = currentPoints.reduce(0)  { $0 + $1.elevationGain }
+            totalPreviousDistance      = previousPoints.reduce(0) { $0 + $1.distance }
+            totalPreviousTime          = previousPoints.reduce(0) { $0 + $1.time }
+            totalPreviousRoutes        = previousPoints.count
+            totalPreviousElevationGain = previousPoints.reduce(0) { $0 + $1.elevationGain }
 
         case .threeMonths:
             let weeklyDist: [Double] = [45, 0, 62, 38, 71, 55, 0, 83, 47, 60, 78, 32, 91]
@@ -268,40 +289,44 @@ class StatisticsChartsViewModel: ObservableObject {
             let slots = bucketDates(for: .threeMonths, isCurrent: true, calendar: cal)
             currentPoints = slots.enumerated().map { i, d in
                 let idx = min(i, weeklyDist.count - 1)
-                return ChartDataPoint(bucketDate: d, distance: km(weeklyDist[idx]), time: mins(weeklyTime[idx]), routes: weeklyDist[idx] > 0 ? Int(weeklyDist[idx] / 20) + 1 : 0)
+                return ChartDataPoint(bucketDate: d, distance: km(weeklyDist[idx]), time: mins(weeklyTime[idx]), routes: weeklyDist[idx] > 0 ? Int(weeklyDist[idx] / 20) + 1 : 0, elevationGain: gain(weeklyDist[idx]))
             }
             let prevSlots = bucketDates(for: .threeMonths, isCurrent: false, calendar: cal)
             let prevDist: [Double] = [30, 58, 0, 44, 67, 80, 0, 39, 72, 51, 0, 68, 43]
             previousPoints = prevSlots.enumerated().map { i, d in
                 let idx = min(i, prevDist.count - 1)
-                return ChartDataPoint(bucketDate: d, distance: km(prevDist[idx]), time: mins(prevDist[idx] * 2.85), routes: prevDist[idx] > 0 ? Int(prevDist[idx] / 20) + 1 : 0)
+                return ChartDataPoint(bucketDate: d, distance: km(prevDist[idx]), time: mins(prevDist[idx] * 2.85), routes: prevDist[idx] > 0 ? Int(prevDist[idx] / 20) + 1 : 0, elevationGain: gain(prevDist[idx]))
             }
-            totalCurrentDistance  = currentPoints.reduce(0)  { $0 + $1.distance }
-            totalCurrentTime      = currentPoints.reduce(0)  { $0 + $1.time }
-            totalCurrentRoutes    = currentPoints.reduce(0)  { $0 + $1.routes }
-            totalPreviousDistance = previousPoints.reduce(0) { $0 + $1.distance }
-            totalPreviousTime     = previousPoints.reduce(0) { $0 + $1.time }
-            totalPreviousRoutes   = previousPoints.reduce(0) { $0 + $1.routes }
+            totalCurrentDistance      = currentPoints.reduce(0)  { $0 + $1.distance }
+            totalCurrentTime          = currentPoints.reduce(0)  { $0 + $1.time }
+            totalCurrentRoutes        = currentPoints.reduce(0)  { $0 + $1.routes }
+            totalCurrentElevationGain = currentPoints.reduce(0)  { $0 + $1.elevationGain }
+            totalPreviousDistance      = previousPoints.reduce(0) { $0 + $1.distance }
+            totalPreviousTime          = previousPoints.reduce(0) { $0 + $1.time }
+            totalPreviousRoutes        = previousPoints.reduce(0) { $0 + $1.routes }
+            totalPreviousElevationGain = previousPoints.reduce(0) { $0 + $1.elevationGain }
 
         case .sixMonths:
             let slots = bucketDates(for: .sixMonths, isCurrent: true, calendar: cal)
             let pattern: [Double] = [0, 38, 61, 22, 74, 55, 0, 83, 47, 29, 68, 90, 41, 55, 0, 72, 38, 65, 88, 47, 0, 59, 76, 31, 84, 52]
             currentPoints = slots.enumerated().map { i, d in
                 let v = i < pattern.count ? pattern[i] : 0.0
-                return ChartDataPoint(bucketDate: d, distance: km(v), time: mins(v * 2.85), routes: v > 0 ? Int(v / 18) + 1 : 0)
+                return ChartDataPoint(bucketDate: d, distance: km(v), time: mins(v * 2.85), routes: v > 0 ? Int(v / 18) + 1 : 0, elevationGain: gain(v))
             }
             let prevSlots = bucketDates(for: .sixMonths, isCurrent: false, calendar: cal)
             let prevPat: [Double] = [42, 0, 55, 31, 68, 44, 77, 0, 35, 62, 49, 71, 0, 38, 85, 52, 0, 67, 43, 79, 28, 61, 47, 74, 0, 56]
             previousPoints = prevSlots.enumerated().map { i, d in
                 let v = i < prevPat.count ? prevPat[i] : 0.0
-                return ChartDataPoint(bucketDate: d, distance: km(v), time: mins(v * 2.85), routes: v > 0 ? Int(v / 18) + 1 : 0)
+                return ChartDataPoint(bucketDate: d, distance: km(v), time: mins(v * 2.85), routes: v > 0 ? Int(v / 18) + 1 : 0, elevationGain: gain(v))
             }
-            totalCurrentDistance  = currentPoints.reduce(0)  { $0 + $1.distance }
-            totalCurrentTime      = currentPoints.reduce(0)  { $0 + $1.time }
-            totalCurrentRoutes    = currentPoints.reduce(0)  { $0 + $1.routes }
-            totalPreviousDistance = previousPoints.reduce(0) { $0 + $1.distance }
-            totalPreviousTime     = previousPoints.reduce(0) { $0 + $1.time }
-            totalPreviousRoutes   = previousPoints.reduce(0) { $0 + $1.routes }
+            totalCurrentDistance      = currentPoints.reduce(0)  { $0 + $1.distance }
+            totalCurrentTime          = currentPoints.reduce(0)  { $0 + $1.time }
+            totalCurrentRoutes        = currentPoints.reduce(0)  { $0 + $1.routes }
+            totalCurrentElevationGain = currentPoints.reduce(0)  { $0 + $1.elevationGain }
+            totalPreviousDistance      = previousPoints.reduce(0) { $0 + $1.distance }
+            totalPreviousTime          = previousPoints.reduce(0) { $0 + $1.time }
+            totalPreviousRoutes        = previousPoints.reduce(0) { $0 + $1.routes }
+            totalPreviousElevationGain = previousPoints.reduce(0) { $0 + $1.elevationGain }
 
         case .yearToDate:
             let slots = bucketDates(for: .yearToDate, isCurrent: true, calendar: cal)
@@ -311,7 +336,7 @@ class StatisticsChartsViewModel: ObservableObject {
             let ytdRoutes: [Int]  = [6,   9,   12,  16,  14]
             currentPoints = slots.enumerated().map { i, d in
                 guard i < ytdDist.count else { return ChartDataPoint(bucketDate: d) }
-                return ChartDataPoint(bucketDate: d, distance: km(ytdDist[i]), time: mins(ytdTime[i]), routes: ytdRoutes[i])
+                return ChartDataPoint(bucketDate: d, distance: km(ytdDist[i]), time: mins(ytdTime[i]), routes: ytdRoutes[i], elevationGain: gain(ytdDist[i]))
             }
             let prevSlots = bucketDates(for: .yearToDate, isCurrent: false, calendar: cal)
             let prevDist: [Double] = [95, 145, 210, 275, 250]
@@ -319,14 +344,16 @@ class StatisticsChartsViewModel: ObservableObject {
             let prevRoutes: [Int]  = [5,  7,   10,  14,  12]
             previousPoints = prevSlots.enumerated().map { i, d in
                 guard i < prevDist.count else { return ChartDataPoint(bucketDate: d) }
-                return ChartDataPoint(bucketDate: d, distance: km(prevDist[i]), time: mins(prevTime[i]), routes: prevRoutes[i])
+                return ChartDataPoint(bucketDate: d, distance: km(prevDist[i]), time: mins(prevTime[i]), routes: prevRoutes[i], elevationGain: gain(prevDist[i]))
             }
-            totalCurrentDistance  = currentPoints.reduce(0)  { $0 + $1.distance }
-            totalCurrentTime      = currentPoints.reduce(0)  { $0 + $1.time }
-            totalCurrentRoutes    = currentPoints.reduce(0)  { $0 + $1.routes }
-            totalPreviousDistance = previousPoints.reduce(0) { $0 + $1.distance }
-            totalPreviousTime     = previousPoints.reduce(0) { $0 + $1.time }
-            totalPreviousRoutes   = previousPoints.reduce(0) { $0 + $1.routes }
+            totalCurrentDistance      = currentPoints.reduce(0)  { $0 + $1.distance }
+            totalCurrentTime          = currentPoints.reduce(0)  { $0 + $1.time }
+            totalCurrentRoutes        = currentPoints.reduce(0)  { $0 + $1.routes }
+            totalCurrentElevationGain = currentPoints.reduce(0)  { $0 + $1.elevationGain }
+            totalPreviousDistance      = previousPoints.reduce(0) { $0 + $1.distance }
+            totalPreviousTime          = previousPoints.reduce(0) { $0 + $1.time }
+            totalPreviousRoutes        = previousPoints.reduce(0) { $0 + $1.routes }
+            totalPreviousElevationGain = previousPoints.reduce(0) { $0 + $1.elevationGain }
 
         case .oneYear:
             let slots = bucketDates(for: .oneYear, isCurrent: true, calendar: cal)
@@ -336,7 +363,7 @@ class StatisticsChartsViewModel: ObservableObject {
             let yearRoutes: [Int]    = [5,   9,   13,  16,  17,  15,  14,  13,  10,  8,   6,   5]
             currentPoints = slots.enumerated().map { i, d in
                 guard i < yearDist.count else { return ChartDataPoint(bucketDate: d) }
-                return ChartDataPoint(bucketDate: d, distance: km(yearDist[i]), time: mins(yearTime[i]), routes: yearRoutes[i])
+                return ChartDataPoint(bucketDate: d, distance: km(yearDist[i]), time: mins(yearTime[i]), routes: yearRoutes[i], elevationGain: gain(yearDist[i]))
             }
             let prevSlots = bucketDates(for: .oneYear, isCurrent: false, calendar: cal)
             let prevDist:   [Double] = [80, 155, 225, 270, 295, 255, 240, 215, 170, 130, 100, 75]
@@ -344,20 +371,23 @@ class StatisticsChartsViewModel: ObservableObject {
             let prevRoutes: [Int]    = [4,   8,   11,  14,  15,  13,  12,  11,  9,   7,   5,   4]
             previousPoints = prevSlots.enumerated().map { i, d in
                 guard i < prevDist.count else { return ChartDataPoint(bucketDate: d) }
-                return ChartDataPoint(bucketDate: d, distance: km(prevDist[i]), time: mins(prevTime[i]), routes: prevRoutes[i])
+                return ChartDataPoint(bucketDate: d, distance: km(prevDist[i]), time: mins(prevTime[i]), routes: prevRoutes[i], elevationGain: gain(prevDist[i]))
             }
-            totalCurrentDistance  = currentPoints.reduce(0)  { $0 + $1.distance }
-            totalCurrentTime      = currentPoints.reduce(0)  { $0 + $1.time }
-            totalCurrentRoutes    = currentPoints.reduce(0)  { $0 + $1.routes }
-            totalPreviousDistance = previousPoints.reduce(0) { $0 + $1.distance }
-            totalPreviousTime     = previousPoints.reduce(0) { $0 + $1.time }
-            totalPreviousRoutes   = previousPoints.reduce(0) { $0 + $1.routes }
+            totalCurrentDistance      = currentPoints.reduce(0)  { $0 + $1.distance }
+            totalCurrentTime          = currentPoints.reduce(0)  { $0 + $1.time }
+            totalCurrentRoutes        = currentPoints.reduce(0)  { $0 + $1.routes }
+            totalCurrentElevationGain = currentPoints.reduce(0)  { $0 + $1.elevationGain }
+            totalPreviousDistance      = previousPoints.reduce(0) { $0 + $1.distance }
+            totalPreviousTime          = previousPoints.reduce(0) { $0 + $1.time }
+            totalPreviousRoutes        = previousPoints.reduce(0) { $0 + $1.routes }
+            totalPreviousElevationGain = previousPoints.reduce(0) { $0 + $1.elevationGain }
         }
 
         // Heatmap: 3-5 rides/week spread over the last year
         heatmapData = [:]
         heatmapDistanceData = [:]
         heatmapTimeData = [:]
+        heatmapElevationData = [:]
         var seed = 42
         func nextBool(density: Int) -> Bool { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed % density == 0 }
         for dayOffset in 0..<365 {
@@ -370,6 +400,7 @@ class StatisticsChartsViewModel: ObservableObject {
                 let timePerRide = 45.0 * 60 + Double((dayOffset * 23 + 7) % 3300)
                 heatmapDistanceData[d] = Double(count) * distPerRide
                 heatmapTimeData[d] = Double(count) * timePerRide
+                heatmapElevationData[d] = Double(count) * gain(distPerRide / 1000)
             }
         }
 

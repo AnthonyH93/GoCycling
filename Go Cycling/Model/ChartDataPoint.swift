@@ -10,15 +10,17 @@ import Foundation
 struct ChartDataPoint: Identifiable {
     let id = UUID()
     let bucketDate: Date
-    var distance: Double = 0   // meters
-    var time: Double = 0       // seconds
+    var distance: Double = 0        // meters
+    var time: Double = 0            // seconds
     var routes: Int = 0
+    var elevationGain: Double = 0   // meters
 
     func value(for metric: ChartMetric) -> Double {
         switch metric {
-        case .distance: return distance
-        case .time:     return time
-        case .routes:   return Double(routes)
+        case .distance:      return distance
+        case .time:          return time
+        case .routes:        return Double(routes)
+        case .elevationGain: return elevationGain
         }
     }
 }

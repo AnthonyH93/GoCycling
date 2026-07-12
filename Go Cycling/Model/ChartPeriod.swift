@@ -72,18 +72,24 @@ enum ChartPeriod: Int, CaseIterable, Identifiable {
 }
 
 // Metrics displayed in the bar chart
+// Raw values are explicit (rather than positional) because they're persisted
+// via @AppStorage for the heatmap's last-selected metric — distance/time/routes
+// must keep their original values so existing users' saved preference still
+// decodes correctly; elevationGain gets an unused value.
 enum ChartMetric: Int, CaseIterable, Identifiable {
     case distance = 0
-    case time
-    case routes
+    case elevationGain = 3
+    case time = 1
+    case routes = 2
 
     var id: Int { rawValue }
 
     var label: String {
         switch self {
-        case .distance: return "Distance"
-        case .time:     return "Time"
-        case .routes:   return "Routes"
+        case .distance:      return "Distance"
+        case .elevationGain: return "Elevation"
+        case .time:          return "Time"
+        case .routes:        return "Routes"
         }
     }
 }

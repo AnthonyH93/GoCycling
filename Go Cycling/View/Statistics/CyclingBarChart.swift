@@ -100,7 +100,8 @@ struct CyclingBarChart: View {
             bucketDate: Date(),
             distance: points.reduce(0) { $0 + $1.distance },
             time: points.reduce(0) { $0 + $1.time },
-            routes: points.reduce(0) { $0 + $1.routes }
+            routes: points.reduce(0) { $0 + $1.routes },
+            elevationGain: points.reduce(0) { $0 + $1.elevationGain }
         )
     }
 
@@ -109,7 +110,8 @@ struct CyclingBarChart: View {
             bucketDate: Date(),
             distance: previousPoints.reduce(0) { $0 + $1.distance },
             time: previousPoints.reduce(0) { $0 + $1.time },
-            routes: previousPoints.reduce(0) { $0 + $1.routes }
+            routes: previousPoints.reduce(0) { $0 + $1.routes },
+            elevationGain: previousPoints.reduce(0) { $0 + $1.elevationGain }
         )
     }
 
@@ -345,9 +347,10 @@ struct CyclingBarChart: View {
 
     private func formattedValue(_ point: ChartDataPoint) -> String {
         switch metric {
-        case .distance: return MetricsFormatting.formatDistance(distance: point.distance, usingMetric: usingMetric)
-        case .time:     return MetricsFormatting.formatTime(time: point.time)
-        case .routes:   return "\(point.routes) \(point.routes == 1 ? "route" : "routes")"
+        case .distance:      return MetricsFormatting.formatDistance(distance: point.distance, usingMetric: usingMetric)
+        case .time:          return MetricsFormatting.formatTime(time: point.time)
+        case .routes:        return "\(point.routes) \(point.routes == 1 ? "route" : "routes")"
+        case .elevationGain: return MetricsFormatting.formatElevationWithoutUnits(elevation: point.elevationGain, usingMetric: usingMetric) + " " + MetricsFormatting.getElevationUnits(usingMetric: usingMetric)
         }
     }
 
@@ -366,6 +369,10 @@ struct CyclingBarChart: View {
             return "\(mins)m"
         case .routes:
             return "\(Int(value))"
+        case .elevationGain:
+            let unit = MetricsFormatting.getElevationUnits(usingMetric: usingMetric)
+            let converted = usingMetric ? value : value * 3.28084
+            return String(format: "%.0f %@", converted, unit)
         }
     }
 }

@@ -224,6 +224,8 @@ struct ActivityHeatmapChart: View {
             return MetricsFormatting.formatDistance(distance: value, usingMetric: usingMetric)
         case .time:
             return MetricsFormatting.formatTime(time: value)
+        case .elevationGain:
+            return MetricsFormatting.formatElevationWithoutUnits(elevation: value, usingMetric: usingMetric) + " " + MetricsFormatting.getElevationUnits(usingMetric: usingMetric)
         }
     }
 
