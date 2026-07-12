@@ -33,7 +33,7 @@ class RecordsFormatting {
                                 "Cycling Charts",
                                 "Activity Awards"]
     
-    static let footerStrings = ["Click on a row above to view a detailed chart of that activity period. Percentage changes compare the current activity period to the previous one. This data is based on the currently saved cycling routes.",
+    static let footerStrings = ["Tap a card above to explore detailed trends across different time periods. Percentage changes compare the current period to the previous one. This data is based on the currently saved cycling routes.",
                                 "Progress toward unlocking exclusive alternate app icons. Unlocked icons will not be lost when routes are deleted or statistics are reset."]
     
     // Text to mention that only routes longer than 1 KM are counted towards best average speed
