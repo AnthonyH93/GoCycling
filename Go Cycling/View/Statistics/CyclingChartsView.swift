@@ -33,9 +33,6 @@ private struct NewChartRows: View {
         NavigationLink(destination: ActivityHeatmapDetailView()) {
             HeatmapMiniCard()
         }
-        NavigationLink(destination: SpeedTrendDetailView()) {
-            SpeedTrendMiniCard()
-        }
     }
 }
 
@@ -180,63 +177,6 @@ private class HeatmapMiniCardLoader: ObservableObject {
     func load() {
         let vm = StatisticsChartsViewModel(period: .yearToDate)
         yearlyRideCount = vm.totalCurrentRoutes
-    }
-}
-
-@available(iOS 16, *)
-private struct SpeedTrendMiniCard: View {
-    @StateObject private var loader = SpeedMiniCardLoader()
-    @EnvironmentObject var preferences: Preferences
-
-    var themeColor: Color {
-        Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted))
-    }
-
-    var body: some View {
-        VStack(spacing: 8) {
-            HStack {
-                Text("Speed Trend")
-                    .font(.headline)
-                    .foregroundColor(themeColor)
-                Spacer()
-            }
-            HStack {
-                Text("Past 30 days")
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text(loader.avgSpeedString(usingMetric: preferences.usingMetric))
-                    .bold()
-                Text(loader.changeString)
-                    .bold()
-                    .foregroundColor(loader.speedChangePct >= 0 ? .green : .red)
-            }
-        }
-        .onAppear { loader.load() }
-    }
-}
-
-@available(iOS 16, *)
-private class SpeedMiniCardLoader: ObservableObject {
-    @Published var avgSpeed: Double = 0    // m/s
-    @Published var speedChangePct: Double = 0
-
-    var changeString: String {
-        let rounded = Int(round(speedChangePct))
-        if rounded == 0 { return "0%" }
-        let sym = rounded > 0 ? "↑" : "↓"
-        let mag = abs(rounded) < 999 ? "\(abs(rounded))" : ">999"
-        return "\(sym)\(mag)%"
-    }
-
-    func avgSpeedString(usingMetric: Bool) -> String {
-        guard avgSpeed > 0 else { return "No routes" }
-        return MetricsFormatting.formatSingleSpeed(speed: avgSpeed, usingMetric: usingMetric)
-    }
-
-    func load() {
-        let vm = StatisticsChartsViewModel(period: .oneMonth)
-        avgSpeed       = vm.avgCurrentSpeed
-        speedChangePct = vm.speedChangePct
     }
 }
 

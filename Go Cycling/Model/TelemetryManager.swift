@@ -107,7 +107,6 @@ enum TelemetryCyclingAction: String {
     case YearToDate = "clickedOnYTD"
     case OneYear = "clickedOn1Year"
     case HeatmapView = "clickedOnHeatmap"
-    case SpeedTrendView = "clickedOnSpeedTrend"
     case AwardUnlocked = "unlockedActivityAward"
 }
 

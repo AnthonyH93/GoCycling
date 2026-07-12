@@ -14,7 +14,6 @@ class StatisticsChartsViewModel: ObservableObject {
     @Published var heatmapDistanceData: [Date: Double] = [:]
     @Published var heatmapTimeData: [Date: Double] = [:]
     @Published var heatmapElevationData: [Date: Double] = [:]
-    @Published var speedPoints: [SpeedPoint] = []
 
     @Published var totalCurrentDistance: Double = 0
     @Published var totalCurrentTime: Double = 0
@@ -24,12 +23,6 @@ class StatisticsChartsViewModel: ObservableObject {
     @Published var totalPreviousTime: Double = 0
     @Published var totalPreviousRoutes: Int = 0
     @Published var totalPreviousElevationGain: Double = 0
-
-    struct SpeedPoint: Identifiable {
-        let id = UUID()
-        let date: Date
-        let speed: Double   // m/s
-    }
 
     var distanceChangePct: Double {
         guard totalPreviousDistance > 0 else { return totalCurrentDistance > 0 ? 100 : 0 }
@@ -47,21 +40,6 @@ class StatisticsChartsViewModel: ObservableObject {
     }
 
     var routeCountChange: Int { totalCurrentRoutes - totalPreviousRoutes }
-
-    var avgCurrentSpeed: Double {
-        guard totalCurrentDistance > 0, totalCurrentTime > 0 else { return 0 }
-        return totalCurrentDistance / totalCurrentTime
-    }
-
-    var avgPreviousSpeed: Double {
-        guard totalPreviousDistance > 0, totalPreviousTime > 0 else { return 0 }
-        return totalPreviousDistance / totalPreviousTime
-    }
-
-    var speedChangePct: Double {
-        guard avgPreviousSpeed > 0 else { return avgCurrentSpeed > 0 ? 100 : 0 }
-        return ((avgCurrentSpeed - avgPreviousSpeed) / avgPreviousSpeed) * 100
-    }
 
     init(period: ChartPeriod) {
         loadData(for: period)
@@ -96,11 +74,6 @@ class StatisticsChartsViewModel: ObservableObject {
             heatmapTimeData[day, default: 0] += ride.cyclingTime
             heatmapElevationData[day, default: 0] += MetricsFormatting.computeElevationGain(elevations: ride.cyclingElevations)
         }
-
-        speedPoints = currentRides
-            .filter { $0.cyclingTime > 0 && $0.cyclingDistance > 0 }
-            .map { SpeedPoint(date: $0.cyclingStartTime, speed: $0.cyclingDistance / $0.cyclingTime) }
-            .sorted { $0.date < $1.date }
 
         #if DEBUG
         if totalCurrentRoutes == 0 {
@@ -403,35 +376,6 @@ class StatisticsChartsViewModel: ObservableObject {
                 heatmapElevationData[d] = Double(count) * gain(distPerRide / 1000)
             }
         }
-
-        // Speed points: ~2-3 rides/week across the last year, gentle upward trend.
-        // Generated for the full year then filtered to the selected period so the
-        // period picker actually changes what appears in the chart.
-        speedPoints = []
-        for dayOffset in stride(from: 364, through: 0, by: -1) {
-            let r = (dayOffset &* 1103515245 &+ 12345) & 0x7fff_ffff
-            guard r % 3 != 0 else { continue }
-            let fraction = Double(364 - dayOffset) / 364.0
-            let baseKph  = 15.5 + fraction * 6.0
-            let jitter   = Double((r % 300) - 150) / 100.0
-            let kph      = max(13.0, baseKph + jitter)
-            speedPoints.append(SpeedPoint(date: daysAgo(dayOffset), speed: kph / 3.6))
-        }
-        speedPoints.sort { $0.date < $1.date }
-
-        let periodStart: Date
-        switch period {
-        case .oneWeek:     periodStart = daysAgo(6)
-        case .oneMonth:    periodStart = daysAgo(29)
-        case .threeMonths: periodStart = daysAgo(90)
-        case .sixMonths:   periodStart = daysAgo(181)
-        case .yearToDate:
-            let year = cal.component(.year, from: today)
-            var ytdC = DateComponents(); ytdC.year = year; ytdC.month = 1; ytdC.day = 1
-            periodStart = cal.date(from: ytdC) ?? daysAgo(364)
-        case .oneYear:     periodStart = daysAgo(364)
-        }
-        speedPoints = speedPoints.filter { $0.date >= periodStart }
     }
     #endif
 }
