@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3DCD3758A7A842959A6F73D8 /* ActivityHeatmapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */; };
 		42883D67661B4EC68F96065F /* MapTypeChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */; };
+		5C7A0A772DCA4EC8A6301B40 /* ChartPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B121F5773497F8C758E70 /* ChartPeriod.swift */; };
 		6321ADF3C8D74E00A25C17BC /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F0CFE910947B881E97502 /* UIColorExtension.swift */; };
+		9B36B84F275F40279DF3199D /* StatisticsChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC307E08D38430BB4EC1FE9 /* StatisticsChartsViewModel.swift */; };
 		9D1C40CE26426E740032125A /* Default Inverted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40CC26426E740032125A /* Default Inverted@2x.png */; };
 		9D1C40CF26426E740032125A /* Default Inverted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40CD26426E740032125A /* Default Inverted@3x.png */; };
 		9D1C40D626426E7F0032125A /* Default Inverted~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40D326426E7F0032125A /* Default Inverted~ipad.png */; };
@@ -23,13 +26,6 @@
 		9D3808EA26D3709C0058DE1E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3808E926D3709C0058DE1E /* StatisticsView.swift */; };
 		9D55B9F726522D8D00B622E5 /* RouteRenameModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D55B9F626522D8D00B622E5 /* RouteRenameModalView.swift */; };
 		9D601E5626DEF6E100844CD1 /* ActivityAwardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5526DEF6E100844CD1 /* ActivityAwardsViewModel.swift */; };
-		5C7A0A772DCA4EC8A6301B40 /* ChartPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B121F5773497F8C758E70 /* ChartPeriod.swift */; };
-		A5C14C69D04041C189DAFC06 /* ChartDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */; };
-		9B36B84F275F40279DF3199D /* StatisticsChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC307E08D38430BB4EC1FE9 /* StatisticsChartsViewModel.swift */; };
-		D44C55EB22EA4B9FAA4BF821 /* CyclingBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81299D31DF9348D68729394E /* CyclingBarChart.swift */; };
-		DF586DF102954377A82B408D /* ActivityHeatmapChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */; };
-		B4A833C07E3242DD8DCD8E76 /* CyclingChartsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F00257C7A4240F58BD1371A /* CyclingChartsDetailView.swift */; };
-		3DCD3758A7A842959A6F73D8 /* ActivityHeatmapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */; };
 		9D601E5926E0732100844CD1 /* SingleChartListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5826E0732100844CD1 /* SingleChartListCellView.swift */; };
 		9D601E5B26E085B700844CD1 /* CyclingChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5A26E085B700844CD1 /* CyclingChartsViewModel.swift */; };
 		9D601E5D26E0992500844CD1 /* DateDistanceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D601E5C26E0992500844CD1 /* DateDistanceExtension.swift */; };
@@ -172,10 +168,14 @@
 		9DF9304F26DDFAC400D4EEC5 /* SingleActivityAwardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9304E26DDFAC400D4EEC5 /* SingleActivityAwardView.swift */; };
 		9DF9305126DE03BC00D4EEC5 /* EmojiImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9305026DE03BC00D4EEC5 /* EmojiImageExtension.swift */; };
 		9DF9305326DE06A600D4EEC5 /* Medal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF9305226DE06A600D4EEC5 /* Medal.swift */; };
+		A5C14C69D04041C189DAFC06 /* ChartDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */; };
 		AA0000012026051300000001 /* AutoPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026051300000002 /* AutoPauseState.swift */; };
 		AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000022026051300000002 /* PrivacySettingsView.swift */; };
 		AEA9DB8B9ED54BD3B3900F2A /* RouteDetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */; };
+		B4A833C07E3242DD8DCD8E76 /* CyclingChartsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F00257C7A4240F58BD1371A /* CyclingChartsDetailView.swift */; };
 		CD9ED7450AEC45829A892F0C /* MetricsPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5038958A2E4468B8CA85511 /* MetricsPillView.swift */; };
+		D44C55EB22EA4B9FAA4BF821 /* CyclingBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81299D31DF9348D68729394E /* CyclingBarChart.swift */; };
+		DF586DF102954377A82B408D /* ActivityHeatmapChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,9 +196,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataPoint.swift; sourceTree = "<group>"; };
 		0A3F0CFE910947B881E97502 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeChoice.swift; sourceTree = "<group>"; };
 		2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailMapView.swift; sourceTree = "<group>"; };
+		4EC307E08D38430BB4EC1FE9 /* StatisticsChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsChartsViewModel.swift; sourceTree = "<group>"; };
+		5F00257C7A4240F58BD1371A /* CyclingChartsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingChartsDetailView.swift; sourceTree = "<group>"; };
+		81299D31DF9348D68729394E /* CyclingBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingBarChart.swift; sourceTree = "<group>"; };
+		99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeatmapDetailView.swift; sourceTree = "<group>"; };
 		9D1C40CC26426E740032125A /* Default Inverted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted@2x.png"; sourceTree = "<group>"; };
 		9D1C40CD26426E740032125A /* Default Inverted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted@3x.png"; sourceTree = "<group>"; };
 		9D1C40D326426E7F0032125A /* Default Inverted~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Inverted~ipad.png"; sourceTree = "<group>"; };
@@ -215,13 +220,6 @@
 		9D601E5526DEF6E100844CD1 /* ActivityAwardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAwardsViewModel.swift; sourceTree = "<group>"; };
 		9D601E5826E0732100844CD1 /* SingleChartListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChartListCellView.swift; sourceTree = "<group>"; };
 		9D601E5A26E085B700844CD1 /* CyclingChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingChartsViewModel.swift; sourceTree = "<group>"; };
-		DC0B121F5773497F8C758E70 /* ChartPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartPeriod.swift; sourceTree = "<group>"; };
-		033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataPoint.swift; sourceTree = "<group>"; };
-		4EC307E08D38430BB4EC1FE9 /* StatisticsChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsChartsViewModel.swift; sourceTree = "<group>"; };
-		81299D31DF9348D68729394E /* CyclingBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingBarChart.swift; sourceTree = "<group>"; };
-		B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeatmapChart.swift; sourceTree = "<group>"; };
-		5F00257C7A4240F58BD1371A /* CyclingChartsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingChartsDetailView.swift; sourceTree = "<group>"; };
-		99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeatmapDetailView.swift; sourceTree = "<group>"; };
 		9D601E5C26E0992500844CD1 /* DateDistanceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDistanceExtension.swift; sourceTree = "<group>"; };
 		9D601E5E26E09D4600844CD1 /* BarChartCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartCellView.swift; sourceTree = "<group>"; };
 		9D601E6026E09D9A00844CD1 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
@@ -371,7 +369,9 @@
 		9DF9305226DE06A600D4EEC5 /* Medal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medal.swift; sourceTree = "<group>"; };
 		AA0000012026051300000002 /* AutoPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPauseState.swift; sourceTree = "<group>"; };
 		AA0000022026051300000002 /* PrivacySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsView.swift; sourceTree = "<group>"; };
+		B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeatmapChart.swift; sourceTree = "<group>"; };
 		D5038958A2E4468B8CA85511 /* MetricsPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsPillView.swift; sourceTree = "<group>"; };
+		DC0B121F5773497F8C758E70 /* ChartPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartPeriod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1236,7 +1236,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
@@ -1246,7 +1246,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.0;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1262,7 +1262,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
@@ -1272,7 +1272,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.0;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hopkins.GoCycling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
