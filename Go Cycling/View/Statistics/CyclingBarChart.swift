@@ -18,7 +18,7 @@ struct CyclingBarChart: View {
     let themeColor: Color
     let usingMetric: Bool
 
-    @State private var selectedBucketDate: Date? = nil
+    @Binding var selectedBucketDate: Date?
 
     // Shift previous-period dates forward so they land on the same x-axis as current
     private var shiftedPreviousPoints: [ChartDataPoint] {
@@ -59,18 +59,123 @@ struct CyclingBarChart: View {
         return previousPoints[idx]
     }
 
+    // Dense periods (1M and up) render every point too close together for
+    // full-size symbols to read as distinct dots, so only draw them all when
+    // there's room and otherwise show just the one the user has selected.
+    private var showAllPointMarks: Bool { points.count <= 20 }
+
+    private var unselectedSymbolSize: Double {
+        switch points.count {
+        case ..<10:   return 180
+        case 10..<20: return 70
+        default:      return 26
+        }
+    }
+
+    private var selectedSymbolSize: Double { unselectedSymbolSize * 2 }
+
+    // Use the theme color's complementary hue (opposite side of the color
+    // wheel) so "Previous" is maximally distinct from "Current" no matter
+    // which color — including a custom one — the user picks. A desaturated
+    // theme color has no meaningful "opposite" hue, so fall back to a
+    // neutral gray in that edge case instead of complementing noise.
+    private var previousSeriesColor: Color {
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var brightness: CGFloat = 0
+        UIColor(themeColor).getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: nil)
+
+        guard saturation >= 0.15 else {
+            let systemGrayBrightness: CGFloat = 0.56
+            return brightness > systemGrayBrightness ? Color(white: 0.25) : Color(white: 0.85)
+        }
+
+        let complementaryHue = (hue + 0.5).truncatingRemainder(dividingBy: 1.0)
+        return Color(hue: complementaryHue, saturation: saturation * 0.75, brightness: brightness)
+    }
+
+    // Period totals shown alongside the per-dot callout, independent of selection.
+    private var currentTotalPoint: ChartDataPoint {
+        ChartDataPoint(
+            bucketDate: Date(),
+            distance: points.reduce(0) { $0 + $1.distance },
+            time: points.reduce(0) { $0 + $1.time },
+            routes: points.reduce(0) { $0 + $1.routes }
+        )
+    }
+
+    private var previousTotalPoint: ChartDataPoint {
+        ChartDataPoint(
+            bucketDate: Date(),
+            distance: previousPoints.reduce(0) { $0 + $1.distance },
+            time: previousPoints.reduce(0) { $0 + $1.time },
+            routes: previousPoints.reduce(0) { $0 + $1.routes }
+        )
+    }
+
+    private var totalChangePct: Double {
+        let current  = currentTotalPoint.value(for: metric)
+        let previous = previousTotalPoint.value(for: metric)
+        guard previous > 0 else { return current > 0 ? 100 : 0 }
+        return ((current - previous) / previous) * 100
+    }
+
+    private func changeString(for pct: Double) -> String {
+        let rounded = Int(round(pct))
+        if rounded == 0 { return "0%" }
+        let sym = rounded > 0 ? "↑" : "↓"
+        let mag = abs(rounded) < 999 ? "\(abs(rounded))" : ">999"
+        return "\(sym)\(mag)%"
+    }
+
+    // Swift Charts' automatic axis ticks round to "nice" numbers in raw
+    // seconds, which almost never lines up with clean time values (e.g.
+    // "33m", "1h6m"). Snap ticks to round minute/hour steps instead.
+    private var timeAxisValues: [Double] {
+        let currentMax  = points.map { $0.value(for: .time) }.max() ?? 0
+        let previousMax = showPrevious ? (shiftedPreviousPoints.map { $0.value(for: .time) }.max() ?? 0) : 0
+        let maxValue = max(currentMax, previousMax)
+        guard maxValue > 0 else { return [0, 900, 1800, 2700, 3600] }
+
+        let niceSteps: [Double] = [300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400]
+        let targetTickCount = 4.0
+        let rawStep = maxValue / targetTickCount
+        let step = niceSteps.first(where: { $0 >= rawStep }) ?? (ceil(rawStep / 86400) * 86400)
+
+        var values: [Double] = []
+        var v = 0.0
+        while v <= maxValue + step {
+            values.append(v)
+            v += step
+        }
+        return values
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             // Fixed-height callout (3 lines always to prevent layout jump)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(selectedPoint.map { bucketLabel(for: $0.bucketDate) } ?? " ")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Text(selectedPoint.map { formattedValue($0) } ?? " ")
-                    .font(.title3.bold())
-                Text(selectedPreviousPoint.map { "Prev: \(formattedValue($0))" } ?? " ")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(selectedPoint.map { bucketLabel(for: $0.bucketDate) } ?? " ")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Text(selectedPoint.map { formattedValue($0) } ?? " ")
+                        .font(.title3.bold())
+                    Text(selectedPreviousPoint.map { "Prev: \(formattedValue($0))" } ?? " ")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                Spacer()
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text("Total")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Text(formattedValue(currentTotalPoint))
+                        .font(.title3.bold())
+                    Text(showPrevious ? "\(changeString(for: totalChangePct)) vs previous" : " ")
+                        .font(.caption)
+                        .foregroundColor(totalChangePct >= 0 ? .green : .red)
+                }
             }
             .padding(.horizontal, 4)
 
@@ -82,6 +187,20 @@ struct CyclingBarChart: View {
                     .frame(maxHeight: .infinity)
             } else {
                 Chart {
+                    ForEach(points) { point in
+                        AreaMark(
+                            x: .value("Date", point.bucketDate, unit: calendarUnit),
+                            y: .value(metric.label, point.value(for: metric))
+                        )
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [themeColor.opacity(0.55), themeColor.opacity(0.08)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                    }
+
                     ForEach(points) { point in
                         LineMark(
                             x: .value("Date", point.bucketDate, unit: calendarUnit),
@@ -98,55 +217,82 @@ struct CyclingBarChart: View {
                                 y: .value(metric.label, point.value(for: metric))
                             )
                             .foregroundStyle(by: .value("Series", "Previous"))
-                            .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [5, 3]))
+                            .lineStyle(StrokeStyle(lineWidth: 2, dash: [5, 3]))
                         }
                     }
 
                     ForEach(points) { point in
-                        PointMark(
-                            x: .value("Date", point.bucketDate, unit: calendarUnit),
-                            y: .value(metric.label, point.value(for: metric))
-                        )
-                        .foregroundStyle(by: .value("Series", "Current"))
-                        .symbolSize(selectedBucketDate != nil && selectedPoint?.id == point.id ? 350 : 180)
+                        let isSelected = selectedBucketDate != nil && selectedPoint?.id == point.id
+                        if showAllPointMarks || isSelected {
+                            PointMark(
+                                x: .value("Date", point.bucketDate, unit: calendarUnit),
+                                y: .value(metric.label, point.value(for: metric))
+                            )
+                            .foregroundStyle(by: .value("Series", "Current"))
+                            .symbolSize(isSelected ? selectedSymbolSize : unselectedSymbolSize)
+                        }
                     }
 
-                    if showPrevious {
+                    if showPrevious && showAllPointMarks {
                         ForEach(shiftedPreviousPoints) { point in
                             PointMark(
                                 x: .value("Date", point.bucketDate, unit: calendarUnit),
                                 y: .value(metric.label, point.value(for: metric))
                             )
                             .foregroundStyle(by: .value("Series", "Previous"))
-                            .symbolSize(110)
+                            .symbolSize(unselectedSymbolSize * 0.6)
                         }
                     }
                 }
                 .chartForegroundStyleScale([
                     "Current":  themeColor,
-                    "Previous": themeColor.opacity(0.4)
+                    "Previous": previousSeriesColor
                 ])
                 .chartLegend(.hidden)
                 .chartXAxis {
-                    AxisMarks { value in
-                        if let date = value.as(Date.self) {
-                            AxisValueLabel {
-                                Text(period.formatXLabel(date))
-                                    .font(.caption2)
+                    if let stride = period.axisStride {
+                        AxisMarks(values: .stride(by: stride)) { value in
+                            if let date = value.as(Date.self) {
+                                AxisValueLabel {
+                                    Text(period.formatXLabel(date))
+                                        .font(.caption)
+                                }
                             }
+                            AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [3]))
                         }
-                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [3]))
+                    } else {
+                        AxisMarks { value in
+                            if let date = value.as(Date.self) {
+                                AxisValueLabel {
+                                    Text(period.formatXLabel(date))
+                                        .font(.caption)
+                                }
+                            }
+                            AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [3]))
+                        }
                     }
                 }
                 .chartYAxis {
-                    AxisMarks(position: .leading) { value in
-                        if let v = value.as(Double.self) {
-                            AxisValueLabel {
-                                Text(compactYLabel(v))
-                                    .font(.caption2)
+                    if metric == .time {
+                        AxisMarks(position: .leading, values: timeAxisValues) { value in
+                            if let v = value.as(Double.self) {
+                                AxisValueLabel {
+                                    Text(compactYLabel(v))
+                                        .font(.caption)
+                                }
                             }
+                            AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [3]))
                         }
-                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [3]))
+                    } else {
+                        AxisMarks(position: .leading) { value in
+                            if let v = value.as(Double.self) {
+                                AxisValueLabel {
+                                    Text(compactYLabel(v))
+                                        .font(.caption)
+                                }
+                            }
+                            AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [3]))
+                        }
                     }
                 }
                 .chartOverlay { proxy in
@@ -160,11 +306,6 @@ struct CyclingBarChart: View {
                                         let xPos = val.location.x - geo[proxy.plotAreaFrame].origin.x
                                         if let date: Date = proxy.value(atX: xPos) {
                                             selectedBucketDate = date
-                                        }
-                                    }
-                                    .onEnded { _ in
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                                            withAnimation { selectedBucketDate = nil }
                                         }
                                     }
                             )
@@ -213,13 +354,15 @@ struct CyclingBarChart: View {
     private func compactYLabel(_ value: Double) -> String {
         switch metric {
         case .distance:
+            let unit = MetricsFormatting.getDistanceUnits(usingMetric: usingMetric)
             let converted = usingMetric ? value / 1000 : value * 0.000621371
-            if converted >= 1000 { return String(format: "%.0fk", converted / 1000) }
-            return String(format: "%.0f", converted)
+            if converted >= 1000 { return String(format: "%.0fk %@", converted / 1000, unit) }
+            return String(format: "%.0f %@", converted, unit)
         case .time:
-            let hours = Int(value) / 3600
-            let mins  = (Int(value) % 3600) / 60
-            if hours > 0 { return "\(hours)h" }
+            let totalMinutes = Int(value.rounded()) / 60
+            let hours = totalMinutes / 60
+            let mins  = totalMinutes % 60
+            if hours > 0 { return mins > 0 ? "\(hours)h\(mins)m" : "\(hours)h" }
             return "\(mins)m"
         case .routes:
             return "\(Int(value))"

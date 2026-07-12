@@ -14,6 +14,7 @@ struct CyclingChartsDetailView: View {
     @State private var selectedPeriod: ChartPeriod = .oneWeek
     @State private var selectedMetric: ChartMetric = .distance
     @State private var showPrevious: Bool = false
+    @State private var selectedBucketDate: Date? = nil
     @StateObject private var viewModel = StatisticsChartsViewModel(period: .oneWeek)
 
     @EnvironmentObject var preferences: Preferences
@@ -45,7 +46,8 @@ struct CyclingChartsDetailView: View {
                 period: selectedPeriod,
                 metric: selectedMetric,
                 themeColor: themeColor,
-                usingMetric: preferences.usingMetric
+                usingMetric: preferences.usingMetric,
+                selectedBucketDate: $selectedBucketDate
             )
             .padding(.horizontal)
             .frame(maxHeight: .infinity)
@@ -73,6 +75,11 @@ struct CyclingChartsDetailView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 10)
         }
+        .background(
+            Color.clear
+                .contentShape(Rectangle())
+                .onTapGesture { selectedBucketDate = nil }
+        )
         .navigationBarTitle(selectedPeriod.displayName, displayMode: .inline)
         .onAppear {
             let period = ChartPeriod(rawValue: lastChartPeriodRaw) ?? .oneWeek
@@ -82,6 +89,7 @@ struct CyclingChartsDetailView: View {
         }
         .onChange(of: selectedPeriod) { newPeriod in
             lastChartPeriodRaw = newPeriod.rawValue
+            selectedBucketDate = nil
             viewModel.loadData(for: newPeriod)
             telemetryManager.sendCyclingSignal(tab: .Statistics, action: telemetryAction(for: newPeriod))
         }

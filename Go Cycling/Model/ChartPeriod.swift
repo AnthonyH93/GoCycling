@@ -54,12 +54,20 @@ enum ChartPeriod: Int, CaseIterable, Identifiable {
             f.dateFormat = "EEE"
         case .oneMonth:
             f.dateFormat = "d"
-        case .threeMonths, .sixMonths:
-            f.dateFormat = "MMM d"
-        case .yearToDate, .oneYear:
+        case .threeMonths, .sixMonths, .yearToDate, .oneYear:
             f.dateFormat = "MMM"
         }
         return f.string(from: date)
+    }
+
+    // Axis tick granularity: week-bucketed periods still label by month,
+    // so ticks must be forced to land on month boundaries rather than
+    // using Swift Charts' automatic "nice" tick selection over the data.
+    var axisStride: Calendar.Component? {
+        switch self {
+        case .oneWeek, .oneMonth:      return nil
+        case .threeMonths, .sixMonths, .yearToDate, .oneYear: return .month
+        }
     }
 }
 
