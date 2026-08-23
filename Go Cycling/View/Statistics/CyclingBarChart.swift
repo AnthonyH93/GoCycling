@@ -153,6 +153,29 @@ struct CyclingBarChart: View {
         return values
     }
 
+    // With an AreaMark baseline of 0, an all-zero period collapses the
+    // y-domain to exactly 0...0. Swift Charts can't derive "nice" ticks
+    // from a zero-width domain, so the axis degenerates (blank labels for
+    // most metrics, an inverted-looking axis for time). Force a sensible
+    // non-zero domain in that case; real data already produces 0...max on
+    // its own, so this only changes anything for the empty-period view.
+    private var yAxisUpperBound: Double {
+        if metric == .time { return timeAxisValues.last ?? 3600 }
+
+        let currentMax  = points.map { $0.value(for: metric) }.max() ?? 0
+        let previousMax = showPrevious ? (shiftedPreviousPoints.map { $0.value(for: metric) }.max() ?? 0) : 0
+        let dataMax = max(currentMax, previousMax)
+        guard dataMax > 0 else {
+            switch metric {
+            case .distance:      return usingMetric ? 10_000 : 10 / 0.000621371
+            case .elevationGain: return usingMetric ? 100 : 100 / 3.28084
+            case .routes:        return 5
+            case .time:          return 3600 // unreachable, handled above
+            }
+        }
+        return dataMax
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             // Fixed-height callout (3 lines always to prevent layout jump)
@@ -297,6 +320,7 @@ struct CyclingBarChart: View {
                         }
                     }
                 }
+                .chartYScale(domain: 0...yAxisUpperBound)
                 .chartOverlay { proxy in
                     GeometryReader { geo in
                         Rectangle()
