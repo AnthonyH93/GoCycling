@@ -105,10 +105,7 @@ struct BikeRideListView: View {
                     preferences.updateStringPreference(preference: CustomizablePreferences.selectedRoute, value: bikeRideViewModel.currentName)
                 })
                 .onChange(of: updateCategories, perform: { _ in
-                    /* For iOS 15 */
-                    if #available(iOS 15, *) {
-                        bikeRideViewModel.updateCategories()
-                    }
+                    bikeRideViewModel.updateCategories()
                 })
             }
             .navigationViewStyle(StackNavigationViewStyle())

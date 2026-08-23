@@ -58,13 +58,8 @@ struct SingleBikeRideView: View {
         }
     }
 
-    @ViewBuilder
     var cardBackground: some View {
-        if #available(iOS 15.0, *) {
-            RoundedRectangle(cornerRadius: 20).fill(.ultraThinMaterial)
-        } else {
-            RoundedRectangle(cornerRadius: 20).fill(Color(UIColor.systemBackground).opacity(0.92))
-        }
+        RoundedRectangle(cornerRadius: 20).fill(.ultraThinMaterial)
     }
 
     @ViewBuilder
