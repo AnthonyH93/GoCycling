@@ -22,7 +22,7 @@ Go Cycling makes use of many of Apple's frameworks and API's including:
 
 ## System Requirements
 
-This app is designed to support all iPhones and iPads with iOS14/iPadOS14 and above due to the use of the latest SwiftUI features.
+This app is designed to support all iPhones and iPads with iOS15/iPadOS15 and above due to the use of the latest SwiftUI features.
 
 For iPads, this includes support for both landscape and portait modes along with Slide Over and multitasking screen sizes.
 
