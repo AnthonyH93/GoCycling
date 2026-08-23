@@ -191,7 +191,7 @@ struct CyclingBarChart: View {
                 Chart {
                     ForEach(points) { point in
                         AreaMark(
-                            x: .value("Date", point.bucketDate, unit: calendarUnit),
+                            x: .value("Date", point.bucketDate),
                             y: .value(metric.label, point.value(for: metric))
                         )
                         .foregroundStyle(
@@ -205,7 +205,7 @@ struct CyclingBarChart: View {
 
                     ForEach(points) { point in
                         LineMark(
-                            x: .value("Date", point.bucketDate, unit: calendarUnit),
+                            x: .value("Date", point.bucketDate),
                             y: .value(metric.label, point.value(for: metric))
                         )
                         .foregroundStyle(by: .value("Series", "Current"))
@@ -215,7 +215,7 @@ struct CyclingBarChart: View {
                     if showPrevious {
                         ForEach(shiftedPreviousPoints) { point in
                             LineMark(
-                                x: .value("Date", point.bucketDate, unit: calendarUnit),
+                                x: .value("Date", point.bucketDate),
                                 y: .value(metric.label, point.value(for: metric))
                             )
                             .foregroundStyle(by: .value("Series", "Previous"))
@@ -227,7 +227,7 @@ struct CyclingBarChart: View {
                         let isSelected = selectedBucketDate != nil && selectedPoint?.id == point.id
                         if showAllPointMarks || isSelected {
                             PointMark(
-                                x: .value("Date", point.bucketDate, unit: calendarUnit),
+                                x: .value("Date", point.bucketDate),
                                 y: .value(metric.label, point.value(for: metric))
                             )
                             .foregroundStyle(by: .value("Series", "Current"))
@@ -238,7 +238,7 @@ struct CyclingBarChart: View {
                     if showPrevious && showAllPointMarks {
                         ForEach(shiftedPreviousPoints) { point in
                             PointMark(
-                                x: .value("Date", point.bucketDate, unit: calendarUnit),
+                                x: .value("Date", point.bucketDate),
                                 y: .value(metric.label, point.value(for: metric))
                             )
                             .foregroundStyle(by: .value("Series", "Previous"))
@@ -315,14 +315,6 @@ struct CyclingBarChart: View {
                 }
                 .frame(maxHeight: .infinity)
             }
-        }
-    }
-
-    private var calendarUnit: Calendar.Component {
-        switch period {
-        case .oneWeek, .oneMonth:      return .day
-        case .threeMonths, .sixMonths: return .weekOfYear
-        case .yearToDate, .oneYear:    return .month
         }
     }
 
