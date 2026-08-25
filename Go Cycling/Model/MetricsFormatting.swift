@@ -74,20 +74,19 @@ class MetricsFormatting {
         return speedMetresPerSecond
     }
 
-    static func formatAverageSpeed(speeds: [CLLocationSpeed], distance: CLLocationDistance, time: TimeInterval, usingMetric: Bool) -> String {
+    // Formats an already-resolved average speed (e.g. BikeRide.cyclingAverageSpeed, falling back to calculateAverageSpeed if not yet backfilled)
+    static func formatAverageSpeed(speedMetresPerSecond: CLLocationSpeed, usingMetric: Bool) -> String {
         let speedUnits = usingMetric ? "km/h" : "mph"
-        if (time == 0) {
+        if (speedMetresPerSecond == 0) {
             return "0 " + speedUnits
         }
-
-        let speedMetresPerSecond = calculateAverageSpeed(speeds: speeds, distance: distance, time: time)
 
         let speedKMH = round(100 * (3.6 * speedMetresPerSecond))/100
         let speedMPH = round(100 * (2.23694 * speedMetresPerSecond))/100
         let speedString = "\(usingMetric ? speedKMH : speedMPH) " + speedUnits
         return speedString
     }
-    
+
     // Peak-and-valley hysteresis: commits a climb only after a confirmed descent of > threshold
     // from the peak. This avoids the dead-zone bug of the prior baseline-reset approach, which
     // missed the trailing portion of climbs that didn't clear a fresh threshold from the peak.

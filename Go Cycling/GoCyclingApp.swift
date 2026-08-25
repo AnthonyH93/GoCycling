@@ -77,6 +77,9 @@ struct GoCyclingApp: App {
 
                     // Gate mid-session telemetry signals based on stored preference
                     TelemetryManager.sharedTelemetryManager.userTelemetryEnabled = preferences.telemetryEnabled
+
+                    // Backfill cyclingAverageSpeed for rides saved before that attribute existed
+                    persistenceController.backfillAverageSpeedIfNeeded()
                 })
         }
         .onChange(of: scenePhase) { _ in

@@ -155,7 +155,7 @@ extension BikeRide {
     @NSManaged public var cyclingStartTime: Date
     @NSManaged public var cyclingTime: Double
     @NSManaged public var cyclingRouteName: String
-    @NSManaged public var cyclingAverageSpeed: Double
+    @NSManaged public var cyclingAverageSpeed: Double?
 
     static func sortByDistance(list: [BikeRide], ascending: Bool) -> [BikeRide] {
         var returnList: [BikeRide] = list
@@ -177,22 +177,18 @@ extension BikeRide {
     }
     
     static func sortByAverageSpeed(list: [BikeRide], ascending: Bool) -> [BikeRide] {
-        var returnList: [BikeRide] = list
-        for i in 0..<returnList.count {
-            var current = i
-            for j in i..<returnList.count {
-                if (ascending && returnList[j].cyclingAverageSpeed < returnList[current].cyclingAverageSpeed) {
-                    current = j
-                }
-                else if (!ascending && returnList[j].cyclingAverageSpeed > returnList[current].cyclingAverageSpeed) {
-                    current = j
-                }
-            }
-            let temp: BikeRide = returnList[current]
-            returnList[current] = returnList[i]
-            returnList[i] = temp
+        // Fall back to a fresh calculation for any ride that hasn't been backfilled yet
+        let resolvedSpeeds: [CLLocationSpeed] = list.map {
+            $0.cyclingAverageSpeed ?? MetricsFormatting.calculateAverageSpeed(speeds: $0.cyclingSpeeds, distance: $0.cyclingDistance, time: $0.cyclingTime)
         }
-        return returnList
+        let tuples = zip(list, resolvedSpeeds)
+
+        if (ascending) {
+            return tuples.sorted { $0.1 < $1.1 }.map { $0.0 }
+        }
+        else {
+            return tuples.sorted { $0.1 > $1.1 }.map { $0.0 }
+        }
     }
 
     static func sortByDate(list: [BikeRide], ascending: Bool) -> [BikeRide] {

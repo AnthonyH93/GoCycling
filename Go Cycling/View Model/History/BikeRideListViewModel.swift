@@ -150,9 +150,9 @@ class BikeRideListViewModel: ObservableObject {
             case .timeDescending:
                 return NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
             case .averageSpeedAscending:
-                return NSSortDescriptor(keyPath: \BikeRide.cyclingAverageSpeed, ascending: true)
+                return NSSortDescriptor(key: #keyPath(BikeRide.cyclingAverageSpeed), ascending: true)
             case .averageSpeedDescending:
-                return NSSortDescriptor(keyPath: \BikeRide.cyclingAverageSpeed, ascending: false)
+                return NSSortDescriptor(key: #keyPath(BikeRide.cyclingAverageSpeed), ascending: false)
         }
     }
     
