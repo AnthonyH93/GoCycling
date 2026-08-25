@@ -155,6 +155,7 @@ extension BikeRide {
     @NSManaged public var cyclingStartTime: Date
     @NSManaged public var cyclingTime: Double
     @NSManaged public var cyclingRouteName: String
+    @NSManaged public var cyclingAverageSpeed: Double
 
     static func sortByDistance(list: [BikeRide], ascending: Bool) -> [BikeRide] {
         var returnList: [BikeRide] = list
@@ -175,6 +176,25 @@ extension BikeRide {
         return returnList
     }
     
+    static func sortByAverageSpeed(list: [BikeRide], ascending: Bool) -> [BikeRide] {
+        var returnList: [BikeRide] = list
+        for i in 0..<returnList.count {
+            var current = i
+            for j in i..<returnList.count {
+                if (ascending && returnList[j].cyclingAverageSpeed < returnList[current].cyclingAverageSpeed) {
+                    current = j
+                }
+                else if (!ascending && returnList[j].cyclingAverageSpeed > returnList[current].cyclingAverageSpeed) {
+                    current = j
+                }
+            }
+            let temp: BikeRide = returnList[current]
+            returnList[current] = returnList[i]
+            returnList[i] = temp
+        }
+        return returnList
+    }
+
     static func sortByDate(list: [BikeRide], ascending: Bool) -> [BikeRide] {
         var returnList: [BikeRide] = []
 

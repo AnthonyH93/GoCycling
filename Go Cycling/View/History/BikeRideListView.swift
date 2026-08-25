@@ -74,6 +74,8 @@ struct BikeRideListView: View {
                             Button("Distance Ascending", action: bikeRideViewModel.sortByDistanceAscending)
                             Button("Time Descending", action: bikeRideViewModel.sortByTimeDescending)
                             Button("Time Ascending", action: bikeRideViewModel.sortByTimeAscending)
+                            Button("Average Speed Descending", action: bikeRideViewModel.sortByAverageSpeedDescending)
+                            Button("Average Speed Ascending", action: bikeRideViewModel.sortByAverageSpeedAscending)
                         }
                     }
                 }

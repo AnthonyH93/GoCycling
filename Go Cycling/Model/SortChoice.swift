@@ -14,6 +14,8 @@ enum SortChoice: String, CaseIterable, Identifiable {
     case dateDescending
     case timeAscending
     case timeDescending
+    case averageSpeedAscending
+    case averageSpeedDescending
 
     var id: String { self.rawValue }
 }

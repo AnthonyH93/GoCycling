@@ -39,6 +39,10 @@ extension BikeRide {
             bikeRides = BikeRide.sortByTime(list: bikeRidesUnsorted, ascending: true)
         case .timeDescending:
             bikeRides = BikeRide.sortByTime(list: bikeRidesUnsorted, ascending: false)
+        case .averageSpeedAscending:
+            bikeRides = BikeRide.sortByAverageSpeed(list: bikeRidesUnsorted, ascending: true)
+        case .averageSpeedDescending:
+            bikeRides = BikeRide.sortByAverageSpeed(list: bikeRidesUnsorted, ascending: false)
         }
         return bikeRides
     }
