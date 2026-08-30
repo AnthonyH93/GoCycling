@@ -60,7 +60,7 @@ struct BarChartView: View {
                             BarChartCellView(value: chartViewModel.pastDataNormalized[index + (barChartUnitsSelection.id * 3)][id], barColor: Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                                 .opacity(barIsTouched(id: id) ? 1 : currentOpacity)
                                 .scaleEffect(barIsTouched(id: id) ? CGSize(width: 1.05, height: 1) : CGSize(width: 1, height: 1), anchor: .bottom)
-                                .animation(.spring())
+                                .animation(.spring(), value: touchLocation)
                                 .padding(.top)
                         }
                     }

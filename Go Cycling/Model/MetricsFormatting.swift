@@ -74,7 +74,7 @@ class MetricsFormatting {
         return speedMetresPerSecond
     }
 
-    // Formats an already-resolved average speed (e.g. BikeRide.cyclingAverageSpeed, falling back to calculateAverageSpeed if not yet backfilled)
+    // Formats an already-resolved average speed (e.g. BikeRide.resolvedAverageSpeed)
     static func formatAverageSpeed(speedMetresPerSecond: CLLocationSpeed, usingMetric: Bool) -> String {
         let speedUnits = usingMetric ? "km/h" : "mph"
         if (speedMetresPerSecond == 0) {

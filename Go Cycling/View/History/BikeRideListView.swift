@@ -199,7 +199,7 @@ struct ListView: View {
                             HStack {
                                 Text("Average Speed")
                                 Spacer()
-                                Text(MetricsFormatting.formatAverageSpeed(speedMetresPerSecond: bikeRide.cyclingAverageSpeed ?? MetricsFormatting.calculateAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime), usingMetric: preferences.usingMetric))
+                                Text(MetricsFormatting.formatAverageSpeed(speedMetresPerSecond: bikeRide.resolvedAverageSpeed, usingMetric: preferences.usingMetric))
                                     .font(.headline)
                             }
                         }
