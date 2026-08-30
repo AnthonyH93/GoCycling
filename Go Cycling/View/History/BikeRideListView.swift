@@ -74,6 +74,8 @@ struct BikeRideListView: View {
                             Button("Distance Ascending", action: bikeRideViewModel.sortByDistanceAscending)
                             Button("Time Descending", action: bikeRideViewModel.sortByTimeDescending)
                             Button("Time Ascending", action: bikeRideViewModel.sortByTimeAscending)
+                            Button("Average Speed Descending", action: bikeRideViewModel.sortByAverageSpeedDescending)
+                            Button("Average Speed Ascending", action: bikeRideViewModel.sortByAverageSpeedAscending)
                         }
                     }
                 }
@@ -197,7 +199,7 @@ struct ListView: View {
                             HStack {
                                 Text("Average Speed")
                                 Spacer()
-                                Text(MetricsFormatting.formatAverageSpeed(speeds: bikeRide.cyclingSpeeds, distance: bikeRide.cyclingDistance, time: bikeRide.cyclingTime, usingMetric: preferences.usingMetric))
+                                Text(MetricsFormatting.formatAverageSpeed(speedMetresPerSecond: bikeRide.resolvedAverageSpeed, usingMetric: preferences.usingMetric))
                                     .font(.headline)
                             }
                         }

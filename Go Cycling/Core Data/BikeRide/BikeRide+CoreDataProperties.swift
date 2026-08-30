@@ -155,6 +155,13 @@ extension BikeRide {
     @NSManaged public var cyclingStartTime: Date
     @NSManaged public var cyclingTime: Double
     @NSManaged public var cyclingRouteName: String
+    // Optional Core Data scalars are bridged as NSNumber, so the raw attribute can't be a Double?
+    @NSManaged public var cyclingAverageSpeed: NSNumber?
+
+    // Persisted average speed, falling back to a fresh calculation for any ride that hasn't been backfilled yet
+    public var resolvedAverageSpeed: CLLocationSpeed {
+        cyclingAverageSpeed?.doubleValue ?? MetricsFormatting.calculateAverageSpeed(speeds: cyclingSpeeds, distance: cyclingDistance, time: cyclingTime)
+    }
 
     static func sortByDistance(list: [BikeRide], ascending: Bool) -> [BikeRide] {
         var returnList: [BikeRide] = list
@@ -175,6 +182,18 @@ extension BikeRide {
         return returnList
     }
     
+    static func sortByAverageSpeed(list: [BikeRide], ascending: Bool) -> [BikeRide] {
+        let resolvedSpeeds: [CLLocationSpeed] = list.map { $0.resolvedAverageSpeed }
+        let tuples = zip(list, resolvedSpeeds)
+
+        if (ascending) {
+            return tuples.sorted { $0.1 < $1.1 }.map { $0.0 }
+        }
+        else {
+            return tuples.sorted { $0.1 > $1.1 }.map { $0.0 }
+        }
+    }
+
     static func sortByDate(list: [BikeRide], ascending: Bool) -> [BikeRide] {
         var returnList: [BikeRide] = []
 

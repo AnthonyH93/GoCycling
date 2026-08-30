@@ -59,7 +59,17 @@ class BikeRideListViewModel: ObservableObject {
         bikeRides = BikeRide.sortByTime(list: bikeRides, ascending: true)
         currentSortChoice = .timeAscending
     }
-    
+
+    func sortByAverageSpeedDescending() {
+        bikeRides = BikeRide.sortByAverageSpeed(list: bikeRides, ascending: false)
+        currentSortChoice = .averageSpeedDescending
+    }
+
+    func sortByAverageSpeedAscending() {
+        bikeRides = BikeRide.sortByAverageSpeed(list: bikeRides, ascending: true)
+        currentSortChoice = .averageSpeedAscending
+    }
+
     func getSortActionSheetTitle() -> String {
         var title = ""
         switch currentSortChoice {
@@ -75,6 +85,10 @@ class BikeRideListViewModel: ObservableObject {
             title = "Time ↑"
         case .timeDescending:
             title = "Time ↓"
+        case .averageSpeedAscending:
+            title = "Avg Speed ↑"
+        case .averageSpeedDescending:
+            title = "Avg Speed ↓"
         }
         return title
     }
@@ -135,6 +149,10 @@ class BikeRideListViewModel: ObservableObject {
                 return NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: true)
             case .timeDescending:
                 return NSSortDescriptor(keyPath: \BikeRide.cyclingTime, ascending: false)
+            case .averageSpeedAscending:
+                return NSSortDescriptor(key: #keyPath(BikeRide.cyclingAverageSpeed), ascending: true)
+            case .averageSpeedDescending:
+                return NSSortDescriptor(key: #keyPath(BikeRide.cyclingAverageSpeed), ascending: false)
         }
     }
     

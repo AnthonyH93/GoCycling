@@ -52,12 +52,12 @@ class MetricsFormatting {
         return timeString
     }
     
-    static func formatAverageSpeed(speeds: [CLLocationSpeed], distance: CLLocationDistance, time: TimeInterval, usingMetric: Bool) -> String {
-        let speedUnits = usingMetric ? "km/h" : "mph"
+    // Raw average speed in metres/second, shared by the display formatter and by persisted-value calculation at save time
+    static func calculateAverageSpeed(speeds: [CLLocationSpeed], distance: CLLocationDistance, time: TimeInterval) -> CLLocationSpeed {
         if (time == 0) {
-            return "0 " + speedUnits
+            return 0
         }
-        
+
         // Check the top speed to ensure that the average speed never exceeds the top speed
         var topSpeed: CLLocationSpeed = 0.0
         var speedSum: CLLocationSpeed = 0.0
@@ -67,17 +67,26 @@ class MetricsFormatting {
             }
             speedSum += speed < 0 ? 0 : speed
         }
-        
+
         // Blind calculation of average speed based on distance and time, only valid if less than top speed
         var speedMetresPerSecond = distance/time
         speedMetresPerSecond = (topSpeed < speedMetresPerSecond) ? speedSum/Double(speeds.count) : speedMetresPerSecond
-        
+        return speedMetresPerSecond
+    }
+
+    // Formats an already-resolved average speed (e.g. BikeRide.resolvedAverageSpeed)
+    static func formatAverageSpeed(speedMetresPerSecond: CLLocationSpeed, usingMetric: Bool) -> String {
+        let speedUnits = usingMetric ? "km/h" : "mph"
+        if (speedMetresPerSecond == 0) {
+            return "0 " + speedUnits
+        }
+
         let speedKMH = round(100 * (3.6 * speedMetresPerSecond))/100
         let speedMPH = round(100 * (2.23694 * speedMetresPerSecond))/100
         let speedString = "\(usingMetric ? speedKMH : speedMPH) " + speedUnits
         return speedString
     }
-    
+
     // Peak-and-valley hysteresis: commits a climb only after a confirmed descent of > threshold
     // from the peak. This avoids the dead-zone bug of the prior baseline-reset approach, which
     // missed the trailing portion of climbs that didn't clear a fresh threshold from the peak.

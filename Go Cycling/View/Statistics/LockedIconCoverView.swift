@@ -18,7 +18,7 @@ struct LockedIconCoverView: View {
     var body: some View {
         // Creates a progress bar which will show the percentage progress towards unlocking the icon
         VStack {
-            HorizontalBar(ratio: showingProgress ? progress : 0).animation(Animation.easeIn(duration: 1))
+            HorizontalBar(ratio: showingProgress ? progress : 0).animation(.easeIn(duration: 1), value: showingProgress)
                 .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                 .opacity(0.5)
                 .onAppear {

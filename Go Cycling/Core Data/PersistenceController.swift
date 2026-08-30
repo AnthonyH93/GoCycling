@@ -106,6 +106,7 @@ struct PersistenceController {
             newBikeRide.cyclingElevations = elevationsValidated
             newBikeRide.cyclingStartTime = startTime
             newBikeRide.cyclingTime = time
+            newBikeRide.cyclingAverageSpeed = NSNumber(value: MetricsFormatting.calculateAverageSpeed(speeds: speedsValidated, distance: distance, time: time))
             // Default category
             newBikeRide.cyclingRouteName = "Uncategorized"
 
@@ -134,6 +135,7 @@ struct PersistenceController {
             existingBikeRide.cyclingElevations = elevations
             existingBikeRide.cyclingStartTime = startTime
             existingBikeRide.cyclingTime = time
+            existingBikeRide.cyclingAverageSpeed = NSNumber(value: MetricsFormatting.calculateAverageSpeed(speeds: speeds, distance: distance, time: time))
             existingBikeRide.cyclingRouteName = routeName
             
             do {
@@ -145,6 +147,53 @@ struct PersistenceController {
         }
     }
     
+    // One-time backfill of cyclingAverageSpeed for rides saved before that attribute existed.
+    // Runs off the main thread in small batches, saving/resetting the context between each one
+    // so it never holds thousands of changes in memory or in a single CloudKit sync push.
+    static let hasBackfilledAverageSpeedKey = "hasBackfilledAverageSpeedV1"
+
+    func backfillAverageSpeedIfNeeded() {
+        guard !UserDefaults.standard.bool(forKey: PersistenceController.hasBackfilledAverageSpeedKey) else {
+            return
+        }
+
+        container.performBackgroundTask { context in
+            let batchSize = 200
+            var updatedCount = 0
+
+            while true {
+                let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "cyclingAverageSpeed == nil")
+                fetchRequest.fetchLimit = batchSize
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(BikeRide.cyclingStartTime), ascending: true)]
+
+                do {
+                    let batch = try context.fetch(fetchRequest)
+                    if batch.isEmpty {
+                        break
+                    }
+
+                    for ride in batch {
+                        ride.cyclingAverageSpeed = NSNumber(value: MetricsFormatting.calculateAverageSpeed(speeds: ride.cyclingSpeeds, distance: ride.cyclingDistance, time: ride.cyclingTime))
+                    }
+
+                    if context.hasChanges {
+                        try context.save()
+                    }
+                    context.reset()
+
+                    updatedCount += batch.count
+                } catch {
+                    print("Error backfilling average speed: \(error.localizedDescription)")
+                    return
+                }
+            }
+
+            UserDefaults.standard.set(true, forKey: PersistenceController.hasBackfilledAverageSpeedKey)
+            print("Average speed backfill complete (\(updatedCount) rides updated)")
+        }
+    }
+
     func deleteAllBikeRides() {
         let context = container.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "BikeRide")
