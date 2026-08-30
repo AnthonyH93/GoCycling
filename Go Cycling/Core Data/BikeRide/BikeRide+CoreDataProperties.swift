@@ -158,15 +158,9 @@ extension BikeRide {
     // Optional Core Data scalars are bridged as NSNumber, so the raw attribute can't be a Double?
     @NSManaged public var cyclingAverageSpeed: NSNumber?
 
-    // Double view of the persisted attribute
-    public var averageSpeed: CLLocationSpeed? {
-        get { cyclingAverageSpeed?.doubleValue }
-        set { cyclingAverageSpeed = newValue.map { NSNumber(value: $0) } }
-    }
-
     // Persisted average speed, falling back to a fresh calculation for any ride that hasn't been backfilled yet
     public var resolvedAverageSpeed: CLLocationSpeed {
-        averageSpeed ?? MetricsFormatting.calculateAverageSpeed(speeds: cyclingSpeeds, distance: cyclingDistance, time: cyclingTime)
+        cyclingAverageSpeed?.doubleValue ?? MetricsFormatting.calculateAverageSpeed(speeds: cyclingSpeeds, distance: cyclingDistance, time: cyclingTime)
     }
 
     static func sortByDistance(list: [BikeRide], ascending: Bool) -> [BikeRide] {

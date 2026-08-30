@@ -106,7 +106,7 @@ struct PersistenceController {
             newBikeRide.cyclingElevations = elevationsValidated
             newBikeRide.cyclingStartTime = startTime
             newBikeRide.cyclingTime = time
-            newBikeRide.averageSpeed = MetricsFormatting.calculateAverageSpeed(speeds: speedsValidated, distance: distance, time: time)
+            newBikeRide.cyclingAverageSpeed = NSNumber(value: MetricsFormatting.calculateAverageSpeed(speeds: speedsValidated, distance: distance, time: time))
             // Default category
             newBikeRide.cyclingRouteName = "Uncategorized"
 
@@ -135,7 +135,7 @@ struct PersistenceController {
             existingBikeRide.cyclingElevations = elevations
             existingBikeRide.cyclingStartTime = startTime
             existingBikeRide.cyclingTime = time
-            existingBikeRide.averageSpeed = MetricsFormatting.calculateAverageSpeed(speeds: speeds, distance: distance, time: time)
+            existingBikeRide.cyclingAverageSpeed = NSNumber(value: MetricsFormatting.calculateAverageSpeed(speeds: speeds, distance: distance, time: time))
             existingBikeRide.cyclingRouteName = routeName
             
             do {
@@ -174,7 +174,7 @@ struct PersistenceController {
                     }
 
                     for ride in batch {
-                        ride.averageSpeed = MetricsFormatting.calculateAverageSpeed(speeds: ride.cyclingSpeeds, distance: ride.cyclingDistance, time: ride.cyclingTime)
+                        ride.cyclingAverageSpeed = NSNumber(value: MetricsFormatting.calculateAverageSpeed(speeds: ride.cyclingSpeeds, distance: ride.cyclingDistance, time: ride.cyclingTime))
                     }
 
                     if context.hasChanges {
