@@ -10,6 +10,7 @@
 		3DCD3758A7A842959A6F73D8 /* ActivityHeatmapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */; };
 		42883D67661B4EC68F96065F /* MapTypeChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */; };
 		5C7A0A772DCA4EC8A6301B40 /* ChartPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B121F5773497F8C758E70 /* ChartPeriod.swift */; };
+		AA0000012026083100000002 /* SampleDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026083100000001 /* SampleDataGenerator.swift */; };
 		6321ADF3C8D74E00A25C17BC /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F0CFE910947B881E97502 /* UIColorExtension.swift */; };
 		9B36B84F275F40279DF3199D /* StatisticsChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC307E08D38430BB4EC1FE9 /* StatisticsChartsViewModel.swift */; };
 		9D1C40CE26426E740032125A /* Default Inverted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D1C40CC26426E740032125A /* Default Inverted@2x.png */; };
@@ -372,6 +373,7 @@
 		B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeatmapChart.swift; sourceTree = "<group>"; };
 		D5038958A2E4468B8CA85511 /* MetricsPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsPillView.swift; sourceTree = "<group>"; };
 		DC0B121F5773497F8C758E70 /* ChartPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartPeriod.swift; sourceTree = "<group>"; };
+		AA0000012026083100000001 /* SampleDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleDataGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -560,6 +562,7 @@
 				9DC845432D9CDF4A0068519E /* TelemetryManager.swift */,
 				DC0B121F5773497F8C758E70 /* ChartPeriod.swift */,
 				033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */,
+				AA0000012026083100000001 /* SampleDataGenerator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				9D601E5626DEF6E100844CD1 /* ActivityAwardsViewModel.swift in Sources */,
 				5C7A0A772DCA4EC8A6301B40 /* ChartPeriod.swift in Sources */,
 				A5C14C69D04041C189DAFC06 /* ChartDataPoint.swift in Sources */,
+				AA0000012026083100000002 /* SampleDataGenerator.swift in Sources */,
 				9B36B84F275F40279DF3199D /* StatisticsChartsViewModel.swift in Sources */,
 				D44C55EB22EA4B9FAA4BF821 /* CyclingBarChart.swift in Sources */,
 				DF586DF102954377A82B408D /* ActivityHeatmapChart.swift in Sources */,

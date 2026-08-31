@@ -17,7 +17,13 @@ struct ResetView: View {
     @State var showingDeleteAlert = false
     @State var showingResetToDefaultAlert = false
     @State var showingResetStatisticsAlert = false
-    
+
+    #if DEBUG
+    @State var showingGenerateSampleDataAlert = false
+    @State var generatingSampleData = false
+    @State var generatedSampleRideCount: Int? = nil
+    #endif
+
     // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTabSection = TelemetrySettingsSection.Reset
@@ -62,8 +68,31 @@ struct ResetView: View {
                   secondaryButton: .cancel()
             )
         }
+        #if DEBUG
+        Button (action: {self.showingGenerateSampleDataAlert = true}) {
+            HStack {
+                Text(generatingSampleData ? "Generating Sample Data..." : "Generate Sample Data")
+                    .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
+                Spacer()
+                if let count = generatedSampleRideCount {
+                    Text("\(count) rides")
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
+        .disabled(generatingSampleData)
+        .alert(isPresented: $showingGenerateSampleDataAlert) {
+            Alert(title: Text("Generate two years of sample rides?"),
+                  message: Text("Debug builds only. This deletes all stored routes and statistics first, and the generated rides will sync to iCloud if this device is signed in."),
+                  primaryButton: .destructive(Text("Generate")) {
+                    self.generateSampleData()
+                  },
+                  secondaryButton: .cancel()
+            )
+        }
+        #endif
     }
-    
+
     func showDeleteAlert() {
         self.showingDeleteAlert = true
     }
@@ -103,6 +132,20 @@ struct ResetView: View {
             action: TelemetrySettingsAction.DeleteStats
         )
     }
+
+    #if DEBUG
+    // Debug only - fills the app with a plausible cycling history for App Store screenshots.
+    // Deliberately sends no telemetry so screenshot runs don't show up in analytics.
+    func generateSampleData() {
+        self.generatingSampleData = true
+        self.generatedSampleRideCount = nil
+
+        SampleDataGenerator.generate { count in
+            self.generatedSampleRideCount = count
+            self.generatingSampleData = false
+        }
+    }
+    #endif
 }
 
 struct ResetView_Previews: PreviewProvider {
