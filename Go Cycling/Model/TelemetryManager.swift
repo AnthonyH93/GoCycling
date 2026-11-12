@@ -97,6 +97,7 @@ enum TelemetryCyclingAction: String {
     case EditCategory = "editedCategoryName"
     case EditRoute = "editedRouteName"
     case Delete = "deletedRoute"
+    case ExportGPX = "exportedRouteGPX"
     // Statistics actions
     case OneWeek = "clickedOn1Week"
     case FiveWeeks = "clickedOn5Weeks"
@@ -131,6 +132,7 @@ enum TelemetrySettingsAction: String {
     case RoutesEnabled = "routeCategorizationEnabledSwitchPressed"
     case DeletionEnabled = "deletionEnabledSwitchPressed"
     case DeletionConfirmtion = "deletionConfirmationSwitchPressed"
+    case ExportAllGPX = "exportAllRoutesGPXPressed"
     // Cycling actions
     case AutoLock = "disableAutoLockSwitchPressed"
     case AutoPause = "autoPauseSwitchPressed"

@@ -16,6 +16,7 @@ struct CycleView: View {
     @State private var cyclingSpeed = 0.0
     @State private var cyclingStartTime = Date()
     @State private var timeCycling = 0.0
+    @State private var elapsedTime = 0.0
     @State private var showingRouteNamingPopover = false
     @State private var isAutoPaused: Bool = false
     
@@ -29,7 +30,7 @@ struct CycleView: View {
     var body: some View {
         GeometryReader { (geometry) in
             VStack {
-                MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
+                MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling, elapsedTime: $elapsedTime)
                 .layoutPriority(1)
                 // Alert about visiting settings if location access is not allowed
                 .alert(isPresented: $locationManager.showLocationSettingsAlert) {
@@ -47,6 +48,18 @@ struct CycleView: View {
                 VStack(spacing: 4) {
                     Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                         .font(.custom("Avenir", size: 40))
+                    // Total elapsed time (including paused time) alongside the moving time
+                    if !timer.isStopped {
+                        TimelineView(.periodic(from: cyclingStartTime, by: 1)) { context in
+                            HStack(spacing: 4) {
+                                Image(systemName: "clock")
+                                Text("Total \(formatTimeString(accumulatedTime: max(context.date.timeIntervalSince(cyclingStartTime), timer.totalAccumulatedTime)))")
+                                    .monospacedDigit()
+                            }
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        }
+                    }
                     if isAutoPaused {
                         HStack(spacing: 6) {
                             Spacer(minLength: 0)
@@ -102,6 +115,7 @@ struct CycleView: View {
                         
                             self.isAutoPaused = false
                             self.timeCycling = timer.totalAccumulatedTime
+                            self.elapsedTime = Date().timeIntervalSince(self.cyclingStartTime)
                             self.timer.stop()
                             cyclingStatus.stoppedCycling()
                             
@@ -164,6 +178,7 @@ struct CycleView: View {
         locationManager.startedCycling()
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0
+        self.elapsedTime = 0.0
         self.timer.start()
         
         telemetryManager.sendCyclingSignal(
