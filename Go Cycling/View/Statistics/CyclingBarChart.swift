@@ -38,8 +38,8 @@ struct CyclingBarChart: View {
         switch period {
         case .oneWeek:     return calendar.date(byAdding: .day,   value: 7,   to: date) ?? date
         case .oneMonth:    return calendar.date(byAdding: .day,   value: 30,  to: date) ?? date
-        case .threeMonths: return calendar.date(byAdding: .day,   value: 91,  to: date) ?? date
-        case .sixMonths:   return calendar.date(byAdding: .day,   value: 182, to: date) ?? date
+        case .threeMonths: return calendar.date(byAdding: .day,   value: 90,  to: date) ?? date
+        case .sixMonths:   return calendar.date(byAdding: .day,   value: 180, to: date) ?? date
         case .yearToDate:  return calendar.date(byAdding: .year,  value: 1,   to: date) ?? date
         case .oneYear:     return calendar.date(byAdding: .month, value: 12,  to: date) ?? date
         }
