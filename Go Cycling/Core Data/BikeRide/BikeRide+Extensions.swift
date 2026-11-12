@@ -151,9 +151,15 @@ extension BikeRide {
             return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: pTo))
 
         case .oneYear:
-            let cFrom = cal.date(byAdding: .day, value: -364, to: today)!
-            let pFrom = cal.date(byAdding: .day, value: -729, to: today)!
-            return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: cFrom))
+            // The last 12 calendar months (including this partial one), so the
+            // window lines up exactly with the chart's monthly buckets. The
+            // previous period is the same span a year earlier, cut off at the
+            // same day of the year, like YTD.
+            let thisMonth = cal.date(from: cal.dateComponents([.year, .month], from: today)) ?? today
+            let cFrom = cal.date(byAdding: .month, value: -11, to: thisMonth)!
+            let pFrom = cal.date(byAdding: .month, value: -12, to: cFrom)!
+            let pTo   = cal.date(byAdding: .year,  value: -1,  to: tomorrow) ?? cFrom
+            return (fetch(from: cFrom, to: tomorrow), fetch(from: pFrom, to: pTo))
         }
     }
 

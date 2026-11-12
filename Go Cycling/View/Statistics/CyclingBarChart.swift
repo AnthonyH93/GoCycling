@@ -29,7 +29,8 @@ struct CyclingBarChart: View {
                 bucketDate: shiftedDate(pt.bucketDate, calendar: cal),
                 distance: pt.distance,
                 time: pt.time,
-                routes: pt.routes
+                routes: pt.routes,
+                elevationGain: pt.elevationGain
             )
         }
     }
