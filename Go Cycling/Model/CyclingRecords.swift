@@ -144,7 +144,7 @@ class CyclingRecords: ObservableObject {
             NSUbiquitousKeyValueStore.default.set(0.0, forKey: keys[3])
             NSUbiquitousKeyValueStore.default.set(0.0, forKey: keys[4])
             NSUbiquitousKeyValueStore.default.set(0.0, forKey: keys[5])
-            NSUbiquitousKeyValueStore.default.set(0, forKey: keys[9])
+            NSUbiquitousKeyValueStore.default.set(0 as Int, forKey: keys[9])
         }
         // Use UserDefaults for local storage
         else {
@@ -382,7 +382,7 @@ class CyclingRecords: ObservableObject {
         NSUbiquitousKeyValueStore.default.removeObject(forKey: keys[7])
         NSUbiquitousKeyValueStore.default.removeObject(forKey: keys[8])
         
-        NSUbiquitousKeyValueStore.default.set(0, forKey: keys[9])
+        NSUbiquitousKeyValueStore.default.set(0 as Int, forKey: keys[9])
         
         // Update class members
         CyclingRecords.shared.writeToClassMembers()

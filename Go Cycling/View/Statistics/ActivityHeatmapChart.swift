@@ -246,7 +246,10 @@ struct ActivityHeatmapChart: View {
             let year = cal.component(.year, from: today)
             var c = DateComponents(); c.year = year; c.month = 1; c.day = 1
             startDate = cal.date(from: c) ?? today
-        case .oneYear:     startDate = cal.date(byAdding: .day, value: -364, to: today) ?? today
+        case .oneYear:
+            // Match the 1Y fetch window: the first day of the month 11 months ago.
+            let thisMonth = cal.date(from: cal.dateComponents([.year, .month], from: today)) ?? today
+            startDate = cal.date(byAdding: .month, value: -11, to: thisMonth) ?? today
         default:           startDate = cal.date(byAdding: .day, value: -89,  to: today) ?? today
         }
 
