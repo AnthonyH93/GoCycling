@@ -21,6 +21,9 @@ struct CyclingHistorySettingsView: View {
     @State private var exportedFileURLs: [URL] = []
     @State private var showingShareSheet = false
     @State private var exportAlertMessage: String? = nil
+    @State private var showingFileImporter = false
+    @State private var isImporting = false
+    @State private var importAlertMessage: String? = nil
 
     var body: some View {
         Toggle("Route Categorization Enabled", isOn: Binding(
@@ -62,6 +65,42 @@ struct CyclingHistorySettingsView: View {
             set: { if !$0 { exportAlertMessage = nil } }
         )) {
             Alert(title: Text("GPX Export"), message: Text(exportAlertMessage ?? ""), dismissButton: .default(Text("OK")))
+        }
+        Button(action: { showingFileImporter = true }) {
+            HStack {
+                Text("Import Rides from GPX")
+                Spacer()
+                if isImporting {
+                    ProgressView()
+                }
+            }
+        }
+        .disabled(isImporting)
+        .fileImporter(isPresented: $showingFileImporter, allowedContentTypes: [GPXImporter.gpxContentType], allowsMultipleSelection: true) { result in
+            switch result {
+            case .success(let urls):
+                importRides(from: urls)
+            case .failure(let error):
+                print("GPX file selection failed: \(error.localizedDescription)")
+                importAlertMessage = "The selected files could not be opened."
+            }
+        }
+        .alert(isPresented: Binding(
+            get: { importAlertMessage != nil },
+            set: { if !$0 { importAlertMessage = nil } }
+        )) {
+            Alert(title: Text("GPX Import"), message: Text(importAlertMessage ?? ""), dismissButton: .default(Text("OK")))
+        }
+    }
+
+    func importRides(from urls: [URL]) {
+        guard !urls.isEmpty else { return }
+        isImporting = true
+        telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.ImportGPX)
+
+        GPXImporter.importFiles(at: urls, container: persistenceController.container) { summary in
+            isImporting = false
+            importAlertMessage = summary.message
         }
     }
 

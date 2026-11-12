@@ -13,6 +13,9 @@ import CoreLocation
 enum GPXExporter {
 
     private static let exportDirectoryName = "GPXExport"
+    // Shared with GPXImporter so re-imported Go Cycling files keep their category
+    static let creatorName = "Go Cycling"
+    static let uncategorizedTrackNamePrefix = "Bike Ride "
 
     // MARK: File export
 
@@ -96,12 +99,12 @@ enum GPXExporter {
         timeFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 
         let name = ride.cyclingRouteName.isEmpty || ride.cyclingRouteName == "Uncategorized"
-            ? "Bike Ride \(MetricsFormatting.formatDateAndTime(date: ride.cyclingStartTime))"
+            ? "\(uncategorizedTrackNamePrefix)\(MetricsFormatting.formatDateAndTime(date: ride.cyclingStartTime))"
             : ride.cyclingRouteName
 
         var gpx = """
         <?xml version="1.0" encoding="UTF-8"?>
-        <gpx version="1.1" creator="Go Cycling" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+        <gpx version="1.1" creator="\(creatorName)" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
           <metadata>
             <name>\(escapeXML(name))</name>
             <time>\(timeFormatter.string(from: ride.cyclingStartTime))</time>
