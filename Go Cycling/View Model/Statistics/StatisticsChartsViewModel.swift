@@ -112,15 +112,17 @@ class StatisticsChartsViewModel: ObservableObject {
             }
 
         case .threeMonths:
-            let base = isCurrent ? 0 : -91
+            // Match the fetch window's first day so rides from its opening days are bucketed too.
+            let startOffset = isCurrent ? -89 : -179
             for i in 0..<13 {
-                if let d = calendar.date(byAdding: .day, value: base - 84 + (i * 7), to: today) { dates.append(d) }
+                if let d = calendar.date(byAdding: .day, value: startOffset + (i * 7), to: today) { dates.append(d) }
             }
 
         case .sixMonths:
-            let base = isCurrent ? 0 : -182
+            // Match the fetch window's first day so rides from its opening days are bucketed too.
+            let startOffset = isCurrent ? -179 : -359
             for i in 0..<26 {
-                if let d = calendar.date(byAdding: .day, value: base - 175 + (i * 7), to: today) { dates.append(d) }
+                if let d = calendar.date(byAdding: .day, value: startOffset + (i * 7), to: today) { dates.append(d) }
             }
 
         case .yearToDate:
