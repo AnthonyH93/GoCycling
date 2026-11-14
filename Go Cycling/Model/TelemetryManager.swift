@@ -100,6 +100,9 @@ enum TelemetryCyclingAction: String {
     case ExportGPX = "exportedRouteGPX"
     case OpenGPX = "openedGPXFileInApp"
     case EmptyHistoryImportGPX = "importGPXFromEmptyHistoryPressed"
+    case OpenShareImage = "openedShareRouteImage"
+    case ShareImage = "sharedRouteImage"
+    case SharePrivacy = "changedShareImagePrivacyDistance"
     // Statistics actions
     case OneWeek = "clickedOn1Week"
     case FiveWeeks = "clickedOn5Weeks"
