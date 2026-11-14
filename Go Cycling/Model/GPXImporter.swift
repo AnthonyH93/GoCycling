@@ -19,8 +19,12 @@ enum GPXImporter {
     private static let movingSpeedThreshold: CLLocationSpeed = 0.5
     // Minimum time window used to smooth per-point speeds so GPS jitter doesn't create unrealistic top speeds
     private static let speedSmoothingWindow: TimeInterval = 5
-    // Rides starting within this many seconds of an existing ride are treated as duplicates
+    // Rides starting within this many seconds of each other are duplicates even if their time spans don't overlap
     private static let duplicateTolerance: TimeInterval = 1
+    // How far back to look for an existing ride that could still overlap an imported one
+    private static let longestRideLookback: TimeInterval = 2 * 24 * 60 * 60
+    // A Go Cycling file's saved start time is trusted if it is at most this long before the first point
+    private static let maximumStartToFirstPointGap: TimeInterval = 60 * 60
 
     struct ImportSummary {
         var importedCount = 0
@@ -46,14 +50,32 @@ enum GPXImporter {
     struct ParsedRide {
         let latitudes: [CLLocationDegrees]
         let longitudes: [CLLocationDegrees]
-        let timestamps: [Date]
+        // Nil when the file's times were estimated by an older Go Cycling export rather than recorded
+        let timestamps: [Date]?
         let trackElevations: [CLLocationDistance]
         let speeds: [CLLocationSpeed]
         let distance: CLLocationDistance
         let startTime: Date
+        let lastPointTime: Date
         let movingTime: TimeInterval
-        let elapsedTime: TimeInterval
+        // Nil when the times were estimated, since there is no real record of pauses
+        let elapsedTime: TimeInterval?
         let category: String
+
+        var timeSpan: TimeSpan { TimeSpan(start: startTime, end: max(lastPointTime, startTime)) }
+    }
+
+    // The period a ride covers. You can't record two different rides at once, so overlapping rides are the same ride
+    struct TimeSpan {
+        let start: Date
+        let end: Date
+
+        func isDuplicate(of other: TimeSpan) -> Bool {
+            if abs(start.timeIntervalSince(other.start)) <= GPXImporter.duplicateTolerance {
+                return true
+            }
+            return start < other.end && other.start < end
+        }
     }
 
     enum ImportError: Error {
@@ -69,7 +91,6 @@ enum GPXImporter {
         container.performBackgroundTask { context in
             var summary = ImportSummary()
             var savedRides: [ParsedRide] = []
-            var batchStartTimes: [Date] = []
 
             for url in urls {
                 let accessing = url.startAccessingSecurityScopedResource()
@@ -88,14 +109,13 @@ enum GPXImporter {
                 }
 
                 for ride in rides {
-                    let isDuplicateInBatch = batchStartTimes.contains { abs($0.timeIntervalSince(ride.startTime)) <= duplicateTolerance }
-                    if isDuplicateInBatch || rideExists(startingAt: ride.startTime, in: context) {
+                    let isDuplicateInBatch = savedRides.contains { ride.timeSpan.isDuplicate(of: $0.timeSpan) }
+                    if isDuplicateInBatch || existingRideOverlaps(ride.timeSpan, in: context) {
                         summary.duplicateCount += 1
                         continue
                     }
 
                     insert(ride, into: context)
-                    batchStartTimes.append(ride.startTime)
                     savedRides.append(ride)
                 }
             }
@@ -121,13 +141,21 @@ enum GPXImporter {
         }
     }
 
-    private static func rideExists(startingAt startTime: Date, in context: NSManagedObjectContext) -> Bool {
+    private static func existingRideOverlaps(_ span: TimeSpan, in context: NSManagedObjectContext) -> Bool {
+        // Only rides starting shortly before the imported ride ends could overlap it
         let fetchRequest: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K >= %@ AND %K <= %@",
-                                             #keyPath(BikeRide.cyclingStartTime), startTime.addingTimeInterval(-duplicateTolerance) as NSDate,
-                                             #keyPath(BikeRide.cyclingStartTime), startTime.addingTimeInterval(duplicateTolerance) as NSDate)
-        fetchRequest.fetchLimit = 1
-        return ((try? context.count(for: fetchRequest)) ?? 0) > 0
+                                             #keyPath(BikeRide.cyclingStartTime), span.start.addingTimeInterval(-longestRideLookback) as NSDate,
+                                             #keyPath(BikeRide.cyclingStartTime), span.end.addingTimeInterval(duplicateTolerance) as NSDate)
+        guard let candidates = try? context.fetch(fetchRequest) else {
+            return false
+        }
+        return candidates.contains { existing in
+            // Rides from before total time was saved only know their moving time, which can only underestimate the end
+            let duration = existing.cyclingElapsedTime?.doubleValue ?? existing.cyclingTime
+            let existingSpan = TimeSpan(start: existing.cyclingStartTime, end: existing.cyclingStartTime.addingTimeInterval(max(duration, 0)))
+            return span.isDuplicate(of: existingSpan)
+        }
     }
 
     private static func insert(_ ride: ParsedRide, into context: NSManagedObjectContext) {
@@ -142,7 +170,7 @@ enum GPXImporter {
         bikeRide.cyclingTimestamps = ride.timestamps
         bikeRide.cyclingStartTime = ride.startTime
         bikeRide.cyclingTime = ride.movingTime
-        bikeRide.cyclingElapsedTime = NSNumber(value: ride.elapsedTime)
+        bikeRide.cyclingElapsedTime = ride.elapsedTime.map { NSNumber(value: $0) }
         bikeRide.cyclingAverageSpeed = NSNumber(value: MetricsFormatting.calculateAverageSpeed(speeds: ride.speeds, distance: ride.distance, time: ride.movingTime))
         bikeRide.cyclingRouteName = ride.category
     }
@@ -159,22 +187,47 @@ enum GPXImporter {
             throw ImportError.unreadable
         }
 
-        let rides = delegate.tracks.compactMap { buildRide(from: $0, creator: delegate.creator) }
+        let isGoCyclingFile = delegate.creator == GPXExporter.creatorName
+        // Go Cycling exports one ride per file and saves its exact start time in the metadata
+        let savedStartTime = isGoCyclingFile && delegate.tracks.count == 1 ? delegate.metadataTime : nil
+        let rides = delegate.tracks.compactMap { buildRide(from: $0, isGoCyclingFile: isGoCyclingFile, savedStartTime: savedStartTime) }
         if rides.isEmpty {
             throw ImportError.noTimedTrackPoints
         }
         return rides
     }
 
-    private static func buildRide(from track: GPXParserDelegate.Track, creator: String?) -> ParsedRide? {
-        // Points without a timestamp can't contribute to time or speed, so they are dropped
-        let points = track.points.filter { $0.time != nil }
+    private static func buildRide(from track: GPXParserDelegate.Track, isGoCyclingFile: Bool, savedStartTime: Date?) -> ParsedRide? {
+        // Points without a timestamp can't contribute to time or speed, so they are dropped,
+        // keeping track of where each segment starts
+        var points: [GPXParserDelegate.Point] = []
+        var nextPointStartsSegment = false
+        for var point in track.points {
+            guard point.time != nil else {
+                nextPointStartsSegment = nextPointStartsSegment || point.startsSegment
+                continue
+            }
+            point.startsSegment = point.startsSegment || nextPointStartsSegment
+            nextPointStartsSegment = false
+            points.append(point)
+        }
+
         guard points.count >= 2,
-              let startTime = points.first?.time,
+              let firstPointTime = points.first?.time,
               let endTime = points.last?.time,
-              endTime > startTime else {
+              endTime > firstPointTime else {
             return nil
         }
+
+        // Recorded rides start when Start is pressed, a few seconds before the first GPS point,
+        // so use the saved start time when the file has one
+        var startTime = firstPointTime
+        if let savedStartTime = savedStartTime,
+           savedStartTime <= firstPointTime,
+           firstPointTime.timeIntervalSince(savedStartTime) <= maximumStartToFirstPointGap {
+            startTime = savedStartTime
+        }
+        let timestampsEstimated = isGoCyclingFile && track.description == GPXExporter.estimatedTimestampsDescription
 
         let locations = points.map { CLLocation(latitude: $0.latitude, longitude: $0.longitude) }
         let times = points.map { $0.time! }
@@ -183,7 +236,8 @@ enum GPXImporter {
         var movingTime: TimeInterval = 0
         var cumulativeDistances: [CLLocationDistance] = [0]
         for index in 1..<points.count {
-            let segmentDistance = locations[index].distance(from: locations[index - 1])
+            // The jump from the end of one track segment to the start of the next wasn't ridden, so it adds no distance
+            let segmentDistance = points[index].startsSegment ? 0 : locations[index].distance(from: locations[index - 1])
             let segmentTime = times[index].timeIntervalSince(times[index - 1])
             distance += segmentDistance
             cumulativeDistances.append(distance)
@@ -211,21 +265,22 @@ enum GPXImporter {
         return ParsedRide(
             latitudes: points.map { $0.latitude },
             longitudes: points.map { $0.longitude },
-            timestamps: times,
+            timestamps: timestampsEstimated ? nil : times,
             trackElevations: points.map { $0.elevation ?? .nan },
             speeds: speeds,
             distance: distance,
             startTime: startTime,
+            lastPointTime: endTime,
             movingTime: movingTime,
-            elapsedTime: endTime.timeIntervalSince(startTime),
-            category: category(forTrackName: track.name, creator: creator)
+            elapsedTime: timestampsEstimated ? nil : endTime.timeIntervalSince(startTime),
+            category: category(forTrackName: track.name, isGoCyclingFile: isGoCyclingFile)
         )
     }
 
     // Go Cycling exports use the ride's category as the track name, so restore it on re-import.
     // Track names from other apps ("Morning Ride", ...) would flood the category list, so they are left uncategorized
-    private static func category(forTrackName name: String?, creator: String?) -> String {
-        guard creator == GPXExporter.creatorName,
+    private static func category(forTrackName name: String?, isGoCyclingFile: Bool) -> String {
+        guard isGoCyclingFile,
               let name = name?.trimmingCharacters(in: .whitespacesAndNewlines),
               !name.isEmpty,
               !name.hasPrefix(GPXExporter.uncategorizedTrackNamePrefix) else {
@@ -245,18 +300,24 @@ private final class GPXParserDelegate: NSObject, XMLParserDelegate {
         var elevation: CLLocationDistance?
         var time: Date?
         var speed: CLLocationSpeed?
+        // First point of a <trkseg>
+        var startsSegment = false
     }
 
     struct Track {
         var name: String?
+        var description: String?
         var points: [Point] = []
     }
 
     private(set) var creator: String?
+    private(set) var metadataTime: Date?
     private(set) var tracks: [Track] = []
 
     private var currentTrack: Track?
     private var currentPoint: Point?
+    private var isInMetadata = false
+    private var nextPointStartsSegment = false
     private var text = ""
 
     private let fractionalDateFormatter: ISO8601DateFormatter = {
@@ -279,14 +340,19 @@ private final class GPXParserDelegate: NSObject, XMLParserDelegate {
         switch elementName {
         case "gpx":
             creator = attributeDict["creator"]
+        case "metadata":
+            isInMetadata = true
         case "trk":
             currentTrack = Track()
+        case "trkseg":
+            nextPointStartsSegment = true
         case "trkpt":
             if currentTrack != nil,
                let latitude = attributeDict["lat"].flatMap(Double.init),
                let longitude = attributeDict["lon"].flatMap(Double.init),
                CLLocationCoordinate2DIsValid(CLLocationCoordinate2D(latitude: latitude, longitude: longitude)) {
-                currentPoint = Point(latitude: latitude, longitude: longitude)
+                currentPoint = Point(latitude: latitude, longitude: longitude, startsSegment: nextPointStartsSegment)
+                nextPointStartsSegment = false
             }
         default:
             break
@@ -322,10 +388,20 @@ private final class GPXParserDelegate: NSObject, XMLParserDelegate {
         }
 
         switch elementName {
+        case "metadata":
+            isInMetadata = false
+        case "time":
+            if isInMetadata {
+                metadataTime = parseDate(value)
+            }
         case "name":
             // Only the track's own name, not names of the file metadata or waypoints
             if currentTrack != nil && currentTrack?.name == nil {
                 currentTrack?.name = value
+            }
+        case "desc":
+            if currentTrack != nil && currentTrack?.description == nil {
+                currentTrack?.description = value
             }
         case "trk":
             if let track = currentTrack {
