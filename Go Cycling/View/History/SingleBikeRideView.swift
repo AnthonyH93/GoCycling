@@ -17,6 +17,8 @@ struct SingleBikeRideView: View {
 
     @State private var showingEditPopover = false
     @State private var statsExpanded = true
+    @State private var exportedFiles: ExportedFiles? = nil
+    @State private var showingExportError = false
 
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTab = TelemetryTab.History
@@ -39,18 +41,35 @@ struct SingleBikeRideView: View {
         .navigationBarTitle(navigationTitle, displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                if (preferences.namedRoutes) {
+                HStack {
                     Button {
-                        self.showingEditPopover = true
-                        telemetryManager.sendCyclingSignal(tab: telemetryTab, action: TelemetryCyclingAction.EditRoute)
+                        self.exportGPX()
                     } label: {
-                        Image(systemName: "pencil")
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .accessibilityLabel("Export as GPX")
+                    if (preferences.namedRoutes) {
+                        Button {
+                            self.showingEditPopover = true
+                            telemetryManager.sendCyclingSignal(tab: telemetryTab, action: TelemetryCyclingAction.EditRoute)
+                        } label: {
+                            Image(systemName: "pencil")
+                        }
                     }
                 }
             }
         }
         .sheet(isPresented: $showingEditPopover) {
             RouteNameModalView(showEditModal: $showingEditPopover, bikeRideToEdit: bikeRide)
+        }
+        .background(
+            EmptyView()
+                .sheet(item: $exportedFiles) { files in
+                    ActivityViewController(activityItems: files.urls)
+                }
+        )
+        .alert(isPresented: $showingExportError) {
+            Alert(title: Text("Export Failed"), message: Text("This ride could not be exported as a GPX file."), dismissButton: .default(Text("OK")))
         }
         .background(TabBarHider())
         .onAppear {
@@ -88,6 +107,17 @@ struct SingleBikeRideView: View {
                     }
                     .padding(.horizontal, 8)
                     .padding(.bottom, 12)
+
+                    // Total time including pauses, only known for rides recorded after it was tracked
+                    if let elapsedTime = bikeRide.cyclingElapsedTime?.doubleValue {
+                        let pausedTime = max(elapsedTime - bikeRide.cyclingTime, 0)
+                        HStack(spacing: 20) {
+                            elapsedTimeLabel(title: "Total", time: elapsedTime, systemImage: "clock")
+                            elapsedTimeLabel(title: "Paused", time: pausedTime, systemImage: "pause.circle")
+                        }
+                        .font(.callout)
+                        .padding(.bottom, 12)
+                    }
                 }
                 .transition(.opacity)
             } else {
@@ -112,6 +142,27 @@ struct SingleBikeRideView: View {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
                 statsExpanded.toggle()
             }
+        }
+    }
+
+    func elapsedTimeLabel(title: String, time: TimeInterval, systemImage: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: systemImage)
+                .foregroundColor(.accentColor)
+            Text(title)
+                .foregroundColor(.secondary)
+            Text(MetricsFormatting.formatTime(time: time).trimmingCharacters(in: .whitespaces))
+                .fontWeight(.semibold)
+        }
+    }
+
+    func exportGPX() {
+        do {
+            exportedFiles = ExportedFiles(urls: [try GPXExporter.exportFile(for: bikeRide)])
+            telemetryManager.sendCyclingSignal(tab: telemetryTab, action: TelemetryCyclingAction.ExportGPX)
+        } catch {
+            print("GPX export failed: \(error.localizedDescription)")
+            showingExportError = true
         }
     }
 

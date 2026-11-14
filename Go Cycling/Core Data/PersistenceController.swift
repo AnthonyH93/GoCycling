@@ -62,7 +62,7 @@ struct PersistenceController {
     }
     
     // MARK: Bike ride methods
-    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevations: [CLLocationDistance?], startTime: Date, time: Double, completion: @escaping () -> Void) {
+    func storeBikeRide(locations: [CLLocation?], speeds: [CLLocationSpeed?], distance: Double, elevations: [CLLocationDistance?], startTime: Date, time: Double, elapsedTime: Double, completion: @escaping () -> Void) {
         // Copy value-type arrays before handing off to the background task
         let locationsCopy = locations
         let speedsCopy = speeds
@@ -73,14 +73,18 @@ struct PersistenceController {
             var longitudes: [CLLocationDegrees] = []
             var speedsValidated: [CLLocationSpeed] = []
             var elevationsValidated: [CLLocationDistance] = []
+            var timestamps: [Date] = []
+            var trackElevations: [CLLocationDistance] = []
 
-            for location in locationsCopy {
-                // Only include coordinates where neither latitude nor longitude is nil
-                if let currentLatitude = location?.coordinate.latitude {
-                    if let currentLongitude = location?.coordinate.longitude {
-                        latitudes.append(currentLatitude)
-                        longitudes.append(currentLongitude)
-                    }
+            for (index, location) in locationsCopy.enumerated() {
+                // Only include coordinates where the location is not nil
+                if let location = location {
+                    latitudes.append(location.coordinate.latitude)
+                    longitudes.append(location.coordinate.longitude)
+                    timestamps.append(location.timestamp)
+                    // Elevations are recorded alongside each location; keep them aligned with the coordinates
+                    let elevation = index < elevationsCopy.count ? elevationsCopy[index] : nil
+                    trackElevations.append(elevation ?? .nan)
                 }
             }
 
@@ -106,6 +110,9 @@ struct PersistenceController {
             newBikeRide.cyclingElevations = elevationsValidated
             newBikeRide.cyclingStartTime = startTime
             newBikeRide.cyclingTime = time
+            newBikeRide.cyclingElapsedTime = NSNumber(value: max(elapsedTime, time))
+            newBikeRide.cyclingTimestamps = timestamps
+            newBikeRide.cyclingTrackElevations = trackElevations
             newBikeRide.cyclingAverageSpeed = NSNumber(value: MetricsFormatting.calculateAverageSpeed(speeds: speedsValidated, distance: distance, time: time))
             // Default category
             newBikeRide.cyclingRouteName = "Uncategorized"

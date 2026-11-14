@@ -21,6 +21,7 @@ struct MapView: UIViewRepresentable {
     @Binding var centerMapOnLocation: Bool
     @Binding var cyclingStartTime: Date
     @Binding var timeCycling: TimeInterval
+    @Binding var elapsedTime: TimeInterval
     
     @Environment(\.managedObjectContext) private var managedObjectContext
     @EnvironmentObject var preferences: Preferences
@@ -132,7 +133,8 @@ struct MapView: UIViewRepresentable {
                                                         distance: locationManager.cyclingTotalDistance,
                                                         elevations: locationManager.cyclingAltitudes,
                                                         startTime: cyclingStartTime,
-                                                        time: timeCycling) {
+                                                        time: timeCycling,
+                                                        elapsedTime: elapsedTime) {
                         records.updateCyclingRecords(speeds: locationManager.cyclingSpeeds, distance: locationManager.cyclingTotalDistance, startTime: cyclingStartTime, time: timeCycling)
                         locationManager.clearLocationArray()
                         locationManager.stopTrackingBackgroundLocation()
@@ -147,6 +149,6 @@ var startedCycling = false
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(centerMapOnLocation: .constant(true), cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
+        MapView(centerMapOnLocation: .constant(true), cyclingStartTime: .constant(Date()), timeCycling: .constant(10), elapsedTime: .constant(10))
     }
 }

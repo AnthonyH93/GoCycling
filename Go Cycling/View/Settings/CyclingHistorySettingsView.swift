@@ -16,7 +16,11 @@ struct CyclingHistorySettingsView: View {
     // Access singleton TelemetryManager class object
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTabSection = TelemetrySettingsSection.History
-    
+
+    @State private var isExporting = false
+    @State private var exportedFiles: ExportedFiles? = nil
+    @State private var exportAlertMessage: String? = nil
+
     var body: some View {
         Toggle("Route Categorization Enabled", isOn: Binding(
             get: { preferences.namedRoutes },
@@ -39,6 +43,45 @@ struct CyclingHistorySettingsView: View {
                 telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.DeletionConfirmtion)
             }
         ))
+        Button(action: { exportAllRides() }) {
+            HStack {
+                Text("Export All Rides as GPX")
+                Spacer()
+                if isExporting {
+                    ProgressView()
+                }
+            }
+        }
+        .disabled(isExporting)
+        .sheet(item: $exportedFiles) { files in
+            ActivityViewController(activityItems: files.urls)
+        }
+        .alert(isPresented: Binding(
+            get: { exportAlertMessage != nil },
+            set: { if !$0 { exportAlertMessage = nil } }
+        )) {
+            Alert(title: Text("GPX Export"), message: Text(exportAlertMessage ?? ""), dismissButton: .default(Text("OK")))
+        }
+    }
+
+    func exportAllRides() {
+        isExporting = true
+        telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.ExportAllGPX)
+
+        GPXExporter.exportAllRides(container: persistenceController.container) { result in
+            isExporting = false
+            switch result {
+            case .success(let urls):
+                if urls.isEmpty {
+                    exportAlertMessage = "There are no saved rides to export."
+                } else {
+                    exportedFiles = ExportedFiles(urls: urls)
+                }
+            case .failure(let error):
+                print("GPX export failed: \(error.localizedDescription)")
+                exportAlertMessage = "Your rides could not be exported. Please try again."
+            }
+        }
     }
 }
 

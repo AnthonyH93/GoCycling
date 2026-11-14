@@ -16,6 +16,7 @@ struct CycleView: View {
     @State private var cyclingSpeed = 0.0
     @State private var cyclingStartTime = Date()
     @State private var timeCycling = 0.0
+    @State private var elapsedTime = 0.0
     @State private var showingRouteNamingPopover = false
     @State private var isAutoPaused: Bool = false
     
@@ -29,7 +30,7 @@ struct CycleView: View {
     var body: some View {
         GeometryReader { (geometry) in
             VStack {
-                MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
+                MapWithSpeedView(cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling, elapsedTime: $elapsedTime)
                 .layoutPriority(1)
                 // Alert about visiting settings if location access is not allowed
                 .alert(isPresented: $locationManager.showLocationSettingsAlert) {
@@ -102,6 +103,7 @@ struct CycleView: View {
                         
                             self.isAutoPaused = false
                             self.timeCycling = timer.totalAccumulatedTime
+                            self.elapsedTime = Date().timeIntervalSince(self.cyclingStartTime)
                             self.timer.stop()
                             cyclingStatus.stoppedCycling()
                             
@@ -164,6 +166,7 @@ struct CycleView: View {
         locationManager.startedCycling()
         self.cyclingStartTime = Date()
         self.timeCycling = 0.0
+        self.elapsedTime = 0.0
         self.timer.start()
         
         telemetryManager.sendCyclingSignal(

@@ -14,6 +14,7 @@ struct MapWithSpeedView: View {
 
     @Binding var cyclingStartTime: Date
     @Binding var timeCycling: TimeInterval
+    @Binding var elapsedTime: TimeInterval
 
     @StateObject var locationManager = LocationViewModel.locationManager
     @Environment(\.colorScheme) var colorScheme
@@ -23,7 +24,7 @@ struct MapWithSpeedView: View {
 
     var body: some View {
         ZStack {
-            MapView(centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling)
+            MapView(centerMapOnLocation: $mapCentered, cyclingStartTime: $cyclingStartTime, timeCycling: $timeCycling, elapsedTime: $elapsedTime)
             VStack {
                 MetricsPillView(
                     currentSpeed: $locationManager.displaySpeed,
@@ -61,6 +62,6 @@ struct MapWithSpeedView: View {
 
 struct MapWithSpeedView_Previews: PreviewProvider {
     static var previews: some View {
-        MapWithSpeedView(cyclingStartTime: .constant(Date()), timeCycling: .constant(10))
+        MapWithSpeedView(cyclingStartTime: .constant(Date()), timeCycling: .constant(10), elapsedTime: .constant(10))
     }
 }

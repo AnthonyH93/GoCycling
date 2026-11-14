@@ -157,6 +157,13 @@ extension BikeRide {
     @NSManaged public var cyclingRouteName: String
     // Optional Core Data scalars are bridged as NSNumber, so the raw attribute can't be a Double?
     @NSManaged public var cyclingAverageSpeed: NSNumber?
+    // Wall-clock time from start to stop, including any paused time. Nil for rides recorded before this was tracked
+    @NSManaged public var cyclingElapsedTime: NSNumber?
+    // Per-point timestamps, index-aligned with cyclingLatitudes/cyclingLongitudes. Nil for rides recorded before this was tracked
+    @NSManaged public var cyclingTimestamps: [Date]?
+    // Per-point elevations, index-aligned with cyclingLatitudes/cyclingLongitudes, NaN where the reading was inaccurate.
+    // cyclingElevations stays compact (inaccurate readings dropped) because the stats code relies on that
+    @NSManaged public var cyclingTrackElevations: [CLLocationDistance]?
 
     // Persisted average speed, falling back to a fresh calculation for any ride that hasn't been backfilled yet
     public var resolvedAverageSpeed: CLLocationSpeed {
