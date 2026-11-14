@@ -23,6 +23,8 @@ enum GPXExporter {
     // Shared with GPXImporter so re-imported Go Cycling files keep their category
     static let creatorName = "Go Cycling"
     static let uncategorizedTrackNamePrefix = "Bike Ride "
+    // Written on rides recorded before per-point times were saved, so the importer knows their times are made up
+    static let estimatedTimestampsDescription = "Point timestamps are estimated: this ride was recorded before Go Cycling saved per-point times."
 
     // MARK: File export
 
@@ -122,7 +124,7 @@ enum GPXExporter {
 
         """
         if timestamps.estimated {
-            gpx += "    <desc>Point timestamps are estimated: this ride was recorded before Go Cycling saved per-point times.</desc>\n"
+            gpx += "    <desc>\(estimatedTimestampsDescription)</desc>\n"
         }
         gpx += "    <trkseg>\n"
 
