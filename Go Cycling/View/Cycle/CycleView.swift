@@ -48,18 +48,6 @@ struct CycleView: View {
                 VStack(spacing: 4) {
                     Text(formatTimeString(accumulatedTime: timer.totalAccumulatedTime))
                         .font(.custom("Avenir", size: 40))
-                    // Total elapsed time (including paused time) alongside the moving time
-                    if !timer.isStopped {
-                        TimelineView(.periodic(from: cyclingStartTime, by: 1)) { context in
-                            HStack(spacing: 4) {
-                                Image(systemName: "clock")
-                                Text("Total \(formatTimeString(accumulatedTime: max(context.date.timeIntervalSince(cyclingStartTime), timer.totalAccumulatedTime)))")
-                                    .monospacedDigit()
-                            }
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        }
-                    }
                     if isAutoPaused {
                         HStack(spacing: 6) {
                             Spacer(minLength: 0)
