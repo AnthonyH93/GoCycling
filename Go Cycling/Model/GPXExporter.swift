@@ -9,6 +9,13 @@ import Foundation
 import CoreData
 import CoreLocation
 
+// Exported files waiting to be shared. Presented with .sheet(item:) so the share sheet always
+// receives the files directly, rather than reading state that may not have propagated yet
+struct ExportedFiles: Identifiable {
+    let id = UUID()
+    let urls: [URL]
+}
+
 // Builds GPX 1.1 files from saved bike rides so they can be backed up or imported into other apps
 enum GPXExporter {
 
