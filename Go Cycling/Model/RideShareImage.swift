@@ -55,23 +55,22 @@ enum RoutePrivacy {
         return options.dropFirst().min { abs($0.metres - metres) < abs($1.metres - metres) } ?? options[0]
     }
 
-    // Removes `distance` from each end of the route. Returns nil when nothing would be left,
-    // since showing even a sliver of a short ride would reveal where it was
+    // Drops points from the start of the route until it first gets more than `distance` away (in a straight line)
+    // from where the ride began, and likewise backwards from the end. Measuring in a straight line rather than
+    // along the route means circling the block or riding along your own street near the start is hidden too.
+    // Returns nil when nothing would be left, since showing even a sliver of a short ride would reveal where it was
     static func trim(_ coordinates: [CLLocationCoordinate2D], distance: CLLocationDistance) -> [CLLocationCoordinate2D]? {
         guard distance > 0 else { return coordinates }
-        guard coordinates.count > 1 else { return nil }
+        guard coordinates.count > 1, let start = coordinates.first, let end = coordinates.last else { return nil }
 
-        var cumulative: [CLLocationDistance] = [0]
-        for index in 1..<coordinates.count {
-            let previous = CLLocation(latitude: coordinates[index - 1].latitude, longitude: coordinates[index - 1].longitude)
-            let current = CLLocation(latitude: coordinates[index].latitude, longitude: coordinates[index].longitude)
-            cumulative.append(cumulative[index - 1] + current.distance(from: previous))
+        let startLocation = CLLocation(latitude: start.latitude, longitude: start.longitude)
+        let endLocation = CLLocation(latitude: end.latitude, longitude: end.longitude)
+        func isOutside(_ coordinate: CLLocationCoordinate2D, of location: CLLocation) -> Bool {
+            CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude).distance(from: location) > distance
         }
 
-        let total = cumulative[cumulative.count - 1]
-        guard total > distance * 2,
-              let first = cumulative.firstIndex(where: { $0 >= distance }),
-              let last = cumulative.lastIndex(where: { $0 <= total - distance }),
+        guard let first = coordinates.firstIndex(where: { isOutside($0, of: startLocation) }),
+              let last = coordinates.lastIndex(where: { isOutside($0, of: endLocation) }),
               last > first else {
             return nil
         }
@@ -111,7 +110,7 @@ struct RideShareContent {
         var id: String { label }
     }
 
-    // The route with the privacy distance trimmed from each end; empty when the route is hidden
+    // The route with the part near its start and end hidden; empty when the route is hidden
     let coordinates: [CLLocationCoordinate2D]
     // True when the ride is too short to show any of its route with the chosen privacy distance
     let routeHidden: Bool

@@ -18,7 +18,7 @@ struct ShareRideImageView: View {
     @State private var style: RideShareStyle = .map
     // Resolved when the sheet appears: the remembered choice, or the system appearance
     @State private var appearance: RideShareAppearance = .dark
-    // Metres hidden from each end of the route; resolved when the sheet appears from the last choice
+    // Metres around the start and end of the route that are hidden; resolved when the sheet appears from the last choice
     @State private var privacyDistance: Double = RoutePrivacy.defaultDistance
     @State private var content: RideShareContent? = nil
     // Rendered cards keyed by appearance, style and privacy distance, so switching back and forth doesn't re-render
@@ -63,7 +63,7 @@ struct ShareRideImageView: View {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .fill(Color(.secondarySystemFill))
                     if styleUnavailable {
-                        Text("This ride is too short to show any of its route while hiding the first and last \(privacyOption.label). Hide less below, or choose Stats.")
+                        Text("This ride doesn't go far enough to show any of its route while hiding \(privacyOption.label) around the start and end. Hide less below, or choose Stats.")
                             .font(.callout)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
@@ -86,11 +86,11 @@ struct ShareRideImageView: View {
                     Menu {
                         Picker("Hide Start & End", selection: privacyBinding) {
                             ForEach(RoutePrivacy.options(usingMetric: preferences.usingMetric)) { option in
-                                Text(option.metres > 0 ? "Hide first & last \(option.label)" : "Show full route").tag(option)
+                                Text(option.metres > 0 ? "Hide \(option.label) around start & end" : "Show full route").tag(option)
                             }
                         }
                     } label: {
-                        Label(privacyDistance > 0 ? "Hiding first & last \(privacyOption.label)" : "Showing full route",
+                        Label(privacyDistance > 0 ? "Hiding \(privacyOption.label) around start & end" : "Showing full route",
                               systemImage: privacyDistance > 0 ? "eye.slash" : "eye")
                             .font(.subheadline)
                     }
@@ -143,7 +143,9 @@ struct ShareRideImageView: View {
         .navigationViewStyle(.stack)
         .onAppear {
             guard content == nil else { return }
-            privacyDistance = RoutePrivacy.preferredDistance
+            // Snap to an option in the user's units, so the label always matches what's hidden
+            // (e.g. the 200 m default becomes 0.1 mi with imperial units)
+            privacyDistance = RoutePrivacy.nearestOption(to: RoutePrivacy.preferredDistance, usingMetric: preferences.usingMetric).metres
             let rideContent = RideShareContent(bikeRide: bikeRide, preferences: preferences, privacyDistance: privacyDistance)
             content = rideContent
             if rideContent.routeHidden {
