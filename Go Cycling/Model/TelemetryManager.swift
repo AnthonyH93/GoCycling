@@ -99,6 +99,7 @@ enum TelemetryCyclingAction: String {
     case Delete = "deletedRoute"
     case ExportGPX = "exportedRouteGPX"
     case OpenGPX = "openedGPXFileInApp"
+    case EmptyHistoryImportGPX = "importGPXFromEmptyHistoryPressed"
     // Statistics actions
     case OneWeek = "clickedOn1Week"
     case FiveWeeks = "clickedOn5Weeks"

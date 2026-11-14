@@ -43,12 +43,17 @@ struct SingleBikeRideView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    Button {
-                        self.exportGPX()
+                    // Share options for this ride; a "Share Image" option is planned alongside GPX export
+                    Menu {
+                        Button {
+                            self.exportGPX()
+                        } label: {
+                            Label("Export GPX File", systemImage: "doc")
+                        }
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
-                    .accessibilityLabel("Export as GPX")
+                    .accessibilityLabel("Share")
                     if (preferences.namedRoutes) {
                         Button {
                             self.showingEditPopover = true

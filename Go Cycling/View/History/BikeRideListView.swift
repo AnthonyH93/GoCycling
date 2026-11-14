@@ -25,6 +25,7 @@ struct BikeRideListView: View {
     @State private var updateCategories = false
     @State private var toBeDeleted: IndexSet?
     @State private var selectedName: String = Preferences.storedSelectedRoute()
+    @State private var importAlertMessage: String? = nil
     
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTab = TelemetryTab.History
@@ -32,7 +33,10 @@ struct BikeRideListView: View {
     var body: some View {
         NavigationView {
             GeometryReader { (geometry) in
-                ListView(sortDescripter: bikeRideViewModel.getSortDescriptor(), name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted, updateCategories: $updateCategories)
+                ListView(sortDescripter: bikeRideViewModel.getSortDescriptor(), name: bikeRideViewModel.currentName, showingDeleteAlert: $showingDeleteAlert, shouldBeDeleted: $shouldBeDeleted, updateCategories: $updateCategories, onImportFinished: { message in
+                    importAlertMessage = message
+                    bikeRideViewModel.updateCategories()
+                })
                 .listStyle(.plain)
                     .navigationBarTitle(self.getNavigationBarTitle(name: bikeRideViewModel.currentName), displayMode: .large)
                 .toolbar {
@@ -109,6 +113,16 @@ struct BikeRideListView: View {
                 .onChange(of: updateCategories, perform: { _ in
                     bikeRideViewModel.updateCategories()
                 })
+                // Shown here rather than on the empty state, which disappears once rides are imported
+                .background(
+                    EmptyView()
+                        .alert(isPresented: Binding(
+                            get: { importAlertMessage != nil },
+                            set: { if !$0 { importAlertMessage = nil } }
+                        )) {
+                            Alert(title: Text("GPX Import"), message: Text(importAlertMessage ?? ""), dismissButton: .default(Text("OK")))
+                        }
+                )
             }
             .navigationViewStyle(StackNavigationViewStyle())
         }
@@ -156,7 +170,15 @@ struct ListView: View {
     
     @FetchRequest var bikeRides: FetchedResults<BikeRide>
 
-    init(sortDescripter: NSSortDescriptor, name: String, showingDeleteAlert: Binding<Bool>, shouldBeDeleted: Binding<Bool>, updateCategories: Binding<Bool>) {
+    // Whether a category filter is applied, in which case an empty list doesn't mean there are no rides at all
+    private let isFiltered: Bool
+    private let onImportFinished: (String) -> Void
+
+    let telemetryManager = TelemetryManager.sharedTelemetryManager
+
+    init(sortDescripter: NSSortDescriptor, name: String, showingDeleteAlert: Binding<Bool>, shouldBeDeleted: Binding<Bool>, updateCategories: Binding<Bool>, onImportFinished: @escaping (String) -> Void) {
+        self.isFiltered = name != ""
+        self.onImportFinished = onImportFinished
         let request: NSFetchRequest<BikeRide> = BikeRide.fetchRequest()
         if (name != "") {
             request.predicate = NSPredicate(format: "cyclingRouteName == %@", name)
@@ -214,7 +236,7 @@ struct ListView: View {
                 })
             }
         }
-        else {
+        else if (isFiltered) {
             VStack {
                 Spacer()
                 HStack {
@@ -225,6 +247,50 @@ struct ListView: View {
                 Spacer()
             }
         }
+        else {
+            emptyHistoryView
+        }
+    }
+
+    // Shown when there are no rides at all, offering to bring in rides from another app
+    var emptyHistoryView: some View {
+        VStack(spacing: 16) {
+            Spacer()
+            Image(systemName: "bicycle")
+                .font(.system(size: 52))
+                .foregroundColor(.secondary)
+            Text("No Rides Yet")
+                .font(.title2.bold())
+            Text("Record your first ride from the Cycle tab, or import your rides from another app as GPX files.")
+                .font(.body)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+            ImportGPXButton(
+                onImportStarted: {
+                    telemetryManager.sendCyclingSignal(tab: TelemetryTab.History, action: TelemetryCyclingAction.EmptyHistoryImportGPX)
+                },
+                onImportFinished: onImportFinished
+            ) { isImporting in
+                HStack(spacing: 8) {
+                    if isImporting {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "square.and.arrow.down")
+                    }
+                    Text("Import GPX Files")
+                }
+                .font(.headline)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
+            .padding(.top, 8)
+            Spacer()
+            Spacer()
+        }
+        .padding(.horizontal, 32)
+        .frame(maxWidth: .infinity)
     }
     
     func showDeleteAlert(at indexSet: IndexSet) {

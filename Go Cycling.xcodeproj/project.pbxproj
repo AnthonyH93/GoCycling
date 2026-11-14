@@ -128,6 +128,7 @@
 		9D816A422642564E00DED7F8 /* Default-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */; };
 		9D9776E52633B0E70048B504 /* BikeRideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E42633B0E70048B504 /* BikeRideListView.swift */; };
 		9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E92633B4050048B504 /* SingleBikeRideView.swift */; };
+		AA0000012026111300000001 /* ImportGPXButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000002 /* ImportGPXButton.swift */; };
 		9D9E8BEF28AE179C0057BCAB /* SyncSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */; };
 		9DA60D60287558D000072DA2 /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D5F287558D000072DA2 /* ReviewManager.swift */; };
 		9DA60D6228755AF900072DA2 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */; };
@@ -322,6 +323,7 @@
 		9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-83.5@2x~ipad.png"; sourceTree = "<group>"; };
 		9D9776E42633B0E70048B504 /* BikeRideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListView.swift; sourceTree = "<group>"; };
 		9D9776E92633B4050048B504 /* SingleBikeRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBikeRideView.swift; sourceTree = "<group>"; };
+		AA0000012026111300000002 /* ImportGPXButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportGPXButton.swift; sourceTree = "<group>"; };
 		9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncSettingsView.swift; sourceTree = "<group>"; };
 		9DA60D5F287558D000072DA2 /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 				9DAB836F25FED0A300F5C42E /* HistoryView.swift */,
 				9D9776E42633B0E70048B504 /* BikeRideListView.swift */,
 				9D9776E92633B4050048B504 /* SingleBikeRideView.swift */,
+				AA0000012026111300000002 /* ImportGPXButton.swift */,
 				2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */,
 				9D62F4DA2634F69600E28991 /* HistoryMetricView.swift */,
 				9D75E29126C85C9C00DE536D /* BikeRideSortPopoverView.swift */,
@@ -1068,6 +1071,7 @@
 				AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */,
 				9D9776E52633B0E70048B504 /* BikeRideListView.swift in Sources */,
 				9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */,
+				AA0000012026111300000001 /* ImportGPXButton.swift in Sources */,
 				9DEAD6C4263257A500392D88 /* BikeRide+CoreDataClass.swift in Sources */,
 				9D6E5391262CF1AF008FD7C1 /* UserPreferences+CoreDataClass.swift in Sources */,
 				9D1ED55026448F4F005A97ED /* CyclingHistorySettingsView.swift in Sources */,
