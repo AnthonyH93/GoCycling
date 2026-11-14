@@ -126,9 +126,14 @@ struct RideShareCardView: View {
         }
     }
 
+    // Each stat takes its natural width with equal gaps between them, so long values like
+    // "27.7 km/h" aren't squeezed into an equal-width column while short ones leave empty space
     func statsRow(stats: [RideShareContent.Stat], valueSize: CGFloat = 18) -> some View {
-        HStack(alignment: .top, spacing: 8) {
-            ForEach(stats) { stat in
+        HStack(alignment: .bottom, spacing: 0) {
+            ForEach(Array(stats.enumerated()), id: \.element.id) { index, stat in
+                if index > 0 {
+                    Spacer(minLength: 10)
+                }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(stat.value)
                         .font(.system(size: valueSize, weight: .bold, design: .rounded))
@@ -139,7 +144,6 @@ struct RideShareCardView: View {
                         .opacity(0.75)
                         .lineLimit(1)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }

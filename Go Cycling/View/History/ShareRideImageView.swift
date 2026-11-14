@@ -48,15 +48,6 @@ struct ShareRideImageView: View {
                 .frame(maxWidth: 500)
                 .shadow(color: .black.opacity(0.2), radius: 10, y: 4)
 
-                if style == .stats {
-                    Text("Shares your stats without showing where you rode.")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-
-                Spacer()
-
                 Button {
                     shareCurrentImage()
                 } label: {
@@ -68,6 +59,16 @@ struct ShareRideImageView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                 .disabled(renderedImages[style] == nil)
+                .frame(maxWidth: 500)
+
+                if style == .stats {
+                    Text("Shares your stats without showing where you rode.")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+
+                Spacer()
             }
             .padding()
             .navigationTitle("Share Ride")

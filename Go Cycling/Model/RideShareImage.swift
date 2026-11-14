@@ -65,7 +65,7 @@ struct RideShareContent {
         mapType = preferences.mapTypeChoiceConverted.mkMapType
     }
 
-    // Compact durations that fit on the card, e.g. "1h 24m" or "18m 05s"
+    // Compact durations that fit on the card, e.g. "1h 24m", "18m 05s" or "42s"
     static func formatDuration(_ time: TimeInterval) -> String {
         let totalSeconds = Int(time)
         let hours = totalSeconds / 3600
@@ -74,7 +74,10 @@ struct RideShareContent {
         if hours > 0 {
             return "\(hours)h \(String(format: "%02d", minutes))m"
         }
-        return "\(minutes)m \(String(format: "%02d", seconds))s"
+        if minutes > 0 {
+            return "\(minutes)m \(String(format: "%02d", seconds))s"
+        }
+        return "\(seconds)s"
     }
 }
 
