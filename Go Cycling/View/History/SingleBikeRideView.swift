@@ -19,6 +19,7 @@ struct SingleBikeRideView: View {
     @State private var statsExpanded = true
     @State private var exportedFiles: ExportedFiles? = nil
     @State private var showingExportError = false
+    @State private var showingShareImage = false
 
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTab = TelemetryTab.History
@@ -42,8 +43,14 @@ struct SingleBikeRideView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    // Share options for this ride; a "Share Image" option is planned alongside GPX export
+                    // Share options for this ride
                     Menu {
+                        Button {
+                            self.showingShareImage = true
+                            telemetryManager.sendCyclingSignal(tab: telemetryTab, action: TelemetryCyclingAction.OpenShareImage)
+                        } label: {
+                            Label("Share Image", systemImage: "photo")
+                        }
                         Button {
                             self.exportGPX()
                         } label: {
@@ -71,6 +78,13 @@ struct SingleBikeRideView: View {
             EmptyView()
                 .sheet(item: $exportedFiles) { files in
                     ActivityViewController(activityItems: files.urls)
+                }
+        )
+        .background(
+            EmptyView()
+                .sheet(isPresented: $showingShareImage) {
+                    ShareRideImageView(bikeRide: bikeRide)
+                        .environmentObject(preferences)
                 }
         )
         .alert(isPresented: $showingExportError) {
