@@ -25,6 +25,8 @@ struct ShareRideImageView: View {
     @State private var sharedImage: SharedImage? = nil
 
     private var currentImage: UIImage? { renderedImages[imageKey(style, appearance)] }
+    // Map and Route show the route, so they're unavailable when the privacy setting hides all of it
+    private var styleUnavailable: Bool { style != .stats && content?.routeHidden == true }
 
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTab = TelemetryTab.History
@@ -42,7 +44,13 @@ struct ShareRideImageView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .fill(Color(.secondarySystemFill))
-                    if let image = currentImage {
+                    if styleUnavailable {
+                        Text("This ride is too short to show its route with your privacy setting. Choose Stats, or change it in Settings → Privacy.")
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(32)
+                    } else if let image = currentImage {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
@@ -65,11 +73,16 @@ struct ShareRideImageView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
-                .disabled(currentImage == nil)
+                .disabled(currentImage == nil || styleUnavailable)
                 .frame(maxWidth: 500)
 
                 if style == .stats {
                     Text("Shares your stats without showing where you rode.")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                } else if !styleUnavailable, let privacyDistanceLabel = content?.privacyDistanceLabel {
+                    Text("The first and last \(privacyDistanceLabel) of the route are hidden. You can change this in Settings → Privacy.")
                         .font(.footnote)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -102,7 +115,11 @@ struct ShareRideImageView: View {
         .navigationViewStyle(.stack)
         .onAppear {
             guard content == nil else { return }
-            content = RideShareContent(bikeRide: bikeRide, preferences: preferences)
+            let rideContent = RideShareContent(bikeRide: bikeRide, preferences: preferences)
+            content = rideContent
+            if rideContent.routeHidden {
+                style = .stats
+            }
             appearance = RideShareAppearance.preferred(systemIsDark: colorScheme == .dark)
             renderImages()
         }
@@ -117,15 +134,17 @@ struct ShareRideImageView: View {
         guard let content = content else { return }
         let appearance = self.appearance
 
-        // The route and stats cards don't need any network, so render them straight away
-        for style in [RideShareStyle.route, .stats] where renderedImages[imageKey(style, appearance)] == nil {
+        // The route and stats cards don't need any network, so render them straight away.
+        // Nothing that shows the route is rendered when the privacy setting hides it
+        let styles: [RideShareStyle] = content.routeHidden ? [.stats] : [.route, .stats]
+        for style in styles where renderedImages[imageKey(style, appearance)] == nil {
             renderedImages[imageKey(style, appearance)] = RideShareImageRenderer.render(
                 RideShareCardView(style: style, content: content, mapImage: nil, appearance: appearance), appearance: appearance)
         }
 
         // The map card waits for the map snapshot, falling back to a plain background if it fails
         let mapKey = imageKey(.map, appearance)
-        guard renderedImages[mapKey] == nil, !mapSnapshotsInProgress.contains(mapKey) else { return }
+        guard !content.routeHidden, renderedImages[mapKey] == nil, !mapSnapshotsInProgress.contains(mapKey) else { return }
         mapSnapshotsInProgress.insert(mapKey)
         RideShareImageRenderer.makeMapImage(for: content, appearance: appearance) { mapImage in
             renderedImages[mapKey] = RideShareImageRenderer.render(

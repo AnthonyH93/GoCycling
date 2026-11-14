@@ -17,6 +17,56 @@ enum RideShareStyle: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
+// Hides the start and end of routes in shared images, which are often the rider's home
+enum RoutePrivacy {
+    static let defaultDistance: CLLocationDistance = 200
+
+    struct Option: Identifiable, Hashable {
+        let metres: CLLocationDistance
+        let label: String
+        var id: CLLocationDistance { metres }
+    }
+
+    static func options(usingMetric: Bool) -> [Option] {
+        if usingMetric {
+            return [Option(metres: 0, label: "Off"), Option(metres: 200, label: "200 m"),
+                    Option(metres: 500, label: "500 m"), Option(metres: 1000, label: "1 km")]
+        }
+        return [Option(metres: 0, label: "Off"), Option(metres: 160.9344, label: "0.1 mi"),
+                Option(metres: 402.336, label: "0.25 mi"), Option(metres: 804.672, label: "0.5 mi")]
+    }
+
+    // The closest option in the user's units, so a distance chosen in one unit system still shows sensibly in the other
+    static func nearestOption(to metres: CLLocationDistance, usingMetric: Bool) -> Option {
+        let options = options(usingMetric: usingMetric)
+        if metres <= 0 { return options[0] }
+        return options.dropFirst().min { abs($0.metres - metres) < abs($1.metres - metres) } ?? options[0]
+    }
+
+    // Removes `distance` from each end of the route. Returns nil when nothing would be left,
+    // since showing even a sliver of a short ride would reveal where it was
+    static func trim(_ coordinates: [CLLocationCoordinate2D], distance: CLLocationDistance) -> [CLLocationCoordinate2D]? {
+        guard distance > 0 else { return coordinates }
+        guard coordinates.count > 1 else { return nil }
+
+        var cumulative: [CLLocationDistance] = [0]
+        for index in 1..<coordinates.count {
+            let previous = CLLocation(latitude: coordinates[index - 1].latitude, longitude: coordinates[index - 1].longitude)
+            let current = CLLocation(latitude: coordinates[index].latitude, longitude: coordinates[index].longitude)
+            cumulative.append(cumulative[index - 1] + current.distance(from: previous))
+        }
+
+        let total = cumulative[cumulative.count - 1]
+        guard total > distance * 2,
+              let first = cumulative.firstIndex(where: { $0 >= distance }),
+              let last = cumulative.lastIndex(where: { $0 <= total - distance }),
+              last > first else {
+            return nil
+        }
+        return Array(coordinates[first...last])
+    }
+}
+
 // Light or dark version of a share card
 enum RideShareAppearance: String {
     case light
@@ -49,7 +99,12 @@ struct RideShareContent {
         var id: String { label }
     }
 
+    // The route with the privacy distance trimmed from each end; empty when the route is hidden
     let coordinates: [CLLocationCoordinate2D]
+    // True when the ride is too short to show any of its route with the privacy setting
+    let routeHidden: Bool
+    // e.g. "200 m" when the start and end are trimmed, nil when the privacy setting is off
+    let privacyDistanceLabel: String?
     let title: String
     let dateText: String
     let distance: Stat
@@ -63,9 +118,16 @@ struct RideShareContent {
     init(bikeRide: BikeRide, preferences: Preferences) {
         let latitudes = bikeRide.cyclingLatitudes
         let longitudes = bikeRide.cyclingLongitudes
-        coordinates = (0..<min(latitudes.count, longitudes.count)).map {
+        let fullRoute = (0..<min(latitudes.count, longitudes.count)).map {
             CLLocationCoordinate2D(latitude: latitudes[$0], longitude: longitudes[$0])
         }
+        let privacyDistance = preferences.routePrivacyDistance
+        let trimmedRoute = RoutePrivacy.trim(fullRoute, distance: privacyDistance)
+        coordinates = trimmedRoute ?? []
+        routeHidden = trimmedRoute == nil
+        privacyDistanceLabel = privacyDistance > 0
+            ? RoutePrivacy.nearestOption(to: privacyDistance, usingMetric: preferences.usingMetric).label
+            : nil
 
         let hasCategory = preferences.namedRoutes && !bikeRide.cyclingRouteName.isEmpty && bikeRide.cyclingRouteName != "Uncategorized"
         title = hasCategory ? bikeRide.cyclingRouteName : "Bike Ride"

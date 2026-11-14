@@ -151,4 +151,5 @@ enum TelemetrySettingsAction: String {
     case DeleteStats = "deleteAllStatisticsPressed"
     // Privacy actions
     case TelemetryOptOut = "telemetryOptOutSwitchPressed"
+    case RoutePrivacy = "routePrivacyDistanceChanged"
 }
