@@ -20,23 +20,7 @@ struct PrivacySettingsView: View {
         )
     }
 
-    // Shows the closest option in the user's units for whatever distance is stored
-    var routePrivacyBinding: Binding<RoutePrivacy.Option> {
-        Binding(
-            get: { RoutePrivacy.nearestOption(to: preferences.routePrivacyDistance, usingMetric: preferences.usingMetric) },
-            set: { option in
-                preferences.updateRoutePrivacyDistance(option.metres)
-                telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.RoutePrivacy)
-            }
-        )
-    }
-
     var body: some View {
-        Picker("Hide Start & End of Routes", selection: routePrivacyBinding) {
-            ForEach(RoutePrivacy.options(usingMetric: preferences.usingMetric)) { option in
-                Text(option.label).tag(option)
-            }
-        }
         Toggle("Share Anonymous Analytics", isOn: telemetryBinding)
             .onChange(of: preferences.telemetryEnabled) { value in
                 TelemetryManager.sharedTelemetryManager.userTelemetryEnabled = value

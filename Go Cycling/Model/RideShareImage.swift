@@ -17,9 +17,21 @@ enum RideShareStyle: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-// Hides the start and end of routes in shared images, which are often the rider's home
+// Hides the start and end of routes in shared images, which are often the rider's home.
+// Chosen in the share sheet, since how much to hide depends on who the image is for
 enum RoutePrivacy {
     static let defaultDistance: CLLocationDistance = 200
+
+    // The last distance chosen in the share sheet is remembered, starting at the default
+    private static let storageKey = "rideShareImagePrivacyDistance"
+
+    static var preferredDistance: CLLocationDistance {
+        UserDefaults.standard.object(forKey: storageKey) != nil ? UserDefaults.standard.double(forKey: storageKey) : defaultDistance
+    }
+
+    static func savePreference(_ distance: CLLocationDistance) {
+        UserDefaults.standard.set(distance, forKey: storageKey)
+    }
 
     struct Option: Identifiable, Hashable {
         let metres: CLLocationDistance
@@ -101,10 +113,8 @@ struct RideShareContent {
 
     // The route with the privacy distance trimmed from each end; empty when the route is hidden
     let coordinates: [CLLocationCoordinate2D]
-    // True when the ride is too short to show any of its route with the privacy setting
+    // True when the ride is too short to show any of its route with the chosen privacy distance
     let routeHidden: Bool
-    // e.g. "200 m" when the start and end are trimmed, nil when the privacy setting is off
-    let privacyDistanceLabel: String?
     let title: String
     let dateText: String
     let distance: Stat
@@ -115,19 +125,15 @@ struct RideShareContent {
 
     var allStats: [Stat] { [distance] + otherStats }
 
-    init(bikeRide: BikeRide, preferences: Preferences) {
+    init(bikeRide: BikeRide, preferences: Preferences, privacyDistance: CLLocationDistance) {
         let latitudes = bikeRide.cyclingLatitudes
         let longitudes = bikeRide.cyclingLongitudes
         let fullRoute = (0..<min(latitudes.count, longitudes.count)).map {
             CLLocationCoordinate2D(latitude: latitudes[$0], longitude: longitudes[$0])
         }
-        let privacyDistance = preferences.routePrivacyDistance
         let trimmedRoute = RoutePrivacy.trim(fullRoute, distance: privacyDistance)
         coordinates = trimmedRoute ?? []
         routeHidden = trimmedRoute == nil
-        privacyDistanceLabel = privacyDistance > 0
-            ? RoutePrivacy.nearestOption(to: privacyDistance, usingMetric: preferences.usingMetric).label
-            : nil
 
         let hasCategory = preferences.namedRoutes && !bikeRide.cyclingRouteName.isEmpty && bikeRide.cyclingRouteName != "Uncategorized"
         title = hasCategory ? bikeRide.cyclingRouteName : "Bike Ride"

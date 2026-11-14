@@ -50,8 +50,6 @@ class Preferences: ObservableObject {
     @Published var healthSyncEnabled: Bool
     @Published var autoPauseEnabled: Bool
     @Published var telemetryEnabled: Bool
-    // Distance in metres hidden from the start and end of routes in shared images (0 = off)
-    @Published var routePrivacyDistance: Double
     @Published var mapTypeChoice: String
 
 
@@ -63,8 +61,6 @@ class Preferences: ObservableObject {
     static private let iCloudOnKey = "iCloudOn"
     // Telemetry opt-out is stored locally only (privacy preference should stay device-local)
     static let telemetryEnabledKey = "telemetryEnabled"
-    // Route privacy distance is also a device-local privacy preference
-    static let routePrivacyDistanceKey = "routePrivacyDistance"
     // Custom colour hex — synced to iCloud so the picker choice follows the user across devices
     static let customColourHexKey = "customColourHex"
     static private let keyTypes = [0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2] // 0: Bool, 1: Int, 2: String
@@ -138,9 +134,6 @@ class Preferences: ObservableObject {
         self.telemetryEnabled = storedTelemetry != nil
             ? UserDefaults.standard.bool(forKey: Preferences.telemetryEnabledKey)
             : true
-        self.routePrivacyDistance = UserDefaults.standard.object(forKey: Preferences.routePrivacyDistanceKey) != nil
-            ? UserDefaults.standard.double(forKey: Preferences.routePrivacyDistanceKey)
-            : RoutePrivacy.defaultDistance
 
         // Used to watch for iCloud NSUbiquitousKeyValueStore change events to sync preferences from other devices
         NotificationCenter.default.addObserver(self, selector: #selector(keysDidChangeOnCloud(notification:)),
@@ -196,9 +189,6 @@ class Preferences: ObservableObject {
         self.telemetryEnabled = storedTelemetry != nil
             ? UserDefaults.standard.bool(forKey: Preferences.telemetryEnabledKey)
             : true
-        self.routePrivacyDistance = UserDefaults.standard.object(forKey: Preferences.routePrivacyDistanceKey) != nil
-            ? UserDefaults.standard.double(forKey: Preferences.routePrivacyDistanceKey)
-            : RoutePrivacy.defaultDistance
     }
 
     static public func iCloudAvailable() -> Bool {
@@ -405,11 +395,6 @@ class Preferences: ObservableObject {
         Preferences.syncLocalAndCloud(localToCloud: true)
     }
     
-    public func updateRoutePrivacyDistance(_ metres: Double) {
-        UserDefaults.standard.set(metres, forKey: Preferences.routePrivacyDistanceKey)
-        self.routePrivacyDistance = metres
-    }
-
     public func updateStringPreference(preference: CustomizablePreferences, value: String) {
         switch preference {
         case .colour:

@@ -18,15 +18,33 @@ struct ShareRideImageView: View {
     @State private var style: RideShareStyle = .map
     // Resolved when the sheet appears: the remembered choice, or the system appearance
     @State private var appearance: RideShareAppearance = .dark
+    // Metres hidden from each end of the route; resolved when the sheet appears from the last choice
+    @State private var privacyDistance: Double = RoutePrivacy.defaultDistance
     @State private var content: RideShareContent? = nil
-    // Rendered cards keyed by appearance and style, so switching back and forth doesn't re-render
+    // Rendered cards keyed by appearance, style and privacy distance, so switching back and forth doesn't re-render
     @State private var renderedImages: [String: UIImage] = [:]
     @State private var mapSnapshotsInProgress: Set<String> = []
     @State private var sharedImage: SharedImage? = nil
 
     private var currentImage: UIImage? { renderedImages[imageKey(style, appearance)] }
-    // Map and Route show the route, so they're unavailable when the privacy setting hides all of it
+    // Map and Route show the route, so they're unavailable when the privacy distance hides all of it
     private var styleUnavailable: Bool { style != .stats && content?.routeHidden == true }
+    private var privacyOption: RoutePrivacy.Option {
+        RoutePrivacy.nearestOption(to: privacyDistance, usingMetric: preferences.usingMetric)
+    }
+
+    private var privacyBinding: Binding<RoutePrivacy.Option> {
+        Binding(
+            get: { privacyOption },
+            set: { option in
+                privacyDistance = option.metres
+                RoutePrivacy.savePreference(option.metres)
+                content = RideShareContent(bikeRide: bikeRide, preferences: preferences, privacyDistance: option.metres)
+                renderImages()
+                telemetryManager.sendCyclingSignal(tab: telemetryTab, action: TelemetryCyclingAction.SharePrivacy)
+            }
+        )
+    }
 
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTab = TelemetryTab.History
@@ -45,7 +63,7 @@ struct ShareRideImageView: View {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .fill(Color(.secondarySystemFill))
                     if styleUnavailable {
-                        Text("This ride is too short to show its route with your privacy setting. Choose Stats, or change it in Settings → Privacy.")
+                        Text("This ride is too short to show any of its route while hiding the first and last \(privacyOption.label). Hide less below, or choose Stats.")
                             .font(.callout)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
@@ -63,6 +81,21 @@ struct ShareRideImageView: View {
                 .frame(maxWidth: 500)
                 .shadow(color: .black.opacity(0.2), radius: 10, y: 4)
 
+                // How much of the route to hide depends on who the image is for, so it's chosen here
+                if style != .stats {
+                    Menu {
+                        Picker("Hide Start & End", selection: privacyBinding) {
+                            ForEach(RoutePrivacy.options(usingMetric: preferences.usingMetric)) { option in
+                                Text(option.metres > 0 ? "Hide first & last \(option.label)" : "Show full route").tag(option)
+                            }
+                        }
+                    } label: {
+                        Label(privacyDistance > 0 ? "Hiding first & last \(privacyOption.label)" : "Showing full route",
+                              systemImage: privacyDistance > 0 ? "eye.slash" : "eye")
+                            .font(.subheadline)
+                    }
+                }
+
                 Button {
                     shareCurrentImage()
                 } label: {
@@ -78,11 +111,6 @@ struct ShareRideImageView: View {
 
                 if style == .stats {
                     Text("Shares your stats without showing where you rode.")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                } else if !styleUnavailable, let privacyDistanceLabel = content?.privacyDistanceLabel {
-                    Text("The first and last \(privacyDistanceLabel) of the route are hidden. You can change this in Settings → Privacy.")
                         .font(.footnote)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -115,7 +143,8 @@ struct ShareRideImageView: View {
         .navigationViewStyle(.stack)
         .onAppear {
             guard content == nil else { return }
-            let rideContent = RideShareContent(bikeRide: bikeRide, preferences: preferences)
+            privacyDistance = RoutePrivacy.preferredDistance
+            let rideContent = RideShareContent(bikeRide: bikeRide, preferences: preferences, privacyDistance: privacyDistance)
             content = rideContent
             if rideContent.routeHidden {
                 style = .stats
@@ -126,10 +155,11 @@ struct ShareRideImageView: View {
     }
 
     private func imageKey(_ style: RideShareStyle, _ appearance: RideShareAppearance) -> String {
-        "\(appearance.rawValue)-\(style.rawValue)"
+        // The stats card doesn't show the route, so it doesn't depend on the privacy distance
+        style == .stats ? "\(appearance.rawValue)-\(style.rawValue)" : "\(appearance.rawValue)-\(style.rawValue)-\(Int(privacyDistance))"
     }
 
-    // Renders any cards missing for the current appearance
+    // Renders any cards missing for the current appearance and privacy distance
     private func renderImages() {
         guard let content = content else { return }
         let appearance = self.appearance

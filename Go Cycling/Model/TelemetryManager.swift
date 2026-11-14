@@ -102,6 +102,7 @@ enum TelemetryCyclingAction: String {
     case EmptyHistoryImportGPX = "importGPXFromEmptyHistoryPressed"
     case OpenShareImage = "openedShareRouteImage"
     case ShareImage = "sharedRouteImage"
+    case SharePrivacy = "changedShareImagePrivacyDistance"
     // Statistics actions
     case OneWeek = "clickedOn1Week"
     case FiveWeeks = "clickedOn5Weeks"
@@ -151,5 +152,4 @@ enum TelemetrySettingsAction: String {
     case DeleteStats = "deleteAllStatisticsPressed"
     // Privacy actions
     case TelemetryOptOut = "telemetryOptOutSwitchPressed"
-    case RoutePrivacy = "routePrivacyDistanceChanged"
 }

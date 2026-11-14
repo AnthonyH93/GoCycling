@@ -52,7 +52,7 @@ struct SettingsView: View {
                     }
                     .disabled(cyclingStatus.isCycling)
                     Section(header: Text("Privacy"),
-                            footer: Text("Hiding the start and end of routes keeps shared ride images from showing where your rides begin and end, such as your home. Analytics are completely anonymous and contain no personal or identifiable information. They help prioritize future improvements. You can opt out at any time.")
+                            footer: Text("Analytics are completely anonymous and contain no personal or identifiable information. They help prioritize future improvements. You can opt out at any time.")
                                 .fixedSize(horizontal: false, vertical: true)) {
                         PrivacySettingsView()
                     }
