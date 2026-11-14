@@ -109,7 +109,7 @@ class ActivityAwardsViewModel: ObservableObject {
     func getAwardName(index: Int, usingMetric: Bool) -> String {
         let distanceString = MetricsFormatting.formatDistance(distance: Records.awardValues[index], usingMetric: usingMetric)
         if (index < 3) {
-            return "Cycle at least \(distanceString) in a single route"
+            return "Cycle at least \(distanceString) in a single ride"
         }
         else {
             return "Cycle a total of at least \(distanceString)"

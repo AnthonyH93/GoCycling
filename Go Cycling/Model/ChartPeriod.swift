@@ -89,7 +89,7 @@ enum ChartMetric: Int, CaseIterable, Identifiable {
         case .distance:      return "Distance"
         case .elevationGain: return "Elevation"
         case .time:          return "Time"
-        case .routes:        return "Routes"
+        case .routes:        return "Rides"
         }
     }
 }

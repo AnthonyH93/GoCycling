@@ -56,7 +56,7 @@ struct SyncSettingsView: View {
         }
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("Restart is Required"),
-                  message: Text("Please restart the application to \(preferences.iCloudOn ? "enable" : "disable") iCloud syncing for cycling routes.")
+                  message: Text("Please restart the application to \(preferences.iCloudOn ? "enable" : "disable") iCloud syncing for your rides.")
             )
         }
         // HealthKit sync setting

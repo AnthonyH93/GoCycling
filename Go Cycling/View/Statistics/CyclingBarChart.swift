@@ -206,7 +206,7 @@ struct CyclingBarChart: View {
             .padding(.horizontal, 4)
 
             if points.isEmpty {
-                Text("No routes in this period")
+                Text("No rides in this period")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -366,7 +366,7 @@ struct CyclingBarChart: View {
         switch metric {
         case .distance:      return MetricsFormatting.formatDistance(distance: point.distance, usingMetric: usingMetric)
         case .time:          return MetricsFormatting.formatTime(time: point.time)
-        case .routes:        return "\(point.routes) \(point.routes == 1 ? "route" : "routes")"
+        case .routes:        return "\(point.routes) \(point.routes == 1 ? "ride" : "rides")"
         case .elevationGain: return MetricsFormatting.formatElevationWithoutUnits(elevation: point.elevationGain, usingMetric: usingMetric) + " " + MetricsFormatting.getElevationUnits(usingMetric: usingMetric)
         }
     }

@@ -42,7 +42,7 @@ struct SingleChartListCellView: View {
                     .foregroundColor(getPercentageChange(index: 1) >= 0 ? .green : .red)
             }
             HStack {
-                Text("Completed Routes")
+                Text("Completed Rides")
                 Spacer()
                 Text("\(numberOfRoutes[1])")
                     .bold()
