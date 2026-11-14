@@ -13,11 +13,18 @@ struct ShareRideImageView: View {
 
     @EnvironmentObject var preferences: Preferences
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) private var colorScheme
 
     @State private var style: RideShareStyle = .map
-    @State private var renderedImages: [RideShareStyle: UIImage] = [:]
+    // Resolved when the sheet appears: the remembered choice, or the system appearance
+    @State private var appearance: RideShareAppearance = .dark
+    @State private var content: RideShareContent? = nil
+    // Rendered cards keyed by appearance and style, so switching back and forth doesn't re-render
+    @State private var renderedImages: [String: UIImage] = [:]
+    @State private var mapSnapshotsInProgress: Set<String> = []
     @State private var sharedImage: SharedImage? = nil
-    @State private var hasStartedRendering = false
+
+    private var currentImage: UIImage? { renderedImages[imageKey(style, appearance)] }
 
     let telemetryManager = TelemetryManager.sharedTelemetryManager
     let telemetryTab = TelemetryTab.History
@@ -35,7 +42,7 @@ struct ShareRideImageView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .fill(Color(.secondarySystemFill))
-                    if let image = renderedImages[style] {
+                    if let image = currentImage {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
@@ -58,7 +65,7 @@ struct ShareRideImageView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
-                .disabled(renderedImages[style] == nil)
+                .disabled(currentImage == nil)
                 .frame(maxWidth: 500)
 
                 if style == .stats {
@@ -74,6 +81,16 @@ struct ShareRideImageView: View {
             .navigationTitle("Share Ride")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        appearance = appearance.toggled
+                        appearance.savePreference()
+                        renderImages()
+                    } label: {
+                        Image(systemName: appearance.isDark ? "moon.fill" : "sun.max.fill")
+                    }
+                    .accessibilityLabel(appearance.isDark ? "Switch to light image" : "Switch to dark image")
+                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
                 }
@@ -83,28 +100,42 @@ struct ShareRideImageView: View {
             }
         }
         .navigationViewStyle(.stack)
-        .onAppear(perform: renderImages)
+        .onAppear {
+            guard content == nil else { return }
+            content = RideShareContent(bikeRide: bikeRide, preferences: preferences)
+            appearance = RideShareAppearance.preferred(systemIsDark: colorScheme == .dark)
+            renderImages()
+        }
     }
 
-    private func renderImages() {
-        guard !hasStartedRendering else { return }
-        hasStartedRendering = true
+    private func imageKey(_ style: RideShareStyle, _ appearance: RideShareAppearance) -> String {
+        "\(appearance.rawValue)-\(style.rawValue)"
+    }
 
-        let content = RideShareContent(bikeRide: bikeRide, preferences: preferences)
+    // Renders any cards missing for the current appearance
+    private func renderImages() {
+        guard let content = content else { return }
+        let appearance = self.appearance
 
         // The route and stats cards don't need any network, so render them straight away
-        for style in [RideShareStyle.route, .stats] {
-            renderedImages[style] = RideShareImageRenderer.render(RideShareCardView(style: style, content: content, mapImage: nil))
+        for style in [RideShareStyle.route, .stats] where renderedImages[imageKey(style, appearance)] == nil {
+            renderedImages[imageKey(style, appearance)] = RideShareImageRenderer.render(
+                RideShareCardView(style: style, content: content, mapImage: nil, appearance: appearance), appearance: appearance)
         }
 
         // The map card waits for the map snapshot, falling back to a plain background if it fails
-        RideShareImageRenderer.makeMapImage(for: content) { mapImage in
-            renderedImages[.map] = RideShareImageRenderer.render(RideShareCardView(style: .map, content: content, mapImage: mapImage))
+        let mapKey = imageKey(.map, appearance)
+        guard renderedImages[mapKey] == nil, !mapSnapshotsInProgress.contains(mapKey) else { return }
+        mapSnapshotsInProgress.insert(mapKey)
+        RideShareImageRenderer.makeMapImage(for: content, appearance: appearance) { mapImage in
+            renderedImages[mapKey] = RideShareImageRenderer.render(
+                RideShareCardView(style: .map, content: content, mapImage: mapImage, appearance: appearance), appearance: appearance)
+            mapSnapshotsInProgress.remove(mapKey)
         }
     }
 
     private func shareCurrentImage() {
-        guard let image = renderedImages[style] else { return }
+        guard let image = currentImage else { return }
         sharedImage = SharedImage(image: image)
         telemetryManager.sendCyclingSignal(tab: telemetryTab, action: TelemetryCyclingAction.ShareImage)
     }

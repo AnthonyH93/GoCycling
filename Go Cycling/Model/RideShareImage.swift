@@ -17,6 +17,30 @@ enum RideShareStyle: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
+// Light or dark version of a share card
+enum RideShareAppearance: String {
+    case light
+    case dark
+
+    var isDark: Bool { self == .dark }
+    var toggled: RideShareAppearance { isDark ? .light : .dark }
+    var userInterfaceStyle: UIUserInterfaceStyle { isDark ? .dark : .light }
+
+    // Once the user picks an appearance in the share sheet it is remembered; until then it follows the system
+    private static let storageKey = "rideShareImageAppearance"
+
+    static func preferred(systemIsDark: Bool) -> RideShareAppearance {
+        if let stored = UserDefaults.standard.string(forKey: storageKey), let appearance = RideShareAppearance(rawValue: stored) {
+            return appearance
+        }
+        return systemIsDark ? .dark : .light
+    }
+
+    func savePreference() {
+        UserDefaults.standard.set(rawValue, forKey: RideShareAppearance.storageKey)
+    }
+}
+
 // Everything a share card needs, pulled out of the BikeRide and user preferences up front
 struct RideShareContent {
     struct Stat: Identifiable {
@@ -97,7 +121,7 @@ enum RideShareImageRenderer {
 
     // Renders a map of the ride with the route drawn on top. Calls completion on the main queue with nil
     // if there is no route or the snapshot fails (e.g. offline), in which case the card falls back to a plain background
-    static func makeMapImage(for content: RideShareContent, completion: @escaping (UIImage?) -> Void) {
+    static func makeMapImage(for content: RideShareContent, appearance: RideShareAppearance, completion: @escaping (UIImage?) -> Void) {
         let coordinates = content.coordinates
         guard coordinates.count > 1 else {
             completion(nil)
@@ -109,7 +133,7 @@ enum RideShareImageRenderer {
         options.size = canvasSize
         options.scale = renderScale
         options.mapType = content.mapType
-        options.traitCollection = UITraitCollection(userInterfaceStyle: .dark)
+        options.traitCollection = UITraitCollection(userInterfaceStyle: appearance.userInterfaceStyle)
         // Hide businesses and landmarks: they clutter the card and reveal more about where the ride was
         options.pointOfInterestFilter = .excludingAll
 
@@ -133,8 +157,8 @@ enum RideShareImageRenderer {
                 path.lineJoinStyle = .round
                 path.lineCapStyle = .round
 
-                // White casing keeps the route readable on any map colour
-                UIColor.white.withAlphaComponent(0.9).setStroke()
+                // A contrasting casing keeps the route readable on any map and with any accent colour
+                (appearance.isDark ? UIColor.white.withAlphaComponent(0.9) : UIColor.black.withAlphaComponent(0.6)).setStroke()
                 path.lineWidth = 6
                 path.stroke()
                 content.accentColor.setStroke()
@@ -161,12 +185,12 @@ enum RideShareImageRenderer {
 
     // Renders a SwiftUI card to an image. Uses a hosting controller snapshot so it works on iOS 15
     // (SwiftUI's ImageRenderer requires iOS 16)
-    static func render<Card: View>(_ card: Card) -> UIImage {
+    static func render<Card: View>(_ card: Card, appearance: RideShareAppearance) -> UIImage {
         // Ignore safe areas, otherwise the hosting controller insets the card by the status bar height
         let controller = UIHostingController(rootView: card.frame(width: canvasSize.width, height: canvasSize.height).ignoresSafeArea())
-        controller.overrideUserInterfaceStyle = .dark
+        controller.overrideUserInterfaceStyle = appearance.userInterfaceStyle
         controller.view.bounds = CGRect(origin: .zero, size: canvasSize)
-        controller.view.backgroundColor = .black
+        controller.view.backgroundColor = appearance.isDark ? .black : .white
         controller.view.setNeedsLayout()
         controller.view.layoutIfNeeded()
 

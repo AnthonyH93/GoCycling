@@ -14,8 +14,13 @@ struct RideShareCardView: View {
     let content: RideShareContent
     // Map with the route drawn on it; only used by the map style, which falls back to a plain background without it
     let mapImage: UIImage?
+    let appearance: RideShareAppearance
 
     private var accent: Color { Color(content.accentColor) }
+    private var isDark: Bool { appearance.isDark }
+    private var foreground: Color { isDark ? .white : Color(white: 0.08) }
+    // Fades behind text on the map card: black over a dark map, white over a light one
+    private var scrim: Color { isDark ? .black : .white }
 
     var body: some View {
         Group {
@@ -30,7 +35,7 @@ struct RideShareCardView: View {
         }
         .frame(width: RideShareImageRenderer.canvasSize.width, height: RideShareImageRenderer.canvasSize.height)
         .clipped()
-        .foregroundColor(.white)
+        .foregroundColor(foreground)
     }
 
     // MARK: Styles
@@ -41,9 +46,8 @@ struct RideShareCardView: View {
                 Image(uiImage: mapImage)
                     .resizable()
             } else {
-                darkBackground
-                RouteShape(coordinates: content.coordinates)
-                    .stroke(accent, style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
+                plainBackground
+                routeLine
                     .padding(EdgeInsets(top: 80, leading: 40, bottom: 130, trailing: 40))
             }
 
@@ -52,7 +56,7 @@ struct RideShareCardView: View {
                     .padding(16)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 16)
-                    .background(LinearGradient(colors: [.black.opacity(0.75), .black.opacity(0.4), .clear], startPoint: .top, endPoint: .bottom))
+                    .background(LinearGradient(colors: [scrim.opacity(isDark ? 0.75 : 0.85), scrim.opacity(isDark ? 0.4 : 0.5), .clear], startPoint: .top, endPoint: .bottom))
                 Spacer()
                 VStack(spacing: 14) {
                     statsRow(stats: content.allStats)
@@ -61,20 +65,20 @@ struct RideShareCardView: View {
                 }
                 .padding(16)
                 .padding(.top, 36)
-                .background(LinearGradient(colors: [.clear, .black.opacity(0.6), .black.opacity(0.85)], startPoint: .top, endPoint: .bottom))
+                // In light mode the fade eases off at the very bottom so Apple's Maps attribution isn't washed out
+                .background(LinearGradient(colors: isDark ? [.clear, scrim.opacity(0.6), scrim.opacity(0.85)] : [.clear, scrim.opacity(0.7), scrim.opacity(0.75), scrim.opacity(0.3)],
+                                           startPoint: .top, endPoint: .bottom))
             }
         }
     }
 
     var routeCard: some View {
         ZStack {
-            darkBackground
+            plainBackground
             VStack(spacing: 0) {
                 header
                     .frame(maxWidth: .infinity, alignment: .leading)
-                RouteShape(coordinates: content.coordinates)
-                    .stroke(accent, style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
-                    .shadow(color: accent.opacity(0.8), radius: 6)
+                routeLine
                     .padding(.vertical, 18)
                     .padding(.horizontal, 24)
                 VStack(spacing: 14) {
@@ -88,7 +92,9 @@ struct RideShareCardView: View {
 
     var statsCard: some View {
         ZStack {
-            LinearGradient(colors: [accent, accent.opacity(0.55), .black], startPoint: .topLeading, endPoint: .bottomTrailing)
+            // Light mode uses a soft tint of the accent so dark text stays readable on any colour
+            LinearGradient(colors: isDark ? [accent, accent.opacity(0.55), .black] : [accent.opacity(0.45), accent.opacity(0.15), .white],
+                           startPoint: .topLeading, endPoint: .bottomTrailing)
             VStack(alignment: .leading, spacing: 0) {
                 header
                 Spacer()
@@ -110,8 +116,23 @@ struct RideShareCardView: View {
 
     // MARK: Building blocks
 
-    var darkBackground: some View {
-        LinearGradient(colors: [Color(white: 0.12), Color(white: 0.04)], startPoint: .top, endPoint: .bottom)
+    var plainBackground: some View {
+        LinearGradient(colors: isDark ? [Color(white: 0.12), Color(white: 0.04)] : [Color(white: 0.98), Color(white: 0.89)],
+                       startPoint: .top, endPoint: .bottom)
+    }
+
+    // The route in the accent colour: glowing on dark backgrounds, with a dark outline on light ones so pale colours stay visible
+    var routeLine: some View {
+        let strokeStyle = StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round)
+        return ZStack {
+            if !isDark {
+                RouteShape(coordinates: content.coordinates)
+                    .stroke(Color.black.opacity(0.55), style: StrokeStyle(lineWidth: 7, lineCap: .round, lineJoin: .round))
+            }
+            RouteShape(coordinates: content.coordinates)
+                .stroke(accent, style: strokeStyle)
+                .shadow(color: isDark ? accent.opacity(0.8) : .clear, radius: 6)
+        }
     }
 
     var header: some View {
