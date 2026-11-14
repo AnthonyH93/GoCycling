@@ -94,7 +94,11 @@ struct CyclingHistorySettingsView: View {
     }
 
     func importRides(from urls: [URL]) {
-        guard !urls.isEmpty else { return }
+        // The picker can hand back nothing when iOS fails to download a file (e.g. from iCloud Drive or another file provider)
+        guard !urls.isEmpty else {
+            importAlertMessage = "The selected files could not be opened. If they are stored in iCloud Drive or another cloud service, open them in the Files app first so they download, then try again."
+            return
+        }
         isImporting = true
         telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.ImportGPX)
 
