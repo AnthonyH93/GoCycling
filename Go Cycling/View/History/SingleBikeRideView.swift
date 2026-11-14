@@ -114,10 +114,12 @@ struct SingleBikeRideView: View {
                     // Total time including pauses, only known for rides recorded after it was tracked
                     if let elapsedTime = bikeRide.cyclingElapsedTime?.doubleValue {
                         let pausedTime = max(elapsedTime - bikeRide.cyclingTime, 0)
-                        Text("Total time \(MetricsFormatting.formatTime(time: elapsedTime).trimmingCharacters(in: .whitespaces)) · Paused \(MetricsFormatting.formatTime(time: pausedTime).trimmingCharacters(in: .whitespaces))")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .padding(.bottom, 12)
+                        HStack(spacing: 20) {
+                            elapsedTimeLabel(title: "Total", time: elapsedTime, systemImage: "clock")
+                            elapsedTimeLabel(title: "Paused", time: pausedTime, systemImage: "pause.circle")
+                        }
+                        .font(.callout)
+                        .padding(.bottom, 12)
                     }
                 }
                 .transition(.opacity)
@@ -143,6 +145,17 @@ struct SingleBikeRideView: View {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
                 statsExpanded.toggle()
             }
+        }
+    }
+
+    func elapsedTimeLabel(title: String, time: TimeInterval, systemImage: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: systemImage)
+                .foregroundColor(.accentColor)
+            Text(title)
+                .foregroundColor(.secondary)
+            Text(MetricsFormatting.formatTime(time: time).trimmingCharacters(in: .whitespaces))
+                .fontWeight(.semibold)
         }
     }
 
