@@ -92,7 +92,7 @@ private struct CyclingChartsMiniCard: View {
                     .foregroundColor(loader.timeChangePct >= 0 ? .green : .red)
             }
             HStack {
-                Text("Routes")
+                Text("Rides")
                 Spacer()
                 Text("\(loader.totalRoutes)")
                     .bold()
@@ -162,7 +162,7 @@ private struct HeatmapMiniCard: View {
                 Text("This year")
                     .foregroundColor(.secondary)
                 Spacer()
-                Text("\(loader.yearlyRideCount) \(loader.yearlyRideCount == 1 ? "route" : "routes")")
+                Text("\(loader.yearlyRideCount) \(loader.yearlyRideCount == 1 ? "ride" : "rides")")
                     .bold()
             }
         }

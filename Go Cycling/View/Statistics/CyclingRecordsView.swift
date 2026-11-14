@@ -15,7 +15,7 @@ struct CyclingRecordsView: View {
         Section(header: Text(RecordsFormatting.headerStrings[0]), footer: Text(RecordsFormatting.getCyclingRecordsFooterText(usingMetric: preferences.usingMetric))) {
             VStack {
                 HStack {
-                    Text("Single Route Records")
+                    Text("Single Ride Records")
                         .font(.headline)
                         .foregroundColor(Color(UserPreferences.convertColourChoiceToUIColor(colour: preferences.colourChoiceConverted)))
                     Spacer()

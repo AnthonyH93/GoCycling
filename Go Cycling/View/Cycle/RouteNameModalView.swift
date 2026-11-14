@@ -36,7 +36,7 @@ struct RouteNameModalView: View {
     
     var body: some View {
         VStack {
-            Text("Categorize Your Route")
+            Text("Categorize Your Ride")
                 .font(.headline)
                 .padding()
             

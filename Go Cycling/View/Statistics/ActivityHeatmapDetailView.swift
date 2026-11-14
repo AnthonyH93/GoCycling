@@ -94,7 +94,7 @@ struct ActivityHeatmapDetailView: View {
             Group {
                 switch selectedMetric {
                 case .routes:
-                    Text("\(viewModel.totalCurrentRoutes) \(viewModel.totalCurrentRoutes == 1 ? "route" : "routes")")
+                    Text("\(viewModel.totalCurrentRoutes) \(viewModel.totalCurrentRoutes == 1 ? "ride" : "rides")")
                 case .distance:
                     Text(MetricsFormatting.formatDistance(distance: viewModel.totalCurrentDistance, usingMetric: preferences.usingMetric))
                 case .time:

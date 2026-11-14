@@ -101,7 +101,7 @@ struct ActivityHeatmapChart: View {
                         Text("· \(formattedValue(day.value))")
                             .font(.caption.bold())
                     } else {
-                        Text("· No routes")
+                        Text("· No rides")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -219,7 +219,7 @@ struct ActivityHeatmapChart: View {
         switch metric {
         case .routes:
             let n = Int(round(value))
-            return "\(n) \(n == 1 ? "route" : "routes")"
+            return "\(n) \(n == 1 ? "ride" : "rides")"
         case .distance:
             return MetricsFormatting.formatDistance(distance: value, usingMetric: usingMetric)
         case .time:

@@ -31,7 +31,7 @@ struct BarChartView: View {
             Picker("Bar Chart Units", selection: $barChartUnitsSelection) {
                 Text("Distance").tag(BarChartUnits.distance)
                 Text("Time").tag(BarChartUnits.time)
-                Text("Routes").tag(BarChartUnits.numberOfRoutes)
+                Text("Rides").tag(BarChartUnits.numberOfRoutes)
             }
             .pickerStyle(.segmented)
             .padding(.bottom, 10)
@@ -48,7 +48,7 @@ struct BarChartView: View {
                     Text("Time Cycled: \(selectedValue)")
                         .bold()
                 case .numberOfRoutes:
-                    Text("Number of Completed Routes: \(selectedValue)")
+                    Text("Number of Completed Rides: \(selectedValue)")
                         .bold()
                 }
             }

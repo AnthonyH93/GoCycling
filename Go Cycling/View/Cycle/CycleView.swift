@@ -93,8 +93,8 @@ struct CycleView: View {
                 .padding(.bottom, 20)
                 // Confirmation alert about ending the current route
                 .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Are you sure that you want to end the current route?"),
-                          message: Text("Please confirm that you are ready to end the current route."),
+                    Alert(title: Text("Are you sure that you want to end the current ride?"),
+                          message: Text("Please confirm that you are ready to end the current ride."),
                           primaryButton: .destructive(Text("Stop")) {
                             // Completing a route is a review worthy event
                             ReviewManager.incrementReviewWorthyCount()

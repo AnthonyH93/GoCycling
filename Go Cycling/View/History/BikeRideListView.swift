@@ -114,7 +114,7 @@ struct BikeRideListView: View {
         }
         // Move alert outside of navigation view due to a SwiftUI bug
         .alert(isPresented: $showingDeleteAlert) {
-            Alert(title: Text("Are you sure that you want to delete this route?"),
+            Alert(title: Text("Are you sure that you want to delete this ride?"),
                   message: Text("This action is not reversible."),
                   primaryButton: .destructive(Text("Delete")) {
                     self.shouldBeDeleted = true
@@ -219,7 +219,7 @@ struct ListView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text("No completed routes to display!")
+                    Text("No completed rides to display!")
                     Spacer()
                 }
                 Spacer()

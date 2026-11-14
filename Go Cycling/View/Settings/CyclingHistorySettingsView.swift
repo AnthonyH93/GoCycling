@@ -22,7 +22,7 @@ struct CyclingHistorySettingsView: View {
     @State private var exportAlertMessage: String? = nil
 
     var body: some View {
-        Toggle("Route Categorization Enabled", isOn: Binding(
+        Toggle("Ride Categorization Enabled", isOn: Binding(
             get: { preferences.namedRoutes },
             set: { value in
                 preferences.updateBoolPreference(preference: CustomizablePreferences.namedRoutes, value: value)
