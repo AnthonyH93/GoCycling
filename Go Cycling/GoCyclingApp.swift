@@ -18,6 +18,9 @@ struct GoCyclingApp: App {
     @StateObject var cyclingStatus = CyclingStatus()
     @StateObject var preferences = Preferences.shared
     @StateObject var records = CyclingRecords.shared
+
+    // Result of importing a GPX file opened from another app (Files, Mail, share sheet, ...)
+    @State private var openedFileImportMessage: String? = nil
     
     init() {
         // Initialize TelemetryDeck
@@ -81,9 +84,31 @@ struct GoCyclingApp: App {
                     // Backfill cyclingAverageSpeed for rides saved before that attribute existed
                     persistenceController.backfillAverageSpeedIfNeeded()
                 })
+                .onOpenURL { url in
+                    importOpenedFile(url)
+                }
+                .alert(isPresented: Binding(
+                    get: { openedFileImportMessage != nil },
+                    set: { if !$0 { openedFileImportMessage = nil } }
+                )) {
+                    Alert(title: Text("GPX Import"), message: Text(openedFileImportMessage ?? ""), dismissButton: .default(Text("OK")))
+                }
         }
         .onChange(of: scenePhase) { _ in
             persistenceController.save()
+        }
+    }
+
+    private func importOpenedFile(_ url: URL) {
+        guard url.isFileURL, url.pathExtension.lowercased() == "gpx" else { return }
+        TelemetryManager.sharedTelemetryManager.sendCyclingSignal(tab: TelemetryTab.History, action: TelemetryCyclingAction.OpenGPX)
+
+        GPXImporter.importFiles(at: [url], container: persistenceController.container) { summary in
+            // Files handed to the app are copied into Documents/Inbox; remove the copy once imported
+            if url.pathComponents.contains("Inbox") {
+                try? FileManager.default.removeItem(at: url)
+            }
+            openedFileImportMessage = summary.message
         }
     }
 }

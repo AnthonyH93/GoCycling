@@ -20,6 +20,7 @@ struct CyclingHistorySettingsView: View {
     @State private var isExporting = false
     @State private var exportedFiles: ExportedFiles? = nil
     @State private var exportAlertMessage: String? = nil
+    @State private var importAlertMessage: String? = nil
 
     var body: some View {
         Toggle("Ride Categorization Enabled", isOn: Binding(
@@ -61,6 +62,28 @@ struct CyclingHistorySettingsView: View {
             set: { if !$0 { exportAlertMessage = nil } }
         )) {
             Alert(title: Text("GPX Export"), message: Text(exportAlertMessage ?? ""), dismissButton: .default(Text("OK")))
+        }
+        ImportGPXButton(
+            onImportStarted: {
+                telemetryManager.sendSettingsSignal(section: telemetryTabSection, action: TelemetrySettingsAction.ImportGPX)
+            },
+            onImportFinished: { message in
+                importAlertMessage = message
+            }
+        ) { isImporting in
+            HStack {
+                Text("Import Rides from GPX")
+                Spacer()
+                if isImporting {
+                    ProgressView()
+                }
+            }
+        }
+        .alert(isPresented: Binding(
+            get: { importAlertMessage != nil },
+            set: { if !$0 { importAlertMessage = nil } }
+        )) {
+            Alert(title: Text("GPX Import"), message: Text(importAlertMessage ?? ""), dismissButton: .default(Text("OK")))
         }
     }
 
