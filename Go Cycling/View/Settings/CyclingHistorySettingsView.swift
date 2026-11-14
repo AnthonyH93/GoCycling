@@ -18,8 +18,7 @@ struct CyclingHistorySettingsView: View {
     let telemetryTabSection = TelemetrySettingsSection.History
 
     @State private var isExporting = false
-    @State private var exportedFileURLs: [URL] = []
-    @State private var showingShareSheet = false
+    @State private var exportedFiles: ExportedFiles? = nil
     @State private var exportAlertMessage: String? = nil
 
     var body: some View {
@@ -54,8 +53,8 @@ struct CyclingHistorySettingsView: View {
             }
         }
         .disabled(isExporting)
-        .sheet(isPresented: $showingShareSheet) {
-            ActivityViewController(activityItems: exportedFileURLs)
+        .sheet(item: $exportedFiles) { files in
+            ActivityViewController(activityItems: files.urls)
         }
         .alert(isPresented: Binding(
             get: { exportAlertMessage != nil },
@@ -76,8 +75,7 @@ struct CyclingHistorySettingsView: View {
                 if urls.isEmpty {
                     exportAlertMessage = "There are no saved rides to export."
                 } else {
-                    exportedFileURLs = urls
-                    showingShareSheet = true
+                    exportedFiles = ExportedFiles(urls: urls)
                 }
             case .failure(let error):
                 print("GPX export failed: \(error.localizedDescription)")

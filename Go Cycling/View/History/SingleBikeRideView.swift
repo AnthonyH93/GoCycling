@@ -17,8 +17,7 @@ struct SingleBikeRideView: View {
 
     @State private var showingEditPopover = false
     @State private var statsExpanded = true
-    @State private var exportedFileURL: URL? = nil
-    @State private var showingShareSheet = false
+    @State private var exportedFiles: ExportedFiles? = nil
     @State private var showingExportError = false
 
     let telemetryManager = TelemetryManager.sharedTelemetryManager
@@ -65,10 +64,8 @@ struct SingleBikeRideView: View {
         }
         .background(
             EmptyView()
-                .sheet(isPresented: $showingShareSheet) {
-                    if let url = exportedFileURL {
-                        ActivityViewController(activityItems: [url])
-                    }
+                .sheet(item: $exportedFiles) { files in
+                    ActivityViewController(activityItems: files.urls)
                 }
         )
         .alert(isPresented: $showingExportError) {
@@ -161,8 +158,7 @@ struct SingleBikeRideView: View {
 
     func exportGPX() {
         do {
-            exportedFileURL = try GPXExporter.exportFile(for: bikeRide)
-            showingShareSheet = true
+            exportedFiles = ExportedFiles(urls: [try GPXExporter.exportFile(for: bikeRide)])
             telemetryManager.sendCyclingSignal(tab: telemetryTab, action: TelemetryCyclingAction.ExportGPX)
         } catch {
             print("GPX export failed: \(error.localizedDescription)")
