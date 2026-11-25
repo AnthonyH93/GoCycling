@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA0000012026111300000007 /* ShareRideImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000008 /* ShareRideImageView.swift */; };
-		AA0000012026111300000005 /* RideShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000006 /* RideShareCardView.swift */; };
-		AA0000012026111300000003 /* RideShareImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000004 /* RideShareImage.swift */; };
 		3DCD3758A7A842959A6F73D8 /* ActivityHeatmapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CAB255859B41FCB50889B4 /* ActivityHeatmapDetailView.swift */; };
 		42883D67661B4EC68F96065F /* MapTypeChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */; };
 		5C7A0A772DCA4EC8A6301B40 /* ChartPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0B121F5773497F8C758E70 /* ChartPeriod.swift */; };
@@ -131,7 +128,6 @@
 		9D816A422642564E00DED7F8 /* Default-83.5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */; };
 		9D9776E52633B0E70048B504 /* BikeRideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E42633B0E70048B504 /* BikeRideListView.swift */; };
 		9D9776EA2633B4050048B504 /* SingleBikeRideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9776E92633B4050048B504 /* SingleBikeRideView.swift */; };
-		AA0000012026111300000001 /* ImportGPXButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000002 /* ImportGPXButton.swift */; };
 		9D9E8BEF28AE179C0057BCAB /* SyncSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */; };
 		9DA60D60287558D000072DA2 /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D5F287558D000072DA2 /* ReviewManager.swift */; };
 		9DA60D6228755AF900072DA2 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */; };
@@ -176,6 +172,10 @@
 		AA0000012026051300000001 /* AutoPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026051300000002 /* AutoPauseState.swift */; };
 		AA0000012026111200000001 /* GPXExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111200000002 /* GPXExporter.swift */; };
 		AA0000012026111200000003 /* GPXImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111200000004 /* GPXImporter.swift */; };
+		AA0000012026111300000001 /* ImportGPXButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000002 /* ImportGPXButton.swift */; };
+		AA0000012026111300000003 /* RideShareImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000004 /* RideShareImage.swift */; };
+		AA0000012026111300000005 /* RideShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000006 /* RideShareCardView.swift */; };
+		AA0000012026111300000007 /* ShareRideImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012026111300000008 /* ShareRideImageView.swift */; };
 		AA0000022026051300000001 /* PrivacySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000022026051300000002 /* PrivacySettingsView.swift */; };
 		AEA9DB8B9ED54BD3B3900F2A /* RouteDetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F323539CC6E4DC7AA214303 /* RouteDetailMapView.swift */; };
 		B4A833C07E3242DD8DCD8E76 /* CyclingChartsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F00257C7A4240F58BD1371A /* CyclingChartsDetailView.swift */; };
@@ -202,9 +202,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AA0000012026111300000008 /* ShareRideImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRideImageView.swift; sourceTree = "<group>"; };
-		AA0000012026111300000006 /* RideShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideShareCardView.swift; sourceTree = "<group>"; };
-		AA0000012026111300000004 /* RideShareImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideShareImage.swift; sourceTree = "<group>"; };
 		033C6EF4DF8F4E9882BFE82D /* ChartDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataPoint.swift; sourceTree = "<group>"; };
 		0A3F0CFE910947B881E97502 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		2AA126438CB9497BB6E22458 /* MapTypeChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypeChoice.swift; sourceTree = "<group>"; };
@@ -329,7 +326,6 @@
 		9D816A3F2642564E00DED7F8 /* Default-83.5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-83.5@2x~ipad.png"; sourceTree = "<group>"; };
 		9D9776E42633B0E70048B504 /* BikeRideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRideListView.swift; sourceTree = "<group>"; };
 		9D9776E92633B4050048B504 /* SingleBikeRideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBikeRideView.swift; sourceTree = "<group>"; };
-		AA0000012026111300000002 /* ImportGPXButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportGPXButton.swift; sourceTree = "<group>"; };
 		9D9E8BEE28AE179C0057BCAB /* SyncSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncSettingsView.swift; sourceTree = "<group>"; };
 		9DA60D5F287558D000072DA2 /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		9DA60D6128755AF900072DA2 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
@@ -380,6 +376,10 @@
 		AA0000012026051300000002 /* AutoPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPauseState.swift; sourceTree = "<group>"; };
 		AA0000012026111200000002 /* GPXExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXExporter.swift; sourceTree = "<group>"; };
 		AA0000012026111200000004 /* GPXImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXImporter.swift; sourceTree = "<group>"; };
+		AA0000012026111300000002 /* ImportGPXButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportGPXButton.swift; sourceTree = "<group>"; };
+		AA0000012026111300000004 /* RideShareImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideShareImage.swift; sourceTree = "<group>"; };
+		AA0000012026111300000006 /* RideShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideShareCardView.swift; sourceTree = "<group>"; };
+		AA0000012026111300000008 /* ShareRideImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRideImageView.swift; sourceTree = "<group>"; };
 		AA0000022026051300000002 /* PrivacySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsView.swift; sourceTree = "<group>"; };
 		B85AFADB1AB24BF5A79391D4 /* ActivityHeatmapChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHeatmapChart.swift; sourceTree = "<group>"; };
 		D5038958A2E4468B8CA85511 /* MetricsPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsPillView.swift; sourceTree = "<group>"; };
@@ -1260,7 +1260,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
@@ -1286,7 +1286,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Go Cycling/Go Cycling.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Go Cycling/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Go Cycling/Info.plist";
