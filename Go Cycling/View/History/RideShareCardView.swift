@@ -60,8 +60,7 @@ struct RideShareCardView: View {
                 Spacer()
                 VStack(spacing: 14) {
                     statsRow(stats: content.allStats)
-                    // Trailing so Apple's Maps attribution in the bottom-left corner stays visible
-                    branding(trailing: true)
+                    branding
                 }
                 .padding(16)
                 .padding(.top, 36)
@@ -169,16 +168,11 @@ struct RideShareCardView: View {
         }
     }
 
+    // The user's chosen app icon and the app name, in the bottom-right corner on every card
+    // (on the map card this also keeps Apple's Maps attribution in the bottom-left corner visible)
     var branding: some View {
-        branding(trailing: false)
-    }
-
-    // The user's chosen app icon and the app name
-    func branding(trailing: Bool) -> some View {
         HStack(spacing: 8) {
-            if trailing {
-                Spacer()
-            }
+            Spacer()
             if let icon = content.appIcon {
                 Image(uiImage: icon)
                     .resizable()
@@ -187,9 +181,6 @@ struct RideShareCardView: View {
             }
             Text("Go Cycling")
                 .font(.system(size: 13, weight: .semibold))
-            if !trailing {
-                Spacer()
-            }
         }
     }
 }
